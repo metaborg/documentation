@@ -15,6 +15,9 @@
 
 import sys
 import os
+
+import sphinx_rtd_theme
+
 from recommonmark.parser import CommonMarkParser
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -51,12 +54,12 @@ source_suffix = ['.rst', '.md']
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'contents'
 
 # General information about the project.
 project = 'Spoofax'
-copyright = '2016, Gabriël Konat'
-author = 'Gabriël Konat'
+copyright = '2016, MetaBorg'
+author = 'MetaBorg'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -82,7 +85,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', 'README.md']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -114,9 +117,16 @@ todo_include_todos = True
 
 # -- Options for HTML output ----------------------------------------------
 
+# Only import and set the ReadTheDocs theme if we're building docs locally.
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if not on_rtd:
+  import sphinx_rtd_theme
+  html_theme = 'sphinx_rtd_theme'
+  html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinx_rtd_theme'
+#html_theme = 'default'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -230,8 +240,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Spoofax.tex', 'Spoofax Documentation',
-     'Gabriël Konat', 'manual'),
+    (master_doc, 'Spoofax.tex', 'Spoofax Documentation', 'MetaBorg', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

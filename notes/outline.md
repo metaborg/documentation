@@ -2,7 +2,15 @@
 
 * Introduction
   * Description
+  * License
   * Structure of the documentation
+    * Language development vs Core API
+    * Quick start + overview
+    * Guides, tutorials, manual, examples
+      * Guide: teaches how to perform a specific task
+      * Tutorial: instructions to create something that already exists
+      * Manual: in-depth reference documentation
+      * Examples: examples (in source control) with brief description and instructions
 * Quick start/Getting started/First steps
   * Language developers
     * Installation
@@ -24,12 +32,19 @@
       * Reference doc - Language development
   * Core API users
     * Installation
-      * Goal:
+      * Goal: set up a project to use the Core API
+      * Maven or Gradle
+      * Eclipse or IntelliJ
+      * Create project
+      * Use Spoofax facade
+      * Load language
+      * Parse file and print output
+      * Point to more advanced documentation
 * Overview
   * Architecture
   * Glossary
-* Guides
-  * Language development
+* Language development
+  * Guides
     * Declare your language
     * Exporting/using a language
       * As an Eclipse plugin
@@ -39,10 +54,13 @@
     * Building/continuous integration
       * With Maven
       * With Gradle
-  * Core API
-* User manual/Reference documentation
-  * Language development
-    * Project structure
+  * Tutorials
+    * "Language X in 30 minutes"
+  * Manual
+    * Language development environments
+      * Eclipse
+      * IntelliJ
+    * Language specification project structure
     * Configuration
     * Meta-languages
       * ESV
@@ -50,19 +68,29 @@
       * Stratego
       * NaBL
       * TS
+      * NaBL2
       * Dynsem
       * SPT
-* Tutorials
-  *
-* Examples
-  * Language development
+    * Libraries
+      * Analysis
+      * Analysis 2
+  * Examples
     * Working cube languages with description and instructions
-  * Core API
-* FAQ
-* API reference
+  * Cheatsheets
+* Core API
+  * Guides
+  * Manual
+    * Project structure
+      * MetaBorg vs Spoofax
+      * Language runtime vs language development runtime (meta)
+    * Facades
+      *
+    * High-level services
+  * Tutorials
+  * Examples
+  * API reference
 * Release notes
 * Migration
-* Cheatsheets
 * External material
   * Videos/Screencasts
   * Blog posts
