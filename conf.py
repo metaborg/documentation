@@ -16,9 +16,10 @@
 import sys
 import os
 
-import sphinx_rtd_theme
-
+import recommonmark
 from recommonmark.parser import CommonMarkParser
+from recommonmark.transform import AutoStructify
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -85,7 +86,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', 'README.md']
+exclude_patterns = ['_build', 'notes', 'README.md']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -368,3 +369,7 @@ epub_exclude_files = ['search.html']
 
 # If false, no index is generated.
 #epub_use_index = True
+
+def setup(app):
+  app.add_config_value('recommonmark_config', {}, True)
+  app.add_transform(AutoStructify)
