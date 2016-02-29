@@ -80,7 +80,7 @@
 * Core API
   * Guides
   * Manual
-    * Project structure
+    * Components
       * MetaBorg vs Spoofax
       * Language runtime vs language development runtime (meta)
     * Facades

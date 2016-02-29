@@ -2,46 +2,62 @@
 Spoofax documentation
 =====================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Getting Started
-
-   Language Development <source/start/langdev.md>
-   Core API <source/start/core.md>
+Table of Contents
+=================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
+
+   source/introduction
+
+.. toctree::
+   :maxdepth: 3
    :caption: Overview
 
-   source/overview/architecture.md
-   source/overview/glossary.md
+   source/overview/architecture
+   source/overview/glossary
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Language Development
 
-   Guides <source/langdev/guide/index.rst>
-   Manual <source/langdev/manual/index.rst>
-   Examples <source/langdev/example/index.rst>
+   Getting Started <source/langdev/start>
+   Guides <source/langdev/guide/index>
+   Manual <source/langdev/manual/index>
+   Meta-Languages <source/langdev/meta/lang/index>
+   Meta-Libraries <source/langdev/meta/lib/index>
+   Examples <source/langdev/example/index>
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Core API
 
-   Guides <source/core/guide/index.rst>
-   Manual <source/core/manual/index.rst>
-   Examples <source/core/example/index.rst>
+   Getting Started <source/core/start>
+   Guides <source/core/guide/index>
+   Manual <source/core/manual/index>
+   Examples <source/core/example/index>
+   API Reference <source/core/api>
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Notes
+   :maxdepth: 3
+   :caption: Spoofax Development
 
-   notes/audience.md
-   notes/outline.md
+   Build <source/dev/build>
+   Bootstrap <source/dev/bootstrap>
+   Release <source/dev/release>
+   Contribute <source/dev/contribute>
 
+.. toctree::
+   :maxdepth: 3
+   :caption: Releases
 
-Indices and tables
-==================
+   source/release/note/index
+   source/release/migrate/index
 
-* :ref:`genindex`
-* :ref:`search`
+.. .. toctree::
+..    :maxdepth: 3
+..    :caption: Notes
+..    :hidden:
+..
+..    notes/audience
+..    notes/outline
