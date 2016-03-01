@@ -8,4 +8,4 @@ Language Development Manual
    env/eclipse
    env/intellij
    project
-   configuration
+   config

@@ -1,0 +1,9 @@
+/*code.docutils.literal {
+	color: #222;
+	background: #eee;
+	font-family: monospace;
+}*/
+
+.menuselection, .guilabel, .file, kbd {
+	background: #eee;
+}

@@ -373,3 +373,4 @@ epub_exclude_files = ['search.html']
 def setup(app):
   app.add_config_value('recommonmark_config', {}, True)
   app.add_transform(AutoStructify)
+  app.add_stylesheet("custom.css")
