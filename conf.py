@@ -370,7 +370,54 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
+# -- Options for inline highlighting ----------------------------------------------
+
+inline_highlight_literals = False
+
+# -- Setup ------------------------------------------------------------------------
+
+import re
+from pygments.lexer import RegexLexer, words
+from pygments.token import *
+
+class StrategoLexer(RegexLexer):
+  name = 'Stratego'
+  aliases = ['stratego', 'str']
+  filenames = ['*.str']
+
+  tokens = {
+      'root': [
+        (words(('strategies','rules','where','with'), suffix=r'\b'), Keyword),
+        (r'(\+|\?|!)', Operator),
+        (r'"[^"^\n]*"', Literal.String),
+        (r'\d+', Literal.Number),
+        (r'[\w_-]+', Name.Variable),
+        (r'[\,\|\[\]\(\)\{\}\<\>\;\:\=]', Text.Punctuation),
+        (r'\s+', Text.Whitespace),
+        (r'.', Text),
+      ]
+  }
+
+class ESVLexer(RegexLexer):
+  name = 'ESV'
+  aliases = ['esv']
+  filenames = ['*.esv']
+
+  tokens = {
+      'root': [
+          (words(('language','line comment','block comment','fences'), suffix=r'\b'), Keyword),
+          (r'"[^"^\n]*"', Literal.String),
+          (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:\*]', Text.Punctuation),
+          (r'\s+', Text.Whitespace),
+          (r'.', Text),
+      ]
+  }
+
+# -- Setup ------------------------------------------------------------------------
+
 def setup(app):
   app.add_config_value('recommonmark_config', {}, True)
   app.add_transform(AutoStructify)
   app.add_stylesheet("custom.css")
+  app.add_lexer("str", StrategoLexer())
+  app.add_lexer("esv", ESVLexer())
