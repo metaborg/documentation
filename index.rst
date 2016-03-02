@@ -47,21 +47,21 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 3
-   :caption: Spoofax Development
+   :caption: Development
 
+   Getting Started <source/dev/start>
+   Maven <source/dev/maven>
    Build <source/dev/build>
-   Bootstrap <source/dev/bootstrap>
-   Release <source/dev/release>
+   Develop <source/dev/dev>
    Contribute <source/dev/contribute>
-   
+   Release <source/dev/release>
+   Internals <source/dev/internals/index>
+
 .. toctree::
    :maxdepth: 3
    :caption: IntelliJ IDEA Plugin Development
 
-   Building <source/intellijdev/building>
-   Releasing <source/intellijdev/releasing>
    Contributing <source/intellijdev/contributing>
-   Architecture <source/intellijdev/architecture>
 
 .. toctree::
    :maxdepth: 3

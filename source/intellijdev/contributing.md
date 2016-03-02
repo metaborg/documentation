@@ -13,7 +13,7 @@ any way in which you contribute.
 Unfortunately all but the most trivial software contains bugs. We'll try to fix them, but first
 we need to know about them. Feel free to report bugs liberally, even if you're not sure if something
 is a bug or not. If you can, please [search existing issues][1], as someone else may already have
-reported the issue. However, we won't mind if you accidently submit a duplicate bug report.
+reported the issue. However, we won't mind if you accidentally submit a duplicate bug report.
 
 [Please file your issue here][2].
 
@@ -37,7 +37,7 @@ the _fork, branch and pull_ model described in [GitHub's documentation][3] for p
 you need to [fork][6] [our repository][4] and clone it locally. Checkout the `develop` branch,
 and create a new topic branch, for example:
 
-```
+```bash
 git checkout develop
 git checkout -b fix-rtl-languages
 ```
