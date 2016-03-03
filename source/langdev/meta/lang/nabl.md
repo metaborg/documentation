@@ -4,7 +4,10 @@
 
 # NaBL
 
-In Spoofax, name binding is specified in NaBL. NaBL stands for *Name Binding Language* and the acronym is pronounced 'enable'. Name binding is specified in terms of:
+This is the NaBL reference manual.
+In Spoofax, name binding is specified in NaBL.
+NaBL stands for *Name Binding Language* and the acronym is pronounced 'enable'.
+Name binding is specified in terms of:
 
 * namespaces
 * binding instances (name declarations)
@@ -18,6 +21,7 @@ A namespace is a collection of names and is not necessarily connected to a speci
 
 ```
 namespaces
+
   Module Entity Property Function Variable
 ```
 
@@ -35,6 +39,7 @@ The following rules declare definition sites for module and entity names:
 
 ```
 rules
+
   Module(m, _): defines non-unique Module m
   Entity(e, _): defines unique Entity e
 ```
@@ -234,7 +239,7 @@ The type of `x` is the type of its initial expression `42`. To make the type of 
 ```
 Declare(v, e):
   defines Variable v
-      of type t
-      in subsequent scope
+    of type t
+    in subsequent scope
     where e has type t
 ```

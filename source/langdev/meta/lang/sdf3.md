@@ -40,6 +40,7 @@ Sorts are declared by listing their name in a sorts section which has the follow
 
 ```
 sorts
+
   <Sort>*
 ```
 
@@ -51,6 +52,7 @@ The lexical or context-free start symbols sections explicitly define the symbols
 
 ```
 lexical start-symbols
+
   <Symbol>*
 ```
 
@@ -58,6 +60,7 @@ while context-free start symbols are defined as
 
 ```
 context-free start-symbols
+
   <Symbol>*
 ```
 
@@ -89,6 +92,7 @@ The context-free syntax describes the more high-level syntactic structure of sen
 
 ```
 context-free syntax
+
   <Production>*
 ```
 
@@ -96,6 +100,7 @@ An example production rule:
 
 ```
 context-free syntax
+
   Block = "{" Statement* "}"
 ```
 
@@ -226,7 +231,7 @@ template options
 
   tokenize : "("
 
-templates
+context-free syntax
 
   Exp.Call = <<ID>();>
 ```
@@ -259,7 +264,7 @@ template options
 
   newlines : separating
 
-templates
+context-free syntax
 
   Exp.Call = <<ID>(
 
@@ -281,13 +286,13 @@ Rejections filter derivations. The semantics of a rejection is that the set of v
 A rule can be marked as rejected by using the attribute `{reject}` after the rule:
 
 ```
-    <Sort> = ... {reject}
+<Sort> = ... {reject}
 ```
 
 The `{reject}` attribute works well for lexical rejections, especially keyword reservation in the form of productions like :
 
 ```
-    ID = "keyword" {reject}
+ID = "keyword" {reject}
 ```
 
 ### Preferences
@@ -312,6 +317,7 @@ Priorities are one of SDF3's most often used disambiguation constructs. A priori
 
 ```
 context-free priorities
+
   <Production> >  <Production>
 ```
 
@@ -319,6 +325,7 @@ Several priorities in a priority grammar are separated by commas. If more produc
 
 ```
 context-free priorities
+
   {<Production> <Production> }
                 >  <Production>,
    <Production>
@@ -333,6 +340,7 @@ An example defining priorities for the addition, subtraction and multiplication 
 
 ```
 context-free priorities
+
   {Exp.Times} >
   {Exp.Plus Exp.Minus}
 ```
@@ -359,6 +367,7 @@ In priority groups, the associativity has the same semantics as the associativit
 
 ```
 context-free priorities
+
   {left: Exp.Times} >
   {left: Exp.Plus Exp.Minus}
 ```
