@@ -376,6 +376,21 @@ import re
 from pygments.lexer import RegexLexer, words
 from pygments.token import *
 
+class ATermLexer(RegexLexer):
+  name = 'ATerm'
+  aliases = ['aterm']
+  filenames = ['*.aterm']
+
+  tokens = {
+    'root': [
+      (r'"[^"^\n]*"', Literal.String),
+      (r'\d+', Literal.Number),
+      (r'[\.\,\|\[\]\(\)\{\}]', Text.Punctuation),
+      (r'\s+', Text.Whitespace),
+      (r'.', Text),
+    ],
+  }
+
 class StrategoLexer(RegexLexer):
   name = 'Stratego'
   aliases = ['stratego', 'str']
@@ -389,9 +404,17 @@ class StrategoLexer(RegexLexer):
       (r'\d+', Literal.Number),
       (r'[\w_-]+', Name.Variable),
       (r'[\,\|\[\]\(\)\{\}\<\>\;\:\=]', Text.Punctuation),
+      (r'/\*', Comment.Multiline, 'comment'),
+      (r'//.*?$', Comment.Singleline),
       (r'\s+', Text.Whitespace),
       (r'.', Text),
-    ]
+    ],
+    'comment': [
+      (r'[^*/]', Comment.Multiline),
+      (r'/\*', Comment.Multiline, '#push'),
+      (r'\*/', Comment.Multiline, '#pop'),
+      (r'[*/]', Comment.Multiline)
+    ],
   }
 
 class ESVLexer(RegexLexer):
@@ -404,9 +427,17 @@ class ESVLexer(RegexLexer):
       (words(('language','line comment','block comment','fences'), suffix=r'\b'), Keyword),
       (r'"[^"^\n]*"', Literal.String),
       (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:\*]', Text.Punctuation),
+      (r'/\*', Comment.Multiline, 'comment'),
+      (r'//.*?$', Comment.Singleline),
       (r'\s+', Text.Whitespace),
       (r'.', Text),
-    ]
+    ],
+    'comment': [
+      (r'[^*/]', Comment.Multiline),
+      (r'/\*', Comment.Multiline, '#push'),
+      (r'\*/', Comment.Multiline, '#pop'),
+      (r'[*/]', Comment.Multiline)
+    ],
   }
 
 class SDF3Lexer(RegexLexer):
@@ -424,9 +455,66 @@ class SDF3Lexer(RegexLexer):
       (r'\d+', Literal.Number),
       (r'[\w_-]+', Name.Variable),
       (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:]', Text.Punctuation),
+      (r'/\*', Comment.Multiline, 'comment'),
+      (r'//.*?$', Comment.Singleline),
       (r'\s+', Text.Whitespace),
       (r'.', Text),
-    ]
+    ],
+    'comment': [
+      (r'[^*/]', Comment.Multiline),
+      (r'/\*', Comment.Multiline, '#push'),
+      (r'\*/', Comment.Multiline, '#pop'),
+      (r'[*/]', Comment.Multiline)
+    ],
+  }
+
+class NaBLLexer(RegexLexer):
+  name = 'NaBL'
+  aliases = ['nabl']
+  filenames = ['*.nab']
+
+  tokens = {
+    'root': [
+      (words(('namespaces','rules','defines','non-unique','unique','module','refers to','otherwise','scopes','in',
+        'subsequent scope','where','has','type','imports','from','of'), suffix=r'\b'), Keyword),
+      (r'"[^"^\n]*"', Literal.String),
+      (r'[\w_-]+', Name.Variable),
+      (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:]', Text.Punctuation),
+      (r'/\*', Comment.Multiline, 'comment'),
+      (r'//.*?$', Comment.Singleline),
+      (r'\s+', Text.Whitespace),
+      (r'.', Text),
+    ],
+    'comment': [
+      (r'[^*/]', Comment.Multiline),
+      (r'/\*', Comment.Multiline, '#push'),
+      (r'\*/', Comment.Multiline, '#pop'),
+      (r'[*/]', Comment.Multiline)
+    ],
+  }
+
+class EntityLexer(RegexLexer):
+  name = 'Entity'
+  aliases = ['entity']
+  filenames = ['*.ent']
+
+  tokens = {
+    'root': [
+      (words(('module','entity','function','return','import','var'), suffix=r'\b'), Keyword),
+      (r'"[^"^\n]*"', Literal.String),
+      (r'[\w_-]+', Name.Variable),
+      (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:]', Text.Punctuation),
+      (r'/\*', Comment.Multiline, 'comment'),
+      (r'//.*?$', Comment.Singleline),
+      (r'\s+', Text.Whitespace),
+      (r'.', Text),
+    ],
+    'comment': [
+      (r'[^*/]', Comment.Multiline),
+      (r'/\*', Comment.Multiline, '#push'),
+      (r'\*/', Comment.Multiline, '#pop'),
+      (r'[*/]', Comment.Multiline)
+    ],
   }
 
 # -- Setup ------------------------------------------------------------------------
@@ -435,6 +523,9 @@ def setup(app):
   app.add_config_value('recommonmark_config', {}, 'env')
   app.add_transform(AutoStructify)
   app.add_stylesheet("custom.css")
+  app.add_lexer("aterm", ATermLexer())
   app.add_lexer("str", StrategoLexer())
   app.add_lexer("esv", ESVLexer())
   app.add_lexer("sdf3", SDF3Lexer())
+  app.add_lexer("nabl", NaBLLexer())
+  app.add_lexer("entity", EntityLexer())
