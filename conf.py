@@ -35,7 +35,7 @@ from recommonmark.transform import AutoStructify
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.todo',
+  'sphinx.ext.todo',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -43,7 +43,7 @@ templates_path = ['_templates']
 
 # Source parsers
 source_parsers = {
-    '.md': CommonMarkParser,
+  '.md': CommonMarkParser,
 }
 
 # The suffix(es) of source filenames.
@@ -370,10 +370,6 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
-# -- Options for inline highlighting ----------------------------------------------
-
-inline_highlight_literals = False
-
 # -- Setup ------------------------------------------------------------------------
 
 import re
@@ -386,16 +382,16 @@ class StrategoLexer(RegexLexer):
   filenames = ['*.str']
 
   tokens = {
-      'root': [
-        (words(('strategies','rules','where','with'), suffix=r'\b'), Keyword),
-        (r'(\+|\?|!)', Operator),
-        (r'"[^"^\n]*"', Literal.String),
-        (r'\d+', Literal.Number),
-        (r'[\w_-]+', Name.Variable),
-        (r'[\,\|\[\]\(\)\{\}\<\>\;\:\=]', Text.Punctuation),
-        (r'\s+', Text.Whitespace),
-        (r'.', Text),
-      ]
+    'root': [
+      (words(('strategies','rules','where','with'), suffix=r'\b'), Keyword),
+      (r'(\+|\?|!)', Operator),
+      (r'"[^"^\n]*"', Literal.String),
+      (r'\d+', Literal.Number),
+      (r'[\w_-]+', Name.Variable),
+      (r'[\,\|\[\]\(\)\{\}\<\>\;\:\=]', Text.Punctuation),
+      (r'\s+', Text.Whitespace),
+      (r'.', Text),
+    ]
   }
 
 class ESVLexer(RegexLexer):
@@ -404,20 +400,41 @@ class ESVLexer(RegexLexer):
   filenames = ['*.esv']
 
   tokens = {
-      'root': [
-          (words(('language','line comment','block comment','fences'), suffix=r'\b'), Keyword),
-          (r'"[^"^\n]*"', Literal.String),
-          (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:\*]', Text.Punctuation),
-          (r'\s+', Text.Whitespace),
-          (r'.', Text),
-      ]
+    'root': [
+      (words(('language','line comment','block comment','fences'), suffix=r'\b'), Keyword),
+      (r'"[^"^\n]*"', Literal.String),
+      (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:\*]', Text.Punctuation),
+      (r'\s+', Text.Whitespace),
+      (r'.', Text),
+    ]
+  }
+
+class SDF3Lexer(RegexLexer):
+  name = 'SDF3'
+  aliases = ['sdf3']
+  filenames = ['*.sdf3']
+
+  tokens = {
+    'root': [
+      (words(('module','imports','sorts','lexical','context-free','start-symbols','syntax','hide','text','templates',
+        'template options','tokenize','newlines','none','separating','leading','trailing','reject','prefer','avoid',
+        'priorities','bracket','left','right','non-assoc'), suffix=r'\b'), Keyword),
+      (r'(\+|\?|\*)', Operator),
+      (r'"[^"^\n]*"', Literal.String),
+      (r'\d+', Literal.Number),
+      (r'[\w_-]+', Name.Variable),
+      (r'[\.\,\|\[\]\(\)\{\}\<\>\;\:]', Text.Punctuation),
+      (r'\s+', Text.Whitespace),
+      (r'.', Text),
+    ]
   }
 
 # -- Setup ------------------------------------------------------------------------
 
 def setup(app):
-  app.add_config_value('recommonmark_config', {}, True)
+  app.add_config_value('recommonmark_config', {}, 'env')
   app.add_transform(AutoStructify)
   app.add_stylesheet("custom.css")
   app.add_lexer("str", StrategoLexer())
   app.add_lexer("esv", ESVLexer())
+  app.add_lexer("sdf3", SDF3Lexer())
