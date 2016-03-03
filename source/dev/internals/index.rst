@@ -6,3 +6,5 @@ Development Internals
 
 .. toctree::
    :maxdepth: 1
+
+   intellij/index
