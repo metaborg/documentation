@@ -6,8 +6,26 @@ Spoofax is a framework for developing textual software languages with full-featu
 
 The Spoofax documentation is a work in progress. Most pages in the table of contents below are empty or just contain headers. The following pages currently contain useful content:
 
-- :doc:`source/release/note/2.0.0`
-- :doc:`source/release/migrate/2.0.0`
+- Language Development
+
+  - Meta-Languages
+
+    - :doc:`source/langdev/meta/lang/sdf3`
+    - :doc:`source/langdev/meta/lang/nabl`
+
+- Development
+
+  - :doc:`source/dev/maven`
+  - :doc:`source/dev/build`
+  - :doc:`source/dev/dev`
+  - Internals
+
+    - :doc:`source/dev/internals/intellij/index`
+
+- Releases
+
+  - :doc:`source/release/note/2.0.0`
+  - :doc:`source/release/migrate/2.0.0`
 
 Table of Contents
 =================
