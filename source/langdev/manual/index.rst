@@ -8,6 +8,6 @@ Language Development Manual
    :maxdepth: 2
 
    env/eclipse
-   env/intellij
+   env/intellij/index
    project
    config
