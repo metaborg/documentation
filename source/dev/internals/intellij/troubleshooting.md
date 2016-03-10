@@ -1,17 +1,26 @@
 # Troubleshooting
 
-## `NoClassDefFoundError` when running Spoofax build
-As the JPS plugin is loaded in a separate process, IntelliJ needs to know about
-any and all dependencies of the plugin, so it can add them to the class path.
-The dependencies are listed under the `<extensions>` tag in
-`META-INF/plugin.xml`, at the `<compileServer.plugin />` tag. If you get
-a `NoClassDefFoundError`, the list of dependencies in the `classpath` attribute
-may not be correct.
+## `NoSuchMethodError` in IntelliJ IDEA or when running Spoofax build
+There may be a JAR version conflict, as IntelliJ and JPS use their own versions
+of certain common JARs (e.g. Apache's Commons IO) and those may get loading
+priority.
 
-Replace the list of dependencies in the `classpath` attribute by the list
-returned by the following Gradle task executed in the project root folder
-(`org.metaborg.intellij/`):
+To fix this, go to the dependencies project (in `deps/`) and edit the
+`build.gradle` file. In the `shadowJar` section, add a new relation from
+the original package to the new package (usually the same package name prefixed
+with `intellij.`):
 
 ```
-./gradlew printJpsDependencies
+relocate 'org.apache.commons.io', 'intellij.org.apache.commons.io'
+```
+
+Now, whenever you want to use a class from that package you have to use the
+new package name. The build script will take care of renaming usages of the
+package in the dependencies.
+
+```eval_rst
+.. note:: Rebuild the dependencies project.
+
+      ./gradlew clean publishToMavenLocal
+
 ```
