@@ -1,0 +1,4 @@
+[submodule "code/spoofax"]
+	path = code/spoofax
+	url = https://github.com/metaborg/spoofax.git
+	branch = master

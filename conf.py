@@ -15,6 +15,7 @@
 
 import sys
 import os
+import subprocess
 
 import recommonmark
 from recommonmark.parser import CommonMarkParser
@@ -36,6 +37,7 @@ from recommonmark.transform import AutoStructify
 # ones.
 extensions = [
   'sphinx.ext.todo',
+  'javasphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -86,7 +88,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', 'notes', 'README.md']
+exclude_patterns = ['_build', 'notes', 'code', 'README.md']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -370,7 +372,7 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
-# -- Setup ------------------------------------------------------------------------
+# -- Lexers ------------------------------------------------------------------------
 
 import re
 from pygments.lexer import RegexLexer, words
@@ -517,9 +519,29 @@ class EntityLexer(RegexLexer):
     ],
   }
 
+# -- API doc ------------------------------------------------------------------------
+
+def make_apidoc(app):
+  if not app.config.make_apidoc:
+    return
+  sources = {
+    'org.metaborg.core'              : 'code/spoofax/org.metaborg.core/src/main/java/'
+  , 'org.metaborg.spoofax.core'      : 'code/spoofax/org.metaborg.spoofax.core/src/main/java/'
+  , 'org.metaborg.meta.core'         : 'code/spoofax/org.metaborg.meta.core/src/main/java/'
+  , 'org.metaborg.spoofax.meta.core' : 'code/spoofax/org.metaborg.spoofax.meta.core/src/main/java/'
+  }
+  for dest, src in sources.items():
+    cur_dir = os.path.abspath(os.path.dirname(__file__))
+    output_path = os.path.join(cur_dir, 'apidoc', dest)
+    cmd_path = 'javasphinx-apidoc'
+    if hasattr(sys, 'real_prefix'):  # Check to see if we are in a virtualenv, if we are, assemble the path manually
+      cmd_path = os.path.abspath(os.path.join(sys.prefix, 'bin', 'javasphinx-apidoc'))
+    subprocess.check_call([cmd_path, '-f', '-o', output_path, src])
+
 # -- Setup ------------------------------------------------------------------------
 
 def setup(app):
+  app.add_config_value('make_apidoc', on_rtd, 'html') # Default value on_rtd such that API docs are built on RTD
   app.add_config_value('recommonmark_config', {}, 'env')
   app.add_transform(AutoStructify)
   app.add_stylesheet("custom.css")
@@ -529,3 +551,4 @@ def setup(app):
   app.add_lexer("sdf3", SDF3Lexer())
   app.add_lexer("nabl", NaBLLexer())
   app.add_lexer("entity", EntityLexer())
+  app.connect('builder-inited', make_apidoc)
