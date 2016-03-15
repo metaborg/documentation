@@ -52,3 +52,45 @@ Sphinx requires Python, at least version 2.6. To install the required Python pac
 ```
 pip install -r requirements.txt
 ```
+
+
+## Troubleshooting
+
+
+### Could not import extension
+While making the documentation, if you get an error similar to this:
+
+```bash
+Could not import extension foo (exception: No module named foo)
+```
+
+Then you need to update the installed Python packages from the `requirements.txt` file.
+
+
+### Could not find function xmlCheckVersion in library libxml2.
+If you get this error while installing the required Python packages:
+
+```bash
+*********************************************************************************
+Could not find function xmlCheckVersion in library libxml2. Is libxml2 installed?
+*********************************************************************************
+```
+
+Then you need to install `lxml` through `easy_install` instead:
+
+```bash
+easy_install lxml
+```
+
+After that, installing the required Python packages through `pip` should succeed.
+
+
+### Microsoft Visual C++ 9.0 is required (Unable to find vcvarsall.bat).
+If you get this error while installing the required Python packages on Windows:
+
+```
+error: Microsoft Visual C++ 9.0 is required (Unable to find vcvarsall.bat).
+```
+
+Then you need to download and install _Microsoft Visual C++ Compiler
+for Python 2.7_ from [http://aka.ms/vcpython27](http://aka.ms/vcpython27).
