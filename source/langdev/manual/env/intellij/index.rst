@@ -7,8 +7,6 @@ IntelliJ IDEA Environment
 
    new-project
    existing-project
-   build-project
    new-language-spec
    existing-language-spec
-   build-language-spec
-   
+   load-and-unload-languages

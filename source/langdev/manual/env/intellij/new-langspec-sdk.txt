@@ -1,0 +1,16 @@
+.. note:: If the *Project SDK* displays *<None>* and you can't select the
+   Metaborg SDK, then you need to add it first.
+
+   1. Click the *New...* button next to the *Project SDK* field.
+
+      .. image:: newproject_langspec_newsdk.png
+
+   2. You may get a warning if you have no Java JDK configured. Click *OK*
+      and configure the JDK's home location. The suggested home
+      directory is usually correct. Click *OK*.
+
+   3. Select a home directory for the Metaborg SDK. The default is the
+      Spoofax plugin's ``lib/`` folder, which is sufficient as it contains
+      all the core dependencies.
+
+   4. Click *OK*.

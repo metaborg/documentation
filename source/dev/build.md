@@ -96,6 +96,7 @@ If updating or checking out a branch of submodule fails (because of unstaged or 
 
 If you get any weird compilation errors during the build, make sure that <span class='menuselection'>Project ‣ Build Automatically</span> is turned off in Eclipse.
 
+
 ## IntelliJ plugin
 
 The IntelliJ plugin is currently built separately from the spoofax-releng repository and build scripts.
@@ -108,12 +109,15 @@ Choose one of the branches:
 Either clone the repository locally or download and extract the ZIP archive.
 
 Next you need to invoke Gradle to build the project.
-Simply execute the following command from the main project's root folder (i.e. <span class='file'>org.metaborg.intellij/</span>):
+Execute the following commands from the main project's root folder (i.e. <span class='file'>org.metaborg.intellij/</span>):
 
 ```bash
+cd deps
+./gradlew clean publishToMavenLocal
+cd ..
 ./gradlew clean build
 ```
-(On Windows `gradlew clean build`.)
+(On Windows use `gradlew` instead of `./gradlew`.)
 
 Alternatively, you can import the project in IntelliJ and build it from there.
 

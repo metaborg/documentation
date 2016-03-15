@@ -79,12 +79,6 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 3
-   :caption: IntelliJ IDEA Plugin Development
-
-   Contributing <source/intellijdev/contributing>
-
-.. toctree::
-   :maxdepth: 3
    :caption: Releases
 
    source/release/note/index
