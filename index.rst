@@ -2,6 +2,8 @@
 Spoofax Documentation
 =====================
 
+.. image:: code/spoofax/graphics/logos/Spoofax.svg
+
 Spoofax is a framework for developing textual software languages with full-featured Eclipse and IntelliJ editor plugins.
 
 The Spoofax documentation is a work in progress. Most pages in the table of contents below are empty or just contain headers. The following pages currently contain useful content:
