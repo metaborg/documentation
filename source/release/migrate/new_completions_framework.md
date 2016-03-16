@@ -14,7 +14,7 @@ New projects come automatically with support for the new completions framework.
 To migrate old projects it is necessary to:
 
 - add the following imports to the main Stratego file:
-	-  `completion/-`. This imports all the stratego files generated from the SDF3 grammar.
+	-  `completion/<LanguageName>-cp`. This imports the stratego files generated from the SDF3 grammar.
 	- `runtime/completion/-`. This imports the completion framework, part of the runtime-libraries.
 - add the following strategy to the trans/pp.str file: 
 	- `pp-completion = pp-partial-<LanguageName>-string`
