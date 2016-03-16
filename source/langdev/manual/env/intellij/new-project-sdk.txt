@@ -2,10 +2,10 @@
    Metaborg SDK, then you need to add it first.
 
    1. Click the *New...* button next to the *Project SDK* field.
-   
+
    2. Select *Metaborg SDK*.
 
-      .. image:: newprojectform_newsdkmenu_small.png
+      .. image:: img/newprojectform_newsdkmenu_small.png
 
    3. You may get a warning if you have no Java JDK configured. Click *OK*
       and configure the JDK's home location. The suggested home

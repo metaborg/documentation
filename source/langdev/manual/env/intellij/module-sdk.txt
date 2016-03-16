@@ -2,10 +2,10 @@
    Metaborg SDK, then you need to add it first.
 
    1. Click the *New...* button next to the *Module SDK* field.
-   
+
    2. Select *Metaborg SDK*.
 
-      .. image:: projectstructure_newsdkmenu.png
+      .. image:: img/projectstructure_newsdkmenu.png
 
    3. You may get a warning if you have no Java JDK configured. Click *OK*
       and configure the JDK's home location. The suggested home

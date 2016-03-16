@@ -9,11 +9,11 @@ _Project..._ menu item, to open the _New Project_ dialog.
 
 3. Check the _Metaborg_ framework.
 
-   !["New Project" dialog](newprojectform_checkmetaborgframework.png)
+   !["New Project" dialog](img/newprojectform_checkmetaborgframework.png)
 
 4. Select the _Metaborg SDK_ as the project's SDK.
 
-   ![Select the "Metaborg SDK"](newprojectform_selectmetaborgsdk_small.png)
+   ![Select the "Metaborg SDK"](img/newprojectform_selectmetaborgsdk_small.png)
 
    ```eval_rst
    .. include:: new-project-sdk.txt
@@ -23,7 +23,7 @@ _Project..._ menu item, to open the _New Project_ dialog.
 
 6. Pick a project name and location, and click _Finish_.
 
-   ![Pick a project name](newprojectform_javaprojectname.png)
+   ![Pick a project name](img/newprojectform_javaprojectname.png)
 
 The created Java project will have the _Metaborg facet_, indicating that the
 project uses Metaborg languages. It will also have a `metaborg.yaml` file, which

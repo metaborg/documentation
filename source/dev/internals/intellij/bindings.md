@@ -28,9 +28,9 @@ bind(IMyInterface.class).to(MyClass.class).in(Singleton.class);
 
 ---
 
-In some cases the class is not created by Guice but by IntelliJ IDEA's extension
-system or by the Java service provider. In that case you have to inject your
-dependencies like this:
+In some cases the class is not created by Guice but by IntelliJ IDEA's
+[extension system][6] or by the [Java service loader][7]. In that case you have
+to inject your dependencies like this:
 
 ```java
 public final class MyClass implements IMyInterface {
@@ -179,3 +179,5 @@ public final class MyClass implements IMyInterface {
 [3]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/logging/MetaborgLoggerTypeListener.java
 [4]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/logging/Slf4JLoggerTypeListener.java
 [5]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/logging/LoggerUtils.java
+[6]: http://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_extensions_and_extension_points.html
+[7]: https://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html

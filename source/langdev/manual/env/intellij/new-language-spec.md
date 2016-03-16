@@ -9,7 +9,7 @@ _Project..._ menu item, to open the _New Project_ dialog.
 
 3. Select the _Metaborg SDK_ as the project's SDK.
 
-   ![Select the "Metaborg SDK"](newprojectform_langspec_selectmetaborgsdk.png)
+   ![Select the "Metaborg SDK"](img/newprojectform_langspec_selectmetaborgsdk.png)
 
    ```eval_rst
    .. include:: new-langspec-sdk.txt
@@ -17,13 +17,13 @@ _Project..._ menu item, to open the _New Project_ dialog.
 
 4. Change the fields to suit your needs.
 
-   ![Change the fields](newprojectform_langspec_inputfields.png)
+   ![Change the fields](img/newprojectform_langspec_inputfields.png)
 
 5. Click _Next_.
 
 6. Pick a project name and location, and click _Finish_.
 
-   ![Pick a project name](newprojectform_langspec_projectname.png)
+   ![Pick a project name](img/newprojectform_langspec_projectname.png)
 
 The created Spoofax language specification project will have a `metaborg.yaml`
 file, which specifies the configuration and language dependencies of the

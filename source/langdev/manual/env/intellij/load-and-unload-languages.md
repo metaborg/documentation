@@ -11,9 +11,9 @@ _Settings_ dialog are loaded for every instance of the application.
 
 2. Go to the _Languages & Frameworks_ → _Metaborg Languages_ page.
 
-3. Use the ![Plus](button_plus.png) and  ![Plus](button_minus.png) buttons
-   to load or unload a language.
+3. Use the ![Plus](img/button_plus.png) and  ![Plus](img/button_minus.png)
+   buttons to load or unload a language.
 
-   ![Changing the loaded languages](settings_metaborglanguages_add.png)
+   ![Changing the loaded languages](img/settings_metaborglanguages_add.png)
 
 4. Click _OK_ to apply the changes.

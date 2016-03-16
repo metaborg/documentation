@@ -8,17 +8,17 @@ dialog.
 
 2. Browse to the root folder of the project, and click _OK_.
 
-   ![Browsing to the project](import_langspec.png)
+   ![Browsing to the project](img/import_langspec.png)
 
 3. Select _Create project from existing sources_ and click _Next_.
 
-   ![Browsing to the project](import_langspec_existingsources.png)
+   ![Browsing to the project](img/import_langspec_existingsources.png)
 
 4. Pick a project name, and ensure the location is correct. Click _Next_.
 
 5. Ensure both the _Java_ and _Spoofax module_ roots are checked.
 
-   ![Check the project roots](import_langspec_projectroots.png)
+   ![Check the project roots](img/import_langspec_projectroots.png)
 
 6. Click _Finish_.
 

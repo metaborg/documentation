@@ -3,7 +3,7 @@
 
    1. Click the *New...* button next to the *Project SDK* field.
 
-      .. image:: newproject_langspec_newsdk.png
+      .. image:: img/newproject_langspec_newsdk.png
 
    2. You may get a warning if you have no Java JDK configured. Click *OK*
       and configure the JDK's home location. The suggested home

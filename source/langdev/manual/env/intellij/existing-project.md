@@ -10,9 +10,10 @@ can use Metaborg languages in it.
 
 3. Go to the _Facets_ tab.
 
-4. Click the ![Plus](button_plus.png) button and select _Metaborg_ from the drop-down menu.
+4. Click the ![Plus](img/button_plus.png) button and select _Metaborg_ from the
+   drop-down menu.
 
-   !["Project Structure" dialog](projectstructure_addmetaborgfacet.png)
+   !["Project Structure" dialog](img/projectstructure_addmetaborgfacet.png)
 
 5. Select the module to add the facet to, and click _OK_.
 
@@ -22,7 +23,7 @@ can use Metaborg languages in it.
 
 8. Select the _Metaborg SDK_ as the module's SDK.
 
-   ![Select the "Metaborg SDK"](projectstructure_setmetaborgsdk.png)
+   ![Select the "Metaborg SDK"](img/projectstructure_setmetaborgsdk.png)
 
    ```eval_rst
    .. include:: module-sdk.txt
