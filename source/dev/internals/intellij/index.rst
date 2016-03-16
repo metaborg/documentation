@@ -17,5 +17,13 @@ a lot of code they live in the same project.
    vfs
    configurations
    languages
+   lexing-and-parsing
    projects
    troubleshooting
+
+See also
+========
+- Bjorn Tipling — `How to make an IntelliJ IDEA plugin in less than 30 minutes <http://bjorn.tipling.com/how-to-make-an-intellij-idea-plugin-in-30-minutes>`_
+- JetBrains — `Custom Language Support Tutorial <http://www.jetbrains.org/intellij/sdk/docs/tutorials/custom_language_support_tutorial.html>`_
+- JetBrains — `Writing Tests For Plugins <http://www.jetbrains.org/intellij/sdk/docs/tutorials/writing_tests_for_plugins.html>`_
+- Terence Parr — `IntelliJ Plugin Development Notes <https://github.com/antlr/jetbrains/blob/master/doc/plugin-dev-notes.md>`_
