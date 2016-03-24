@@ -61,7 +61,7 @@ To migrate your project, make the following changes:
 * If your project has manual DynSem Java files:
   * Create the <span class='file'>src/main/ds</span> directory.
   * Move manual DynSem Java files from <span class='file'>editor/java</span> into the <span class='file'>src/main/ds</span> directory. Be sure to preserve the existing Java package structure.
-* Perform a Maven update by right clicking the project and choosing <span class='menuselection'>Maven ‣ Update Project...</span>, to update the Java source directories of the project.
+* Perform a Maven update by right clicking the project and choosing <span class='menuselection'>Maven ‣ Update Project...</span>. Enable <span class='guilabel'>Force Update of Snapshots/Releases</span> in the new window and press <span class='guilabel'>Ok</span>. This updates the Java source directories of the project.
 * If you are still using SDF2 instead of SDF3, add the following setting to the <span class='file'>metaborg.yaml</span> file:
 ```yaml
 language:
