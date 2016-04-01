@@ -80,16 +80,16 @@ If you make an error in the program, for example `hello worl`, an error message 
 .. todo:: We are currently in the process of writing documentation, this section will be updated once we have more material.
 ```
 
-Guides for using Spoofax:
+Guides for developing a language with Spoofax:
 
 * [Declare Your Language](http://metaborgcube.github.io/declare-your-language/) - This book has not been updated for Spoofax 2.0 yet, but most content still applies.
 * [Compiler Construction assignments](http://tudelft-in4303.github.io/assignments/) - The Compiler Construction course at TUDelft has practical assignments in which a full [MiniJava](http://www.cambridge.org/us/features/052182060X/) compiler is made in Spoofax. Contact us if you'd like the get the initial Spoofax project (it is secret to prevent fraud).
 
-Reference manuals our meta-languages:
+Reference manuals for our meta-languages:
 
 * [SDF3](meta/lang/sdf3.md)
 * [NaBL](meta/lang/nabl.md)
 
-Examples:
+Example language specifications:
 
 * [paplj language](https://github.com/MetaBorgCube/declare-your-language/tree/core/paplj/paplj.full)
