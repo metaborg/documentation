@@ -10,6 +10,7 @@ The Spoofax documentation is a work in progress. Most pages in the table of cont
 
 - Language Development
 
+  - :doc:`source/langdev/start`
   - Meta-Languages
 
     - :doc:`source/langdev/meta/lang/sdf3`
