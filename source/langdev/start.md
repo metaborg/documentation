@@ -46,38 +46,50 @@ Start up Eclipse, depending on your operating system:
 
 ## Hello World Language
 
-```eval_rst
-.. todo:: This part of the documentation has not been written yet.
+To get you started, let's do the 'hello world' of language development; the hello world language.
+In Eclipse, open the new project dialog by choosing <span class='menuselection'>File -> New -> Project</span> from the main menu.
+In the new project dialog, select <span class='menuselection'>Spoofax -> Spoofax language project</span> to open the wizard for creating a Spoofax language specification project.
+As project name, choose `helloworld`, which will automatically fill in the identifier, name, and extension of the language.
+Keep the defaults for the other fields and press <span class='guilabel'>Finish</span> to create the project.
+Once the project has been created, open and expand it in the package or project explorer view.
+
+The syntax for the language is specified in the <span class='file'>syntax/helloworld.sdf3</span> SDF3 file.
+[SDF3](meta/lang/sdf3.md) is our syntax definition language, from which we derive a parser, pretty-printer, and syntactic completions from your language.
+Currently, the syntax contains a single start symbol `Start`, and a production that accepts an empty program: `Start.Empty = <>`.
+Remove that production and replace it with the following productions:
+
+```sdf3
+  Start.Program = <<Word> <Word>>
+  Word.Hello = <hello>
+  Word.World = <world>
 ```
 
-create a new Spoofax project; fill in names
+This grammar accepts a program consisting of 2 words, where the words can be `hello` or `world`, with any number of layout characters (whitespace, tabs, empty lines, , comments, etc.) in between.
 
-build the project to confirm things are working
+To observe our changes to the grammar, we must first rebuild the project by selecting <span class='menuselection'>Project -> Build Project</span>.
+Create a new file by choosing <span class='menuselection'>File -> New -> File</span>, put the file at the root of the <span class='file'>helloworld</span> project and name it <span class='file'>test.hel</span>.
+Open that file and try out the parser by typing `hello world`, any combinations of the 2 words, and with or without layout between words.
 
-add hello world syntax
-
-build project again; project must be built manually to test changes
-
-create test file and open
-
-type test program
-
-show AST to confirm things are working
-
-make syntactic error, confirm error shows up
-
-done!
+If everything went well, the syntax highlighter will highlight the words in purple, which is the default highlighting color for keywords.
+To see the abstract syntax tree that the parser derives from your program, select <span class='menuselection'>Spoofax -> Syntax -> Show parsed AST</span>.
+If you make an error in the program, for example `hello worl`, an error message will show up indicating where the error is.
 
 ## How to proceed?
 
 ```eval_rst
-.. todo:: This part of the documentation has not been written yet.
+.. todo:: We are currently in the process of writing documentation, this section will be updated once we have more material.
 ```
 
-guides (declare your language, updating Spoofax, IntelliJ getting started, etc.)
+Guides for using Spoofax:
 
-manual
+* [Declare Your Language](http://metaborgcube.github.io/declare-your-language/) - This book has not been updated for Spoofax 2.0 yet, but most content still applies.
+* [Compiler Construction assignments](http://tudelft-in4303.github.io/assignments/) - The Compiler Construction course at TUDelft has practical assignments in which a full [MiniJava](http://www.cambridge.org/us/features/052182060X/) compiler is made in Spoofax. Contact us if you'd like the get the initial Spoofax project (it is secret to prevent fraud).
 
-meta-languages and libraries manual
+Reference manuals our meta-languages:
 
-examples
+* [SDF3](meta/lang/sdf3.md)
+* [NaBL](meta/lang/nabl.md)
+
+Examples:
+
+* [paplj language](https://github.com/MetaBorgCube/declare-your-language/tree/core/paplj/paplj.full)
