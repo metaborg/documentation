@@ -16,6 +16,10 @@ The Spoofax documentation is a work in progress. Most pages in the table of cont
     - :doc:`source/langdev/meta/lang/sdf3`
     - :doc:`source/langdev/meta/lang/nabl`
 
+- Core API
+
+  - :doc:`source/core/manual/extension`
+
 - Development
 
   - :doc:`source/dev/maven`

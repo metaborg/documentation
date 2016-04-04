@@ -10,3 +10,4 @@ Core API Manual
    component
    facade
    high-service
+   extension
