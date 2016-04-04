@@ -36,15 +36,35 @@ Spoofax Core supports specifying additional modules as plugins through a service
 To register your module as a plugin, `register it as a service provider <https://docs.oracle.com/javase/tutorial/ext/basics/spi.html#register-service-providers>`_ for the :java:ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>` class.
 For example, if you would like to register the ``org.example.CustomModule`` and ``org.example.OtherCustomModule`` module:
 
-1. Create the :file:`src/main/resources/META-INF/services/org.metaborg.core.plugin.IServiceModulePlugin` file.
-2. Add org.example.CustomModule and org.example.OtherCustomModule to that file, separated by a newline.
+1. Create a class implementing :java:ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>`:
+  ::
+
+    public class org.example.ExtensionModulePlugin implements IServiceModulePlugin {
+      @Override public Iterable<Module> modules() {
+        return Iterables2.<Module>from(new org.example.CustomModule(),
+          new org.example.OtherCustomModule());
+      }
+    }
+
+2. Create the :file:`src/main/resources/META-INF/services/org.metaborg.core.plugin.IServiceModulePlugin` file.
+3. Add org.example.ExtensionModulePlugin to that file.
 
 Whenever your JAR file is on the classpath together with Spoofax Core, Spoofax Core will pick up the module plugins and load them whenever the Spoofax facade is instantiated.
 
 Similarly, for additional meta-modules, register a service provider for the :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` class:
 
-1. Create the :file:`src/main/resources/META-INF/services/org.metaborg.meta.core.plugin.IServiceMetaModulePlugin` file.
-2. Add org.example.CustomMetaModule and org.example.OtherCustomMetaModule to that file, separated by a newline.
+1. Create a class implementing :java:ref:`IServiceMetaModulePlugin <org.metaborg.core.plugin.IServiceMetaModulePlugin>`:
+  ::
+
+    public class org.example.ExtensionMetaModulePlugin implements IServiceMetaModulePlugin {
+      @Override public Iterable<Module> modules() {
+        return Iterables2.<Module>from(new org.example.CustomMetaModule(),
+          new org.example.OtherCustomMetaModule());
+      }
+    }
+
+2. Create the :file:`src/main/resources/META-INF/services/org.metaborg.core.plugin.IServiceMetaModulePlugin` file.
+3. Add org.example.ExtensionMetaModulePlugin to that file.
 
 ^^^^^^^^^^^^^^^^^
 Eclipse extension
