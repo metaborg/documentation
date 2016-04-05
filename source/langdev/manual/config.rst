@@ -1,0 +1,298 @@
+.. highlight:: yaml
+
+=============
+Configuration
+=============
+
+A language specification's configuration is specified in the :file:`metaborg.yaml` file at the root of the project.
+
+------
+Format
+------
+
+The configuration is written in `YAML <http://yaml.org/>`_, a human-friendly textual data format.
+We use the `commons-configuration2 <https://commons.apache.org/proper/commons-configuration/index.html>`_ framework to process configuration, which supports variables and hierachical configuration.
+
+Any existing configuration option can be used as a variable with the ``${var}`` syntax, for example::
+
+  id: org.metaborg:org.metaborg.meta.lang.sdf:${metaborgVersion}
+  metaborgVersion: 2.0.0-SNAPSHOT
+
+Here, the ``${metaborgVersion}`` variable reference is replaced with ``2.0.0-SNAPSHOT`` when reading the ``id`` configuration option.
+Note that the order in which configuration options and variable references occur does not matter.
+
+The ``${path:root}`` builtin property can be used to point to the root of the language specification.
+Use this when pointing to resources relative to the root of the language specification, relative paths are not supported.
+
+Furthermore, environment variables can be used through ``${env:}``, for example ``${env:PATH}``.
+See the documentation on `variable interpolation <https://commons.apache.org/proper/commons-configuration/userguide/howto_basicfeatures.html#Variable_Interpolation>`_ for more detailed informations on how variables work.
+
+Configuration options can be nested by nesting YAML objects, for example::
+
+  language:
+    sdf:
+      version: sdf2
+
+results in the ``language.sdf.version`` option being set to ``sdf2``, and can be referenced with a variable using ``${language.sdf.version}``.
+
+-------
+Options
+-------
+
+All supported configuration options for language specification projects are listed here.
+The following configuration options are mandatory:
+
+.. describe:: id
+
+   Identifier of the language the language specification is describing.
+
+   - Format: ``groupId:id:version`` where version uses the Maven version syntax; ``major.minor.patch(-qualifier)?``
+   - Example: ``id: org.metaborg:org.metaborg.meta.lang.sdf:2.0.0-SNAPSHOT``
+
+.. describe:: name
+
+   Name of the language the language specification is describing.
+
+   - Example: ``name: SDF``
+
+The following configuration options are optional and revert to default values when not specified.
+
+.. describe:: metaborgVersion
+
+   Version of the MetaBorg tools to use.
+
+   - Format: Maven version syntax (see ``id`` option)
+   - Default: Current version of the running Spoofax
+   - Example: ``2.0.0-SNAPSHOT``
+
+.. describe:: languageContributions
+
+   List of language implementation identifiers the language component generated from this language specification contributes to.
+
+   - Format: List of language implementation names and identifiers (see ``id`` option)
+   - Default: Contribution to single language implementation with the same name and identifier of this language specification.
+   - Example::
+
+       languageContributions:
+       - name: Green-Marl
+         id: com.oracle:greenmarl:1.5.0-SNAPSHOT
+
+.. describe:: dependencies
+
+   Compile and source dependencies to other language components.
+
+   .. describe:: compile
+
+      List of compile dependencies to language components. A compile dependency to a language component indicates that this language specification uses files of that meta-language, and as such its compiler should be invoked.
+
+      - Format: List of language component identifiers (see ``id`` option)
+      - Default: None
+      - Example::
+
+          dependencies:
+            compile:
+              - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
+
+   .. describe:: source
+
+      List of source dependencies to language components. A source dependency to a language component indicates that this language specification uses exported files of that meta-language or meta-library.
+
+      - Format: List of language component identifiers (see ``id`` option)
+      - Default: None
+      - Example::
+
+          dependencies:
+            source:
+              - org.metaborg:org.metaborg.meta.lib.analysis:${metaborgVersion}
+
+.. describe:: generates
+
+   List of language names this language specification generates files for, and into which directory.
+
+   - Format: List of language name and directory.
+   - Default: None
+   - Example::
+
+       generates:
+       - language: EditorService
+         directory: src-gen
+       - language: Stratego-Sugar
+         directory: src-gen
+
+.. describe:: exports
+
+   List of files and directories this language specification exports for use in other language components, and optionally to which language those files and directories belong. Exported resources are packaged into the language component artifact when built.
+
+   - Format: List of exports. There are 3 kinds of exports which are described below
+   - Default: None
+
+   .. describe:: language-specific directory export
+
+      A language-specific directory export, exports a directory with files of a specific language.
+      These files can be used by other language components by specifying a source dependency on the language component built from this language specification.
+
+      - Format: Language name, path to directory, optional list of includes, and optional list of excludes
+      - Example::
+
+          exports:
+          - language: TemplateLang
+            directory: syntax
+          - language: ds
+            directory: src-gen/ds-signatures
+          - language: Stratego-Sugar
+            directory: trans
+            includes: "**/*.str"
+          - language: Stratego-Sugar
+            directory: src-gen
+            includes: "**/*.str"
+
+   .. describe:: language-specific file export
+
+      A language-specific file export, exports a single file of a specific language.
+      The file can be used by other language components by specifying a source dependency on the language component built from this language specification.
+
+      All paths are relative to project directories, do NOT use ``${path:root}`` to make paths absolute!
+
+      - Format: Language name, path to file
+      - Example::
+
+          exports:
+          - language: SDF
+            file: include/libanalysis2.def
+
+   .. describe:: generic resource export
+
+      A generic resource export, exports any resources in a directory.
+      These files can be used for tasks specific to the language specification, for example to bundle library files with the language specification.
+
+      All paths are relative to project directories, do NOT use ``${path:root}`` to make paths absolute!
+
+      - Format: Path to directory, optional list of includes, and optional list of excludes
+      - Example::
+
+          exports:
+          - directory: ./
+            includes:
+              - lib-java/**/*
+              - lib-webdsl/**/*
+              - lib/webdsl/HQL-pretty.pp.af
+              - lib/webdsl/WebDSL-pretty.pp.af
+
+
+   .. warning:: All paths are relative to project directories, do NOT use ``${path:root}`` to make paths absolute!
+
+   .. note:: For directory exports, a list of includes and excludes can be optionally specified, using the `Ant pattern syntax <https://ant.apache.org/manual/dirtasks.html#Patterns>`_. If no includes or excludes are specified, all files in the directory are assumed to be included recursively.
+
+   .. note:: Use ``./`` to use the root directory as export directory, ``.`` triggers an error in the YAML parser.
+
+.. describe:: pardonedLanguages
+
+   List of language names that are pardoned; any errors they produce will not fail builds.
+
+   - Format: List of language names
+   - Default: None
+   - Example::
+
+       pardonedLanguages:
+         - EditorService
+         - Stratego-Sugar
+         - SDF
+
+.. describe:: language
+
+   Language specific configuration options.
+
+   .. describe:: sdf
+
+      Configuration options for SDF2 and SDF3.
+
+      .. describe:: version
+
+         Version of SDF to use.
+
+         - Format: Either ``sdf2`` or ``sdf3``.
+         - Default: ``sdf3``
+         - Example::
+
+             language:
+               sdf:
+                 version: sdf2
+
+      .. describe:: externalDef
+
+         External SDF definition file to use. If this is specified, the ``language.sdf.version`` and ``language.sdf.args`` options are ignored.
+
+         - Format: Path to file. Use ``${path:root}/file.def`` to point to a file relative to the language specification root.
+         - Example::
+
+             language:
+               sdf:
+                 externalDef: ${path:root}/syntax/Stratego-Sugar.def
+
+      .. describe:: args
+
+         List of additional arguments that are passed to ``pack-sdf`` when this language specification is built.
+
+         - Default: None
+         - Example::
+
+             language:
+               sdf:
+                 args:
+                 - -Idef
+                 - ${path:root}/lib/SDF.def
+
+   .. describe:: stratego
+
+      Configuration options for Stratego.
+
+      .. describe:: format
+
+         The output format of the ``strj`` compiler when this language specification is built.
+
+         - Format: Either ``ctree`` or ``jar``.
+         - Default: ``ctree``
+         - Example::
+
+               language:
+                 stratego:
+                   format: jar
+
+      .. describe:: args
+
+         List of additional arguments that are passed to strj when this language specification is built.
+
+         - Default: None
+         - Example::
+
+             language:
+               stratego:
+                 args:
+                 - -la
+                 - stratego-lib
+                 - -la
+                 - stratego-sglr
+                 - -la
+
+.. describe:: build
+
+   List of additional build steps.
+
+   .. todo:: Describe this option.
+
+--------
+Examples
+--------
+
+Our meta-languages and meta-libraries have configuration files which can be used as examples:
+
+- `ESV <https://github.com/metaborg/esv/blob/master/org.metaborg.meta.lang.esv/metaborg.yaml>`_
+- `SDF2 <https://github.com/metaborg/sdf/blob/master/org.metaborg.meta.lang.sdf/metaborg.yaml>`_
+- `SDF3 <https://github.com/metaborg/sdf/blob/master/org.metaborg.meta.lang.template/metaborg.yaml>`_
+- `Stratego <https://github.com/metaborg/stratego/blob/master/org.metaborg.meta.lang.stratego/metaborg.yaml>`_
+- `NaBL <https://github.com/metaborg/nabl/blob/master/org.metaborg.meta.lang.nabl/metaborg.yaml>`_
+- `TS <https://github.com/metaborg/ts/blob/master/org.metaborg.meta.lang.ts/metaborg.yaml>`_
+- `Analysis library <https://github.com/metaborg/runtime-libraries/blob/master/org.metaborg.meta.lib.analysis/metaborg.yaml>`_
+- `NaBL2 <https://github.com/metaborg/nabl/blob/master/org.metaborg.meta.lang.nabl2/metaborg.yaml>`_
+- `Analysis library 2 <https://github.com/metaborg/runtime-libraries/blob/master/org.metaborg.meta.lib.analysis2/metaborg.yaml>`_
+- `DynSem <https://github.com/metaborg/dynsem/blob/master/dynsem/metaborg.yaml>`_
