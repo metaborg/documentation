@@ -400,7 +400,9 @@ class StrategoLexer(RegexLexer):
 
   tokens = {
     'root': [
-      (words(('strategies','rules','where','with'), suffix=r'\b'), Keyword),
+      (words(('module','imports','strategies','rules','where','with','signature','constructors','sorts','not','one',
+        'some','all','let','in','end','external','call','if','then','else','switch','case','otherwise','rec'), 
+        suffix=r'\b'), Keyword),
       (r'(\+|\?|!)', Operator),
       (r'"[^"^\n]*"', Literal.String),
       (r'\d+', Literal.Number),

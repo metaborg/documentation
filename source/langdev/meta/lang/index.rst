@@ -9,7 +9,7 @@ Meta Languages Manual
 
    esv
    sdf3
-   stratego
+   Stratego <stratego/index>
    nabl
    ts
    nabl2
