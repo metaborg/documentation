@@ -11,7 +11,13 @@ Format
 ------
 
 The configuration is written in `YAML <http://yaml.org/>`_, a human-friendly textual data format.
-We use the `commons-configuration2 <https://commons.apache.org/proper/commons-configuration/index.html>`_ framework to process configuration, which supports variables and hierachical configuration.
+YAML is indentation sensitive, be sure to properly indent nested elements with 2 spaces.
+
+We use the `commons-configuration2 <https://commons.apache.org/proper/commons-configuration/index.html>`_ framework to process configuration, which supports variables, nesting, and lists.
+
+^^^^^^^^^
+Variables
+^^^^^^^^^
 
 Any existing configuration option can be used as a variable with the ``${var}`` syntax, for example::
 
@@ -22,10 +28,15 @@ Here, the ``${metaborgVersion}`` variable reference is replaced with ``2.0.0-SNA
 Note that the order in which configuration options and variable references occur does not matter.
 
 The ``${path:root}`` builtin property can be used to point to the root of the language specification.
-Use this when pointing to resources relative to the root of the language specification, relative paths are not supported.
+Paths in the configuration must be absolute unless stated otherwise.
+Use ``${path:root}/`` to make paths absolute, relative to the project root, where required.
 
 Furthermore, environment variables can be used through ``${env:}``, for example ``${env:PATH}``.
 See the documentation on `variable interpolation <https://commons.apache.org/proper/commons-configuration/userguide/howto_basicfeatures.html#Variable_Interpolation>`_ for more detailed informations on how variables work.
+
+^^^^^^^
+Nesting
+^^^^^^^
 
 Configuration options can be nested by nesting YAML objects, for example::
 
@@ -34,6 +45,27 @@ Configuration options can be nested by nesting YAML objects, for example::
       version: sdf2
 
 results in the ``language.sdf.version`` option being set to ``sdf2``, and can be referenced with a variable using ``${language.sdf.version}``.
+The same option can be set in the following way::
+
+  language.sdf.version: sdf2
+
+^^^^^
+Lists
+^^^^^
+
+Lists are supported using the YAML list syntax, for example::
+
+  dependencies:
+    compile:
+    - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
+    - org.metaborg:org.metaborg.meta.lang.nabl:${metaborgVersion}
+    - org.metaborg:org.metaborg.meta.lang.test:${metaborgVersion}
+
+results in the ``dependencies.compile`` option being set to a list with elements:
+
+- ``org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}``
+- ``org.metaborg:org.metaborg.meta.lang.nabl:${metaborgVersion}``
+- ``org.metaborg:org.metaborg.meta.lang.test:${metaborgVersion}``
 
 -------
 Options
@@ -129,6 +161,7 @@ The following configuration options are optional and revert to default values wh
    .. describe:: language-specific directory export
 
       A language-specific directory export, exports a directory with files of a specific language.
+      The directory **must be relative** to the project root. Includes and excludes are relative to the specified directory.
       These files can be used by other language components by specifying a source dependency on the language component built from this language specification.
 
       - Format: Language name, path to directory, optional list of includes, and optional list of excludes
@@ -146,9 +179,12 @@ The following configuration options are optional and revert to default values wh
             directory: src-gen
             includes: "**/*.str"
 
+      .. warning:: Includes and excludes are only used to package the correct resources into the language component artifact, Spoofax Core does not use the includes and excludes at this moment. This may cause differences in behaviour between development and deployment environments.
+
    .. describe:: language-specific file export
 
       A language-specific file export, exports a single file of a specific language.
+      The file **must be relative** to the project root.
       The file can be used by other language components by specifying a source dependency on the language component built from this language specification.
 
       - Format: Language name, path to file
@@ -161,9 +197,10 @@ The following configuration options are optional and revert to default values wh
    .. describe:: generic resource export
 
       A generic resource export, exports any resources in a directory.
+      The directory **must be relative** to the project root. Includes and excludes are relative to the specified directory.
       These files can be used for tasks specific to the language specification, for example to bundle library files with the language specification.
 
-      - Format: Path to directory, optional list of includes, and optional list of excludes
+      - Format: Relative path to directory, optional list of includes, and optional list of excludes
       - Example::
 
           exports:
@@ -175,7 +212,7 @@ The following configuration options are optional and revert to default values wh
               - lib/webdsl/WebDSL-pretty.pp.af
 
 
-   .. warning:: All paths are relative to project directories, do NOT use ``${path:root}`` to make paths absolute!
+   .. warning:: All paths are relative to the project root. Do **NOT** use ``${path:root}`` to make paths absolute!
 
    .. note:: For directory exports, a list of includes and excludes can be optionally specified, using the `Ant pattern syntax <https://ant.apache.org/manual/dirtasks.html#Patterns>`_. If no includes or excludes are specified, all files in the directory are assumed to be included recursively.
 
@@ -219,7 +256,6 @@ The following configuration options are optional and revert to default values wh
          External SDF definition file to use.
          If this is specified, the ``language.sdf.version`` and ``language.sdf.args`` options are ignored, and all SDF2 or SDF3 syntax files are ignored.
 
-
          - Example::
 
              language:
@@ -230,7 +266,7 @@ The following configuration options are optional and revert to default values wh
 
          List of additional arguments that are passed to ``pack-sdf`` when this language specification is built.
 
-         - Format: List of command-line arguments. Use ``${path:root}/`` to point to a file relative to the language specification root.
+         - Format: List of command-line arguments.
          - Default: None
          - Example::
 
@@ -260,7 +296,7 @@ The following configuration options are optional and revert to default values wh
 
          List of additional arguments that are passed to strj when this language specification is built.
 
-         - Format: List of command-line arguments. Use ``${path:root}/`` to point to a file relative to the language specification root.
+         - Format: List of command-line arguments.
          - Default: None
          - Example::
 
@@ -308,7 +344,7 @@ The following configuration options are optional and revert to default values wh
 
       Build step that runs a target from an Ant build script.
 
-      - Format: phase, target to run, path to Ant build script. Use ``${path:root}/`` to point to a file relative to the language specification root.
+      - Format: phase, path to Ant build script, and target in the build script to execute
       - Example::
 
           build:
