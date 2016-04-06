@@ -19,6 +19,7 @@ The Spoofax documentation is a work in progress. Most pages in the table of cont
   - Meta-Languages
 
     - :doc:`source/langdev/meta/lang/sdf3`
+    - :doc:`source/langdev/meta/lang/stratego/index`
     - :doc:`source/langdev/meta/lang/nabl`
 
 - Core API
