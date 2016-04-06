@@ -63,7 +63,7 @@ The following configuration options are optional and revert to default values wh
 
    - Format: Maven version syntax (see ``id`` option)
    - Default: Current version of the running Spoofax
-   - Example: ``2.0.0-SNAPSHOT``
+   - Example: ``metaborgVersion: 2.0.0-SNAPSHOT``
 
 .. describe:: languageContributions
 
@@ -91,7 +91,7 @@ The following configuration options are optional and revert to default values wh
 
           dependencies:
             compile:
-              - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
+            - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
 
    .. describe:: source
 
@@ -103,7 +103,7 @@ The following configuration options are optional and revert to default values wh
 
           dependencies:
             source:
-              - org.metaborg:org.metaborg.meta.lib.analysis:${metaborgVersion}
+            - org.metaborg:org.metaborg.meta.lib.analysis:${metaborgVersion}
 
 .. describe:: generates
 
@@ -151,8 +151,6 @@ The following configuration options are optional and revert to default values wh
       A language-specific file export, exports a single file of a specific language.
       The file can be used by other language components by specifying a source dependency on the language component built from this language specification.
 
-      All paths are relative to project directories, do NOT use ``${path:root}`` to make paths absolute!
-
       - Format: Language name, path to file
       - Example::
 
@@ -164,8 +162,6 @@ The following configuration options are optional and revert to default values wh
 
       A generic resource export, exports any resources in a directory.
       These files can be used for tasks specific to the language specification, for example to bundle library files with the language specification.
-
-      All paths are relative to project directories, do NOT use ``${path:root}`` to make paths absolute!
 
       - Format: Path to directory, optional list of includes, and optional list of excludes
       - Example::
@@ -220,9 +216,10 @@ The following configuration options are optional and revert to default values wh
 
       .. describe:: externalDef
 
-         External SDF definition file to use. If this is specified, the ``language.sdf.version`` and ``language.sdf.args`` options are ignored.
+         External SDF definition file to use.
+         If this is specified, the ``language.sdf.version`` and ``language.sdf.args`` options are ignored, and all SDF2 or SDF3 syntax files are ignored.
 
-         - Format: Path to file. Use ``${path:root}/file.def`` to point to a file relative to the language specification root.
+
          - Example::
 
              language:
@@ -233,6 +230,7 @@ The following configuration options are optional and revert to default values wh
 
          List of additional arguments that are passed to ``pack-sdf`` when this language specification is built.
 
+         - Format: List of command-line arguments. Use ``${path:root}/`` to point to a file relative to the language specification root.
          - Default: None
          - Example::
 
@@ -262,6 +260,7 @@ The following configuration options are optional and revert to default values wh
 
          List of additional arguments that are passed to strj when this language specification is built.
 
+         - Format: List of command-line arguments. Use ``${path:root}/`` to point to a file relative to the language specification root.
          - Default: None
          - Example::
 
@@ -278,7 +277,45 @@ The following configuration options are optional and revert to default values wh
 
    List of additional build steps.
 
-   .. todo:: Describe this option.
+   - Format: List of build steps. There are 2 kinds of additional build steps which are described below. Each build step has a phase in which it is executed, which can be one of the following:
+
+     - initialize: runs at the start of a build
+     - generateSources: runs after compilers for all compile dependencies have generated source files
+     - preJava: runs after the build (i.e. pack-sdf, strj, etc. have been executed), but before compiling Java files
+     - postJava: runs after Java files have been compiled, and after packaging the language component
+     - clean: runs when the language specification is cleaned
+
+   - Default: None
+
+   .. describe:: stratego-cli (Stratego build step)
+
+      Build step that runs a command-line Stratego application.
+
+      - Format: phase, strategy to run, and command-line arguments
+      - Example::
+
+          build:
+            stratego-cli:
+            - phase: preJava
+              strategy: org.strategoxt.tools.main-parse-pp-table
+              args:
+              - -i
+              - ${path:root}/lib/EditorService-pretty.pp
+              - -o
+              - ${path:root}/target/metaborg/EditorService-pretty.pp.af
+
+   .. describe:: ant (Ant build step)
+
+      Build step that runs a target from an Ant build script.
+
+      - Format: phase, target to run, path to Ant build script. Use ``${path:root}/`` to point to a file relative to the language specification root.
+      - Example::
+
+          build:
+            ant:
+            - phase: initialize
+              file: ${path:root}/build.xml
+              target: main
 
 --------
 Examples
