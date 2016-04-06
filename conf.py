@@ -547,7 +547,7 @@ def make_apidoc(app):
 
 def setup(app):
   app.add_config_value('make_apidoc', on_rtd, 'html') # Default value on_rtd such that API docs are built on RTD
-  app.add_config_value('recommonmark_config', {'enable_inline_math': True}, 'env')
+  app.add_config_value('recommonmark_config', {}, 'env')
   app.add_transform(AutoStructify)
   app.add_stylesheet("custom.css")
   app.add_lexer("aterm", ATermLexer())
