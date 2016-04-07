@@ -2,9 +2,7 @@
 Services
 ========
 
-```eval_rst
 .. todo:: Not all services have been listed, and no descriptions have been added.
-```
 
 
 This manual describes all services in Spoofax Core.

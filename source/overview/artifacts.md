@@ -1,7 +1,7 @@
 # Artifacts
 
 ```eval_rst
-.. todo:: Artifacts for legacy and older versions have been listed.
+.. todo:: Artifacts for legacy and older versions have not been listed yet.
 ```
 
 This page lists current and previous artifacts for Spoofax.

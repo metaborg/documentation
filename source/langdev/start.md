@@ -17,20 +17,20 @@ These libraries are cached afterwards, and only need to be re-downloaded when yo
 
 To get started with Spoofax, download an Eclipse Mars installation with Spoofax preinstalled for your platform:
 
-* [Windows 32-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-win32-x86-jre.zip)
-* [Windows 64-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-win32-x86_64-jre.zip)
-* [Linux 32-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-linux-x86-jre.tar.gz)
-* [Linux 64-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-linux-x86_64-jre.tar.gz)
-* [Mac OS X (Intel only), embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-macosx-x86_64-jre.tar.gz)
+* [Windows 32-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86-jre.zip)
+* [Windows 64-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86_64-jre.zip)
+* [Linux 32-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86-jre.tar.gz)
+* [Linux 64-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86_64-jre.tar.gz)
+* [Mac OS X (Intel only), embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-macosx-x86_64-jre.tar.gz)
 
 These are bundled with an embedded Java Runtime Environment (JRE) version 7, such that a JRE on your system is not required.
 If your system has a JRE of version 7 or higher installed, and would rather use that, use the following download links instead:
 
-* [Windows 32-bits](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-win32-x86.zip)
-* [Windows 64-bits](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-win32-x86_64.zip)
-* [Linux 32-bits](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-linux-x86.tar.gz)
-* [Linux 64-bits](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-linux-x86_64.tar.gz)
-* [Mac OS X (Intel only)](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-macosx-x86_64.tar.gz)
+* [Windows 32-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86.zip)
+* [Windows 64-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86_64.zip)
+* [Linux 32-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86.tar.gz)
+* [Linux 64-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86_64.tar.gz)
+* [Mac OS X (Intel only)](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-macosx-x86_64.tar.gz)
 
 Unpack the downloaded archive to a location with write access, since Eclipse requires write access to the unpacked Eclipse installation.
 
@@ -42,7 +42,20 @@ Start up Eclipse, depending on your operating system:
 
 * Windows: open <span class='file'>eclipse.exe</span>
 * Linux: open <span class='file'>eclipse</span>
-* Mac OSX: open <span class='file'>Eclipse.app</span>. If that doesn't work, right click <span class='file'>Eclipse.app</span> and choose <span class='guilabel'>Open</span> to grant permissions to open Eclipse.
+* Mac OSX: open <span class='file'>Eclipse.app</span>
+
+```eval_rst
+.. note::
+   On Mac OSX, if Eclipse cannot be opened because it is from an unidentified developer, right click :file:`Eclipse.app` and choose :guilabel:`Open` to grant permission to open Eclipse.
+
+   If Eclipse cannot be opened because it is damaged, open the Terminal, navigate to the directory where :file:`Eclipse.app` is located, and execute:
+
+   .. code-block:: bash
+
+      xattr -rc Eclipse.app
+
+   This will clear the attributes that Eclipse has been downloaded from the internet, and grant permission to open Eclipse.
+```
 
 ## Hello World Language
 
@@ -88,6 +101,7 @@ Guides for developing a language with Spoofax:
 Reference manuals for our meta-languages:
 
 * [SDF3](meta/lang/sdf3.md)
+* [Stratego](meta/lang/stratego/index.rst)
 * [NaBL](meta/lang/nabl.md)
 
 Example language specifications:
