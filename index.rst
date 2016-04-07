@@ -24,7 +24,7 @@ The Spoofax documentation is a work in progress. Most pages in the table of cont
 
 - Core API
 
-  - :doc:`source/core/manual/extension`
+  - :doc:`source/core/manual/extend`
   - :doc:`source/core/api`
 
 - Development
@@ -39,6 +39,7 @@ The Spoofax documentation is a work in progress. Most pages in the table of cont
 - Releases
 
   - :doc:`source/release/note/2.0.0`
+  - :doc:`source/release/note/2.0.0-beta1`
   - :doc:`source/release/migrate/2.0.0`
 
 Table of Contents
@@ -46,15 +47,11 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 3
-
-   source/introduction
-
-.. toctree::
-   :maxdepth: 3
    :caption: Overview
 
-   source/overview/architecture
-   source/overview/glossary
+   source/overview/introduction
+   source/overview/issue-tracking
+   source/overview/artifacts
 
 .. toctree::
    :maxdepth: 3

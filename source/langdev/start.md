@@ -17,7 +17,7 @@ These libraries are cached afterwards, and only need to be re-downloaded when yo
 
 To get started with Spoofax, download an Eclipse Mars installation with Spoofax preinstalled for your platform:
 
-* [Windows 32-bits, embedded JRE](hhttp://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-win32-x86-jre.zip)
+* [Windows 32-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-win32-x86-jre.zip)
 * [Windows 64-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-win32-x86_64-jre.zip)
 * [Linux 32-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-linux-x86-jre.tar.gz)
 * [Linux 64-bits, embedded JRE](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/eclipse/spoofax-linux-x86_64-jre.tar.gz)

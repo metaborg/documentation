@@ -7,7 +7,8 @@ Core API Manual
 .. toctree::
    :maxdepth: 1
 
-   component
+   architecture
    facade
-   high-service
-   extension
+   service
+   unit
+   extend
