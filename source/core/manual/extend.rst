@@ -8,6 +8,8 @@ Spoofax Core can be extended by providing additional Guice Modules at startup.
 Additional modules can be hardcoded when creating a Spoofax facade object, or by specifying the module as a plugin.
 Both Spoofax and meta-Spoofax can be extended with additional modules.
 
+This manual describes how additional modules can be specified, and what the extension points in Spoofax are.
+
 -----------------------------
 Hardcoding additional modules
 -----------------------------
@@ -88,3 +90,12 @@ For meta-modules, use the ``org.metaborg.spoofax.eclipse.meta.module`` extension
      <module class="org.example.CustomMetaModule" />
      <module class="org.example.OtherCustomMetaModule" />
    </extension>
+
+
+----------------
+Extension points
+----------------
+
+.. todo:: This part of the documentation has not been written yet.
+
+.. note:: Extension points in Spoofax Core are not to be confused with Eclipse extension points, which are Eclipse-specific.

@@ -6,10 +6,12 @@ Services
 
 
 This manual describes all services in Spoofax Core.
-A service is a class (and typically a singleton object) that provides a single piece of functionality to the Spoofax Core system.
+A service is a class (and typically a singleton) that provides a single piece of functionality to the Spoofax Core system.
 Services can be accessed through facades, or injected through dependency injection.
-Both MetaBorg, Spoofax, non-meta, and meta services are described, with each service noting in which component it can be found.
 
+Both MetaBorg, Spoofax, non-meta, and meta services are described, with each service noting in which component it can be found.
+Each service has a corresponding interface which is the Java API to that service.
+Some services have specializations that specialize the interface in order to provide more specialized return types or additional method arguments.
 
 -----
 Basic
@@ -70,6 +72,12 @@ Language processing
 -------------------
 
 Language processing services provide services for the processing of files of a language.
+
+.. describe:: Syntax service
+
+   :component: MetaBorg
+   :interface: :java:ref:`org.metaborg.core.syntax.ISyntaxService`
+   :specialization Spoofax-meta: :java:ref:`org.metaborg.spoofax.core.syntax.ISpoofaxSyntaxService`
 
 
 -------
