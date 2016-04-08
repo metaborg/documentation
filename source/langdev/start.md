@@ -61,7 +61,7 @@ Start up Eclipse, depending on your operating system:
 
 To get you started, let's do the 'hello world' of language development; the hello world language.
 In Eclipse, open the new project dialog by choosing <span class='menuselection'>File -> New -> Project</span> from the main menu.
-In the new project dialog, select <span class='menuselection'>Spoofax -> Spoofax language project</span> to open the wizard for creating a Spoofax language specification project.
+In the new project dialog, select <span class='menuselection'>Spoofax -> Spoofax language project</span> and press <span class='guilabel'>Next</span> to open the wizard for creating a Spoofax language specification project.
 As project name, choose `helloworld`, which will automatically fill in the identifier, name, and extension of the language.
 Keep the defaults for the other fields and press <span class='guilabel'>Finish</span> to create the project.
 Once the project has been created, open and expand it in the package or project explorer view.

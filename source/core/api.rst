@@ -1,6 +1,6 @@
-===============
+=============
 API Reference
-===============
+=============
 
 The API reference contains all classes in MetaBorg Core, Spoofax Core, and their meta counterparts.
 This documentation is generated from the source code at the `Spoofax GitHub repository <https://github.com/metaborg/spoofax>`_.
