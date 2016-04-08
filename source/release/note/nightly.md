@@ -1,18 +1,10 @@
-# Spoofax 2.0.0-beta1 (07-04-2016)
+# Spoofax nightly
 
-This is the first beta release of Spoofax 2.0.
-These notes provide the download links for the various artifacts.
+These notes provide the download links for the various artifacts of the latest nightly version.
 
-See the [2.0.0 release notes](2.0.0.md) for more information about Spoofax 2.0.
-See the [2.0.0 migration guide](../migrate/2.0.0.md) for migrating a Spoofax 1.5 project to a Spoofax 2.0 project.
+## Eclipse plugin
 
-Follow the [getting started guide](../../langdev/start.md) to get started with Spoofax, including installation instructions.
-
-## Downloads
-
-### Eclipse plugin
-
-#### Premade Eclipse installations
+### Premade Eclipse installations
 
 With embedded JRE:
 
@@ -30,19 +22,23 @@ Without embedded JRE:
 * [Linux 64-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86_64.tar.gz)
 * [Mac OS X (Intel only)](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-macosx-x86_64.tar.gz)
 
-#### Update site
+### Update site
 
 * Eclipse update site: `http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/site`
 * [Eclipse update site archive](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-updatesite-2.0.0-beta1.zip)
 
-### Sunshine
+## JAR files
 
-[Sunshine JAR](http://download.spoofax.org/update/release/2.0.0-beta1/spoofax-sunshine-2.0.0-beta1.jar)
+* [Sunshine JAR](http://download.spoofax.org/update/release/2.0.0-beta1/spoofax-sunshine-2.0.0-beta1.jar)
+* [SPT testrunner JAR](http://download.spoofax.org/update/release/2.0.0-beta1/spoofax-testrunner-2.0.0-beta1.jar)
 
-### SPT command-line test runner
+## Maven artifacts
 
-[SPT testrunner JAR](http://download.spoofax.org/update/release/2.0.0-beta1/spoofax-testrunner-2.0.0-beta1.jar)
+Maven artifacts can be found on our [artifact server](http://artifacts.metaborg.org/content/repositories/releases/org/metaborg/).
+The Maven version used for this release is `2.0.0-SNAPSHOT`.
+See the instructions on [using MetaBorg Maven artifacts](../../dev/maven.md) for more information.
 
-### Maven artifacts
+## Build farm
 
-Maven artifacts can be found on our [artifact server](http://artifacts.metaborg.org/content/repositories/releases/org/metaborg/). The Maven version used for this release is `2.0.0-beta1`. See the instructions on [using MetaBorg Maven artifacts](../../dev/maven.md) for more information.
+Our build server builds Spoofax whenever a commit to master is made, in the [spoofax-master](http://buildfarm.metaborg.org/job/spoofax-master/) build job.
+The latest successfully built artifacts are [stored here](http://buildfarm.metaborg.org/job/spoofax-master/lastSuccessfulBuild/artifact/dist/).

@@ -5,8 +5,12 @@ Spoofax Documentation
 .. image:: code/spoofax/graphics/logos/Spoofax.svg
 
 Spoofax is a framework for developing textual software languages with full-featured Eclipse and IntelliJ editor plugins.
+The Spoofax documentation is a work in progress. Most pages in the table of contents are empty or just contain headers.
 
-The Spoofax documentation is a work in progress. Most pages in the table of contents below are empty or just contain headers. The following pages currently contain useful content:
+Useful Content
+==============
+
+The following pages currently contain useful content:
 
 - Language Development
 
@@ -24,6 +28,7 @@ The Spoofax documentation is a work in progress. Most pages in the table of cont
 
 - Core API
 
+  - :doc:`source/core/manual/service`
   - :doc:`source/core/manual/extend`
   - :doc:`source/core/api`
 
@@ -38,20 +43,31 @@ The Spoofax documentation is a work in progress. Most pages in the table of cont
 
 - Releases
 
-  - :doc:`source/release/note/2.0.0`
-  - :doc:`source/release/note/2.0.0-beta1`
-  - :doc:`source/release/migrate/2.0.0`
+  - :doc:`nightly <source/release/note/nightly>`
+  - :doc:`2.0.0 (unreleased) <source/release/note/2.0.0>`
+  - :doc:`2.0.0-beta1 (07-04-2016) <source/release/note/2.0.0-beta1>`
+  - :doc:`1.5.0 (18-12-2015) <source/release/note/1.5.0>`
+  - :doc:`1.4.0 (06-03-2015) <source/release/note/1.4.0>`
+  - :doc:`1.3.1 (09-12-2014) <source/release/note/1.3.1>`
+  - :doc:`1.3.0 (12-11-2014) <source/release/note/1.3.0>`
+  - :doc:`1.2.0 (13-08-2014) <source/release/note/1.2.0>`
+  - :doc:`1.1.0 (25-03-2013) <source/release/note/1.1.0>`
+  - :doc:`1.0.2 (15-02-2012) <source/release/note/1.0.2>`
+  - :doc:`1.0.0 (28-12-2011) <source/release/note/1.0.0>`
 
-Table of Contents
-=================
+- Migration
+
+  - :doc:`2.0.0 <source/release/migrate/2.0.0>`
+
+Full Table of Contents
+======================
 
 .. toctree::
    :maxdepth: 3
    :caption: Overview
 
    source/overview/introduction
-   source/overview/issue-tracking
-   source/overview/artifacts
+   source/overview/support
 
 .. toctree::
    :maxdepth: 3
@@ -92,11 +108,3 @@ Table of Contents
 
    source/release/note/index
    source/release/migrate/index
-
-.. .. toctree::
-..    :maxdepth: 3
-..    :caption: Notes
-..    :hidden:
-..
-..    notes/audience
-..    notes/outline
