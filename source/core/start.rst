@@ -19,7 +19,7 @@ You can download and install a JDK from the `Oracle website <http://www.oracle.c
 
 The Spoofax Core API is deployed as a set of Maven artifacts.
 We do not (yet) publish these artifacts to Maven Central, but rather to repositories on our own artifact server.
-To get access to our artifacts, read the :doc:`Maven manual </source/dev/maven>`, specifically the "Using MetaBorg Maven artifacts" section.
+To get access to our artifacts, read the :ref:`Using MetaBorg Maven artifacts <using_metaborg_artifacts>` section.
 Adding our Maven repositories gives access to our artifacts.
 
 In this guide, we will be using Eclipse to use the Core API, but any environment that works with Maven artifacts (e.g. IntelliJ, NetBeans, command-line Maven builds) will work.
@@ -120,16 +120,18 @@ Loading a language
 Now we can load the NaBL language into Spoofax Core.
 Spoofax Core uses `Apache VFS <https://commons.apache.org/proper/commons-vfs/>`_ as a file system abstraction, to be able to interact with different file systems.
 This means we must first get a :java:ref:`FileObject <org.apache.commons.vfs2.FileObject>` (Apache VFS counterpart of :java:ref:`File <java.io.File>`) that points to the NaBL language file we downloaded earlier.
-First get a URL to the NaBL language file::
+First get a URL to the NaBL language file which is on the classpath::
 
   URL nablUrl = Main.class.getClassLoader().getResource(
     "org.metaborg.meta.lang.nabl-2.0.0-beta1.spoofax-language");
 
-Then we resolve that to a FileObject, which points to the contents of the NaBL language file (which is secretly a regular Zip file)::
+Then we resolve that to a FileObject, which points to the contents of the NaBL language implementation archive (which is actually a regular Zip file)::
 
   FileObject nablLocation = spoofax.resourceService.resolve("zip:" + nablUrl + "!/");
 
 The :java:ref:`org.metaborg.core.resource.IResourceService` class is a service in Spoofax Core that provides functionality to retrieve FileObjects.
+In this case, we resolve to the contents inside the zip file.
+The ``zip:`` part indicates that we're using the `zip file system <https://commons.apache.org/proper/commons-vfs/filesystems.html#Zip_Jar_and_Tar>`_, and the ``!/`` part indicates that we refer to the root path **inside** the zip file.
 
 Spoofax Core has many services that provide small pieces of functionality.
 The :java:ref:`org.metaborg.core.language.ILanguageDiscoveryService` class is a service that discovers and loads languages, which we will use now to load the NaBL language::
@@ -175,6 +177,7 @@ To parse a file, we must first create a :java:ref:`org.metaborg.spoofax.core.uni
   String nablContents = spoofax.sourceTextService.text(nablFile);
   ISpoofaxInputUnit input = spoofax.unitService.inputUnit(nablFile, nablContents, nabl, null);
 
+The `res file system <https://commons.apache.org/proper/commons-vfs/filesystems.html#res>`_ can be used to resolve files on the classpath.
 The catch clause must also be extended with :java:ref:`java.io.IOException` to handle the case where the text for the NaBL file cannot be retrieved::
 
   } catch(MetaborgException | IOException e) {
@@ -197,4 +200,9 @@ Now you can optionally experiment a bit by making an error in the program, and p
 How to proceed?
 ---------------
 
-.. todo:: This part of the documentation has not been written yet.
+.. todo:: We are currently in the process of writing documentation, this section will be updated once we have more material.
+
+The following manuals describe parts of the Spoofax Core API:
+
+- :doc:`manual/service` - full list of available services in the Spoofax Core API
+- :doc:`manual/extend` - how to extend Spoofax Core

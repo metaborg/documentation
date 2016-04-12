@@ -47,6 +47,10 @@ export MAVEN_OPTS="-Xms512m -Xmx1024m -Xss16m -XX:MaxPermSize=512m"
 .. note:: ``-XX:MaxPermSize=512m`` is not required for Java 8, and even gives a warning when added.
 ```
 
+```eval_rst
+.. _using_metaborg_artifacts:
+```
+
 ## Using MetaBorg Maven artifacts
 
 MetaBorg's Maven artifacts are hosted on our artifact server: <http://artifacts.metaborg.org>. To use these artifacts, repositories have to be added to your Maven configuration. Repositories can be added to your local Maven settings file (which is recommended), or to a project's POM file.
