@@ -8,6 +8,7 @@ Core API Manual
    :maxdepth: 1
 
    architecture
+   design
    facade
    service
    unit

@@ -14,7 +14,7 @@ The following pages currently contain useful content:
 
 - Language Development
 
-  - :doc:`source/langdev/start`
+  - :doc:`Getting Started <source/langdev/start>`
   - Manual
 
     - :doc:`source/langdev/manual/env/intellij/index`
@@ -28,6 +28,7 @@ The following pages currently contain useful content:
 
 - Core API
 
+  - :doc:`Getting Started <source/core/start>`
   - :doc:`source/core/manual/service`
   - :doc:`source/core/manual/extend`
   - :doc:`source/core/api`

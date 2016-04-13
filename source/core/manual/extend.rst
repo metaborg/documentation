@@ -4,15 +4,148 @@
 Core Extensions
 ===============
 
-Spoofax Core can be extended by providing additional Guice Modules at startup.
+Spoofax Core can be extended by providing additional `Guice Modules <https://github.com/google/guice/wiki/Bindings#creating-bindings>`_ with extensions at startup.
 Additional modules can be hardcoded when creating a Spoofax facade object, or by specifying the module as a plugin.
 Both Spoofax and meta-Spoofax can be extended with additional modules.
 
-This manual describes how additional modules can be specified, and what the extension points in Spoofax are.
+This manual describes the extension points in Spoofax Core, and how additional modules can be specified.
+
+----------------
+Extension points
+----------------
+
+Extension points in Spoofax Core are essentially the `Guice multibindings <https://github.com/google/guice/wiki/Multibindings>`_ that are being used in Spoofax Core.
+There are 2 kinds of extension points; `Multibinder <http://google.github.io/guice/api-docs/latest/javadoc/com/google/inject/multibindings/Multibinder.html>`_ for a *Set* of implementations for a single interface, and `MapBinder <http://google.github.io/guice/api-docs/latest/javadoc/com/google/inject/multibindings/MapBinder.html>`_ for a *Map* of implementations for a single interface.
+Guice merges all multibindings from all modules together.
+
+.. note:: Extension points in Spoofax Core are not to be confused with Eclipse extension points, which are Eclipse-specific.
+
+To add a singleton implementation to a Multibinding for an interface, use the following code inside a module::
+
+  Multibinder
+    .newSetBinder(binder(), interface-class)
+    .addBinding()
+    .to(implementation-class)
+    .in(Singleton.class);
+
+For map bindings, use::
+
+  MapBinder
+    .newMapBinder(binder(), key-class, interface-class)
+    .addBinding(key)
+    .to(implementation-class)
+    .in(Singleton.class);
+
+These examples use `linked bindings <https://github.com/google/guice/wiki/LinkedBindings>`_ with a singleton scope, but you can use any Guice binding logic after the ``addBinding`` part.
+
+Some multibindings are annotated with an annotation, they are created by passing the annotation as a third parameter::
+
+  Multibinder.newSetBinder(binder(), interface-class, annotation)
+
+  MapBinder.newSetBinder(binder(), key-class, interface-class, annotation)
+
+We describe the extension points for each component in this section.
+These extension points can also be found in the Guice Modules of the Spoofax Core source code.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^
+MetaBorg extension points
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. describe:: Resource cleanup
+
+   Provides a means to clean up resources when the MetaBorg or Spoofax Core API is closed.
+
+   :signature: ``Multibinder<AutoCloseable>``
+   :interface: :java:ref:`AutoCloseable`
+
+.. describe:: Language cache cleanup
+
+   Provides a means to clean up cached language component or language implementation resources when a language component or language implementation is reloaded or removed.
+
+   :signature: ``Multibinder<ILanguageCache>``
+   :interface: :java:ref:`ILanguageCache`
+
+.. describe:: Context factory
+
+   Interface for creating :java:ref:`IContext` instances, linked to an identifier.
+   A language specification uses a specific context factory by specifying the context type in ESV.
+
+   :signature: ``MapBinder<String, IContextFactory>``
+   :interface: :java:ref:`IContextFactory`
+
+.. describe:: Context strategy
+
+   Interface for :java:ref:`IContext` creation/retrieval strategies, linked to an identifier.
+   A language specification uses a specific context strategy by specifying the context strategy in ESV.
+
+   :signature: ``MapBinder<String, IContextStrategy>``
+   :interface: :java:ref:`IContextStrategy`
+
+.. describe:: Language path provider
+
+   Provides source and include paths for languages.
+
+   :signature: ``Multibinder<ILanguagePathProvider>``
+   :interface: :java:ref:`ILanguagePathProvider`
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^
+Spoofax extension points
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. describe:: Parser
+
+   Parser implementation, linked to an identifier.
+   A language specification uses a specific parser by specifying the parser in ESV.
+   An implementation **must** implement :java:ref:`ISpoofaxParser` and be bound to **both** signatures listed below for correct operation.
+
+   :signature: ``MapBinder<String, IParser<ISpoofaxInputUnit, ISpoofaxParseUnit>>``
+   :signature: ``MapBinder<String, ISpoofaxParser>``
+   :interface: :java:ref:`IParser`
+   :interface: :java:ref:`ISpoofaxParser`
+
+.. describe:: Analyzer
+
+   Analyzer implementation, linked to an identifier.
+   A language specification uses a specific analyzer by specifying the analyzer in ESV.
+   An implementation **must** implement :java:ref:`ISpoofaxAnalyzer` and be bound to **both** signatures listed below for correct operation.
+
+   :signature: ``MapBinder<String, IAnalyzer<ISpoofaxParseUnit, ISpoofaxAnalyzeUnit, ISpoofaxAnalyzeUnitUpdate>>``
+   :signature: ``MapBinder<String, ISpoofaxAnalyzer>``
+   :interface: :java:ref:`IAnalyzer`
+   :interface: :java:ref:`ISpoofaxAnalyzer`
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+MetaBorg-meta extension points
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. describe:: Meta-resource cleanup
+
+   Provides a means to clean up resources when the MetaBorg-meta or Spoofax-meta Core API is closed.
+   Requires the ``Meta`` annotation class, for example::
+
+     Multibinder.newSetBinder(binder(), AutoCloseable.class, Meta.class)
+
+   :signature: ``Multibinder<AutoCloseable>``
+   :annotation: ``Meta.class``
+   :interface: :java:ref:`AutoCloseable`
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Spoofax-meta extension points
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. describe:: Build steps
+
+   Build step implementation which can be executed during language specification builds.
+
+   :signature: ``Multibinder<IBuildStep>``
+   :interface: :java:ref:`IBuildStep`
 
 -----------------------------
 Hardcoding additional modules
 -----------------------------
+
+Additional modules can be hardcoded when you control the application that you'd like to extend.
 
 To extend Spoofax with additional hardcoded modules, add them when creating a :java:ref:`Spoofax <org.metaborg.spoofax.core.Spoofax>` facade object::
 
@@ -27,6 +160,7 @@ Similarly, to extend meta-Spoofax, add modules to the meta-facade :java:ref:`Spo
 Plugin modules
 --------------
 
+When you do not control the application you'd like to extend, or if you'd like to extend **all** applications that use Spoofax Core, modules will need to be specified as plugins.
 Modules can be loaded as plugins through Java service providers for regular Java applications, and through Eclipse extensions for Eclipse plugins.
 
 ^^^^^^^^^^^^^^^^^^^^^
@@ -39,6 +173,7 @@ To register your module as a plugin, `register it as a service provider <https:/
 For example, if you would like to register the ``org.example.CustomModule`` and ``org.example.OtherCustomModule`` module:
 
 1. Create a class implementing :java:ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>`:
+
   ::
 
     public class org.example.ExtensionModulePlugin implements IServiceModulePlugin {
@@ -56,6 +191,7 @@ Whenever your JAR file is on the classpath together with Spoofax Core, Spoofax C
 Similarly, for additional meta-modules, register a service provider for the :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` class:
 
 1. Create a class implementing :java:ref:`IServiceMetaModulePlugin <org.metaborg.core.plugin.IServiceMetaModulePlugin>`:
+
   ::
 
     public class org.example.ExtensionMetaModulePlugin implements IServiceMetaModulePlugin {
@@ -90,12 +226,3 @@ For meta-modules, use the ``org.metaborg.spoofax.eclipse.meta.module`` extension
      <module class="org.example.CustomMetaModule" />
      <module class="org.example.OtherCustomMetaModule" />
    </extension>
-
-
-----------------
-Extension points
-----------------
-
-.. todo:: This part of the documentation has not been written yet.
-
-.. note:: Extension points in Spoofax Core are not to be confused with Eclipse extension points, which are Eclipse-specific.
