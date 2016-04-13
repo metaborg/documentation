@@ -375,6 +375,14 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
+# -- jasphinx ----------------------------------------------------------------------
+
+javadoc_url_map = {
+  'java': ('http://docs.oracle.com/javase/7/docs/api/', 'javadoc'),
+  'com.google.inject' : ('http://google.github.io/guice/api-docs/latest/javadoc/', 'javadoc'),
+  'org.apache.commons.vfs2' : ('https://commons.apache.org/proper/commons-vfs/apidocs/', 'javadoc')
+}
+
 # -- Lexers ------------------------------------------------------------------------
 
 import re
@@ -404,7 +412,7 @@ class StrategoLexer(RegexLexer):
   tokens = {
     'root': [
       (words(('module','imports','strategies','rules','where','with','signature','constructors','sorts','not','one',
-        'some','all','let','in','end','external','call','if','then','else','switch','case','otherwise','rec'), 
+        'some','all','let','in','end','external','call','if','then','else','switch','case','otherwise','rec'),
         suffix=r'\b'), Keyword),
       (r'(\+|\?|!)', Operator),
       (r'"[^"^\n]*"', Literal.String),

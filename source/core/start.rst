@@ -119,7 +119,7 @@ Loading a language
 
 Now we can load the NaBL language into Spoofax Core.
 Spoofax Core uses `Apache VFS <https://commons.apache.org/proper/commons-vfs/>`_ as a file system abstraction, to be able to interact with different file systems.
-This means we must first get a :java:ref:`FileObject <org.apache.commons.vfs2.FileObject>` (Apache VFS counterpart of :java:ref:`File <java.io.File>`) that points to the NaBL language file we downloaded earlier.
+This means we must first get a :java:ref:`~org.apache.commons.vfs2.FileObject` (Apache VFS counterpart of :java:ref:`~java.io.File`) that points to the NaBL language file we downloaded earlier.
 First get a URL to the NaBL language file which is on the classpath::
 
   URL nablUrl = Main.class.getClassLoader().getResource(
@@ -178,7 +178,7 @@ To parse a file, we must first create a :java:ref:`org.metaborg.spoofax.core.uni
   ISpoofaxInputUnit input = spoofax.unitService.inputUnit(nablFile, nablContents, nabl, null);
 
 The `res file system <https://commons.apache.org/proper/commons-vfs/filesystems.html#res>`_ can be used to resolve files on the classpath.
-The catch clause must also be extended with :java:ref:`java.io.IOException` to handle the case where the text for the NaBL file cannot be retrieved::
+The catch clause must also be extended with :java:ref:`~java.io.IOException` to handle the case where the text for the NaBL file cannot be retrieved::
 
   } catch(MetaborgException | IOException e) {
       e.printStackTrace();

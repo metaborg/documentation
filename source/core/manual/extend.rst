@@ -15,12 +15,12 @@ Extension points
 ----------------
 
 Extension points in Spoofax Core are essentially the `Guice multibindings <https://github.com/google/guice/wiki/Multibindings>`_ that are being used in Spoofax Core.
-There are 2 kinds of extension points; `Multibinder <http://google.github.io/guice/api-docs/latest/javadoc/com/google/inject/multibindings/Multibinder.html>`_ for a *Set* of implementations for a single interface, and `MapBinder <http://google.github.io/guice/api-docs/latest/javadoc/com/google/inject/multibindings/MapBinder.html>`_ for a *Map* of implementations for a single interface.
+There are 2 kinds of extension points; :java:ref:`~com.google.inject.multibindings.Multibinder` for a *Set* of implementations for a single interface, and :java:ref:`~com.google.inject.multibindings.MapBinder` for a *Map* of implementations for a single interface.
 Guice merges all multibindings from all modules together.
 
 .. note:: Extension points in Spoofax Core are not to be confused with Eclipse extension points, which are Eclipse-specific.
 
-To add a singleton implementation to a Multibinding for an interface, use the following code inside a module::
+To add a singleton implementation to a Multibinding for an interface, use the following code inside the configure method of an :java:ref:`~com.google.inject.AbstractModule`::
 
   Multibinder
     .newSetBinder(binder(), interface-class)
@@ -56,7 +56,7 @@ MetaBorg extension points
    Provides a means to clean up resources when the MetaBorg or Spoofax Core API is closed.
 
    :signature: ``Multibinder<AutoCloseable>``
-   :interface: :java:ref:`AutoCloseable`
+   :interface: :java:ref:`~java.lang.AutoCloseable`
 
 .. describe:: Language cache cleanup
 
@@ -128,7 +128,7 @@ MetaBorg-meta extension points
 
    :signature: ``Multibinder<AutoCloseable>``
    :annotation: ``Meta.class``
-   :interface: :java:ref:`AutoCloseable`
+   :interface: :java:ref:`~java.lang.AutoCloseable`
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Spoofax-meta extension points
