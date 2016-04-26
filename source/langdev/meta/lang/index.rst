@@ -13,5 +13,5 @@ Meta Languages Manual
    nabl
    ts
    nabl2
-   dynsem
+   DynSem <dynsem/index>
    spt
