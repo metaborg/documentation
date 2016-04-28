@@ -8,4 +8,5 @@ DynSem is a domain specific language for the concise specification of dynamic se
   :maxdepth: 1
 
   getting-started
+  reference
   support
