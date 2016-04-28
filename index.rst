@@ -29,6 +29,7 @@ The following pages currently contain useful content:
 - Core API
 
   - :doc:`Getting Started <source/core/start>`
+  - :doc:`source/core/manual/concepts`
   - :doc:`source/core/manual/service`
   - :doc:`source/core/manual/extend`
   - :doc:`source/core/api`

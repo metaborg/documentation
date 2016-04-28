@@ -54,11 +54,9 @@ This is JDK8 in the example.
 
 ## Project
 
-```eval_rst
-.. todo:: This part of the documentation has not been written yet.
-```
+Projects in Spoofax are used to host language specifications and programs of a language.
 
-end-user project
-language specification project
+An **end-user project** is a project that contains programs of languages, intended to be developed by an end-user of those languages.
 
-analysis context
+A **language specification project** (sometimes called a language project) is a project that contains a languages specification, which contain programs of meta-languages, intended to be developed by a language developer.
+A language specification project is a specialization of an end-user project.
