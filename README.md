@@ -1,8 +1,8 @@
 # Spoofax documentation
 
-This repository contains the Spoofax documentation, made with [Sphinx](http://www.sphinx-doc.org/en/stable/) in the [Read The Docs](https://docs.readthedocs.org/en/latest/index.html) style of documentation.
+This repository contains the Spoofax documentation, made with [Sphinx](http://www.sphinx-doc.org/en/stable/) in the [Read The Docs](https://docs.readthedocs.io/en/latest/index.html) style of documentation.
 
-This documentation is hosted at http://spoofax.readthedocs.org/.
+This documentation is hosted at http://spoofax.readthedocs.io/.
 When a commit to this repository is made, it will automatically [build and update](http://readthedocs.org/projects/spoofax/builds/) the documentation.
 
 ## Building
