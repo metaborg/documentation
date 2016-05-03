@@ -29,8 +29,6 @@ Modules
 Signature section
 -----------------
 
-The signatures section of a DynSem module provides definitions for program abstract syntax and for additional entities used in the specification of a language's dynamic semantics.
-
 .. describe:: signature
 
   The signatures section of a DynSem module provides definitions for program abstract syntax and for additional entities used in the specification of a language's dynamic semantics.
@@ -119,3 +117,18 @@ The signatures section of a DynSem module provides definitions for program abstr
               `arrows Exprs -default-> Values`
 
         This reduction arrow can be referred to with or without mentioning it's name.
+
+      native operators
+        These are natively defined (in Java) operators.
+        .. error:: Not described yet
+
+      native datatypes
+        These define datatypes implemented natively (in Java) which can be used inside DynSem specifications.
+        .. error:: Not described yet
+
+-------------
+Rules section
+-------------
+
+.. describe:: rules
+  The rules section of a DynSem module provides inductive definitions for reduction relations for program terms.
