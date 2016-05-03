@@ -100,8 +100,18 @@ To debug the JPS Spoofax build process, you need to execute the following comman
 
 or invoke the _IntelliJ Plugin (Debug JPS)_ run configuration (_not debug_) from IntelliJ.
 
-Then from the sandbox IntelliJ IDEA instance you start a build.
-IntelliJ will wait for a debugger to be attached to port 5005.
+Then from the sandbox IntelliJ IDEA instance you start a build. IntelliJ will wait for a debugger to be attached to port 5005.
 Attach a debugger, and the build will continue.
 From the Spoofax plugin's IntelliJ IDEA project, you can invoke the _JPS Plugin_ debug configuration to attach the
 debugger.
+
+### Logging
+To get debug logging in IntelliJ, locate the `bin/log.xml` file in the IntelliJ folder and add the following snippet in the `<log4j:configuration>` element, just above the `<root>` element:
+
+```
+<category name="#org.metaborg" additivity="true">
+  <priority value="DEBUG"/>
+  <appender-ref ref="CONSOLE-DEBUG"/>
+  <appender-ref ref="FILE"/>
+</category>
+```
