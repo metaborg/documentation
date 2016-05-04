@@ -234,7 +234,11 @@ Similarly to the addition of the *let* expression, extending with a heap structu
 
 ## Using meta-functions to create semantic libraries
 
+To keep reduction rules concise and simple it is useful to introduce layers of abstraction over common semantic operations. For example, in the case of *SIMPL* we can abstract away from much of the operations that depend on the variable environment and the heap. Instead of directly manipulating the heap and environment in the reduction rules of the *SIMPL* expressions one can define *meta-functions* to encapsulate heap and environment operations. The *meta-functions* can be reused in all places where access to the environment or heap is required.
 
+```eval_rst
+.. note:: *Meta-functions* are 2-in-1 auxiliary constructors and relation declaration used for library abstractions. They benefit from implicit propagation of semantic components just like regular reduction rules. See LanguageReference_ for details on how they are declared.
+```
 
 ## Running an interpreter for an object language
 
