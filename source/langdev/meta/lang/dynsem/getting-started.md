@@ -76,13 +76,10 @@ imports
 signature
   sorts
     V
-
   constructors
     NumV: Int -> V
-
   arrows
     Exp --> V
-
   variables
     v : V
 
@@ -109,7 +106,7 @@ The first rule specifies that literal terms such as `42` whose abstract syntax i
 In the rules above `parseI` and `addI` are native operators which we provide the functionality of parsing a string into an integer, and of adding two integers, respectively. We provide the signatures for these when we [Extend specifications with native operations](#extending-specifications-with-native-operations).
 
 ```eval_rst
-.. note:: Unlike with regular big-step style rules, premises in DynSem are ordered. The `Plus` rule above states that the left expression will be evaluated first and the right expression second.
+.. note:: Dissimilar to regular big-step style rules, premises in DynSem are ordered. The `Plus` rule above states that the left expression will be evaluated first and the right expression second.
 ```
 
 The rules for subtraction and multiplication proceed similarly:
@@ -139,21 +136,20 @@ In all three rules seen so far (`Plus`, `Minus`, `Times`) the reductions for the
 Specifying the reductions and term expectations implicitly allows rules to be written more concisely without creating ambiguities.
 
 ```eval_rst
-.. note:: Implicit reductions are applied in left-to-right order and so expand to the explicit form of the rules.
+.. note:: Implicit reductions are applied in left-to-right order and expand to the explicit form of the rules.
 ```
 
 ## Specifying context-sensitive language constructs
 
-We define *SIMPL* language constructs whose semantics depend on the evaluation context. First we extend the syntax definition of *SIMPL* with let expressions:
+We define *SIMPL* language constructs whose semantics depend on the evaluation context. First we extend the syntax definition of *SIMPL* with *let* expressions:
 
 ```sdf3
 context-free syntax
   Exp.Let = <let <ID> = <Exp> in <Exp>> {non-assoc}
-
   Exp.Var = <<ID>>
 ```
 
-This allows expressions to be written that bind and read variables. An example of a such a program is:
+This accepts expressions that bind and read variables. An example of a such a program is:
 
 ```
 let x = 40 in x + 2
@@ -170,27 +166,71 @@ rules
   Env e |- Let(x, e1, e2) --> v2
   where
     Env e |- e1 --> v1;
-    Env {x |--> v1} |- e2 --> v2.
+    Env {x |--> v1, e} |- e2 --> v2.
 
   Env e |- Var(x) --> e[x].
 ```
 
-The `signature` section defines an alias `Env` for an associative array. We use this associative array as the evaluation context for variables. This associative array will be pushed down in the evaluation of the tree. Looking at the first rule, it reduces `Let` terms to values by first evaluating the variable expression to a value, and then evaluating the body expression in the updated evaluation environment. The evaluation context `Env e` is passed into the reduction rules together with the `Let` expression to be reduced. The variable expression is evaluated in the same context.
+The `signature sort aliases` subsection defines `Env` as an alias for an associative array from `String` to `V`. We use this associative array as the evaluation context for variables - variable environment. The environment will be propagated downwards in the evaluation tree.
 
 
-Terms left of the `|-` symbol are treated in DynSem as read-only semantic components  
-
-
-
-hiding semantics
+Looking at the first rule, it reduces a `Let` term to a value by first reducing the variable expression in the surrounding environment and then reducing the body expression in the updated environment. The variable environment `Env e` is received into the reduction rule together with the `Let` expression to be reduced, and it is propagated downwards in the evaluation tree of the premises. Updates to the environment are not visible upwards in the evaluation tree. The second rule reduces `Var` expressions to the value associated with the variable name in the variable environment.
 
 ```eval_rst
-.. error:: TODO implicit propagation of the semantic components
+.. note:: Terms left of the **|-** symbol are called *read-only semantic components*.
 ```
 
-```eval_rst
-.. error:: not written
+Although we have extended *SIMPL* with context-sensitive constructs we do not have to modify the reduction rules which are context-independent. DynSem reduction rules do not need to explicitly propagate semantic components that they do not depend on.
+
+We illustrate the principle of implicit propagation by further extending *SIMPL* with mutable variable boxes:
+
+```sdf3
+context-free syntax
+  Exp.Box = <box(<Exp>)>
+  Exp.Unbox = <unbox(<Exp>)>
+  Exp.Setbox = <setbox(<Exp>, <Exp>)>
 ```
+
+This accepts programs that use mutable variables. The `Box` expression allocates a new box on the heap and puts the result of the expression in the box, evaluating to a box value. The `Unbox` expression reads the value inside the box provided by the argument expression. The `Setbox` expression puts the value of the second expression inside the box provided by the first expression. For example, a valid program could be:
+
+```
+let b = box(40)
+in setbox(b, unbox(b + 2))
+```
+
+We extend the DynSem specification with the following signature and reduction rules for box operations:
+
+```dynsem
+signature
+  constructors
+    BoxV: Int -> V
+  sort aliases
+    Heap = Map<Int, V>
+
+rules
+  Box(e) :: Heap h --> BoxV(addr) :: Heap {addr |--> v, h'}
+  where
+    e :: Heap h --> v :: Heap h';
+    fresh => addr.
+
+  Unbox(e) :: Heap h --> h'[addr] :: Heap h'
+  where
+    e :: Heap h --> BoxV(addr) :: Heap h'.
+
+  Setbox(box, e) :: Heap h --> v :: Heap {addr |--> v, h''}
+  where
+    box :: Heap h --> BoxV(addr) :: Heap h';
+    e :: Heap h' --> v :: Heap h''.
+```
+
+where `BoxV` is a new *SIMPL* value representing the address of a box in the heap `Heap`. The `Box` reduces to a `BoxV` value by reducing the subexpression to a value, obtaining a new unoccupied address using the **fresh** primitive. It extends the incoming `Heap` with a new entry for the evaluated expression at the new address. The `Unbox` rule reduces the subexpression to a box value and looks up the associated value in the `Heap`.
+
+```eval_rst
+.. note:: Terms to the right side of **::** symbol are called *read-write semantic components*. They are woven through the evaluation tree and updates to them are made visible upwards in the evaluation tree.
+```
+
+Similarly to the addition of the *let* expression, extending with a heap structure and mutable variables does not require changing the existing reduction rules. Rules do not have to explicitly mention (or handle) read-write components which they do not depend on. Tag [tags/let-and-boxes-verbose][4] contains the complete dynamic semantics specification for *SIMPL*.
+
 
 ## Running an interpreter for an object language
 
@@ -207,5 +247,6 @@ hiding semantics
 [1]: https://github.com/metaborg-cube/simpl
 [2]: linktoSDF3
 [3]: linktoLanguageReference
+[4]: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-verbose/simpl/trans/simpl.ds
 
 <!-- TODO -->

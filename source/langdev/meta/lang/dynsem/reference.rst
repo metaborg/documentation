@@ -106,7 +106,7 @@ Signature section
 
         Multiple relations with the same name may be declared as long as their input sorts are different. Relations cannot be distinguished by their output sort; it is invalid to define two relations with the same input sort, same name but different output sorts.
 
-        .. note:: It is valid to have multiple identical declarations.
+        .. note:: It is valid to have multiple identical arrow declarations.
 
         The name-part of the relation declaration may be omitted, such that:
 
@@ -132,3 +132,13 @@ Rules section
 
 .. describe:: rules
   The rules section of a DynSem module provides inductive definitions for reduction relations for program terms.
+
+~~~~~~~~~~~~~~~~~~~
+Semantic components
+~~~~~~~~~~~~~~~~~~~
+
+Bla bla bla bla bla bla bla.
+
+
+1. Implicti propagation of read-only semantic components
+2. Implicit propagation of read-write semantic components
