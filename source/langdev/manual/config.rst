@@ -4,7 +4,7 @@
 Configuration
 =============
 
-A language specification's configuration is specified in the :file:`metaborg.yaml` file at the root of the project.
+Configuration is specified in the :file:`metaborg.yaml` file at the root of the project.
 
 ------
 Format
@@ -15,9 +15,11 @@ YAML is indentation sensitive, be sure to properly indent nested elements with 2
 
 We use the `commons-configuration2 <https://commons.apache.org/proper/commons-configuration/index.html>`_ framework to process configuration, which supports variables, nesting, and lists.
 
+
 ^^^^^^^^^
 Variables
 ^^^^^^^^^
+
 
 Any existing configuration option can be used as a variable with the ``${var}`` syntax, for example::
 
@@ -71,7 +73,53 @@ results in the ``dependencies.compile`` option being set to a list with elements
 Options
 -------
 
-All supported configuration options for language specification projects are listed here.
+All supported configuration options for projects are listed here.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+End-user project configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+An end-user project is a project that contains programs of languages, intended to be developed by an end-user of those languages.
+The configuration for an end-user project specifies dependencies.
+
+
+.. describe:: dependencies
+
+   Compile and source dependencies to other language components, and dependencies to Java artifacts.
+
+   .. describe:: compile
+
+      List of compile dependencies to language components. A compile dependency to a language component indicates that this project uses files of that language, and as such its compiler should be invoked.
+
+      - Format: List of language component identifiers (see ``id`` option)
+      - Default: None
+      - Example::
+
+          dependencies:
+            compile:
+            - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
+
+   .. describe:: source
+
+      List of source dependencies to language components. A source dependency to a language component indicates that this project uses exported files of that language or library.
+
+      - Format: List of language component identifiers (see ``id`` option)
+      - Default: None
+      - Example::
+
+          dependencies:
+            source:
+            - org.metaborg:org.metaborg.meta.lib.analysis:${metaborgVersion}
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Language specification project configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A language specification projectis a project that contains a languages specification, which contain programs of meta-languages, intended to be developed by a language developer.
+It is a specialization of an end-user project, so all configuration options from end-user projects listed above, can also be used in language specification projects.
+
+
 The following configuration options are mandatory:
 
 .. describe:: id
@@ -87,7 +135,8 @@ The following configuration options are mandatory:
 
    - Example: ``name: SDF``
 
-The following configuration options are optional and revert to default values when not specified.
+
+The following configuration options are optional and revert to default values when not specified:
 
 .. describe:: metaborgVersion
 
@@ -108,34 +157,6 @@ The following configuration options are optional and revert to default values wh
        languageContributions:
        - name: Green-Marl
          id: com.oracle:greenmarl:1.5.0-SNAPSHOT
-
-.. describe:: dependencies
-
-   Compile and source dependencies to other language components.
-
-   .. describe:: compile
-
-      List of compile dependencies to language components. A compile dependency to a language component indicates that this language specification uses files of that meta-language, and as such its compiler should be invoked.
-
-      - Format: List of language component identifiers (see ``id`` option)
-      - Default: None
-      - Example::
-
-          dependencies:
-            compile:
-            - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
-
-   .. describe:: source
-
-      List of source dependencies to language components. A source dependency to a language component indicates that this language specification uses exported files of that meta-language or meta-library.
-
-      - Format: List of language component identifiers (see ``id`` option)
-      - Default: None
-      - Example::
-
-          dependencies:
-            source:
-            - org.metaborg:org.metaborg.meta.lib.analysis:${metaborgVersion}
 
 .. describe:: generates
 

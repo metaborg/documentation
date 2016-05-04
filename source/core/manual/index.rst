@@ -7,6 +7,7 @@ Core API Manual
 .. toctree::
    :maxdepth: 1
 
+   concepts
    architecture
    design
    facade
