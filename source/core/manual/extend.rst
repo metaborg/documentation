@@ -190,7 +190,7 @@ Whenever your JAR file is on the classpath together with Spoofax Core, Spoofax C
 
 Similarly, for additional meta-modules, register a service provider for the :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` class:
 
-1. Create a class implementing :java:ref:`IServiceMetaModulePlugin <org.metaborg.core.plugin.IServiceMetaModulePlugin>`:
+1. Create a class implementing :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>`:
 
   ::
 
@@ -226,3 +226,28 @@ For meta-modules, use the ``org.metaborg.spoofax.eclipse.meta.module`` extension
      <module class="org.example.CustomMetaModule" />
      <module class="org.example.OtherCustomMetaModule" />
    </extension>
+
+The ``CustomModule`` and ``CustomMetaModule`` classes in these examples must implement the :java:ref:`~com.google.inject.Module` class.
+
+
+^^^^^^^^^^^^^^^^^^^^^^^
+IntelliJ IDEA extension
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. highlight:: xml
+
+Java service providers are only supported when building a project using the JPS plugin. For the IDE, you need to depend on the IntelliJ plugin and provide an implementation for the ``org.metaborg.intellij.spoofaxPlugin`` extension point. For example::
+
+   <extensions defaultExtensionNs="org.metaborg.intellij">
+     <spoofaxPlugin implementation="org.example.CustomPlugin" />
+     <spoofaxPlugin implementation="org.example.OtherCustomPlugin" />
+   </extensions>
+
+For meta-modules, use the ``org.metaborg.intellij.spoofaxMetaPlugin`` extension point. For example::
+
+   <extensions defaultExtensionNs="org.metaborg.intellij">
+     <spoofaxMetaPlugin implementation="org.example.CustomMetaPlugin" />
+     <spoofaxMetaPlugin implementation="org.example.OtherCustomMetaPlugin" />
+   </extensions>
+
+The ``CustomPlugin`` and ``CustomMetaPlugin`` classes in these examples must implement the :java:ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>` and :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` interfaces respectively.
