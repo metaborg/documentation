@@ -9,11 +9,12 @@ This guide will get you started with DynSem to specify the dynamic semantics of 
 1. [Define your first semantics module](#define-your-first-module)
 2. [Specify semantics of context-free language constructs](#specifying-context-free-language-constructs)
 3. [Specify semantics of context-sensitive language constructs](#specifying-context-sensitive-language-constructs)
-4. [Run an interpreter for an object language](#running-an-interpreter-for-an-object-language)
-5. [Extend specifications with native operations](#extending-specifications-with-native-operations)
-6. [Writing to standard output and reading standard input](#writing-to-standard-output-and-reading-standard-input)
-7. [Interact with native data types](#interacting-with-native-data-types)
-8. [Write Java code that invokes the generated interpreter](#interacting-with-the-interpreter-from-java)
+4. [Use meta-functions to create semantic libraries](#)
+5. [Run an interpreter for an object language](#running-an-interpreter-for-an-object-language)
+6. [Extend specifications with native operations](#extending-specifications-with-native-operations)
+7. [Writing to standard output and reading standard input](#writing-to-standard-output-and-reading-standard-input)
+8. [Interact with native data types](#interacting-with-native-data-types)
+9. [Write Java code that invokes the generated interpreter](#interacting-with-the-interpreter-from-java)
 
 
 ### The *SIMPL* language as running example
@@ -230,6 +231,9 @@ where `BoxV` is a new *SIMPL* value representing the address of a box in the hea
 ```
 
 Similarly to the addition of the *let* expression, extending with a heap structure and mutable variables does not require changing the existing reduction rules. Rules do not have to explicitly mention (or handle) read-write components which they do not depend on. Tag [tags/let-and-boxes-verbose][4] contains the complete dynamic semantics specification for *SIMPL*.
+
+## Using meta-functions to create semantic libraries
+
 
 
 ## Running an interpreter for an object language

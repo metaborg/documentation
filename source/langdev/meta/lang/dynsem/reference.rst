@@ -137,8 +137,7 @@ Rules section
 Semantic components
 ~~~~~~~~~~~~~~~~~~~
 
-Bla bla bla bla bla bla bla.
 
 
-1. Implicti propagation of read-only semantic components
+1. Implicit propagation of read-only semantic components
 2. Implicit propagation of read-write semantic components
