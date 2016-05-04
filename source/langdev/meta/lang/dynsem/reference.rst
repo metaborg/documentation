@@ -1,5 +1,7 @@
 .. highlight:: dynsem
 
+.. _dynsemreference:
+
 ==================
 Language reference
 ==================
