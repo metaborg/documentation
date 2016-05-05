@@ -200,7 +200,6 @@ We illustrate the principle of implicit propagation by further extending *SIMPL*
 This accepts programs that use mutable variables. The ``Box`` expression allocates a new box on the heap and puts the result of the expression in the box, evaluating to a box value. The ``Unbox`` expression reads the value inside the box provided by the argument expression. The ``Setbox`` expression puts the value of the second expression inside the box provided by the first expression. For example, a valid program could be:
 
 .. code-block:: none
-  :linenos:
 
   let b = box(40) in setbox(b, unbox(b + 2))
 
@@ -376,6 +375,52 @@ Rules for boxes can be re-specified in a similar way to those for environments:
 
     Setbox(BoxV(addr), v) --> write(addr,v).
 
+The SIMPL repository at `tags/let-and-boxes-compact`_ contains the complete specification for *SIMPL* using *meta-functions*.
+
+-----------------------------------
+Growing the language with functions
+-----------------------------------
+
+We grow *SIMPL* with functions. Functions will be first class citizens *SIMPL* but will only take a single argument (will be unary). We define syntax for function declaration and application:
+
+.. code-block:: sdf3
+  :linenos:
+
+  context-free syntax
+    Exp.Fun = [[ID] -> [Exp]] {right}
+    Exp.App = <<Exp>(<Exp>)> {left}
+
+Now programs such as the following are syntactically correct in *SIMPL*:
+
+.. code-block:: none
+
+  let sum = a -> b -> a + b
+  in sum(40)(2)
+
+From an execution perspective we expect the above program to evaluate to ``NumV(42)`` by first applying function ``sum`` to number ``42`` which evaluates to a function which is applied to number ``2``. Functions are only associated to names via the *let*-expression, so annonymous functions literals are allowed. The  program below is equivalent to the program above:
+
+.. code-block:: none
+
+  (a -> b -> a + b)(40)(2)
+
+From a dynamic semantics point of view we add a new type of value - ``ClosV`` - which closes a function body over its declaration environment. A function application reduces the function expression to a ``ClosV`` and the application of the closure body to the argument:
+
+.. code-block:: dynsem
+  :linenos:
+
+  signature
+    constructors
+    ClosV: String * Exp * Env -> V
+
+  rules
+    E |- Fun(x, e) --> ClosV(x, e, E).
+
+    App(ClosV(x, e, E), v1) --> v2
+    where
+      E  |- bindVar(x, v1) --> E';
+      E' |- e --> v2.
+
+The full specification is kept at `tags/functions`_.
 
 
 ---------------------------------------------
@@ -401,3 +446,5 @@ Interacting with the interpreter from Java
 .. _GitHub SIMPL repository: https://github.com/MetaBorgCube/simpl
 .. _SDF3: ../sdf3.html
 .. _tags/let-and-boxes-verbose: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-verbose/simpl/trans/simpl.ds
+.. _tags/let-and-boxes-compact: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-compact/simpl/trans/simpl.ds
+.. _tags/functions: https://github.com/MetaBorgCube/simpl/blob/functions/simpl/trans/simpl.ds
