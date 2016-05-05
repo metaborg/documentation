@@ -240,9 +240,143 @@ Similarly to the addition of the *let*-expression, extending with a heap structu
 Using meta-functions to create semantic libraries
 -------------------------------------------------
 
-To keep reduction rules concise and simple it is useful to introduce layers of abstraction over common semantic operations. For example, in the case of *SIMPL* we can abstract away from much of the operations that depend on the variable environment and the heap. Instead of directly manipulating the heap and environment in the reduction rules of the *SIMPL* expressions one can define *meta-functions* to encapsulate heap and environment operations. The *meta-functions* can be reused in all places where access to the environment or heap is required.
+To keep reduction rules concise and simple it is useful to introduce layers of abstraction over common semantic operations. For example, in the case of *SIMPL* we can abstract away from much of the operations that depend on the variable environment and the heap. Instead of directly manipulating the heap and environment in the reduction rules of the *SIMPL* expressions one can define *meta-functions* to encapsulate heap and environment operations. The *meta-functions* introduced can be reused in all places where access to the environment or heap is required.
 
-.. note:: *Meta-functions* are 2-in-1 auxiliary constructors and relation declaration used for library abstractions. They benefit from implicit propagation of semantic components just like regular reduction rules. See :ref:`dynsemreference` for details on how they are declared.
+.. note:: *Meta-functions* declarations are 2-in-1 auxiliary constructors and relation declaration used for library abstractions. They benefit from implicit propagation of semantic components just like regular reduction rules. See :ref:`dynsemreference` for details on how they are declared.
+
+To create the abstractions we first define a module to hold the sort declaration for ``V`` and the variable scheme **v**:
+
+.. code-block:: dynsem
+  :linenos:
+
+  module trans/runtime/values
+
+  signature
+    sorts
+      V
+
+    variables
+      v : V
+
+These declarations can be imported in the rest of the specification. We define the environment meta-functions:
+
+.. code-block:: dynsem
+  :linenos:
+  :emphasize-lines: 14-15
+
+  module trans/environment
+
+  imports
+    trans/runtime/values
+
+  signature
+    sort aliases
+      Env = Map<String, V>
+
+    variables
+      E : Env
+
+    constructors
+      bindVar: String * V --> Env
+      readVar: String --> V
+
+  rules
+
+    E |- bindVar(x, v) --> {x |--> v, E}.
+
+    E |- readVar(x) --> E[x].
+
+And declare the ``bindVar`` and ``readVar`` *meta-functions* which update the environment with a new binding and read the associated value, respectively. Note in the highlighted declaration lines the ``-->`` arrow marking the constructor declaration as *meta-functions*. Similarly, define meta-functions for heap operations:
+
+.. code-block:: dynsem
+  :linenos:
+  :emphasize-lines: 14-16
+
+  module trans/runtime/store
+
+  imports
+    trans/runtime/values
+
+  signature
+    sort aliases
+      Heap = Map<Int, V>
+
+    variables
+      H : Heap
+
+    constructors
+      read: Int --> V
+      allocate: V --> Int
+      write: Int * V --> V
+
+  rules
+
+    read(addr) :: H --> H[addr].
+
+    allocate(v) --> addr
+    where
+      fresh => addr;
+      write(addr, v) --> _.
+
+    write(addr, v) :: H --> v :: Heap {addr |--> v, H}.
+
+And declare *meta-functions* ``allocate``, ``read``, ``write``, which create a box, read the contents of a box and update the contents of the box, respectively. Note that since the ``allocate`` rule does not access the ``Heap`` locally it can be left implicit. We can use the *meta-functions* to re-specify the semantics of the context-sensitive *SIMPL* constructs:
+
+.. code-block:: dynsem
+  :linenos:
+
+  rules
+    Let(x, v1, e2) --> v2
+    where
+      Env bindVar(x, v1) |- e2 --> v2.
+
+    Var(x) --> readVar(x).
+
+By using the semantic abstractions over the environment the rules become more concise and do not depend on specific implementations. Note that because the environment does not have to be explicitly propagated the rules can rely on *implicit reductions* (see :ref:`dynsemreference`). The rules above automatically expand to their fully explicated variants. During the expansion first the implicit reductions are lifted:
+
+.. code-block:: dynsem
+  :linenos:
+
+  rules
+    Let(x, v1, e2) --> v2
+    where
+      bindVar(x, v1) --> env';
+      Env env' |- e2 --> v2.
+
+    Var(x) --> v
+    where
+      readVar(x) --> v.
+
+Secondly the semantic components (read-only and read-write) are explicated:
+
+.. code-block:: dynsem
+  :linenos:
+
+  rules
+    Env env |- Let(x, v1, e2) --> v2
+    where
+      Env env |- bindVar(x, v1) --> env';
+      Env env' |- e2 --> v2.
+
+    Env env |- Var(x) --> v
+    where
+      Env env |- readVar(x) --> v.
+
+.. note:: The performance of derived interpreters is **not** adversely affected by the introduction and use of *meta-functions*.
+
+Rules for boxes can be re-specified in a similar way to those for environments:
+
+.. code-block:: dynsem
+  :linenos:
+
+  rules
+    Box(v) --> BoxV(allocate(v)).
+
+    Unbox(BoxV(addr)) --> read(addr).
+
+    Setbox(BoxV(addr), v) --> write(addr,v).
+
+
 
 ---------------------------------------------
 Running an interpreter for an object language
