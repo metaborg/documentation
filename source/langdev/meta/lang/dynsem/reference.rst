@@ -35,7 +35,9 @@ Signature section
       sorts
         Define sorts of program and value terms, separated by white space. For example:
 
-          `sorts Exprs Stmts`
+        .. code-block:: dynsem
+
+            sorts Exprs Stmts
 
         A number of sorts are built-in sorts in DynSem:
 
@@ -60,7 +62,10 @@ Signature section
       sort aliases
         Declare sort synonyms. Sort aliases are useful to define shorthands for composed sorts such as for Maps and Lists. For example:
 
-          `sort aliases Env = Map(String, Value)`
+        .. code-block:: dynsem
+
+          sort aliases
+            Env = Map(String, Value)
 
         declares `Env` as a sort alias for `Map(String, Value)`. Wherever the sort `Map(String, Value)` is used, the alias `Env` can be used instead.
 
@@ -69,7 +74,10 @@ Signature section
       variables
         Defines variable prefix schemes. Variable schemes take the form `ID = S` and express the expectation that all variables prefixed with ID are of the sort S. A variable is part of the scheme X if it's name begins with X and is either followed only by numbers and/or apostrophes, or is followed by _ followed by any valid identifier. For example given the scheme:
 
-          `variables v : Value`
+        .. code-block:: dynsem
+
+          variables
+            v : Value
 
         the following are valid variable names: **v1**, **v2**, **v'**, **v'''**, **v1'**, **v_foo**.
 
@@ -81,26 +89,38 @@ Signature section
           regular constructors
             Define regular constructors. Definitions take the form `NAME: {SORT "*"}* -> SORT`, where `NAME` is the name of the constructor, followed by the sorts of the children of the constructor, and where the last `SORT` is the sort of the constructor. Example:
 
-              `constructors Plus: Exprs * Exprs -> Exprs`
+            .. code-block:: dynsem
+
+              constructors
+                Plus: Exprs * Exprs -> Exprs
 
           implicit constructors
             Define unary constructors which can be implicitly constructed/deconstructed in pattern matches and term constructions. For example, the constructor:
 
-              `constructors OkV: V -> O {implicit}`
+            .. code-block:: dynsem
+
+              constructors
+                OkV: V -> O {implicit}
 
             declares the **OkV** unary constructor. In term constructions where a term of sort **O** is expected but a term *t* of sort **V** is provided, the constructor **OkV** is automatically constructed to surround term *t* to become `Ok(t)`. In pattern matches where a term of sort **O** is provided but a term of sort **V** is expected, a pattern match for the term **OkV** is automatically inserted.
 
           meta-functions
             Define constructors and implicitly define a reduction arrows for those constructors. Constructors defined in this way are not of a particular sort and therefore cannot be nested in other constructors. Meta-function constructors can be useful to encapsulate semantic definitions which can be reused. Syntactically the difference between regular constructor and meta-function declarations is in the double arrow at the end of the declaration:
 
-              `constructors concat: String * String --> String`
+            .. code-block:: dynsem
+
+              constructors
+                concat: String * String --> String
 
             which can be read as "define meta-function **concat** with two arguments of sort **String** which reduces to a term of sort **String**"
 
       arrows
         Declare named reduction relations. Relations in DynSem have to be declared before they are used to define reductions over them. Declarations take the form `S1 -ID-> S2`. Such a declaration makes the relation `-ID->` (where ID is the relation name) available to reduce terms of sort `S1` (input sort) to terms of sort `S2` (output sort). For example, the relation declaration:
 
-              `arrows Exprs -eval-> Values`
+          .. code-block:: dynsem
+
+              arrows
+                Exprs -eval-> Values
 
         declares relation **eval** to relate terms of the **Exprs** sort to terms of the **Values** sort.
 
@@ -110,11 +130,17 @@ Signature section
 
         The name-part of the relation declaration may be omitted, such that:
 
-              `arrows Exprs --> Values`
+        .. code-block:: dynsem
+
+              arrows
+                Exprs --> Values
 
         is a synonym for:
 
-              `arrows Exprs -default-> Values`
+        .. code-block:: dynsem
+
+            arrows
+              Exprs -default-> Values
 
         This reduction arrow can be referred to with or without mentioning it's name.
 
