@@ -423,9 +423,9 @@ From a dynamic semantics point of view we add a new type of value - ``ClosV`` - 
 
 The full specification is kept at `tags/functions`_.
 
----------------------------------------------
-Running an interpreter for an object language
----------------------------------------------
+---------------------------------------------------
+Preparing for an interpreter for an object language
+---------------------------------------------------
 
 To get a functioning interpreter derived from a DynSem specification we have to go through the following steps:
 
@@ -629,6 +629,95 @@ The *src/main/java* directory contains the *SIMPL*-specific generated term libra
 Extending specifications with native operations
 -----------------------------------------------
 
+Many times a semantics for a language will depend on operations whose specification/implementation will reside outside of the formal specification. In the case of the *SIMPL* language such operation are the conversion of a string representation of a number to a number literal, arithmetic operations, and the ``fresh`` address generator. More complex languages will require interactions with existent systems such as application of library functions. DynSem sepcifications can interact with specification-external (native) operations by means of ``native operators``. Although we have used native operators for arithmetic operations in *SIMPL*, this guide has so far ommitted their signature declaration:
+
+.. code-block:: dynsem
+  :linenos:
+
+  signature
+    native operators
+      parseI: String -> Int
+      addI: Int * Int -> Int
+      subI: Int * Int -> Int
+      mulI: Int * Int -> Int
+
+Line 3 declares the ``parseI`` native operator which takes one argument of type ``String`` and produces an ``Int``. For a detailed explanation of the ``native operators`` signature section consult the :ref:`dynsemreference`.
+
+We now provide an implementation for ``parseI`` and for ``addI``. Create the package *simpl.interpreter.natives*. This package has to be same as the one specified in the ``target.nativepackage`` property in `Configuring the interpreter generator`_. Inside the package create an abstract class named ```parseI_1``:
+
+.. code-block:: Java
+  :linenos:
+
+  package simpl.interpreter.natives;
+
+  import org.metaborg.meta.lang.dynsem.interpreter.nodes.building.TermBuild;
+
+  import com.oracle.truffle.api.dsl.NodeChild;
+  import com.oracle.truffle.api.dsl.Specialization;
+  import com.oracle.truffle.api.source.SourceSection;
+
+  @NodeChild(value = "stringbuild", type = TermBuild.class)
+  public abstract class parseI_1 extends TermBuild {
+
+  	public parseI_1(SourceSection source) {
+  		super(source);
+  	}
+
+  	@Specialization
+  	public int doInt(String s) {
+  		return Integer.parseInt(s);
+  	}
+
+  	public static TermBuild create(SourceSection source, TermBuild stringbuild) {
+  		return parseI_1NodeGen.create(source, stringbuild);
+  	}
+  }
+
+
+The class name ``parseI_1`` is required: it's the name of the constructor (*parseI*) followed by ``_`` and its arity (*1*). The class extends DynSem's ``TermBuild`` class which corresponds to DynSem fragments that construct terms. The ``@NodeChild`` annotation is a Truffle annotation declaring a child to our class, named ``stringbuild`` of the ``TermBuild`` type. This child corresponds to the sole argument of the ``parseI`` constructor.
+
+The class is abstract as we rely on Truffle's annotation processor to generate a concrete class named ``parseI_1NodeGen``. The method declaration at line 17 implements the business logic of the ``parseI`` node. It receives one argument corresponding to the evaluated ``stringbuild`` child and relies on the Java standard library to parse the string to an integer.
+
+The method declared on line 21 is a factory method instantiating the generated subclass of ``parseI_1``. The generated language specific library uses this method to obtain instances of the ``parseI_1`` term build.
+
+In a similar way create an implementation for the ``addI`` native operator with arity 2:
+
+.. code-block:: Java
+  :linenos:
+
+  package simpl.interpreter.natives;
+
+  import org.metaborg.meta.lang.dynsem.interpreter.nodes.building.TermBuild;
+
+  import com.oracle.truffle.api.dsl.NodeChild;
+  import com.oracle.truffle.api.dsl.NodeChildren;
+  import com.oracle.truffle.api.dsl.Specialization;
+  import com.oracle.truffle.api.source.SourceSection;
+
+  @NodeChildren({ @NodeChild(value = "left", type = TermBuild.class),
+  		@NodeChild(value = "right", type = TermBuild.class) })
+  public abstract class addI_2 extends TermBuild {
+
+    public addI_2(SourceSection source) {
+    	super(source);
+    }
+
+    @Specialization
+    public int doInt(int left, int right) {
+    	return left + right;
+    }
+
+    public static TermBuild create(SourceSection source, TermBuild left,
+    		TermBuild right) {
+    	return addI_2NodeGen.create(source, left, right);
+    }
+
+    }
+
+The significant difference to ``parseI`` is that ``addI`` has two children. Using the ``@NodeChildren`` Truffle annotation multiple child fields can be specified, in this case ``left`` and ``right``. Both of the children are expected to evaluate to integers, expectation made explicit in the method declaration of line 19. The factory method of line 23 receives two children arguments, reflecting the arity of the ``addI`` constructor. The *SIMPL* interpreter project should have no errors once all required native operators are defined.
+
+.. note:: The implementation for the other native operators used by *SIMPL* can be found in the repository at `tags/native-operators`_.
+
 .. -----------------------------------------------------
 .. Writing to standard output and reading standard input
 .. -----------------------------------------------------
@@ -647,4 +736,5 @@ Extending specifications with native operations
 .. _tags/let-and-boxes-compact: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-compact/simpl/trans/simpl.ds
 .. _tags/functions: https://github.com/MetaBorgCube/simpl/blob/functions/simpl/trans/simpl.ds
 .. _tags/bare-interpreter-project: https://github.com/MetaBorgCube/simpl/blob/bare-interpreter-project/
+.. _tags/native-operators: https://github.com/MetaBorgCube/simpl/blob/native-operators/
 .. _M2E-APT Eclipse plugin: https://marketplace.eclipse.org/content/m2e-apt
