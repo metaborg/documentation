@@ -735,6 +735,6 @@ The significant difference to ``parseI`` is that ``addI`` has two children. Usin
 .. _tags/let-and-boxes-verbose: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-verbose/simpl/trans/simpl.ds
 .. _tags/let-and-boxes-compact: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-compact/simpl/trans/simpl.ds
 .. _tags/functions: https://github.com/MetaBorgCube/simpl/blob/functions/simpl/trans/simpl.ds
-.. _tags/bare-interpreter-project: https://github.com/MetaBorgCube/simpl/blob/bare-interpreter-project/
-.. _tags/native-operators: https://github.com/MetaBorgCube/simpl/blob/native-operators/
+.. _tags/bare-interpreter-project: https://github.com/MetaBorgCube/simpl/tree/bare-interpreter-project/
+.. _tags/native-operators: https://github.com/MetaBorgCube/simpl/tree/native-operators
 .. _M2E-APT Eclipse plugin: https://marketplace.eclipse.org/content/m2e-apt
