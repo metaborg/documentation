@@ -432,7 +432,7 @@ To get a functioning interpreter derived from a DynSem specification we have to 
 1. `Creating a reduction entry-point`_
 2. `Creating an interpreter project`_
 3. `Configuring the interpreter generator`_
-4. Derive language-specific interpreter components
+4. `Deriving language-specific interpreter components`_
 
 .. _dynsem_gettingstarted_entrypoint:
 
@@ -583,7 +583,7 @@ You now have a barebones interpreter project. You can find the barebones *SIMPL*
 Configuring the interpreter generator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To configure the interpreter generator with the specifics of *SIMPL* a *dynsem.properties* file is required. This file should be located in the root directory of the *SIMPL* language project:
+To configure the interpreter generator with the specifics of *SIMPL* you will need a *dynsem.properties* file. This file should be located in the root directory of the *SIMPL* language project:
 
 .. code-block:: none
   :linenos:
@@ -607,6 +607,23 @@ To configure the interpreter generator with the specifics of *SIMPL* a *dynsem.p
 The first fragment (lines 1-3) configures the language name, a version identifier and the MIME-TYPE. Line 5 configures the path to the parse table for *SIMPL*, relative to the project, which will be copied into the interpreter project. Line 6 configures the start symbol used to parse *SIMPL* programs and it has to be one of the start symbols specified in the syntax definition. Lines 7-8 specify the constructor name and arity to be used as the entry point for the evaluation. It is expected that an ``-init->`` rule is declared for this term. For *SIMPL* the top-level term and rule are the ones defined in :ref:`dynsem_gettingstarted_entrypoint`.
 
 The third fragment (lines 10-15) sets parameters for the target interpreted project. ``target.project`` gives the path to the interpreter project. This must be a path relative to the language project, in this case to the *SIMPL* project. ``target.java`` is a path in the interpreter project relative to ``target.project``. For a detailed explanation of all valid properties consult the :ref:`dynsem_reference_configfile` reference.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Deriving language-specific interpreter components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. |Generate| raw:: html
+
+    <span class='menuselection'>Spoofax -> Semantics -> Generate interpretable</span>
+
+An interpreter derived from a DynSem specification relies on components that are generated from the specification. This generation project happens on-demand. Ensure that the *SIMPL* language project is built and that you have the *SIMPL* interpreter project open in the Eclipse workspace. Open the top-level DynSem specification file - *simpl.ds* - and select |Generate|. Observe that files have been placed into the *SIMPL* interpreter project:
+
+.. image:: img/project_generated_files.png
+  :width: 200pt
+
+The *src/main/java* directory contains the *SIMPL*-specific generated term library. The *src/main/resources* directory contains the *SIMPL* parse table (*parsetable.tbl*) and an interpretable form of the DynSem specification (*specification.aterm*).
+
+.. note:: At this stage it is normal that the project contains Java errors about the missing *simpl.interpreter.natives* package. We will populate this package with native operations (`Extending specifications with native operations`_). If other errors are reported make sure you have enabled annotation processing in Eclipse (`Creating an interpreter project`_).
 
 -----------------------------------------------
 Extending specifications with native operations
