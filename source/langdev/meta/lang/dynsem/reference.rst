@@ -143,3 +143,9 @@ Semantic components
 
 1. Implicit propagation of read-only semantic components
 2. Implicit propagation of read-write semantic components
+
+.. _dynsem_reference_configfile:
+
+------------------
+Configuration file
+------------------

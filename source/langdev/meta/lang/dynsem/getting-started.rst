@@ -10,13 +10,14 @@ This guide will get you started with DynSem to specify the dynamic semantics of 
 4. `Using meta-functions to create semantic libraries`_
 5. `Running an interpreter for an object language`_
 6. `Extending specifications with native operations`_
-7. `Writing to standard output and reading standard input`_
-8. `Interacting with native data types`_
-9. `Interacting with the interpreter from Java`_
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. 7. `Writing to standard output and reading standard input`_
+.. 8. `Interacting with native data types`_
+.. 9. `Interacting with the interpreter from Java`_
+
+---------------------------------------
 The *SIMPL* language as running example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 
 This guide is centered around a very simple language we call *SIMPL*. The *SIMPL* code is maintained in it's own `GitHub SIMPL repository`_. We start with a basic definition (in `SDF3`_) of concrete syntax which covers arithmetic expressions:
 
@@ -422,29 +423,211 @@ From a dynamic semantics point of view we add a new type of value - ``ClosV`` - 
 
 The full specification is kept at `tags/functions`_.
 
-
 ---------------------------------------------
 Running an interpreter for an object language
 ---------------------------------------------
+
+To get a functioning interpreter derived from a DynSem specification we have to go through the following steps:
+
+1. `Creating a reduction entry-point`_
+2. `Creating an interpreter project`_
+3. `Configuring the interpreter generator`_
+4. Derive language-specific interpreter components
+
+.. _dynsem_gettingstarted_entrypoint:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating a reduction entry-point
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The *SIMPL* interpreter must have a clearly defined entry point. The entry point is a reduction rule over a relation named ``-init->``. The relation named ``-init->`` does not consume semantic components and by default is the relation invoked by the interpreter at startup. First we extend the syntax definition with a constructor for the top-level of a program:
+
+.. code-block:: sdf3
+  :linenos:
+
+  context-free start-symbols
+    Prog
+
+  context-free syntax
+    Prog.Program = Exp
+
+Term of sort ``Prog`` are top-level terms in *SIMPL* and reduction of a program should start at the only one possible - ``Program``.
+
+.. code-block:: dynsem
+  :linenos:
+
+  signature
+    arrows
+      Prog -init-> V
+
+  rules
+    Program(e) -init-> v
+    where
+      Env {} |- e :: Heap {} --> v :: Heap _.
+
+
+We extend the DynSem specification with a declaration of the arrow ``-init->`` reducing terms of sort ``Prog`` to a value. ``Program`` is the only term of sort ``Prog`` and we specify its reduction to value. This reduction rule introduces initial values for the variable environment ``Env`` and for the heap ``Heap``.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating an interpreter project
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. |New Project| raw:: html
+
+   <span class='menuselection'>File -> New -> Project</span>
+
+.. |New Maven Project| raw:: html
+
+  <span class='menuselection'>Maven -> Maven project</span>
+
+.. |Next| raw:: html
+
+  <span class='guilabel'>Next</span>
+
+.. |Finish| raw:: html
+
+    <span class='guilabel'>Finish</span>
+
+.. |SimpleProject| raw:: html
+
+  <span class='guilabel'>Create simple project (skip archetype selection)</span>
+
+Interpreters must be managed as separate Java projects. Create a new Maven Java project by selecting |New Project|. In the new project dialog select |New Maven Project| and press |Next|. In the new project dialog enable |SimpleProject| and press |Next|.
+
+.. image:: img/new_maven_project_1.png
+
+In the second dialog enter a group and an artifact id and press |Finish|.
+
+.. image:: img/new_maven_project_2.png
+
+DynSem derived interpreters require Java 1.8 and have a number of dependencies: DynSem interpreter, Spoofax terms and Oracle Truffle. Specify this  using Maven to obtain a *pom.xml* similar to the following:
+
+.. code-block:: xml
+  :linenos:
+
+  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>org.metaborg</groupId>
+  	<artifactId>simpl.interpreter</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<build>
+  		<plugins>
+  			<plugin>
+  				<artifactId>maven-compiler-plugin</artifactId>
+  				<version>3.1</version>
+  				<configuration>
+  					<source>1.8</source>
+  					<target>1.8</target>
+  				</configuration>
+  			</plugin>
+  		</plugins>
+  	</build>
+  	<dependencies>
+  		<dependency>
+  			<groupId>org.metaborg</groupId>
+  			<artifactId>org.metaborg.meta.interpreter.framework</artifactId>
+  			<version>2.0.0-SNAPSHOT</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.metaborg</groupId>
+  			<artifactId>org.metaborg.meta.lang.dynsem.interpreter</artifactId>
+  			<version>2.0.0-SNAPSHOT</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.oracle.truffle</groupId>
+  			<artifactId>truffle-api</artifactId>
+  			<version>0.11</version>
+  			<type>jar</type>
+  		</dependency>
+  		<dependency>
+  			<groupId>com.oracle.truffle</groupId>
+  			<artifactId>truffle-dsl-processor</artifactId>
+  			<version>0.11</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.metaborg</groupId>
+  			<artifactId>org.spoofax.terms</artifactId>
+  			<version>2.0.0-SNAPSHOT</version>
+  		</dependency>
+  	</dependencies>
+  </project>
+
+.. |AnnoProcProp| raw:: html
+
+    <span class='menuselection'>Properties -> Maven -> Annotation Processing</span>
+
+.. |EnableAnnoProc| raw:: html
+
+    <span class='menuselection'>Enable project specific settings</span>
+
+.. |OK| raw:: html
+
+    <span class='menuselection'>Ok</span>
+
+The language specific term library that will be generated from a DynSem specification relies on the Oracle Truffle annotation processor. To enable automatic annotation processing in Eclipse for the interpreter project first right click on the project and select |AnnoProcProp|. On the right hand side dialog enable |EnableAnnoProc| and press |OK|:
+
+.. image:: img/maven_anno_processing.png
+
+.. warning:: If the entry |AnnoProcProp| is not available it means you propbably do not have the `M2E-APT Eclipse plugin`_ installed. Install it from the Eclipse Marketplace and try again.
+
+.. |Import SIMPL| raw:: html
+
+   <span class='menuselection'>File -> Import -> Maven -> Existing Maven Projects</span>
+
+You now have a barebones interpreter project. You can find the barebones *SIMPL* interpreter project at `tags/bare-interpreter-project`_.
+
+.. note:: You can import the *SIMPL* interpreter project from the `GitHub SIMPL repository`_ into the workspace by selecting |Import SIMPL|. The imported project already specifies all required dependencies.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configuring the interpreter generator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To configure the interpreter generator with the specifics of *SIMPL* a *dynsem.properties* file is required. This file should be located in the root directory of the *SIMPL* language project:
+
+.. code-block:: none
+  :linenos:
+
+  source.langname = simpl
+  source.version = 0.1
+  source.mimetype = application/x-simpl
+
+  source.table = /target/metaborg/sdf.tbl
+  source.startsymbol = Exp
+  source.initconstructor.name = Program
+  source.initconstructor.arity = 1
+
+  target.project = ../simpl.interpreter/
+  target.java = src/main/java/
+  target.package = simpl.interpreter.generated
+  target.specterm = src/main/resources/specification.aterm
+  target.table = src/main/resources/parsetable.tbl
+  target.nativepackage = simpl.interpreter.natives
+
+The first fragment (lines 1-3) configures the language name, a version identifier and the MIME-TYPE. Line 5 configures the path to the parse table for *SIMPL*, relative to the project, which will be copied into the interpreter project. Line 6 configures the start symbol used to parse *SIMPL* programs and it has to be one of the start symbols specified in the syntax definition. Lines 7-8 specify the constructor name and arity to be used as the entry point for the evaluation. It is expected that an ``-init->`` rule is declared for this term. For *SIMPL* the top-level term and rule are the ones defined in :ref:`dynsem_gettingstarted_entrypoint`.
+
+The third fragment (lines 10-15) sets parameters for the target interpreted project. ``target.project`` gives the path to the interpreter project. This must be a path relative to the language project, in this case to the *SIMPL* project. ``target.java`` is a path in the interpreter project relative to ``target.project``. For a detailed explanation of all valid properties consult the :ref:`dynsem_reference_configfile` reference.
 
 -----------------------------------------------
 Extending specifications with native operations
 -----------------------------------------------
 
------------------------------------------------------
-Writing to standard output and reading standard input
------------------------------------------------------
-
-----------------------------------
-Interacting with native data types
-----------------------------------
-
-------------------------------------------
-Interacting with the interpreter from Java
-------------------------------------------
+.. -----------------------------------------------------
+.. Writing to standard output and reading standard input
+.. -----------------------------------------------------
+..
+.. ----------------------------------
+.. Interacting with native data types
+.. ----------------------------------
+..
+.. ------------------------------------------
+.. Interacting with the interpreter from Java
+.. ------------------------------------------
 
 .. _GitHub SIMPL repository: https://github.com/MetaBorgCube/simpl
 .. _SDF3: ../sdf3.html
 .. _tags/let-and-boxes-verbose: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-verbose/simpl/trans/simpl.ds
 .. _tags/let-and-boxes-compact: https://github.com/MetaBorgCube/simpl/blob/let-and-boxes-compact/simpl/trans/simpl.ds
 .. _tags/functions: https://github.com/MetaBorgCube/simpl/blob/functions/simpl/trans/simpl.ds
+.. _tags/bare-interpreter-project: https://github.com/MetaBorgCube/simpl/blob/bare-interpreter-project/
+.. _M2E-APT Eclipse plugin: https://marketplace.eclipse.org/content/m2e-apt
