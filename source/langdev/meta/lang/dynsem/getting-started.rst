@@ -8,8 +8,9 @@ This guide will get you started with DynSem to specify the dynamic semantics of 
 2. `Specifying context-free language constructs`_
 3. `Specifying context-sensitive language constructs`_
 4. `Using meta-functions to create semantic libraries`_
-5. `Running an interpreter for an object language`_
+5. `Preparing an interpreter for an object language`_
 6. `Extending specifications with native operations`_
+7. `Evaluating an object language program in an interpreter`_
 
 .. 7. `Writing to standard output and reading standard input`_
 .. 8. `Interacting with native data types`_
@@ -423,9 +424,9 @@ From a dynamic semantics point of view we add a new type of value - ``ClosV`` - 
 
 The full specification is kept at `tags/functions`_.
 
----------------------------------------------------
-Preparing for an interpreter for an object language
----------------------------------------------------
+-----------------------------------------------
+Preparing an interpreter for an object language
+-----------------------------------------------
 
 To get a functioning interpreter derived from a DynSem specification we have to go through the following steps:
 
@@ -593,7 +594,7 @@ To configure the interpreter generator with the specifics of *SIMPL* you will ne
   source.mimetype = application/x-simpl
 
   source.table = /target/metaborg/sdf.tbl
-  source.startsymbol = Exp
+  source.startsymbol = Prog
   source.initconstructor.name = Program
   source.initconstructor.arity = 1
 
@@ -718,6 +719,48 @@ The significant difference to ``parseI`` is that ``addI`` has two children. Usin
 
 .. note:: The implementation for the other native operators used by *SIMPL* can be found in the repository at `tags/native-operators`_.
 
+-------------------------------------------------------
+Evaluating an object language program in an interpreter
+-------------------------------------------------------
+
+After following through the previous steps the *SIMPL* interpreter is ready to evaluate programs. Create a simple program and save it as *simple/examples/ex1.smpl*:
+
+.. code-block:: none
+
+  let sum = a -> b -> a + b
+  in sum(40)(2)
+
+.. |Run Configurations| raw:: html
+
+    <span class='menuselection'>Run -> Run Configurations...</span>
+
+.. |Java Application| raw:: html
+
+    <span class='menuselection'>Java Application</span>
+
+
+Now that a program exists create a new Java Application Launch configuration by selecting |Run Configurations|, select |Java Application| in the left hand side pane and press new :ref:new button. In the project field browse for the *simpl.interpreter* project and for the main class browse for the *simplLanguage* generated class. The *Main* tab of the new run configuration should look like this:
+
+.. image:: img/launch_config_main.png
+
+Switch to the *Arguments* tab and enter the relative or absolute path to the program we create above, for example *../simpl/examples/ex1.smpl*. The tab should like this:
+
+.. image:: img/launch_config_arguments.png
+
+
+.. |Apply| raw:: html
+
+    <span class='menuselection'>Apply</span>
+
+
+.. |Run| raw:: html
+
+    <span class='menuselection'>Run</span>
+
+Press |Apply| and |Run|. Observe the result of evaluating the program in the Console view.
+
+.. note:: The GitHub tag `tags/running-interpreter`_ marks the *SIMPL* codebase with the running interpreter and contains a launch configuration. For testing purposes the GitHub tag `tags/running-interpreter-generated-code`_ also contains the generated *SIMPL*-specific code.
+
 .. -----------------------------------------------------
 .. Writing to standard output and reading standard input
 .. -----------------------------------------------------
@@ -737,4 +780,6 @@ The significant difference to ``parseI`` is that ``addI`` has two children. Usin
 .. _tags/functions: https://github.com/MetaBorgCube/simpl/blob/functions/simpl/trans/simpl.ds
 .. _tags/bare-interpreter-project: https://github.com/MetaBorgCube/simpl/tree/bare-interpreter-project/
 .. _tags/native-operators: https://github.com/MetaBorgCube/simpl/tree/native-operators
+.. _tags/running-interpreter: https://github.com/MetaBorgCube/simpl/tree/running-interpreter
+.. _tags/running-interpreter-generated-code: https://github.com/MetaBorgCube/simpl/tree/running-interpreter-generated-code
 .. _M2E-APT Eclipse plugin: https://marketplace.eclipse.org/content/m2e-apt
