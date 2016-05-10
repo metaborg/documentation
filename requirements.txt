@@ -4,4 +4,4 @@ recommonmark>=0.4.0
 sphinx_rtd_theme>=0.1.9
 pygments>=2.1.3
 javasphinx>=0.9.13
-git+https://github.com/metaborg/metaborg-pygments.git@dynsem-lexer#egg=metaborg-pygments
+git+https://github.com/metaborg/metaborg-pygments.git@master#egg=metaborg-pygments
