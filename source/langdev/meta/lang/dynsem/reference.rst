@@ -12,20 +12,17 @@ This page is a syntax-oriented language reference for DynSem.
 Modules
 -----------------
 
+  .. todo:: Not written yet.
 
 .. describe:: module
 
       module
-        .. error:: Not described yet
 
       imports
-        .. error:: Not described yet
 
       signature
-        .. error:: Not described yet
 
       rules
-        .. error:: Not described yet
 
 -----------------
 Signature section
@@ -43,15 +40,16 @@ Signature section
         A number of sorts are built-in sorts in DynSem:
 
           String
-            for strings as values or program terms
+            strings as values or program terms
 
           Int
-            for integers
+            integers.
 
-            .. note:: there is no implicit assumption regarding range of values
+          Float
+            decimals
 
           Bool
-            for boolean terms. Literals of sort Bool are `true` and `false`
+            booleans. Literals of sort Bool are `true` and `false`
 
           List(S)
             for lists of some sort `S`. `S` can be any sort
@@ -135,14 +133,7 @@ Rules section
 .. describe:: rules
   The rules section of a DynSem module provides inductive definitions for reduction relations for program terms.
 
-~~~~~~~~~~~~~~~~~~~
-Semantic components
-~~~~~~~~~~~~~~~~~~~
-
-
-
-1. Implicit propagation of read-only semantic components
-2. Implicit propagation of read-write semantic components
+.. todo:: Not written yet.
 
 .. _dynsem_reference_configfile:
 
