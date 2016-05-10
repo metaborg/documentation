@@ -157,6 +157,7 @@ Rules section
 -------------
 
 .. describe:: rules
+
   The rules section of a DynSem module provides inductive definitions for reduction relations for program terms.
 
 .. todo:: Not written yet.
