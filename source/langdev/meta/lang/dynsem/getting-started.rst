@@ -26,16 +26,16 @@ This guide is centered around a very simple language we call *SIMPL*. The *SIMPL
   :linenos:
 
   context-free start-symbols
-    Exps
+    Exp
 
   context-free syntax
-    Exps.Lit   = <<INT>>
-    Exps.Plus  = <<Exps> + <Exps>> {left}
-    Exps.Minus = <<Exps> - <Exps>> {left}
-    Exps.Times = <<Exps> * <Exps>> {left}
-    Exps = <(<Exps>)> {bracket}
+    Exp.Lit   = <<INT>>
+    Exp.Plus  = <<Exp> + <Exp>> {left}
+    Exp.Minus = <<Exp> - <Exp>> {left}
+    Exp.Times = <<Exp> * <Exp>> {left}
+    Exp = <(<Exp>)> {bracket}
 
-Note that terms of the sort `Exps` are start symbols for *SIMPL* programs.
+Note that terms of the sort ``Exp`` are start symbols for *SIMPL* programs.
 
 ---------------------------------
 Defining your first DynSem module
@@ -110,7 +110,7 @@ We specify reduction rules for *SIMPL* constructs that do not depend on the eval
 
 The first rule specifies that literal terms such as ``42`` whose abstract syntax is of the form ``Lit("42")`` evaluate to ``NumV`` terms. The second rule specifies the semantics of the addition expressions of the form ``Plus(e1, e2)`` inductively on the default reduction relation. First the expression **e1** is reduced and the expectation is that it reduces to a ``NumV`` term. Variable **i1** is bound to the integer value surrounded by the resulting ``NumV`` term. This is captured in the first premise of the reduction rule. Similarly, the reduction of the right expression of the addition is captured in the second premise. The conclusion of the rule composes the two integers to a ``NumV`` term.
 
-In the rules above, **parseI** and **addI** are native operators which we provide the functionality of parsing a string into an integer, and of adding two integers, respectively. We provide the signatures for these when we look at `Extending specifications with native operations`_.
+In the rules above, ``parseI`` and ``addI`` are native operators which we provide the functionality of parsing a string into an integer, and of adding two integers, respectively. We provide the signatures for these when we look at `Extending specifications with native operations`_.
 
 .. note:: Dissimilar to regular big-step style rules, premises in DynSem are ordered. The ``Plus`` rule above states that the left expression will be evaluated first and the right expression second.
 
@@ -231,7 +231,7 @@ We extend the DynSem specification with the following signature and reduction ru
       box :: Heap h --> BoxV(addr) :: Heap h';
       e :: Heap h' --> v :: Heap h''.
 
-where ``BoxV`` is a new *SIMPL* value representing the address of a box in the heap ``Heap``. The ``Box`` reduces to a ``BoxV`` value by reducing the subexpression to a value, obtaining a new unoccupied address using the **fresh** primitive. It extends the incoming ``Heap`` with a new entry for the evaluated expression at the new address. The ``Unbox`` rule reduces the subexpression to a box value and looks up the associated value in the ``Heap``.
+where ``BoxV`` is a new *SIMPL* value representing the address of a box in the heap ``Heap``. The ``Box`` reduces to a ``BoxV`` value by reducing the subexpression to a value, obtaining a new unoccupied address using the ``fresh`` primitive. It extends the incoming ``Heap`` with a new entry for the evaluated expression at the new address. The ``Unbox`` rule reduces the subexpression to a box value and looks up the associated value in the ``Heap``.
 
 .. note:: Terms to the right side of ``::`` symbol are called *read-write semantic components*. They are woven through the evaluation tree and updates to them are made visible upwards in the evaluation tree.
 
@@ -258,6 +258,8 @@ To create the abstractions we first define a module to hold the sort declaration
 
     variables
       v : V
+
+.. note:: Read about *variable schemes* in the :ref:`dynsemreference_variables`.
 
 These declarations can be imported in the rest of the specification. We define the environment meta-functions:
 
@@ -389,7 +391,7 @@ We grow *SIMPL* with functions. Functions will be first class citizens *SIMPL* b
   :linenos:
 
   context-free syntax
-    Exp.Fun = [[ID] -> [Exp]] {right}
+    Exp.Fun = [[ID] -> [Exp]]
     Exp.App = <<Exp>(<Exp>)> {left}
 
 Now programs such as the following are syntactically correct in *SIMPL*:
@@ -399,7 +401,7 @@ Now programs such as the following are syntactically correct in *SIMPL*:
   let sum = a -> b -> a + b
   in sum(40)(2)
 
-From an execution perspective we expect the above program to evaluate to ``NumV(42)`` by first applying function ``sum`` to number ``42`` which evaluates to a function which is applied to number ``2``. Functions are only associated to names via the *let*-expression, so annonymous functions literals are allowed. The  program below is equivalent to the program above:
+From an execution perspective we expect the above program to evaluate to ``NumV(42)`` by first applying function ``sum`` to number ``40`` which evaluates to a function which is applied to number ``2``. Functions are only associated to names via the *let*-expression, so annonymous functions literals are allowed. The  program below is equivalent to the program above:
 
 .. code-block:: none
 
