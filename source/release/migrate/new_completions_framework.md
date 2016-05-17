@@ -16,8 +16,9 @@ To migrate old projects it is necessary to:
 - add the following imports to the main Stratego file:
 	-  `completion/<LanguageName>-cp`. This imports the stratego files generated from the SDF3 grammar.
 	- `runtime/completion/-`. This imports the completion framework, part of the runtime-libraries.
-- add the following strategy to the trans/pp.str file: 
+- add the following strategies to the trans/pp.str file: 
 	- `pp-completion = pp-partial-<LanguageName>-string`
+	- `parenthesize-completion = parenthesize-<LanguageName>`
 - add the following import to `<LanguageName>-Colorer.esv`:
     - `completion/colorer/<LanguageName>-cc-esv`. This import the editor files responsible for coloring the explicit placeholders.
 
