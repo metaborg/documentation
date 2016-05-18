@@ -7,10 +7,11 @@ This guide will get you started with DynSem to specify the dynamic semantics of 
 1. `Defining your first DynSem module`_
 2. `Specifying context-free language constructs`_
 3. `Specifying context-sensitive language constructs`_
-4. `Using meta-functions to create semantic libraries`_
-5. `Preparing an interpreter for an object language`_
-6. `Extending specifications with native operations`_
-7. `Evaluating an object language program in an interpreter`_
+4. `Specifying semantics for conditional language constructs`_
+5. `Using meta-functions to create semantic libraries`_
+6. `Preparing an interpreter for an object language`_
+7. `Extending specifications with native operations`_
+8. `Evaluating an object language program in an interpreter`_
 
 .. 7. `Writing to standard output and reading standard input`_
 .. 8. `Interacting with native data types`_
@@ -236,6 +237,43 @@ where ``BoxV`` is a new *SIMPL* value representing the address of a box in the h
 .. note:: Terms to the right side of ``::`` symbol are called *read-write semantic components*. They are woven through the evaluation tree and updates to them are made visible upwards in the evaluation tree.
 
 Similarly to the addition of the *let*-expression, extending with a heap structure and mutable variables does not require changing the existing reduction rules. Rules do not have to explicitly mention (or handle) read-write components which they do not depend on. The SIMPL repository at `tags/let-and-boxes-verbose`_ contains the complete dynamic semantics specification for *SIMPL*.
+
+--------------------------------------------------------
+Specifying semantics for conditional language constructs
+--------------------------------------------------------
+
+We illustrate how to specify the semantics of a conditional language construct by introducing an ``ifz`` expression in *SIMPL*. Extend the syntax definition of *SIMPL* with the following:
+
+.. code-block:: sdf3
+  :linenos:
+
+  context-free syntax
+    Exp.Ifz = <ifz <Exp> then <Exp> else <Exp>>
+
+The ``ifz`` expression executes the ``then`` expression if the condition expression evaluates to ``0``, or executes the ``else`` expression otherwise. An example of a valid *SIMPL* program is:
+
+.. code-block:: none
+  :linenos:
+
+  let iszero = a -> ifz(a) then 1 else 0
+  in iszero(42)
+
+We extend the semantics with the following DynSem rule:
+
+.. code-block:: dynsem
+  :linenos:
+
+  rules
+    Ifz(NumV(ci), e1, e2) --> v
+    where
+      case ci of {
+        0 =>
+          e1 --> v
+        otherwise =>
+          e2 --> v
+      }.
+
+The condition expression is first evaluated to a ``NumV``. Using the case pattern matching premise (:ref:`dynsemreference`) the two cases of interest are specified.
 
 -------------------------------------------------
 Using meta-functions to create semantic libraries

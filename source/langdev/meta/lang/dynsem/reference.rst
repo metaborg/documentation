@@ -158,9 +158,156 @@ Rules section
 
 .. describe:: rules
 
-  The rules section of a DynSem module provides inductive definitions for reduction relations for program terms.
+  The rules section of a DynSem module is used to specify inductive definitions for reduction relations of program terms. A rule follows the following scheme:
 
-.. todo:: Not written yet.
+  .. code-block:: dynsem
+
+    RO* |- PAT :: RW-IN* --> T :: RW-OUT*
+    where
+      PREM+.
+
+  For example:
+
+  .. code-block:: dynsem
+
+    E |- Box(e) :: H h -default-> BoxV(addr) :: H h''
+    where
+      E |- e :: H h -default-> v :: H h';
+      E |- allocate(v) :: H h' -default-> addr :: H h''.
+
+  ``PAT`` is a pattern match on the input term of the rule. If the pattern match succeeds the rule applies to the term and the variables in the pattern ``PAT`` are bound in the scope of the rule. ``RO*`` and ``RW-IN*`` are optional comma-separated lists of input semantic components, read-only and read-write, respectively. ``PREM+`` is a semicolon-separated list of premises that the rule uses to compute the result term ``T``. ``RW-OUT*`` is an optional comma-separated list of the read-write semantic components that are outputed from the rule.
+
+  premises
+    Premises are constructs in a rule used by a rule to reduce the input term to the output term.
+
+    relation premises
+      Relation premises apply a reduction of a term to a resulting term. They take the form:
+
+      .. code-block:: dynsem
+
+        RO* |- T :: RW-IN* --> PAT :: RW-OUT*
+
+      ``RO*`` is an optional comma-separated list of read-only semantic components that are propagated into the target relation. ``T`` is a term construction that builds the input term for the target reduction. Examples of valid term constructions are: variable reference, constructor application, list construction. ``RW-IN*`` is an optional comma-separated list of read-write semantic components that are propagated into the target relation. The elements of ``RO*`` and ``RW-IN*``, and ``T`` are all term constructions, i.e. may not contain match symbols or unbound variables. ``PAT`` is a match pattern  applied to the term resulting after the application of the arrow ``-->`` to the term ``T``. ``RW-OUT*`` is an optional comma-separated list of match patterns applied to the read-write semantic components emitted by the applied relation.
+
+      A concrete example of a relation premise is:
+
+      .. code-block:: dynsem
+
+        E |- e :: H h -default-> v :: H h'
+
+      where the term which variable ``e`` binds to is reduced over the relation ``-default->`` to a term which is variable ``v`` is bound to. The term ``E`` is a read-only component passed into the reduction. Terms ``h` and ``h'`` pass and match the read-write semantic component of type ``H``.
+
+    term equality premise
+      The term equality premise allows checks for equality of two terms. The premise takes the following form:
+
+      .. code-block:: dynsem
+
+        T1 == T2
+
+      where ``T1`` and ``T2`` are the constructions of the two terms whose equality is asserted. The primary use of the equality premise is to determine whether whether two bound variables contain terms that match, but can be used for general purpose equality comparison:
+
+      .. code-block:: dynsem
+
+        a == b;
+        l == [];
+        "hello" == s1;
+        i1 = 42;
+        b1 == true;
+
+    pattern-match premise
+      A pattern matching premise is used to perform pattern matching on terms and to bind new variables. The syntax of a premise follows the following form:
+
+      .. code-block:: dynsem
+
+        T => PAT
+
+      Where ``T`` is a term construction (e.g. variable reference or constructor application), and ``PAT`` is the pattern to match against (such as a constructor, term literal, list). All variables in ``T`` must be bound and none of the variables in ``PAT`` may be bound. Examples of valid pattern matching premises are:
+
+      .. code-block:: dynsem
+
+        a => b;
+        a => Plus(e1, e2);
+        l => [x|xs];
+        b => Ifz(ec, _, _);
+        x => 42;
+        s => "Hello";
+
+      The pattern matching premise can also be used to bind variables to constructed terms:
+
+      .. code-block:: dynsem
+
+        42 => x;
+        Plus(a, b) => plusexp;
+        "hello" => s1;
+        ["hello","world"] => s2;
+
+      A special ``a`` notation allows variables to be bound in nested pattern matches. For example the following premise:
+
+      .. code-block:: dynsem
+
+        exp => Plus(c@Num(_), e@Plus(_, _))
+
+      both pattern matches the first and second subterms of ``Plus`` and binds variables ``c`` and ``e``. More precisely the variables ``c`` and ``e`` will be bound to ``Num`` and ``Plus`` terms, respectively.
+
+      .. warning:: Non-linear pattern matches are not permitted. For example the following are invalid pattern match premises:
+
+        .. code-block:: dynsem
+
+          exp => Plus(e, e);
+
+        because the pattern on the right hand side contains a variable that is already bound (the second occurrence of ``e`` is bound by the first occurrence). One can express the behavior intended above using the term equality premise:
+
+        .. code-block:: dynsem
+
+          exp => Plus(e1, e2);
+          e1 == e2;
+
+    case pattern matching premise
+      The case pattern matching premise allows behavior to be associated with multiple patterns. It takes the following form:
+
+      .. code-block:: dynsem
+
+        case T of {
+          CASE+
+        }.
+
+      where ``T`` is a term construction and ``CASE+`` is a list of cases which may take one the following forms:
+
+      .. code-block:: dynsem
+
+        PAT =>
+          PREM*
+
+        otherwise=>
+          PREM*
+
+      The first form is for regular pattern matching cases. An example is:
+
+      .. code-block:: dynsem
+
+        case fs of {
+          [f | fs'] =>
+            f -load-> _;
+            fs' -load-> _
+          [] =>
+        }.
+
+      where there are two cases for ``fs``, one handling a non-empty list and the other handling an empty list. An example of the ``otherwise`` case is:
+
+      .. code-block:: dynsem
+
+        Ifz(NumV(ci), e1, e2) --> v
+        where
+          case ci of {
+            0 =>
+              e1 --> v
+            otherwise =>
+              e2 --> v
+          }.
+
+        where the ``otherwise`` case is handled if none of patterns of the other cases match. A rule may only have one ``otherwise`` case and it must be the last case.
+
+.. todo:: This page is work-in-progress and many parts of the language are not yet documented.
 
 .. _dynsem_reference_configfile:
 
