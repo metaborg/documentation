@@ -8,11 +8,11 @@ Language reference
 
 This page is a syntax-oriented language reference for DynSem.
 
+.. todo:: This page is work-in-progress and many parts of the language are not yet documented.
+
 -----------------
 Modules
 -----------------
-
-  .. todo:: Not written yet.
 
 .. describe:: module
 
@@ -306,8 +306,6 @@ Rules section
           }.
 
         where the ``otherwise`` case is handled if none of patterns of the other cases match. A rule may only have one ``otherwise`` case and it must be the last case.
-
-.. todo:: This page is work-in-progress and many parts of the language are not yet documented.
 
 .. _dynsem_reference_configfile:
 
