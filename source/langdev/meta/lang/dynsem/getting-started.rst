@@ -567,11 +567,6 @@ DynSem derived interpreters require Java 1.8 and have a number of dependencies: 
   	<dependencies>
   		<dependency>
   			<groupId>org.metaborg</groupId>
-  			<artifactId>org.metaborg.meta.interpreter.framework</artifactId>
-  			<version>2.0.0-SNAPSHOT</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>org.metaborg</groupId>
   			<artifactId>org.metaborg.meta.lang.dynsem.interpreter</artifactId>
   			<version>2.0.0-SNAPSHOT</version>
   		</dependency>
