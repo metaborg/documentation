@@ -643,10 +643,11 @@ To configure the interpreter generator with the specifics of *SIMPL* you will ne
   target.specterm = src/main/resources/specification.aterm
   target.table = src/main/resources/parsetable.tbl
   target.nativepackage = simpl.interpreter.natives
+  target.clean = true
 
 The first fragment (lines 1-3) configures the language name, a version identifier and the MIME-TYPE. Line 5 configures the path to the parse table for *SIMPL*, relative to the project, which will be copied into the interpreter project. Line 6 configures the start symbol used to parse *SIMPL* programs and it has to be one of the start symbols specified in the syntax definition. Lines 7-8 specify the constructor name and arity to be used as the entry point for the evaluation. It is expected that an ``-init->`` rule is declared for this term. For *SIMPL* the top-level term and rule are the ones defined in :ref:`dynsem_gettingstarted_entrypoint`.
 
-The third fragment (lines 10-15) sets parameters for the target interpreted project. ``target.project`` gives the path to the interpreter project. This must be a path relative to the language project, in this case to the *SIMPL* project. ``target.java`` is a path in the interpreter project relative to ``target.project``. For a detailed explanation of all valid properties consult the :ref:`dynsem_reference_configfile` reference.
+The third fragment (lines 10-15) sets parameters for the target interpreted project. ``target.project`` gives the path to the interpreter project. This must be a path relative to the language project, in this case to the *SIMPL* project. ``target.java`` is a path in the interpreter project relative to ``target.project``. The ``target.clean`` flag indicates whether the target generation directory should be recursively removed (clean compilation target) before generation. If this property is not mentioned in *dynsem.properties*, it defaults to **false**. For a detailed explanation of all valid properties consult the :ref:`dynsem_reference_configfile` reference.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Deriving language-specific interpreter components
