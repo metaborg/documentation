@@ -17,6 +17,8 @@ This guide will get you started with DynSem to specify the dynamic semantics of 
 .. 8. `Interacting with native data types`_
 .. 9. `Interacting with the interpreter from Java`_
 
+.. note:: DynSem is actively developed and this guide requires features only available in the bleeding edge DynSem. To follow along this tutorial you should have the latest Spoofax 2.0 nightly build installed.
+
 ---------------------------------------
 The *SIMPL* language as running example
 ---------------------------------------
@@ -619,7 +621,9 @@ You now have a barebones interpreter project. You can find the barebones *SIMPL*
 Configuring the interpreter generator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To configure the interpreter generator with the specifics of *SIMPL* you will need a *dynsem.properties* file. This file should be located in the root directory of the *SIMPL* language project:
+To configure the interpreter generator with the specifics of *SIMPL* you will need a *dynsem.properties* file:
+
+.. note:: The *dynsem.properties* file must be located in the root directory of the *SIMPL* language project, not the interpreter project
 
 .. code-block:: none
   :linenos:
@@ -650,7 +654,7 @@ Deriving language-specific interpreter components
 
 .. |Generate| raw:: html
 
-    <span class='menuselection'>Spoofax -> Semantics -> Generate interpretable</span>
+    <span class='menuselection'>Spoofax -> Semantics -> Generate Interpreter</span>
 
 An interpreter derived from a DynSem specification relies on components that are generated from the specification. This generation project happens on-demand. Ensure that the *SIMPL* language project is built and that you have the *SIMPL* interpreter project open in the Eclipse workspace. Open the top-level DynSem specification file - *simpl.ds* - and select |Generate|. Observe that files have been placed into the *SIMPL* interpreter project:
 

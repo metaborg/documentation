@@ -241,7 +241,7 @@ Rules section
         "hello" => s1;
         ["hello","world"] => s2;
 
-      A special ``a`` notation allows variables to be bound in nested pattern matches. For example the following premise:
+      A special ``@`` notation allows variables to be bound in nested pattern matches. For example the following premise:
 
       .. code-block:: dynsem
 
