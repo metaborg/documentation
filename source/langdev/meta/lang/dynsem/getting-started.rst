@@ -172,7 +172,7 @@ We expect the program above to evaluate to ``NumV(42)`` and extend the semantics
 
   signature
     sort aliases
-      Env = Map<String,V>
+      Env = Map(String, V)
 
   rules
     Env e |- Let(x, e1, e2) --> v2
@@ -217,7 +217,7 @@ We extend the DynSem specification with the following signature and reduction ru
     constructors
       BoxV: Int -> V
     sort aliases
-      Heap = Map<Int, V>
+      Heap = Map(Int, V)
 
   rules
     Box(e) :: Heap h --> BoxV(addr) :: Heap {addr |--> v, h'}
@@ -314,7 +314,7 @@ These declarations can be imported in the rest of the specification. We define t
 
   signature
     sort aliases
-      Env = Map<String, V>
+      Env = Map(String, V)
 
     variables
       E : Env
@@ -342,7 +342,7 @@ And declare the ``bindVar`` and ``readVar`` *meta-functions* which update the en
 
   signature
     sort aliases
-      Heap = Map<Int, V>
+      Heap = Map(Int, V)
 
     variables
       H : Heap
