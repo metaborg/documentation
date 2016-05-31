@@ -338,8 +338,8 @@ The following configuration options are optional and revert to default values wh
 
      - initialize: runs at the start of a build
      - generateSources: runs after compilers for all compile dependencies have generated source files
-     - preJava: runs after the build (i.e. pack-sdf, strj, etc. have been executed), but before compiling Java files
-     - postJava: runs after Java files have been compiled, and after packaging the language component
+     - compile: runs after the build (i.e. pack-sdf, strj, etc. have been executed), but before compiling Java files
+     - pkg: runs after Java files have been compiled, and after packaging the language component
      - clean: runs when the language specification is cleaned
 
    - Default: None
@@ -353,7 +353,7 @@ The following configuration options are optional and revert to default values wh
 
           build:
             stratego-cli:
-            - phase: preJava
+            - phase: compile
               strategy: org.strategoxt.tools.main-parse-pp-table
               args:
               - -i
