@@ -1,13 +1,9 @@
 # Support
 
-```eval_rst
-.. todo:: This part of the documentation has not been written yet.
-```
+Spoofax is an open source project. We welcome contributions from the community.
 
-Spoofax is an open source project. We welcome contributions from the community. 
-
-Spoofax is developed by the TU Delft Programming Languages group. 
-We do our best to make Spoofax usable by everyone and to help you when you encounter issues. 
+Spoofax is developed by the TU Delft Programming Languages group.
+We do our best to make Spoofax usable by everyone and to help you when you encounter issues.
 However, our resources are limited, so please be patient.
 
 ## Documentation
@@ -19,8 +15,21 @@ So, please read carefully.
 
 To report bugs or request new features use our [YellowGrass](http://yellowgrass.org/) issue trackers:
 
-* http://yellowgrass.org/project/Spoofax
-* http://yellowgrass.org/project/SpoofaxWithCore
+* Spoofax 2.0 and higher: <http://yellowgrass.org/project/SpoofaxWithCore>
+* Spoofax 1.5 and lower: <http://yellowgrass.org/project/Spoofax>
+
+In the Spoofax 2.0 Eclipse plugin, use the main menu <span class='menuselection'>Spoofax (meta) ‣ Report issue</span> to report issues, it provides a link to the [SpoofaxWithCore](http://yellowgrass.org/project/SpoofaxWithCore) project and the environment versions which you can copy paste.
+
+When reporting bugs, please provide the following information such that we can easily reproduce and fix the bug:
+​
+* Environment details (can be copy pasted from <span class='menuselection'>Spoofax (meta) ‣ Report</span> main menu)
+  * Eclipse/IntelliJ package and version
+  * Spoofax version
+  * Operating system name, architecture, and version
+* High-level description of the bug
+* How to reproduce the bug
+* What the expected behavior is
+* Any logs, exceptions, and stack traces related to the bug
 
 If the documentation does not provide the answer you are looking for, you may find that it concerns an issue that was already reported by someone else.
 
@@ -37,7 +46,3 @@ These days we do most of our online communication within the development team on
 Please drop us a line to get an invitation.
 
 If you are an experienced Spoofax user, please pitch in and help new users on these fora.
-
-
-
-
