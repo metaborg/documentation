@@ -146,7 +146,7 @@ The following configuration options are optional and revert to default values wh
    - Default: Current version of the running Spoofax
    - Example: ``metaborgVersion: 2.0.0-SNAPSHOT``
 
-.. describe:: languageContributions
+.. describe:: contributions
 
    List of language implementation identifiers the language component generated from this language specification contributes to.
 
@@ -154,7 +154,7 @@ The following configuration options are optional and revert to default values wh
    - Default: Contribution to single language implementation with the same name and identifier of this language specification.
    - Example::
 
-       languageContributions:
+       contributions:
        - name: Green-Marl
          id: com.oracle:greenmarl:1.5.0-SNAPSHOT
 
