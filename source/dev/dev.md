@@ -82,7 +82,9 @@ If you change a language project, build them on the command-line, because langua
 
 ## IntelliJ
 
-To run the built plugin inside a special sandbox-instance of IntelliJ IDEA, execute the following command:
+Easiest is to [install the latest release of the Spoofax plugin][1] in an installation of IntelliJ IDEA.
+
+Otherwise, you may want to build it from source, and to run the built plugin inside a special sandbox-instance of IntelliJ IDEA, execute the following command:
 
 ```
 ./gradlew runIdea
@@ -111,3 +113,5 @@ To get debug logging in IntelliJ, locate the `bin/log.xml` file in the IntelliJ 
   <appender-ref ref="FILE"/>
 </category>
 ```
+
+[1]: /source/langdev/manual/env/intellij/installation.rst
