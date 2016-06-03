@@ -25,6 +25,7 @@ The following pages currently contain useful content:
     - :doc:`source/langdev/meta/lang/sdf3`
     - :doc:`source/langdev/meta/lang/stratego/index`
     - :doc:`source/langdev/meta/lang/nabl`
+    - :doc:`source/langdev/meta/lang/dynsem/index`
 
 - Core API
 
