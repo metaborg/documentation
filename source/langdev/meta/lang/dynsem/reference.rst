@@ -305,10 +305,75 @@ Rules section
               e2 --> v
           }.
 
-        where the ``otherwise`` case is handled if none of patterns of the other cases match. A rule may only have one ``otherwise`` case and it must be the last case.
+    where the ``otherwise`` case is handled if none of patterns of the other cases match. A rule may only have one ``otherwise`` case and it must be the last case.
 
 .. _dynsem_reference_configfile:
 
 ------------------
 Configuration file
 ------------------
+
+.. describe:: dynsem.properties
+
+  The *dynsem.properties* file specifies configuration parameters for the DynSem interpreter and interpreter generator. Such a file is required for every  project from which a DynSem-based interpreter will be derived.
+
+
+    source.language = SIMPL
+      Name of the language. May be any valid Java identifier
+
+    source.version = 0.1
+      Version of the language/semantics. Any valid version, e.g. 1.2.3 is permitted.
+
+    source.mimetype = application/x-simpl
+      (optional) mime type for files of this language
+
+    source.table = target/metaborg/sdf.tbl
+      (optional) path to parse table for programs in the language.
+
+    source.startsymbol = Prog
+      Start symbol for parsing programs of this language.
+
+    source.initconstructor.name = Program
+      Constructor name of the term where program reduction begins.
+
+    source.initconstructor.arity = 1
+      Arity of the reduction entry-point constructor.
+
+    project.path = ../simpl.interpreter/
+      Path to the interpreter project. The path must be eithe relative to the language project or absolute.
+
+    project.groupid = org.metaborg
+      Maven Group Identifier for the interpreter project.
+
+    project.artifactid = simpl.interpreter
+      Maven Artifact Identifier for the interpreter project.
+
+    project.create = true
+      (optional) Enable generation of an interpreter project and associated launch configuration. Defaults to false. When enabled, during generation of the interpreter a project will also be generated including all required directories. A pom.xml file will also be created. The project will not be automatically imported in the Eclipse workspace. The generator will also create a launch configuration which can be used in Eclipse.
+
+    project.clean = true
+      (optional) Enable cleaning of the target project before writing files. Defaults to false.
+
+    project.javapackage = simpl.interpreter.generated
+      (optional) Package to contain all generated Java classes. Defaults to LANGUAGE.interpreter.generated.
+
+    project.nativepackage = simpl.interpreter.natives
+      Package name for manually implemented interpreter nodes
+
+    project.preprocessor = org.metaborg.lang.sl.interpreter.natives.DesugarTransformer
+      (optional) Fully qualified class name of a custom program pre-processor. The pre-processor will be invoked on the program AST prior to evaluation. Default to the identity transformation. See `IdentityTransformer`_ for an example.
+
+    project.ruleregistry = org.metaborg.lang.sl.interpreter.natives.SLRuleRegistry
+      (optional) Fully qualified class name of a manually implemented rule registry.
+
+    project.javapath = src/main/java
+      (optional) Path relative to the interpreter project where Java code will reside.
+
+    project.specpath = src/main/resources/specification.aterm
+      (optional) Path in interpreter project for the DynSem specification file.
+
+    project.tablepath     = src/main/resources/parsetable.tbl
+      (optional) Path in interpreter project for parse table
+
+
+.. _IdentityTransformer:  https://github.com/metaborg/dynsem/blob/master/org.metaborg.meta.lang.dynsem.interpreter/src/main/java/org/metaborg/meta/lang/dynsem/interpreter/terms/ITermTransformer.java#L16
