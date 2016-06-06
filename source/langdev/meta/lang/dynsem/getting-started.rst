@@ -206,7 +206,7 @@ This accepts programs that use mutable variables. The ``Box`` expression allocat
 
 .. code-block:: none
 
-  let b = box(40) in setbox(b, unbox(b + 2))
+  let b = box(40) in setbox(b, unbox(b) + 2)
 
 We extend the DynSem specification with the following signature and reduction rules for box operations:
 
