@@ -473,9 +473,8 @@ Preparing an interpreter for an object language
 To get a functioning interpreter derived from a DynSem specification we have to go through the following steps:
 
 1. `Creating a reduction entry-point`_
-2. `Creating an interpreter project`_
-3. `Configuring the interpreter generator`_
-4. `Deriving language-specific interpreter components`_
+2. `Configuring the interpreter generator`_
+3. `Deriving language-specific interpreter components`_
 
 .. _dynsem_gettingstarted_entrypoint:
 
@@ -511,112 +510,6 @@ Term of sort ``Prog`` are top-level terms in *SIMPL* and reduction of a program 
 
 We extend the DynSem specification with a declaration of the arrow ``-init->`` reducing terms of sort ``Prog`` to a value. ``Program`` is the only term of sort ``Prog`` and we specify its reduction to value. This reduction rule introduces initial values for the variable environment ``Env`` and for the heap ``Heap``.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Creating an interpreter project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. |New Project| raw:: html
-
-   <span class='menuselection'>File -> New -> Project</span>
-
-.. |New Maven Project| raw:: html
-
-  <span class='menuselection'>Maven -> Maven project</span>
-
-.. |Next| raw:: html
-
-  <span class='guilabel'>Next</span>
-
-.. |Finish| raw:: html
-
-    <span class='guilabel'>Finish</span>
-
-.. |SimpleProject| raw:: html
-
-  <span class='guilabel'>Create simple project (skip archetype selection)</span>
-
-Interpreters must be managed as separate Java projects. Create a new Maven Java project by selecting |New Project|. In the new project dialog select |New Maven Project| and press |Next|. In the new project dialog enable |SimpleProject| and press |Next|.
-
-.. image:: img/new_maven_project_1.png
-
-In the second dialog enter a group and an artifact id and press |Finish|.
-
-.. image:: img/new_maven_project_2.png
-
-DynSem derived interpreters require Java 1.8 and have a number of dependencies: DynSem interpreter, Spoofax terms and Oracle Truffle. Specify this  using Maven to obtain a *pom.xml* similar to the following:
-
-.. code-block:: xml
-  :linenos:
-
-  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  	<modelVersion>4.0.0</modelVersion>
-  	<groupId>org.metaborg</groupId>
-  	<artifactId>simpl.interpreter</artifactId>
-  	<version>0.0.1-SNAPSHOT</version>
-  	<build>
-  		<plugins>
-  			<plugin>
-  				<artifactId>maven-compiler-plugin</artifactId>
-  				<version>3.1</version>
-  				<configuration>
-  					<source>1.8</source>
-  					<target>1.8</target>
-  				</configuration>
-  			</plugin>
-  		</plugins>
-  	</build>
-  	<dependencies>
-  		<dependency>
-  			<groupId>org.metaborg</groupId>
-  			<artifactId>org.metaborg.meta.lang.dynsem.interpreter</artifactId>
-  			<version>2.0.0-SNAPSHOT</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>com.oracle.truffle</groupId>
-  			<artifactId>truffle-api</artifactId>
-  			<version>0.11</version>
-  			<type>jar</type>
-  		</dependency>
-  		<dependency>
-  			<groupId>com.oracle.truffle</groupId>
-  			<artifactId>truffle-dsl-processor</artifactId>
-  			<version>0.11</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>org.metaborg</groupId>
-  			<artifactId>org.spoofax.terms</artifactId>
-  			<version>2.0.0-SNAPSHOT</version>
-  		</dependency>
-  	</dependencies>
-  </project>
-
-.. |AnnoProcProp| raw:: html
-
-    <span class='menuselection'>Properties -> Maven -> Annotation Processing</span>
-
-.. |EnableAnnoProc| raw:: html
-
-    <span class='menuselection'>Enable project specific settings</span>
-
-.. |OK| raw:: html
-
-    <span class='menuselection'>Ok</span>
-
-The language specific term library that will be generated from a DynSem specification relies on the Oracle Truffle annotation processor. To enable automatic annotation processing in Eclipse for the interpreter project first right click on the project and select |AnnoProcProp|. On the right hand side dialog enable |EnableAnnoProc| and press |OK|:
-
-.. image:: img/maven_anno_processing.png
-
-.. warning:: If the entry |AnnoProcProp| is not available it means you propbably do not have the `M2E-APT Eclipse plugin`_ installed. Install it from the Eclipse Marketplace and try again.
-
-.. |Import SIMPL| raw:: html
-
-   <span class='menuselection'>File -> Import -> Maven -> Existing Maven Projects</span>
-
-You now have a barebones interpreter project. You can find the barebones *SIMPL* interpreter project at `tags/bare-interpreter-project`_.
-
-.. note:: You can import the *SIMPL* interpreter project from the `GitHub SIMPL repository`_ into the workspace by selecting |Import SIMPL|. The imported project already specifies all required dependencies.
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Configuring the interpreter generator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -628,26 +521,38 @@ To configure the interpreter generator with the specifics of *SIMPL* you will ne
 .. code-block:: none
   :linenos:
 
+  # the name of the language. may not contain hyphens
   source.langname = simpl
-  source.version = 0.1
-  source.mimetype = application/x-simpl
 
-  source.table = /target/metaborg/sdf.tbl
+  # version of this language
+  source.version = 0.1
+
+  # start symbol to use for parsing programs in this language
   source.startsymbol = Prog
+
+  # constructor name/arity of reduction entry point
   source.initconstructor.name = Program
   source.initconstructor.arity = 1
 
-  target.project = ../simpl.interpreter/
-  target.java = src/main/java/
-  target.package = simpl.interpreter.generated
-  target.specterm = src/main/resources/specification.aterm
-  target.table = src/main/resources/parsetable.tbl
-  target.nativepackage = simpl.interpreter.natives
-  target.clean = true
+  # path to interpreter project, absolute or relative to the language project
+  project.path = ../simpl.interpreter/
+
+  # (optional) enable/disable creation of the target project
+  project.create = true
+
+  # (optional) enable/disable cleaning of the target project before writing files
+  project.clean = true
+
+  # groupid & artifactid for the interpreter project
+  project.groupid = org.metaborg
+  project.artifactid = simpl.interpreter
+
+  # package name for manually implemented interpreter nodes
+  project.nativepackage = simpl.interpreter.natives
 
 The first fragment (lines 1-3) configures the language name, a version identifier and the MIME-TYPE. Line 5 configures the path to the parse table for *SIMPL*, relative to the project, which will be copied into the interpreter project. Line 6 configures the start symbol used to parse *SIMPL* programs and it has to be one of the start symbols specified in the syntax definition. Lines 7-8 specify the constructor name and arity to be used as the entry point for the evaluation. It is expected that an ``-init->`` rule is declared for this term. For *SIMPL* the top-level term and rule are the ones defined in :ref:`dynsem_gettingstarted_entrypoint`.
 
-The third fragment (lines 10-15) sets parameters for the target interpreted project. ``target.project`` gives the path to the interpreter project. This must be a path relative to the language project, in this case to the *SIMPL* project. ``target.java`` is a path in the interpreter project relative to ``target.project``. The ``target.clean`` flag indicates whether the target generation directory should be recursively removed (clean compilation target) before generation. If this property is not mentioned in *dynsem.properties*, it defaults to **false**. For a detailed explanation of all valid properties consult the :ref:`dynsem_reference_configfile` reference.
+The third fragment (lines 10-15) sets parameters for the target interpreted project. ``project.path`` gives the path to the interpreter project. This must be a path relative to the language project, in this case to the *SIMPL* project. The ``project.clean`` flag indicates whether the target generation directory should be recursively removed (clean compilation target) before generation. If this property is not mentioned in *dynsem.properties*, it defaults to **false**. For a detailed explanation of all valid properties consult the :ref:`dynsem_reference_configfile` reference.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Deriving language-specific interpreter components
@@ -664,7 +569,19 @@ An interpreter derived from a DynSem specification relies on components that are
 
 The *src/main/java* directory contains the *SIMPL*-specific generated term library. The *src/main/resources* directory contains the *SIMPL* parse table (*parsetable.tbl*) and an interpretable form of the DynSem specification (*specification.aterm*).
 
-.. note:: At this stage it is normal that the project contains Java errors about the missing *simpl.interpreter.natives* package. We will populate this package with native operations (`Extending specifications with native operations`_). If other errors are reported make sure you have enabled annotation processing in Eclipse (`Creating an interpreter project`_).
+.. note:: At this stage it is normal that the project contains Java errors about the missing *simpl.interpreter.natives* package. We will populate this package with native operations (`Extending specifications with native operations`_). If other errors are reported make sure you have enabled and configured annotation processing:
+
+.. |AnnoProcProp| raw:: html
+
+    <span class='menuselection'>Properties -> Maven -> Annotation Processing</span>
+
+.. |EnableAnnoProc| raw:: html
+
+    <span class='menuselection'>Enable project specific settings</span>
+
+.. image:: img/maven_anno_processing.png
+
+.. warning:: If the entry |AnnoProcProp| is not available it means you propbably do not have the `M2E-APT Eclipse plugin`_ installed. Install it from the Eclipse Marketplace and try again to configure the project by selecting |EnableAnnoProc| in the window pane opened by selecting |AnnoProcProp|.
 
 -----------------------------------------------
 Extending specifications with native operations
@@ -763,7 +680,13 @@ The significant difference to ``parseI`` is that ``addI`` has two children. Usin
 Evaluating an object language program in an interpreter
 -------------------------------------------------------
 
-After following through the previous steps the *SIMPL* interpreter is ready to evaluate programs. Create a simple program and save it as *simple/examples/ex1.smpl*:
+.. |Import interp| raw:: html
+
+    <span class='menuselection'>File -> Import -> Maven -> Existing Maven Projects</span>
+
+After following through the previous steps the *SIMPL* interpreter is ready to be imported into the workspace and begin to evaluate programs. Before continuing import the generated interpreter project into the workspace by |Import interp|.
+
+Create a simple program and save it as *simple/examples/ex1.smpl*:
 
 .. code-block:: none
 
@@ -778,28 +701,13 @@ After following through the previous steps the *SIMPL* interpreter is ready to e
 
     <span class='menuselection'>Java Application</span>
 
-
-Now that a program exists create a new Java Application Launch configuration by selecting |Run Configurations|, select |Java Application| in the left hand side pane and press new :ref:new button. In the project field browse for the *simpl.interpreter* project and for the main class browse for the *simplLanguage* generated class. The *Main* tab of the new run configuration should look like this:
-
-.. image:: img/launch_config_main.png
-
-Switch to the *Arguments* tab and enter the relative or absolute path to the program we create above, for example *../simpl/examples/ex1.smpl*. The tab should like this:
-
-.. image:: img/launch_config_arguments.png
-
-
-.. |Apply| raw:: html
-
-    <span class='menuselection'>Apply</span>
-
-
 .. |Run| raw:: html
 
-    <span class='menuselection'>Run</span>
+        <span class='menuselection'>Run</span>
 
-Press |Apply| and |Run|. Observe the result of evaluating the program in the Console view.
+A launch configuration for the interpreter project has automatically been generated. It can evaluate files that are selected or open in Eclipse. Either select the *ex1.smpl* file in the Package Explorer or open it in the editor. With focus on the example file, evaluate it by selecting |Run Configurations|, select |Java Application| in the left hand side pane and select the *simpl* launch configuration.
 
-.. note:: The GitHub tag `tags/running-interpreter`_ marks the *SIMPL* codebase with the running interpreter and contains a launch configuration. For testing purposes the GitHub tag `tags/running-interpreter-generated-code`_ also contains the generated *SIMPL*-specific code.
+Press |Run|. Observe the result of evaluating the program in the Console view.
 
 .. -----------------------------------------------------
 .. Writing to standard output and reading standard input
