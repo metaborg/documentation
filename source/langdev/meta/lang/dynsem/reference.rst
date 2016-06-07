@@ -355,7 +355,7 @@ Configuration file
       (optional) Enable cleaning of the target project before writing files. Defaults to false.
 
     project.javapackage = simpl.interpreter.generated
-      (optional) Package to contain all generated Java classes. Defaults to LANGUAGE.interpreter.generated.
+      (optional) Package to contain all generated Java classes. Defaults to GROUPID.ARTIFACTID.interpreter.generated.
 
     project.nativepackage = simpl.interpreter.natives
       Package name for manually implemented interpreter nodes
