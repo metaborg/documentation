@@ -329,6 +329,49 @@ They will parse and analyze the fragment and run a given Stratego strategy (with
   This can lead to desugarings that create AST nodes without origin information, which can cause problems when trying to create messages at their location and with other services.
   This expectation can be used to check that your analysis is origin preserving.
 
+-------------
+
+## Running SPT Tests
+
+SPT tests can be run in three different ways:
+
+1. Open a  test suite in the Eclipse editor
+2. Use the command line runner at https://github.com/metaborg/spt/tree/master/org.metaborg.spt.cmd
+3. Use the SPT framework (Java code)
+ 
+We do not (yet) have a JUnit style test runner for SPT test suites inside Eclipse.
+
+### Run using the Eclipse Editor
+
+When you open a test suite in the Eclipse editor, all failing test cases will have errors markers on them.
+This is the most basic way to run your tests, but will be impractical if you have multiple test suites in your project.
+
+### Run using the Command Line Runner
+
+At https://github.com/metaborg/spt/tree/master/org.metaborg.spt.cmd there is a project that creates an executable jar with which you can run all the test suites in a given directory.
+
+It is still a work in progress.
+
+### Run using the SPT Framework
+
+The SPT framework at https://github.com/metaborg/spt offers a Java API to run SPT test suites.
+The framework is split between the generic part (`org.metaborg.mbt.core` - MetaBorg Testing (MBT)) and the Spoofax specific part (`org.metaborg.spt.core` SPoofax Testing (SPT)).
+
+The first step in running tests is to extract them from an SPT test suite.
+`org.metaborg.mbt.core` provides a Java object model to represent SPT test cases.
+To extract test cases from a test suite to the Java model, you can use the `ITestCaseExtractor`.
+You can either implement this for your own version of the SPT language, or use our SPT language (`org.metaborg.meta.lang.spt`) and our extractor (`ISpoofaxTestCaseExtractor`).
+
+Now that you have the tests in Java objects, you can execute them with the `ITestCaseRunner`.
+If the language you are testing is not integrated with Metaborg Core, you will either have to do so and subclass the `TestCaseRunner`, or make your own implementation for the `ITestCaseRunner`.
+If your language under test *is* integrated with Metaborg Core (this is the case for all languages created with Spoofax), you can use our `ISpoofaxTestCaseRunner`.
+
+For an example on how to use dependency injection to obtain the correct classes and extract and run SPT tests using the Java API, see the `Runner` class from our command line runner (https://github.com/metaborg/spt/tree/master/org.metaborg.spt.cmd).
+
+-----------
+
+## The SPT Framework
+
 ```eval_rst
 .. todo:: This part of the documentation has not been written yet.
 ```
