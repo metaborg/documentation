@@ -228,6 +228,10 @@ Only the messages within the test's fragment will be compared to the expectation
   It is allowed to give less selection references than the number of expected messages.
   In this case SPT assumes you don't care about the location of the other messages.
 
+  If the same selection is referenced more than once, multiple messages will be expected at that location.
+  For example `3 errors at #1,#1` expects 3 errors, 2 of which should be at the location of selection number 1.
+  The other error may be anywhere within the test fragment.
+
   Let's look at an example to illustrate this:
   ```
   module analysis-tests
@@ -282,12 +286,14 @@ If the analyzed AST is required, it will also analyze the parse result.
 However, analysis is allowed to produce any number and severity of messages.
 Then, SPT will run the transformation on the entire AST, **including** the nodes from the test fixture, if there was one.
 
-- `Expectation.TransformToAterm = <transform <STRING> to <ATerm>>`  
+- `Expectation.Transform = <transform <STRING>>`    
   The `STRING` should be delimited by double quotes and contain the name of the transformation.
   If the name is not unique, the menu structure can be included as well, seperated by `->`.
   For example: `transform "Menu name -> transformation name" to Some(Result())`.
 
-  The result of the transformation is compared to the given AST.
+  As long as the transformation returns a result, this expectation passes.
+- `Expectation.TransformToAterm = <transform <STRING> to <ATerm>>`    
+  Same as `Transform`, but the result of the transformation is compared to the given AST.
 - `Expectation.TransformToFragment = <transform <STRING> to <Language?> <OpenMarker> <Fragment> <CloseMarker>>`  
   Does the same as `TransformToAterm`, but compares the result of the transformation to the AST of the given fragment.
   If the applied transformation required the raw AST, the given fragment will only be parsed with the given language.
