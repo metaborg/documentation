@@ -91,7 +91,7 @@ The configuration for an end-user project specifies dependencies.
 
       List of compile dependencies to language components. A compile dependency to a language component indicates that this project uses files of that language, and as such its compiler should be invoked.
 
-      - Format: List of language component identifiers (see ``id`` option)
+      - Format: List of language component identifiers (see ``id`` option below)
       - Default: None
       - Example::
 
@@ -103,7 +103,7 @@ The configuration for an end-user project specifies dependencies.
 
       List of source dependencies to language components. A source dependency to a language component indicates that this project uses exported files of that language or library.
 
-      - Format: List of language component identifiers (see ``id`` option)
+      - Format: List of language component identifiers (see ``id`` option below)
       - Default: None
       - Example::
 
@@ -111,6 +111,20 @@ The configuration for an end-user project specifies dependencies.
             source:
             - org.metaborg:org.metaborg.meta.lib.analysis:${metaborgVersion}
 
+   .. describe:: java
+
+      List of dependencies to Java artifacts. A Java artifact dependency indicates that when this project is compiled, the Java artifact should be added to the compilation classpath. Spoofax currently does nothing with these dependencies, but they are used by Maven when compiling the project.
+
+      - Format: List of Maven artifact identifiers (see ``id`` option below)
+      - Default: None
+      - Example::
+
+          dependencies:
+            java:
+            - com.google.guava:guava:19.0
+            - com.google.inject:guice:4.0
+
+   .. warning:: There is currently a bug in the version parser that parses versions with 1 or 2 components to a version with 3 components. For example, the version `1` is parsed to `1.0.0`, and `4.0` to `4.0.0`. This will cause build failures since dependencies with those versions cannot be found.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Language specification project configuration
@@ -135,8 +149,11 @@ The following configuration options are mandatory:
 
    - Example: ``name: SDF``
 
-
 The following configuration options are optional and revert to default values when not specified:
+
+.. describe:: dependencies
+
+   Compile and source dependencies to other language components, and dependencies to Java artifacts.
 
 .. describe:: metaborgVersion
 
@@ -332,47 +349,66 @@ The following configuration options are optional and revert to default values wh
 
 .. describe:: build
 
-   List of additional build steps.
+   .. describe:: useBuildSystemSpec
 
-   - Format: List of build steps. There are 2 kinds of additional build steps which are described below. Each build step has a phase in which it is executed, which can be one of the following:
+      Whether to use the specification from the build system as a source of configuration for that build system, or this configuration file.
 
-     - initialize: runs at the start of a build
-     - generateSources: runs after compilers for all compile dependencies have generated source files
-     - compile: runs after the build (i.e. pack-sdf, strj, etc. have been executed), but before compiling Java files
-     - pkg: runs after Java files have been compiled, and after packaging the language component
-     - clean: runs when the language specification is cleaned
+      For example, when set to ``false`` (the default), and Spoofax's Maven plugin's pomless support is enabled through the :file:`.mvn/settings.xml` file, Maven will entirely ignore the contents of the :file:`pom.xml` file, and use this configuration file as a source of information.
+      When this is not desired, for example if your POM file has information that is not covered in this configuration file, set it to ``true`` to use the POM file.
+      The ``id``, ``name``, and ``dependencies`` must be duplicated from this configuration file into the POM file, since this configuration file is ignored by Maven.
 
-   - Default: None
+      Note that Spoofax itself will use this configuration file regardless of this setting. This setting is only used by build systems such as Maven and Gradle.
 
-   .. describe:: stratego-cli (Stratego build step)
+     - Format: Either ``true`` or ``false``.
+     - Default: ``false``
+     - Example::
 
-      Build step that runs a command-line Stratego application.
+         build:
+           useBuildSystemSpec: true
 
-      - Format: phase, strategy to run, and command-line arguments
-      - Example::
+   .. describe:: Additional build steps
 
-          build:
-            stratego-cli:
-            - phase: compile
-              strategy: org.strategoxt.tools.main-parse-pp-table
-              args:
-              - -i
-              - ${path:root}/lib/EditorService-pretty.pp
-              - -o
-              - ${path:root}/target/metaborg/EditorService-pretty.pp.af
+      The `build` configuration option also hosts a list of additional build steps.
 
-   .. describe:: ant (Ant build step)
+      - Format: List of build steps. There are 2 kinds of additional build steps which are described below. Each build step has a phase in which it is executed, which can be one of the following:
 
-      Build step that runs a target from an Ant build script.
+        - initialize: runs at the start of a build
+        - generateSources: runs after compilers for all compile dependencies have generated source files
+        - compile: runs after the build (i.e. pack-sdf, strj, etc. have been executed), but before compiling Java files
+        - pkg: runs after Java files have been compiled, and after packaging the language component
+        - clean: runs when the language specification is cleaned
 
-      - Format: phase, path to Ant build script, and target in the build script to execute
-      - Example::
+      - Default: None
 
-          build:
-            ant:
-            - phase: initialize
-              file: ${path:root}/build.xml
-              target: main
+      .. describe:: stratego-cli (Stratego build step)
+
+         Build step that runs a command-line Stratego application.
+
+         - Format: phase, strategy to run, and command-line arguments
+         - Example::
+
+             build:
+               stratego-cli:
+               - phase: compile
+                 strategy: org.strategoxt.tools.main-parse-pp-table
+                 args:
+                 - -i
+                 - ${path:root}/lib/EditorService-pretty.pp
+                 - -o
+                 - ${path:root}/target/metaborg/EditorService-pretty.pp.af
+
+      .. describe:: ant (Ant build step)
+
+         Build step that runs a target from an Ant build script.
+
+         - Format: phase, path to Ant build script, and target in the build script to execute
+         - Example::
+
+             build:
+               ant:
+               - phase: initialize
+                 file: ${path:root}/build.xml
+                 target: main
 
 --------
 Examples
