@@ -12,6 +12,6 @@ Meta Languages Manual
    Stratego <stratego/index>
    nabl
    ts
-   nabl2
+   NaBL2 <nabl2/index>
    DynSem <dynsem/index>
    spt
