@@ -13,10 +13,10 @@ types and tree transformations, among others.
    :maxdepth: 1
 
    installation
-   new-project
-   existing-project
    new-language-spec
    existing-language-spec
+   new-project
+   existing-project
    load-and-unload-languages
 
 
