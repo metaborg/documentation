@@ -26,7 +26,53 @@ Language definitions in Spoofax are constructed using the following meta-languag
     - The :doc:`source/langdev/meta/lang/nabl` name binding language
     - The :doc:`source/langdev/meta/lang/dynsem/index` dynamic semantics language
     
-:doc:`contents.rst`
 
+Full Table of Contents
+======================
 
+.. toctree::
+   :maxdepth: 3
+   :caption: Overview
+   source/overview/introduction
+   source/overview/support
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Language Development
+
+   Getting Started <source/langdev/start>
+   Guides <source/langdev/guide/index>
+   Manual <source/langdev/manual/index>
+   Meta-Languages <source/langdev/meta/lang/index>
+   Meta-Libraries <source/langdev/meta/lib/index>
+   Examples <source/langdev/example/index>
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Core API
+
+   Getting Started <source/core/start>
+   Guides <source/core/guide/index>
+   Manual <source/core/manual/index>
+   Examples <source/core/example/index>
+   API Reference <source/core/api>
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Development
+
+   Getting Started <source/dev/start>
+   Maven <source/dev/maven>
+   Build <source/dev/build>
+   Develop <source/dev/dev>
+   Contribute <source/dev/contribute>
+   Release <source/dev/release>
+   Internals <source/dev/internals/index>
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Releases
+
+   source/release/note/index
+   source/release/migrate/index
 
