@@ -342,6 +342,9 @@ Configuration file
     fullbacktracking = false
       (optional) Enable full backtracking support in the interpreter. If full backtracking is disabled, once the interpreter descends into a reduction premise it is committed to successfully applying one of the rules for that reduction. If full backtracking is enable, the interpreter treats the inability to apply successfully apply a reduction as a regular failure of a pattern match and bails out of the currently evaluated rule to attempt others. In this case, currently evaluated rules are peeled off until a succeeding alternative is found, or the top-level rule is peeled off and the interpreter halts.
 
+    safecomponents = false
+      (optional) Enables safe semantic components operations. When enabled all semantic component operations that write or yield a `null` semantic component will cause the interpreter to halt immediately.
+
     project.path = ../simpl.interpreter/
       Path to the interpreter project. The path must be eithe relative to the language project or absolute.
 
