@@ -1,16 +1,28 @@
 =====================
-Spoofax Documentation
+The Spoofax Language Workbench
 =====================
 
 .. image:: code/spoofax/graphics/logos/Spoofax.svg
 
-Spoofax is a framework for developing textual software languages with full-featured Eclipse and IntelliJ editor plugins.
-The Spoofax documentation is a work in progress. Most pages in the table of contents are empty or just contain headers.
+The Spoofax Language Workbench supports the definition of all aspects
+of textual languages using high-level, declarative meta-languages, including
 
-Useful Content
+- The SDF3 syntax definition formalism
+- The NaBL name binding language
+- The Stratego transformation language
+- The DynSem dynamic semantics specification language
+- The ESV editor services configuration language
+
+From a language definition using these meta-languages, Spoofax
+generates full-featured Eclipse and IntelliJ editor plugins, as well
+as a command-line interface. The generated editors include syntax
+highlighting, syntax checking, parse error recovery, error markers for
+syntactic and semantic errors, and custom operations, such as invoking
+an interpreter or compiler.
+
+
+Quick Start
 ==============
-
-The following pages currently contain useful content:
 
 - Language Development
 
@@ -62,13 +74,13 @@ The following pages currently contain useful content:
 
   - :doc:`2.0.0 <source/release/migrate/2.0.0>`
 
+
 Full Table of Contents
 ======================
 
 .. toctree::
    :maxdepth: 3
    :caption: Overview
-
    source/overview/introduction
    source/overview/support
 
@@ -111,3 +123,4 @@ Full Table of Contents
 
    source/release/note/index
    source/release/migrate/index
+

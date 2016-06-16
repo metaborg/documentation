@@ -16,7 +16,7 @@ dialog.
 
 4. Pick a project name, and ensure the location is correct. Click _Next_.
 
-5. Ensure both the _Java_ and _Spoofax module_ roots are checked.
+5. Ensure only the _Spoofax module_ root is checked.
 
    ![Check the project roots](img/import_langspec_projectroots.png)
 
