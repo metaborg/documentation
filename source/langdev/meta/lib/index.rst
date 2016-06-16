@@ -8,4 +8,3 @@ Meta Libraries Manual
    :maxdepth: 2
 
    analysis
-   analysis2
