@@ -13,7 +13,7 @@ extension. These files have the following form::
 
    [Section*]
 
-Module identifiers are defined as ``Id ( "/" Id)*``, one or more
+Module identifiers are defined as ``ID ( "/" ID)*``, one or more
 identifiers, separated by forward slashes. Sections define imports,
 type signatures, name resolution parameters, and constraint generation
 rules.
@@ -29,6 +29,29 @@ In the case of an import, the last identifier can also a wildcard
 (hyphen), e.g. ``signatures/-``, which will import all modules in that
 directory.
      
+Auxiliary definitions
+---------------------
+
+In this reference we will use the following auxiliary definitions::
+
+  ID         = [a-Z][a-Z0-9\_]* "'"?
+
+  Var        = ID
+
+  Scope      = ID
+  Occurrence = Namespace? "{" Term ("@" Var)?  "}"
+             | Var
+  Label      = [A-Z]
+
+  Type       = ID "(" {Type ","}* ")"
+             | "[" {Type ","}* "|" Type "]"
+             | "[" {Type ","}* "]"
+             | "(" {Type ","}* ")"
+             | "\"" [^\"]* "\""
+             | Scope
+             | Occurrence
+             | Var
+
 Type signatures
 ---------------
                
@@ -39,7 +62,7 @@ specification. A type signature section has the form::
 
     [TypeSignature*]
 
-A type signature has the form ``Id "(" {TypeSort ","}* ")"``. A type
+A type signature has the form ``ID "(" {TypeSort ","}* ")"``. A type
 sort can be ``type``, ``occurence``, a list ``"List(" TypeSort ")"``,
 or a tuple ``"(" {TypeSort ","}* ")"``.
 
@@ -56,9 +79,8 @@ section for resolution parameters has the form::
     order [{Label "<" Label ","}*]
     well-formedness [WF]
 
-Labels must upper-case letters, i.e. match ``[A-Z]``. The ``labels``
-and ``order`` directives can appear zero or more times, the
-``well-formedness`` can appear at most once.
+The ``labels`` and ``order`` directives can appear zero or more times,
+the ``well-formedness`` can appear at most once.
 
 The well-formedness regular expressions has the following form (in
 order of priority)::
@@ -77,78 +99,58 @@ order of priority)::
 Constraint generation rules
 ---------------------------
 
-.. todo:: This part of the documentation is still being written.
- 
+The section for constraint generation rules has the following form::
 
+  constraint-generation rules
 
+    [Rule*]
 
+Rules are syntax directed -- they match on the abstract syntax of the
+language -- and can optionally be named. Rules can take parameters and
+pass parameters to recursive calls. There is a special form for
+initialization rules, that does not take any import
+parameters. Constraint generation will start by applying an
+initialization rule.
 
+Constraint generation rules have the following form::
 
-          
- 
-.. code-block:: sdf3
+  <ID?> [[ <Pattern> ^ (<{Scope ","}*>) ]] :=
+    <Constraint>.
 
-   Section = [
-     type signatures [TypeSignature*]
-   ]
-           
-   TypeSignature = ...
-   
-.. code-block:: sdf3
+  <ID?> [[ <Pattern> ^ (<{Scope ","}*>) : <Type> ]] :=
+    <Constraint>.
 
-   Section = [
-     resolution parameters
-       labels [{Label ","}*]
-       order [{Label[ < ]Label ","}*]
-       well-formedness [LabelRegex]
-   ]
+The first is for untyped program constructs, the second for
+typed. Similarly, the form of initialization rules is::
 
-   Label      = [a-zA-Z]
-   
-   LabelRegex = Label
-   LabelRegex = [[LabelRegex]*]
-   LabelRegex = [[LabelRegex] . [LabelRegex]]
-   LabelRegex = [[LabelRegex] & [LabelRegex]]
-   LabelRegex = [[LabelRegex] | [LabelRegex]]
-   LabelRegex = [([LabelRegex])]
+  init [[ <Pattern> ]] :=
+    <Constraint>.
 
-.. code-block:: sdf3
+  init [[ <Pattern> : <Type> ]] :=
+    <Constraint>.
 
-   Section = [
-     constraint-generation rules
-       [Rule*]
-   ]
+A rule can create of new scopes, by specifying the new scopes at the
+end of the constraint, as in ``[Constraint], new [{Scope ","}*]``.
+    
+Constraint overview
+-------------------
 
-   Rule = [
-     init \[\[ [Pattern] \]\] :=
-       [Constraint] [New?].
-   ]
-   Rule = [
-     [RuleId] \[\[ [Pattern] ^ ([{Scope ","}*]) : [Type] \]\] :=
-       [Constraint] [New?].
-   ]
+A quick overview of the available constraints::
 
-   Constraint = [[RuleId] \[\[ [Var] ^ ([{Scope ","}*]) : [Type] \]\]]
-   
-   New = [, new [{Scope ","}*]]
-   
-   Pattern = ...
-   Type = ...
+  true                                // true
+  false                               // untrue
+  [Constraint], [Constraint]          // conjunction
 
-.. code-block:: sdf3
+  [Type] == [Type]                    // equality
+  [Type] != [Type]                    // inequality
+  
+  [Occurrence] <- [Scope]             // declaration
+  [Occurrence] -> [Scope]             // reference
+  [Scope] -[Label|"-"]-> [Scope]      // direct edge
+  [Occurrence] =[Label|"="]=> [Scope] // associated scope
+  [Occurrence] <=[Label|"="]= [Scope] // named edge
 
-   Constraint = [[Constraint], [Constraint]]
-   Constraint = [([Constraint])]
+  [Type] <! [Type]                    // Subtype declaration
+  [Type] <? [Type]                    // Subtype check
 
-   Constraint = [[X] == [X]]
-   Constraint = [[X] != [X]]
-
-   Constraint = [[X] <- [X]]
-   Constraint = [[X] -> [X]]
-   Constraint = [[X] -[Label|[-]]-> [X]]
-   Constraint = [[X] =[Label|[=]]=> [X]]
-   Constraint = [[X] <=[Label|[=]]= [X]]
-
-   Constraint = [[X] <! [X]]
-   Constraint = [[X] <? [X]]
 
