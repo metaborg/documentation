@@ -38,6 +38,17 @@ Unpack the downloaded archive to a location with write access, since Eclipse req
 .. warning:: On Windows, do **not** unpack the Eclipse installation into :file:`Program Files`, because no write access is granted there, breaking both Eclipse and Spoofax.
 ```
 
+```eval_rst
+.. warning:: On Ubuntu 16.04, Eclipse is known to have problems with GTK+ 3. To work around this issue, add the following to :file:`eclipse.ini`::
+
+     --launcher.GTK_version
+     2
+
+   before the line::
+
+     --launcher.appendVmargs
+```
+
 Start up Eclipse, depending on your operating system:
 
 * Windows: open <span class='file'>eclipse.exe</span>
