@@ -9,5 +9,6 @@ Language Development Manual
 
    env/eclipse
    env/intellij/index
+   env/repl/index
    project
    config
