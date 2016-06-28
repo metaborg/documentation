@@ -20,4 +20,4 @@ the REPL to work for your language.
 
    installation
    configuration
-   contact
+   contributing
