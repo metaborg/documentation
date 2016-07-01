@@ -2,9 +2,9 @@
 Installation and Usage
 ======================
 
-There are two clients for the REPL: one for the terminal, the other
-in the form of an Eclipse plugin. Their installation and usage is
-explained in this section.
+There are two clients for the Spoofax Shell: one for the terminal, the
+other in the form of an Eclipse plugin. Their installation and usage
+is explained in this section.
 
 Terminal client
 ---------------
