@@ -8,15 +8,13 @@ Maven is a project management and build tool for software projects. Spoofax is b
 
 Maven requires a Java compiler, so a JDK needs to be installed on your computer, since the JRE does not ship with a Java compiler.
 The latest JDK can be downloaded and installed from: <http://www.oracle.com/technetwork/java/javase/downloads/index.html>.
-We require at least JDK7.
+We require at least JDK8.
 
-On OSX, it can be a bit tricky to use the installed JDK, because Apple by default installs JRE 6. To check which version of Java you are running, execute the `java -version` command. If this tells you that the Java version is 1.7, everything is fine. If not, the Java version can be set with a command. After you have installed JDK, execute:
+On OSX, it can be a bit tricky to use the installed JDK, because Apple by default installs JRE 6. To check which version of Java you are running, execute the `java -version` command. If this tells you that the Java version is 1.8, everything is fine. If not, the Java version can be set with a command. After you have installed JDK, execute:
 
 ```bash
-export JAVA_HOME=`/usr/libexec/java_home -v version`
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 ```
-
-where `version` is `1.7` or `1.8` depending on which version of the JDK you have installed.
 
 ```eval_rst
 .. note:: Such an export is not permanent. To make it permanent, add that line to :file:`~/.bashrc` or equivalent for your OS/shell (create the file if it does not exist), which will execute it whenever a new shell is opened.

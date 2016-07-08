@@ -1,6 +1,6 @@
-=====================
+==============================
 The Spoofax Language Workbench
-=====================
+==============================
 
 .. image:: code/spoofax/graphics/logos/Spoofax.svg
 
@@ -59,7 +59,7 @@ Quick Start
 - Releases
 
   - :doc:`nightly <source/release/note/nightly>`
-  - :doc:`2.0.0 (unreleased) <source/release/note/2.0.0>`
+  - :doc:`2.0.0 (08-07-2016) <source/release/note/2.0.0>`
   - :doc:`2.0.0-beta1 (07-04-2016) <source/release/note/2.0.0-beta1>`
   - :doc:`1.5.0 (18-12-2015) <source/release/note/1.5.0>`
   - :doc:`1.4.0 (06-03-2015) <source/release/note/1.4.0>`
@@ -80,8 +80,7 @@ Full Table of Contents
 
 .. toctree::
    :maxdepth: 3
-   :caption: Overview
-   source/overview/introduction
+
    source/overview/support
 
 .. toctree::
@@ -109,12 +108,10 @@ Full Table of Contents
    :maxdepth: 3
    :caption: Development
 
-   Getting Started <source/dev/start>
    Maven <source/dev/maven>
    Build <source/dev/build>
    Develop <source/dev/dev>
    Contribute <source/dev/contribute>
-   Release <source/dev/release>
    Internals <source/dev/internals/index>
 
 .. toctree::
@@ -123,4 +120,3 @@ Full Table of Contents
 
    source/release/note/index
    source/release/migrate/index
-

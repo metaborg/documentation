@@ -17,20 +17,20 @@ These libraries are cached afterwards, and only need to be re-downloaded when yo
 
 To get started with Spoofax, download an Eclipse Mars installation with Spoofax preinstalled for your platform:
 
-* [Windows 32-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86-jre.zip)
-* [Windows 64-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86_64-jre.zip)
-* [Linux 32-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86-jre.tar.gz)
-* [Linux 64-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86_64-jre.tar.gz)
-* [Mac OS X (Intel only), embedded JRE](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-macosx-x86_64-jre.tar.gz)
+* [Windows 32-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-win32-x86-jre.zip)
+* [Windows 64-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-win32-x86_64-jre.zip)
+* [Linux 32-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-linux-x86-jre.tar.gz)
+* [Linux 64-bits, embedded JRE](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-linux-x86_64-jre.tar.gz)
+* [Mac OS X (Intel only), embedded JRE](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-macosx-x86_64-jre.tar.gz)
 
 These are bundled with an embedded Java Runtime Environment (JRE) version 7, such that a JRE on your system is not required.
 If your system has a JRE of version 7 or higher installed, and would rather use that, use the following download links instead:
 
-* [Windows 32-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86.zip)
-* [Windows 64-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-win32-x86_64.zip)
-* [Linux 32-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86.tar.gz)
-* [Linux 64-bits](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-linux-x86_64.tar.gz)
-* [Mac OS X (Intel only)](http://download.spoofax.org/update/release/2.0.0-beta1/eclipse/spoofax-2.0.0-beta1-macosx-x86_64.tar.gz)
+* [Windows 32-bits](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-win32-x86.zip)
+* [Windows 64-bits](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-win32-x86_64.zip)
+* [Linux 32-bits](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-linux-x86.tar.gz)
+* [Linux 64-bits](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-linux-x86_64.tar.gz)
+* [Mac OS X (Intel only)](http://download.spoofax.org/update/release/2.0.0/eclipse/spoofax-2.0.0-macosx-x86_64.tar.gz)
 
 Unpack the downloaded archive to a location with write access, since Eclipse requires write access to the unpacked Eclipse installation.
 

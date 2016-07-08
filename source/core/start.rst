@@ -14,7 +14,7 @@ Spoofax is written in Java, and thus runs on the major operating systems:
 - Linux (32 and 64 bits)
 - Mac OSX (Intel only)
 
-The Spoofax Core API is written in Java 7, so it is required to have a Java Development Kit (JDK) of version 7 or higher installed.
+The Spoofax Core API is written in Java 8, so it is required to have a Java Development Kit (JDK) of version 8 or higher installed.
 You can download and install a JDK from the `Oracle website <http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`_.
 
 The Spoofax Core API is deployed as a set of Maven artifacts.
@@ -45,7 +45,7 @@ Add the following snippet to the POM file::
     <dependency>
       <groupId>org.metaborg</groupId>
       <artifactId>org.metaborg.spoofax.core</artifactId>
-      <version>2.0.0-beta1</version>
+      <version>2.0.0</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -67,7 +67,7 @@ Add the following snippet to the POM file::
     </plugins>
   </build>
 
-This declares a dependency on version ``2.0.0-beta1`` of Spoofax Core, and a dependency on a logging framework so we get logging output from Spoofax Core.
+This declares a dependency on version ``2.0.0`` of Spoofax Core, and a dependency on a logging framework so we get logging output from Spoofax Core.
 It also instructs Maven that this project requires a Java 7 compiler (instead of the default; Java 5).
 
 Since the :file:`pom.xml` file has changed, we need to update our Eclipse project.
@@ -97,7 +97,7 @@ Add a main method to the class::
   }
 
 Second, let's download a language component that we can load into Spoofax Core.
-Download the `NaBL language <http://artifacts.metaborg.org/service/local/repositories/releases/content/org/metaborg/org.metaborg.meta.lang.nabl/2.0.0-beta1/org.metaborg.meta.lang.nabl-2.0.0-beta1.spoofax-language>`_ and store it in the :file:`src/main/resources` directory of the project.
+Download the `NaBL language <http://artifacts.metaborg.org/service/local/repositories/releases/content/org/metaborg/org.metaborg.meta.lang.nabl/2.0.0/org.metaborg.meta.lang.nabl-2.0.0.spoofax-language>`_ and store it in the :file:`src/main/resources` directory of the project.
 Any resources stored in :file:`src/main/resources` are packaged into the JAR file of your application and are available at runtime.
 
 To initialize Spoofax Core, create an instance of the :java:ref:`org.metaborg.spoofax.core.Spoofax` facade::
@@ -123,7 +123,7 @@ This means we must first get a :java:ref:`~org.apache.commons.vfs2.FileObject` (
 First get a URL to the NaBL language file which is on the classpath::
 
   URL nablUrl = Main.class.getClassLoader().getResource(
-    "org.metaborg.meta.lang.nabl-2.0.0-beta1.spoofax-language");
+    "org.metaborg.meta.lang.nabl-2.0.0.spoofax-language");
 
 Then we resolve that to a FileObject, which points to the contents of the NaBL language implementation archive (which is actually a regular Zip file)::
 
@@ -154,7 +154,7 @@ However, we know that the NaBL language file only contains one language implemen
   System.out.println("Loaded " + nabl);
 
 Run the program by selecting :menuselection:`Run -> Debug As -> Java Application`.
-If all went well, ``Loaded language impl. org.metaborg:org.metaborg.meta.lang.nabl:2.0.0-beta1`` should appear in the log output.
+If all went well, ``Loaded language impl. org.metaborg:org.metaborg.meta.lang.nabl:2.0.0`` should appear in the log output.
 
 ^^^^^^^^^^^^^^
 Parsing a file
