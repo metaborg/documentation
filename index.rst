@@ -30,6 +30,7 @@ Quick Start
   - Manual
 
     - :doc:`source/langdev/manual/env/intellij/index`
+    - :doc:`source/langdev/manual/env/shell/index`
     - :doc:`source/langdev/manual/config`
 
   - Meta-Languages
