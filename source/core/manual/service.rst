@@ -99,7 +99,7 @@ Language processing services provide services for the processing of files of a l
 .. describe:: Builder
 
    :interface: :java:ref:`org.metaborg.core.build.IBuilder`
-   :specialization: :java:ref:`org.metaborg.spoofax.core.unit.ISpoofaxUnitService`
+   :specialization: :java:ref:`org.metaborg.spoofax.core.build.ISpoofaxBuilder`
 
 .. describe:: Parse result processor
 

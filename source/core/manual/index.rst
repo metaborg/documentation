@@ -9,4 +9,5 @@ This is the reference manual for the Spoofax Core API.
 
    concepts
    service
+   language-processing
    extend
