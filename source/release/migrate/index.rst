@@ -2,6 +2,8 @@
 Migration Guides
 ================
 
+This section contains the migration guides for releases and nightly builds of Spoofax.
+
 .. toctree::
    :maxdepth: 1
 

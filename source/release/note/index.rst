@@ -2,6 +2,9 @@
 Release Notes
 =============
 
+This section contains the release notes for all versions of Spoofax, starting at version 1.0.0.
+Release notes describe the changes made in the release, and provide download links for components of Spoofax of that version.
+
 .. toctree::
    :maxdepth: 1
 

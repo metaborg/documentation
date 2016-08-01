@@ -1,17 +1,15 @@
 =====================
-Meta Languages Manual
+Meta-Languages Manual
 =====================
 
-.. todo:: This part of the documentation has not been written yet.
+This is the reference manual for the meta-languages of Spoofax.
 
 .. toctree::
    :maxdepth: 2
 
-   esv
-   sdf3
+   SDF3 <sdf3>
    Stratego <stratego/index>
-   nabl
-   ts
+   NaBL <nabl>
    NaBL2 <nabl2/index>
    DynSem <dynsem/index>
-   spt
+   SPT <spt>

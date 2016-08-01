@@ -2,7 +2,8 @@
 Development Internals
 =====================
 
-.. todo:: This part of the documentation has not been written yet.
+This section contains information about the internals of Spoofax.
+
 
 .. toctree::
    :maxdepth: 1

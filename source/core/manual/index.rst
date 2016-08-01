@@ -2,15 +2,11 @@
 Core API Manual
 ===============
 
-.. todo:: This part of the documentation has not been written yet.
+This is the reference manual for the Spoofax Core API.
 
 .. toctree::
    :maxdepth: 1
 
    concepts
-   architecture
-   design
-   facade
    service
-   unit
    extend

@@ -100,10 +100,6 @@ If you make an error in the program, for example `hello worl`, an error message 
 
 ## How to proceed?
 
-```eval_rst
-.. todo:: We are currently in the process of writing documentation, this section will be updated once we have more material.
-```
-
 Guides for developing a language with Spoofax:
 
 * [Declare Your Language](http://metaborgcube.github.io/declare-your-language/) - This book has not been updated for Spoofax 2.0 yet, but most content still applies.
@@ -114,6 +110,9 @@ Reference manuals for our meta-languages:
 * [SDF3](meta/lang/sdf3.md)
 * [Stratego](meta/lang/stratego/index.rst)
 * [NaBL](meta/lang/nabl.md)
+* [NaBL2](meta/lang/nabl2/index.rst)
+* [DynSem](meta/lang/dynsem/index.rst)
+* [SPT](meta/lang/spt.md)
 
 Example language specifications:
 

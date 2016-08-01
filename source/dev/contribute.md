@@ -2,8 +2,6 @@
 Thank you for your interest in contributing to Spoofax! We appreciate
 any way in which you contribute.
 
-
-
 ## Bug Reports
 
 > "If debugging is the process of removing bugs,

@@ -2,12 +2,10 @@
 Language Development Manual
 ===========================
 
-.. todo:: This part of the documentation has not been written yet.
+This is the reference manual for language development with Spoofax.
 
 .. toctree::
    :maxdepth: 2
 
-   env/eclipse
    env/intellij/index
-   project
    config

@@ -4,8 +4,7 @@ The Spoofax Language Workbench
 
 .. image:: code/spoofax/graphics/logos/Spoofax.svg
 
-The Spoofax Language Workbench supports the definition of all aspects
-of textual languages using high-level, declarative meta-languages, including
+The Spoofax Language Workbench supports the definition of all aspects of textual languages using high-level, declarative meta-languages, including:
 
 - The SDF3 syntax definition formalism
 - The NaBL name binding language
@@ -13,16 +12,13 @@ of textual languages using high-level, declarative meta-languages, including
 - The DynSem dynamic semantics specification language
 - The ESV editor services configuration language
 
-From a language definition using these meta-languages, Spoofax
-generates full-featured Eclipse and IntelliJ editor plugins, as well
-as a command-line interface. The generated editors include syntax
-highlighting, syntax checking, parse error recovery, error markers for
-syntactic and semantic errors, and custom operations, such as invoking
-an interpreter or compiler.
+From a language definition using these meta-languages, Spoofax generates full-featured Eclipse and IntelliJ editor plugins, as well as a command-line interface.
+The generated editors include syntax highlighting, syntax checking, parse error recovery, error markers for syntactic and semantic errors, and custom operations, such as invoking an interpreter or compiler.
 
+Table of Contents
+=================
 
-Quick Start
-==============
+- :doc:`source/support`
 
 - Language Development
 
@@ -37,7 +33,9 @@ Quick Start
     - :doc:`source/langdev/meta/lang/sdf3`
     - :doc:`source/langdev/meta/lang/stratego/index`
     - :doc:`source/langdev/meta/lang/nabl`
+    - :doc:`source/langdev/meta/lang/nabl2/index`
     - :doc:`source/langdev/meta/lang/dynsem/index`
+    - :doc:`source/langdev/meta/lang/spt`
 
 - Core API
 
@@ -56,7 +54,7 @@ Quick Start
 
     - :doc:`source/dev/internals/intellij/index`
 
-- Releases
+- Release Notes
 
   - :doc:`nightly <source/release/note/nightly>`
   - :doc:`2.0.0 (08-07-2016) <source/release/note/2.0.0>`
@@ -70,41 +68,38 @@ Quick Start
   - :doc:`1.0.2 (15-02-2012) <source/release/note/1.0.2>`
   - :doc:`1.0.0 (28-12-2011) <source/release/note/1.0.0>`
 
-- Migration
+- Migration Guides
 
   - :doc:`2.0.0 <source/release/migrate/2.0.0>`
 
 
-Full Table of Contents
-======================
 
 .. toctree::
+   :hidden:
    :maxdepth: 3
 
-   source/overview/support
+   Support <source/support>
 
 .. toctree::
+   :hidden:
    :maxdepth: 3
    :caption: Language Development
 
    Getting Started <source/langdev/start>
-   Guides <source/langdev/guide/index>
    Manual <source/langdev/manual/index>
    Meta-Languages <source/langdev/meta/lang/index>
-   Meta-Libraries <source/langdev/meta/lib/index>
-   Examples <source/langdev/example/index>
 
 .. toctree::
+   :hidden:
    :maxdepth: 3
    :caption: Core API
 
    Getting Started <source/core/start>
-   Guides <source/core/guide/index>
    Manual <source/core/manual/index>
-   Examples <source/core/example/index>
    API Reference <source/core/api>
 
 .. toctree::
+   :hidden:
    :maxdepth: 3
    :caption: Development
 
@@ -115,8 +110,9 @@ Full Table of Contents
    Internals <source/dev/internals/index>
 
 .. toctree::
+   :hidden:
    :maxdepth: 3
    :caption: Releases
 
-   source/release/note/index
-   source/release/migrate/index
+   Release Notes <source/release/note/index>
+   Migration Guides <source/release/migrate/index>

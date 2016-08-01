@@ -1,5 +1,52 @@
 # Outline
 
+* Index
+* License (TOD)
+* Support
+* Contributing (TODO)
+* Language Development - Spoofax for language developers
+  * Getting Started
+  * Guides (TODO)
+  * Manual
+    * Eclipse Environment (TODO)
+    * IntelliJ Environment
+    * Project Structure (TODO)
+    * Configuration
+  * Meta-Languages
+    * ESV (TODO)
+    * SDF3
+    * Stratego
+    * NaBL
+    * TS (TODO)
+    * NaBL2
+    * DynSem
+    * SPT
+  * Meta-Libraries (TODO)
+  * Examples (TODO)
+* Core API - Spoofax for application/integration developers
+  * Getting Started
+  * Guides (TODO)
+  * Manual
+    * Concepts
+    * Architecture (TODO)
+    * Design (TODO)
+    * Facades (TODO)
+    * Services
+    * Language Processing (TODO)
+    * Core Extensions
+  * Examples (TODO)
+  * API Reference
+* Development - Information for developers of Spoofax
+  * Maven
+  * Build
+  * Develop
+  * Internals
+* Release - Information about releases and downloads
+  * Release Notes
+  * Migration Guides
+
+# Old outline
+
 * Introduction
   * Description
   * License
