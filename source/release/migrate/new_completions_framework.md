@@ -88,4 +88,4 @@ To migrate old projects it is necessary to:
 - add the following import to `<LanguageName>-Colorer.esv`:
     - `completion/colorer/<LanguageName>-cc-esv`. This import the editor files responsible for coloring the explicit placeholders.
 
-In case of any issue or suggestion for improving the framework, please create an entry detailing your suggestion/issue in [http://yellowgrass.org/project/SpoofaxWithCore](http://yellowgrass.org/project/SpoofaxWithCore).
+In case of any issue or suggestion for improving the framework, please create an entry detailing your suggestion/issue with a tag `completion` in [http://yellowgrass.org/project/SpoofaxWithCore](http://yellowgrass.org/project/SpoofaxWithCore).
