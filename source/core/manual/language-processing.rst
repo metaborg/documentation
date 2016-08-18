@@ -100,8 +100,6 @@ The processing pipeline works with the concept of units.
 A unit is a collection of information, about a certain processing aspect, for a single resource, of a certain language.
 For example, a parse unit contains the parsed AST for a resource, or a collection of error messages if parsing that resource, and is specific to the language that it is parsed with.
 
-.. Units can be attached to actual files, or detached from files to support in-memory processing, without requiring physical files to exist.
-
 In most cases, it is not required to manually construct processing units, since the parse, analyze, and transform services create these units for you.
 The only unit that must always be created, is the :java:ref:`~org.metaborg.spoofax.core.unit.ISpoofaxInputUnit`, which contains all information to parse a resource.
 Such a unit can be constructed with the :java:ref:`~org.metaborg.spoofax.core.unit.ISpoofaxInputUnitService` service, for example::
@@ -141,6 +139,7 @@ Updates are only produced in subsequent calles to the analysis service, to suppo
 To be able to analyze something, a :java:ref:`~org.metaborg.core.context.IContext` object is required.
 A context stores project and language specific information about analysis.
 A context is retrieved using the :java:ref:`~org.metaborg.core.context.IContextService` service, by calling the ``get`` method with the resource that you'd like to analyze, its project, and the language of that resource.
+When performing analysis, the context must be write-locked through the ``IContext.write()`` method, to ensure that only one thread is writing to the context at any given time.
 
 For example, to analyze a parsed resource::
 
@@ -152,7 +151,10 @@ For example, to analyze a parsed resource::
     parseUnit.input().langImpl());
   // Analyze the parsed source file
   ISpoofaxAnalysisService analysisService = ... // Get through dependency injection
-  ISpoofaxAnalyzeResult result = analysisService.analyze(parseUnit, context);
+  ISpoofaxAnalyzeResult result;
+  try(IClosableLock lock = context.write()) {
+    result = analysisService.analyze(parseUnit, context);
+  }
   ISpoofaxAnalyzeUnit analyzeUnit = result.result();
 
 Transformation
@@ -171,15 +173,19 @@ No service is needed to instantiate a transform goal, just instantiate one of th
 
 To transform a parse or analyze unit, call one of the ``transform`` methods.
 A context object is required for transforming. See the section on analysis on how to retrieve a context object.
+When performing transformations that read analysis data from the context, the context must be read-locked through the ``IContext.read()`` method, to ensure that no other thread is writing to the context.
 Since a language implementation can contain multiple transformations for the same goal, executing a transformation can return multiple transform units.
 
-The following example transforms an analyzed resource::
+The following example transforms an analyzed resource with the ``Compile to Java`` transformation::
 
   IAnalyzeUnit analyzeUnit = ...
+  IContext context = analyzeUnit.context();
   ISpoofaxTransformService transformService = ... // Get through dependency injection
-  Collection<ISpoofaxTransformUnit<ISpoofaxAnalyzeUnit>> transformUnits =
-    transformService.transform(analyzeUnit, analyzeUnit.context(),
-    new EndNamedGoal("Compile to Java"));
+  Collection<ISpoofaxTransformUnit<ISpoofaxAnalyzeUnit>> transformUnits;
+  try(IClosableLock lock = context.read()) {
+    transformUnits = transformService.transform(analyzeUnit, context,
+      new EndNamedGoal("Compile to Java"));
+  }
 
 Stratego Transformation
 -----------------------
@@ -190,14 +196,18 @@ Therefore, we expose the :java:ref:`~org.metaborg.spoofax.core.stratego.IStrateg
 
 The ``invoke`` methods execute a strategy on a term, and return the transformed term.
 A context object is required for transformation. See the section on analysis on how to retrieve a context object.
+When performing transformations that read analysis data from the context, the context must be read-locked through the ``IContext.read()`` method, to ensure that no other thread is writing to the context.
 For example, to invoke a strategy on a parsed AST::
 
   ISpoofaxParseUnit parseUnit = ...
   IContext context = ...
   IStrategoCommon strategoCommon = ... // Get through dependency injection
-  IStrategoTerm transformed = strategoCommon.invoke(parseUnit.input().langImpl(),
-    context, parseUnit.ast(), "compile-to-java");
+  IStrategoTerm transformed;
+  try(IClosableLock lock = context.read()) {
+    transformed = strategoCommon.invoke(parseUnit.input().langImpl(),
+      context, parseUnit.ast(), "compile-to-java");
+  }
 
-The ``toString`` and ``prettyPrint`` methods can be used to turn terms into string representations.
+The ``toString`` and ``prettyPrint`` methods of the :java:ref:`~org.metaborg.spoofax.core.stratego.IStrategoCommon` class can be used to turn terms into string representations.
 
 Internally, the :java:ref:`~org.metaborg.spoofax.core.stratego.IStrategoRuntimeService` service is used, but this has a lower-level interface.
