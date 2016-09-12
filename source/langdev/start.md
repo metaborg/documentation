@@ -105,9 +105,10 @@ Remove that production and replace it with the following productions:
   Word.World = <world>
 ```
 
-This grammar accepts a program consisting of 2 words, where the words can be `hello` or `world`, with any number of layout characters (whitespace, tabs, empty lines, , comments, etc.) in between.
+This grammar accepts a program consisting of 2 words, where the words can be `hello` or `world`, with any number of layout characters (whitespace, tabs, empty lines, comments, etc.) in between.
 
-To observe our changes to the grammar, we must first rebuild the project by selecting <span class='menuselection'>Project -> Build Project</span>.
+To observe our changes to the grammar, we must first rebuild the project by selecting <span class='menuselection'>Project -> Build Project</span>. If this is greyed out, make sure that the project is selected in the project explorer.
+
 Create a new file by choosing <span class='menuselection'>File -> New -> File</span>, put the file at the root of the <span class='file'>helloworld</span> project and name it <span class='file'>test.hel</span>.
 Open that file and try out the parser by typing `hello world`, any combinations of the 2 words, and with or without layout between words.
 
