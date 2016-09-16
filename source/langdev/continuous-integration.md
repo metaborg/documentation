@@ -134,7 +134,31 @@ build:
   useBuildSystemSpec: true
 ```
 
-The maven build should now succeed.
+The maven build should now succeed:
+
+```
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Entity.build 0.1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ Entity.build ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Entity ............................................. SUCCESS [ 31.033 s]
+[INFO] Entity.eclipse ..................................... SUCCESS [  1.252 s]
+[INFO] Entity.eclipse.feature ............................. SUCCESS [  0.469 s]
+[INFO] Entity.eclipse.site ................................ SUCCESS [  3.776 s]
+[INFO] Entity.test ........................................ SUCCESS [  0.140 s]
+[INFO] Entity.build ....................................... SUCCESS [  0.013 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 51.354 s
+[INFO] Finished at: 2016-09-16T16:58:25+02:00
+[INFO] Final Memory: 280M/963M
+[INFO] ------------------------------------------------------------------------
+```
 
 ## Build on Jenkins
 
