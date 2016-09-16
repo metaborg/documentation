@@ -162,4 +162,47 @@ The maven build should now succeed:
 
 ## Build on Jenkins
 
-<!-- TODO -->
+`New Item` > enter a name and choose `Multibranch Pipeline`
+
+Add the git repo `Branch Sources` > `Add source` > `Git`. Fill in project repository such as `https://github.com/MetaBorgCube/metaborg-entity.git`, select credentials, and save.
+
+You should now get a message saying that the repository has branch but does not meet the criteria, as the `Jenkinsfile` is not setup yet.
+
+Create the a file `Jenkinsfile` in the root of the repository containing (be sure to update the update site path):
+
+```
+// workaround for branch-names which contain a slash
+def getWorkspace() {
+    pwd().replace("%2F", "_")
+}
+
+node{
+  ws(getWorkspace()) {
+    stage 'Build and Test'
+    checkout scm
+    sh "git clean -fXd" // make sure generated files are removed (git-ignored files). Use "-fxd" to also remove untracked files, but note that this will also remove .repository forcing mvn to download all artifacts each build
+    withMaven(
+      mavenLocalRepo: '.repository',
+      mavenOpts: '-Xmx1024m -Xss16m'
+    ){
+      // Run the maven build
+      sh "mvn -B -U clean verify -DforceContextQualifier=\$(date +%Y%m%d%H%M) "
+    }
+    archiveArtifacts artifacts: 'icedust.eclipse.updatesite/target/site/', excludes: null, onlyIfSuccessful: true
+  }
+}
+```
+
+Go to the Jenkins project > `Branch Indexing` > `Run now`. This should trigger the build of the master branch.
+
+In order to trigger Jenkins to build on every commit we need to install a GitHub service.
+In the GitHub repository go to `Settings` > `Integrations & services` > `Add service` > `Jenkins (Git plugin)` (not GitHub plugin) and provide the jenkins url (for example http://buildfarm.metaborg.org/ )
+
+For a GitHub build-badge add the following the the readme file:
+```
+[![Build status](http://buildfarm.metaborg.org/job/Entity/job/master/badge/icon)](http://buildfarm.metaborg.org/job/Entity/job/master/)
+```
+
+TODO: describe spoofax-master triggers.
+
+TODO: figure out how to use `Promoted Builds` to promote spoofax-master only if language build succeeds.
