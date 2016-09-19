@@ -207,4 +207,6 @@ To trigger the build of specific branch as regression test after spoofax-master 
 Go to the bottom `Build` > `Add build step` > `Trigger/call builds on other projects` and specify the project to build e.g. `Entity/master`.
 (Currently there is no way for a multibranch pipeline project to specify a build trigger at the project itself rather than at the spoofax-master project.)
 
+TODO: figure out how to disable parallel builds of the same branch. (Parallel builds use the same workspace, and thus the same files, which will make a build fail.)
+
 TODO: figure out how to use `Promoted Builds` to promote spoofax-master only if language build succeeds.
