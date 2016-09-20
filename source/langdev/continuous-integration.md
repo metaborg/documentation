@@ -168,7 +168,7 @@ Add the git repo `Branch Sources` > `Add source` > `Git`. Fill in project reposi
 
 You should now get a message saying that the repository has branch but does not meet the criteria, as the `Jenkinsfile` is not setup yet.
 
-Create the a file `Jenkinsfile` in the root of the repository containing (be sure to update the update site path):
+Create the a file `Jenkinsfile` in the root of the repository containing (be sure to update the update site path, and to change the slack integration channel or comment out the slack integration):
 
 ```
 // workaround for branch-names which contain a slash
@@ -178,18 +178,44 @@ def getWorkspace() {
 
 node{
   ws(getWorkspace()) {
-    stage 'Build and Test'
-    checkout scm
-    sh "git clean -fXd" // make sure generated files are removed (git-ignored files). Use "-fxd" to also remove untracked files, but note that this will also remove .repository forcing mvn to download all artifacts each build
-    withMaven(
-      mavenLocalRepo: '.repository',
-      mavenOpts: '-Xmx1024m -Xss16m'
-    ){
-      // Run the maven build
-      sh "mvn -B -U clean verify -DforceContextQualifier=\$(date +%Y%m%d%H%M) "
+    stage('Build and Test'){
+      try{
+        notifyBuild('Started')
+        checkout scm
+        sh "git clean -fXd" // make sure generated files are removed (git-ignored files). Use "-fxd" to also remove untracked files, but note that this will also remove .repository forcing mvn to download all artifacts each build
+        withMaven(
+          mavenLocalRepo: '.repository',
+          mavenSettingsConfig: 'org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig1430668968947',
+          mavenOpts: '-Xmx1024m -Xss16m'
+        ){
+          // Run the maven build
+          sh "mvn -B -U clean verify -DforceContextQualifier=\$(date +%Y%m%d%H%M) "
+        }
+        archiveArtifacts artifacts: 'somefolder.eclipse.updatesite/target/site/', excludes: null, onlyIfSuccessful: true
+        notifyBuild('Succeeded')
+      } catch (e) {
+        notifyBuild('Failed')
+        throw e
+      }
     }
-    archiveArtifacts artifacts: 'icedust.eclipse.updatesite/target/site/', excludes: null, onlyIfSuccessful: true
   }
+}
+
+def notifyBuild(String buildStatus) {
+  // Message
+  def message = """${buildStatus}: ${env.JOB_NAME} [${env.BUILD_NUMBER}] ${env.BUILD_URL}"""
+
+  // Color
+  if (buildStatus == 'Succeeded') {
+    color = 'good'
+  } else if (buildStatus == 'Failed') {
+    color = 'danger'
+  } else {
+    color = '#4183C4' // Slack blue
+  }
+
+  // Send notifications
+  slackSend (color: color, message: message, channel: '#some-slack-channel')
 }
 ```
 
