@@ -236,5 +236,3 @@ Go to the bottom `Build` > `Add build step` > `Trigger/call builds on other proj
 TODO: figure out how to disable parallel builds of the same branch. (Parallel builds use the same workspace, and thus the same files, which will make a build fail.)
 
 TODO: figure out how to use `Promoted Builds` to promote spoofax-master only if language build succeeds.
-
-TODO: figure out slack integration: https://jenkins.io/blog/2016/07/18/pipline-notifications/
