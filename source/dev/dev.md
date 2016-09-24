@@ -52,6 +52,7 @@ Here you can search for so called connectors that make some maven plugins work w
 The ones you're most likely looking for are:
 1. `buildhelper` for the integration with the `build-helper-maven-plugin`
 2. `m2e-jdt-compiler` for the integration with the `maven-compile-plugin`
+3. `Tycho Configurators` for the integration with the Tycho build plugins
 
 After installing these connectors, you should be able to successfully build your first Spoofax project.
 For Spoofax language projects, you can select the project and then go to the menu bar: `Project -> Build Project`.
