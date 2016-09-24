@@ -452,7 +452,7 @@ This part is displayed in the bottom left.
 The final part is a console window, which contains more detailed error messages about the test suite or test case you selected in the second part.
 This part is displayed in the bottom right.
 
-.. image:: images/SPTTestRunner.png
+!["SPT TestRunner Layout"](images/SPTTestRunner.png)
 
 The test runner will start displaying any test suites and test cases within those test suites as soon as it discovers them.
 Then, after they are all loaded, they will be executed one by one, and the progress bar at the top will increase.
