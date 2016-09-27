@@ -276,6 +276,40 @@ The following configuration options are optional and revert to default values wh
    .. describe:: sdf
 
       Configuration options for SDF2 and SDF3.
+      
+      .. describe:: enabled
+        
+        Whether to enable sdf (parse table, parenthesizer) for the current project or not.
+
+        - Format: Either ``true`` or ``false``. 
+        - Default: ``true``
+        - Example::
+
+        language:
+               sdf:
+                 enabled: false           
+
+      .. describe:: parse-table
+        
+        The relative path to the parse table (if not specified in the ESV).
+
+        - Default: ``target/metaborg/sdf.tbl``
+        - Example::
+
+        language:
+               sdf:
+                 parse-table: "tables/sdf.tbl"
+
+      .. describe:: completion-parse-table
+        
+        The relative path to the completions parse table.
+
+        - Default: ``target/metaborg/sdf-completions.tbl``
+        - Example::
+
+        language:
+               sdf:
+                 completion-parse-table: "tables/sdf-completions.tbl"
 
       .. describe:: version
 
@@ -288,6 +322,18 @@ The following configuration options are optional and revert to default values wh
              language:
                sdf:
                  version: sdf2
+
+      .. describe:: sdf2table
+        
+        Version of sdf2table to use.
+
+        - Format: Either ``c`` or ``java``. 
+        - Default: ``c``
+        - Example::
+
+        language:
+               sdf:
+                 sdf2table: java           
 
       .. describe:: externalDef
 
