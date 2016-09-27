@@ -286,8 +286,8 @@ The following configuration options are optional and revert to default values wh
         - Example::
 
         language:
-               sdf:
-                 enabled: false           
+          sdf:
+            enabled: false           
 
       .. describe:: parse-table
         
@@ -297,8 +297,8 @@ The following configuration options are optional and revert to default values wh
         - Example::
 
         language:
-               sdf:
-                 parse-table: "tables/sdf.tbl"
+          sdf:
+            parse-table: "tables/sdf.tbl"
 
       .. describe:: completion-parse-table
         
@@ -308,8 +308,8 @@ The following configuration options are optional and revert to default values wh
         - Example::
 
         language:
-               sdf:
-                 completion-parse-table: "tables/sdf-completions.tbl"
+          sdf:
+            completion-parse-table: "tables/sdf-completions.tbl"
 
       .. describe:: version
 
@@ -331,9 +331,9 @@ The following configuration options are optional and revert to default values wh
         - Default: ``c``
         - Example::
 
-        language:
-               sdf:
-                 sdf2table: java           
+            language:
+              sdf:
+                sdf2table: java           
 
       .. describe:: externalDef
 
