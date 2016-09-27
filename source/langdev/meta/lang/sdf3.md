@@ -182,8 +182,32 @@ Placeholders can also have a number of options:
 * `<Sort*>`: repetition (0...n)
 * `<Sort+>`: repetition (1...n)
 * `<{Sort ","}*>`: repetition with separator
-* `<Sort; text="hi">`: placeholder with replacement text
-* `<Sort; hide>`: placeholder hidden from completion template
+* `<Sort>`: placeholder with replacement text
+* `<Sort; hide>`: placeholder hidden from completion template (`Sort` needs to have a production `Sort.Cons = `)
+* `<Sort; cursor>`: placeholder shows in completion template with empty name (`Sort` needs to have a production `Sort.Cons = `)
+
+#### Case-insensitive Literals
+
+SDF3 allows defining case-insensitive literals as single-quoted strings in regular productions. For example: 
+
+     Exp.If = 'if' "(" Exp ")" Exp 'else' Exp
+
+accepts case-insensitive keywords for `if` and `else` such as `if`, `IF`, `If`, `else`, `ELSE` or `ELsE`. However, to generate case-insensitive literals from template productions, it is necessary to add annotate these productions as case-insensitive. For example, a template production 
+
+     Exp.If = <
+        if(<Exp>)
+          <Exp>
+        else
+          <Exp>
+     > {case-insensitive}
+     
+accepts the same input as the regular production mentioned before.
+ 
+Moreover, lexical symbols can also be annotated as case-insensitive. In this case, the constructed abstract syntax tree contains lower-case symbols, but the original term is preserved via origin-tracking. For example:
+
+    ID = [a-zA-z][a-zA-Z0-9]* {case-insensitive}
+
+can parse `foo`, `Foo`, `FOo`, `fOo`, `foO`, `fOO` or `FOO`. Whichever option generates a node `"foo"` in the abstract syntax tree. By consulting the origin information on this node, it is possible to know which term was used as input to the parser.
 
 ### Template options
 
@@ -241,39 +265,18 @@ If no tokenize option is specified, it defaults to the default value of `()`.
 
 Multiple tokenize options are not supported. If multiple tokenize options are specified, the last one is used.
 
-#### newlines
+#### reject
 
-Specifies that the grammar requires line feeds.
-The structure is as follows:
-
-```
-newlines : (none|separating|leading|trailing)
-```
-
-There are 4 modes this option can be set to:
-
-* `none`: No line feeds are required. This is the default.
-* `separating`: Line feeds are required whenever a template contains a line feed. Subsequent line feeds in a template are combined into one line feed.
-* `leading`: In addition to separating line feeds, also requires a line feed at the beginning of each template.
-* `trailing`: In addition to separating line feeds, also requires a line feed at the end of each template.
-
-For example, consider the following grammar specification:
+Convenient way for setting up reject rules for keywords. See the section on rejections for more information.
+The structure of the reject option is as follows:
 
 ```
-template options
-
-  newlines : separating
-
-context-free syntax
-
-  Exp.Call = <<ID>(
-
-  );>
+Symbol = keyword {attrs}
 ```
+where `Symbol` is the symbol to generate the rules for. Note that `attrs` can be include any attribute, but by using `reject`, reject rules such as `ID = "true" {reject}` are generated for all keywords that appear in the templates.
 
-This grammar requires a line feed after the `(` character. The program `func();` is not valid, but `func(\n);` is.
 
-Multiple newline options are not supported. If multiple newline options are specified, the last one is used.
+Multiple reject template options are not supported. If multiple reject template options are specified, the last one is used. 
 
 ## Disambiguation
 
@@ -307,8 +310,8 @@ The following definition assumes that derivations are represented using parse fo
 The preference attribute can be used to handle the 'dangling else' problem. Here is an example:
 
 ```
-Exp.IfThenElse = <"if" Exp "then" Exp "else" Exp>
-Exp.IfThen     = <"if" Exp "then" Exp>  {prefer}
+Exp.IfThenElse = <"if" <Exp> "then" <Exp> "else" <Exp>>
+Exp.IfThen     = <"if" <Exp> "then" <Exp>>  {prefer}
 ```
 
 ### Priorities
