@@ -57,6 +57,22 @@ The ones you're most likely looking for are:
 After installing these connectors, you should be able to successfully build your first Spoofax project.
 For Spoofax language projects, you can select the project and then go to the menu bar: `Project -> Build Project`.
 
+If you import projects from Spoofax, Eclipse might give you the following type of error on some files in the projects:
+`Access restriction: The type 'MetaborgException' is not API`.
+This is caused by Eclipse being weird, as discussed on this [stackoverflow post](http://stackoverflow.com/questions/25222811/access-restriction-the-type-application-is-not-api-restriction-on-required-l).
+As there really is no reason why the project couldn't access the type, other than Eclipse being weird, just add an Access Rule to the project that has the error:
+`Right click on Project -> properties -> Java Build Path -> Libraries tab -> Expand Plug-in Dependencies -> Access rules -> Edit -> Add -> Resolution: Accessible -> Rule Pattern: org/metborg/core/*`.
+The actual rule pattern depends on which type Eclipse claimed was not accessible.
+
+To be able to run a new Eclipse instance with the Spoofax projects in your workspace, you can get a launch configuration from the `org.metaborg.spoofax.eclipse` project.
+When you first try to launch the Eclipse Plugin, you will most likely be notified of missing constraints in some of your projects.
+This means you have to install these constraints into your Eclipse.
+Most of these can be installed through the [Eclipse Orbit](http://www.eclipse.org/orbit/) project.
+Just add their update site and select the missing plugins.
+Here is a list of plugins I had to install through Orbit:
+
+- Google Guice (No AOP)
+
 These setup steps have been tested with [Eclipse Neon](http://www.eclipse.org/neon/) and a nightly build of Spoofax `2.1.0-SNAPSHOT`.
 
 ### Fixing Eclipse settings
