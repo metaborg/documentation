@@ -8,7 +8,7 @@ Release notes describe the changes made in the release, and provide download lin
 .. toctree::
    :maxdepth: 1
 
-   nightly <nightly>
+   development <development>
    2.0.0 (08-07-2016) <2.0.0>
    2.0.0-beta1 (07-04-2016) <2.0.0-beta1>
    1.5.0 (18-12-2015) <1.5.0>
