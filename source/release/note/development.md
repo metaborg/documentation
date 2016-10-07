@@ -9,16 +9,16 @@ The development version of Spoofax is not rigorously tested, use at your own ris
 
 With embedded JRE:
 
-* [Windows 32-bits, embedded JRE](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-win32-x86-jre.zip)
-* [Windows 64-bits, embedded JRE](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-win32-x64-jre.zip)
+* [Windows 32-bits, embedded JRE](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x86-jre.zip)
+* [Windows 64-bits, embedded JRE](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x64-jre.zip)
 * [Linux 32-bits, embedded JRE](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x86-jre.tar.gz)
 * [Linux 64-bits, embedded JRE](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x64-jre.tar.gz)
 * [Mac OS X (Intel only), embedded JRE](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-macosx-x64-jre.tar.gz)
 
 Without embedded JRE:
 
-* [Windows 32-bits](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-win32-x86.zip)
-* [Windows 64-bits](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-win32-x64.zip)
+* [Windows 32-bits](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x86.zip)
+* [Windows 64-bits](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x64.zip)
 * [Linux 32-bits](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x86.tar.gz)
 * [Linux 64-bits](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x64.tar.gz)
 * [Mac OS X (Intel only)](http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-macosx-x64.tar.gz)
