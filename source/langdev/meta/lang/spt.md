@@ -263,7 +263,8 @@ Then we will look at test expectations that are more specific: the name analysis
 
 Analysis message expectations will cause the input fragment to be parsed and analyzed (e.g., name and type analysis and static error checking).
 Finally, the resulting messages (i.e. errors, warnings, or notes) will be compared to the expectation.
-Note that, when test fixtures are present, all analysis messages within the *fixture* will be ignored.
+Note that messages of the expected type are **not** allowed to appear in the test *fixture*, if one is present.
+This is to prevent test from succeeding, when a message that would make it fail appears in an unexpected location.
 Only the messages within the test's *fragment* will be compared to the expectation.
 
 - `Expectation.MessageExpectation = <<Operator?> <INT> <Severity>>`  
