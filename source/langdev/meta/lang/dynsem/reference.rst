@@ -59,6 +59,9 @@ Signature section
           Map(S1, S2)
             for associative arrays where keys are of sort `S1` and values are of sort `S2`
 
+          (S1 * S2 * ... * Sn)
+            for tuples of arbitrary arity. `S1`, `S2`, ... can be any sort.
+
       sort aliases
         Declare sort synonyms. Sort aliases are useful to define shorthands for composed sorts such as for Maps and Lists. For example:
 
@@ -66,8 +69,9 @@ Signature section
 
           sort aliases
             Env = Map(String, Value)
+            SciNum = (Float * Int)
 
-        declares `Env` as a sort alias for `Map(String, Value)`. Wherever the sort `Map(String, Value)` is used, the alias `Env` can be used instead.
+        declares `Env` as a sort alias for `Map(String, Value)`. Wherever the sort `Map(String, Value)` is used, the alias `Env` can be used instead. The example also declares `SciNum` as a sort alias for the pair of a `Float` and an `Int`.
 
         .. note:: sort-aliases are only syntactic sugar for their aliased sorts and sorts can therefore not be distinguished based on name. For example if two sort aliases `Env1` and `Env2` are defined for `Map(String, Value)` they all become equal and there is no type difference between `Env1` and `Env2`. One can now see `Env1 = Env2 = Map(String, Value)`.
 
@@ -82,6 +86,25 @@ Signature section
         the following are valid variable names: **v1**, **v2**, **v'**, **v'''**, **v1'**, **v_foo**.
 
         .. note:: Variable schemes can be useful in combination with [implicit reductions][1] to concisely express the expected sort.
+
+      components
+        Define semantic components. A semantic component has a label and a term type. All uses of the component will have a term of that type. All semantic components must be declared before use:
+
+        .. code-block:: dynsem
+
+          components
+            E : Env
+            H : Heap
+
+        declares the components *E* and *H* of types *Env* and *Heap*, respectively. The declared components can now be used in arrow declarations and rules. Each semantic component declaration implicitly introduces a variable scheme for the component name and type. The example above introduces variable schemes:
+
+        .. code-block:: dynsem
+
+          variabls
+            E : Env
+            H : Heap
+
+        for ease of use.
 
       constructors
         Define constructors for program and value terms. There are two constructor variants:
@@ -104,25 +127,15 @@ Signature section
 
             declares the **OkV** unary constructor. In term constructions where a term of sort **O** is expected but a term *t* of sort **V** is provided, the constructor **OkV** is automatically constructed to surround term *t* to become `Ok(t)`. In pattern matches where a term of sort **O** is provided but a term of sort **V** is expected, a pattern match for the term **OkV** is automatically inserted.
 
-          meta-functions
-            Define constructors and implicitly define a reduction arrows for those constructors. Constructors defined in this way are not of a particular sort and therefore cannot be nested in other constructors. Meta-function constructors can be useful to encapsulate semantic definitions which can be reused. Syntactically the difference between regular constructor and meta-function declarations is in the double arrow at the end of the declaration:
-
-            .. code-block:: dynsem
-
-              constructors
-                concat: String * String --> String
-
-            which can be read as "define meta-function **concat** with two arguments of sort **String** which reduces to a term of sort **String**"
-
       arrows
         Declare named reduction relations. Relations in DynSem have to be declared before they are used to define reductions over them. Declarations take the form `S1 -ID-> S2`. Such a declaration makes the relation `-ID->` (where ID is the relation name) available to reduce terms of sort `S1` (input sort) to terms of sort `S2` (output sort). For example, the relation declaration:
 
           .. code-block:: dynsem
 
               arrows
-                Exprs -eval-> Values
+                RO* |- Exprs :: RW-IN* -eval-> Values :: RW-IN*
 
-        declares relation **eval** to relate terms of the **Exprs** sort to terms of the **Values** sort.
+        declares relation **eval** to relate terms of the **Exprs** sort to terms of the **Values** sort. The declared relation has read-only components **RO*** and read-write components **RW***. Component declarations are optional but they are obeyed. Components associated with arrows are determined by merging the declaration components with those gathered from use sites of the arrows.
 
         Multiple relations with the same name may be declared as long as their input sorts are different. Relations cannot be distinguished by their output sort; it is invalid to define two relations with the same input sort, same name but different output sorts.
 
@@ -143,6 +156,16 @@ Signature section
               Exprs -default-> Values
 
         This reduction arrow can be referred to with or without mentioning it's name.
+
+          meta-functions
+            Define singleton reductions:
+
+            .. code-block:: dynsem
+
+              arrows
+                concat(String,) String --> String
+
+            which can be read as "define meta-function **concat** which reduces two terms of sort **String** to a term of sort **String**".
 
       native operators
         These are natively defined (in Java) operators.
