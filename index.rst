@@ -56,7 +56,7 @@ Table of Contents
 
 - Release Notes
 
-  - :doc:`nightly <source/release/note/nightly>`
+  - :doc:`development <source/release/note/development>`
   - :doc:`2.0.0 (08-07-2016) <source/release/note/2.0.0>`
   - :doc:`2.0.0-beta1 (07-04-2016) <source/release/note/2.0.0-beta1>`
   - :doc:`1.5.0 (18-12-2015) <source/release/note/1.5.0>`

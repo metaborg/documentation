@@ -174,18 +174,21 @@ We expect the program above to evaluate to ``NumV(42)`` and extend the semantics
     sort aliases
       Env = Map(String, V)
 
+    components
+      E : Env
+
   rules
-    Env e |- Let(x, e1, e2) --> v2
+    E |- Let(x, e1, e2) --> v2
     where
-      Env e |- e1 --> v1;
-      Env {x |--> v1, e} |- e2 --> v2.
+      E |- e1 --> v1;
+      E {x |--> v1, E} |- e2 --> v2.
 
-    Env e |- Var(x) --> e[x].
+    E |- Var(x) --> E[x].
 
-The ``signature sort aliases`` subsection defines ``Env`` as an alias for an associative array from ``String`` to ``V``. We use this associative array as the evaluation context for variables - variable environment. The environment will be propagated downwards in the evaluation tree.
+The ``signature sort aliases`` subsection defines ``Env`` as an alias for an associative array from ``String`` to ``V``. We use this associative array as the evaluation context for variables - variable environment. The ``signature components`` subsection defines `E` as a semantic component of type `Env`. This labelled component (which in our case holds an environment) will be propagated downwards in the evaluation tree.
 
 
-Looking at the first rule, it reduces a ``Let`` term to a value by first reducing the variable expression in the surrounding environment and then reducing the body expression in the updated environment. The variable environment ``Env e`` is received into the reduction rule together with the ``Let`` expression to be reduced, and it is propagated downwards in the evaluation tree of the premises. Updates to the environment are not visible upwards in the evaluation tree. The second rule reduces `Var` expressions to the value associated with the variable name in the variable environment.
+Looking at the first rule, it reduces a ``Let`` term to a value by first reducing the variable expression in the surrounding environment and then reducing the body expression in the updated environment. The variable environment ``E`` is received into the reduction rule together with the ``Let`` expression to be reduced, and it is propagated downwards in the evaluation tree of the premises. Updates to the environment are not visible upwards in the evaluation tree. The second rule reduces `Var` expressions to the value associated with the variable name in the variable environment.
 
 
 .. note:: Terms left of the ``|-`` symbol are called *read-only semantic components*.
@@ -218,27 +221,29 @@ We extend the DynSem specification with the following signature and reduction ru
       BoxV: Int -> V
     sort aliases
       Heap = Map(Int, V)
+    components
+      H : Heap
 
   rules
-    Box(e) :: Heap h --> BoxV(addr) :: Heap {addr |--> v, h'}
+    Box(e) :: H --> BoxV(addr) :: Heap {addr |--> v, H'}
     where
-      e :: Heap h --> v :: Heap h';
+      e :: H --> v :: H';
       fresh => addr.
 
-    Unbox(e) :: Heap h --> h'[addr] :: Heap h'
+    Unbox(e) :: H --> H'[addr] :: H'
     where
-      e :: Heap h --> BoxV(addr) :: Heap h'.
+      e :: H --> BoxV(addr) :: H'.
 
-    Setbox(box, e) :: Heap h --> v :: Heap {addr |--> v, h''}
+    Setbox(box, e) :: H --> v :: Heap {addr |--> v, H''}
     where
-      box :: Heap h --> BoxV(addr) :: Heap h';
-      e :: Heap h' --> v :: Heap h''.
+      box :: H --> BoxV(addr) :: H';
+      e :: H' --> v :: H''.
 
-where ``BoxV`` is a new *SIMPL* value representing the address of a box in the heap ``Heap``. The ``Box`` reduces to a ``BoxV`` value by reducing the subexpression to a value, obtaining a new unoccupied address using the ``fresh`` primitive. It extends the incoming ``Heap`` with a new entry for the evaluated expression at the new address. The ``Unbox`` rule reduces the subexpression to a box value and looks up the associated value in the ``Heap``.
+where ``BoxV`` is a new *SIMPL* value representing the address of a box in the heap ``H``. The ``Box`` reduces to a ``BoxV`` value by reducing the subexpression to a value, obtaining a new unoccupied address using the ``fresh`` primitive. It extends the incoming ``Heap`` with a new entry for the evaluated expression at the new address. The ``Unbox`` rule reduces the subexpression to a box value and looks up the associated value in the ``H``.
 
 .. note:: Terms to the right side of ``::`` symbol are called *read-write semantic components*. They are woven through the evaluation tree and updates to them are made visible upwards in the evaluation tree.
 
-Similarly to the addition of the *let*-expression, extending with a heap structure and mutable variables does not require changing the existing reduction rules. Rules do not have to explicitly mention (or handle) read-write components which they do not depend on. The SIMPL repository at `tags/let-and-boxes-verbose`_ contains the complete dynamic semantics specification for *SIMPL*.
+Similarly to the addition of the *let*-expression, extending with a heap structure and mutable variables does not require changing the existing reduction rules. Rules do not have to explicitly mention (or handle) read-write components which they do not depend on.
 
 --------------------------------------------------------
 Specifying semantics for conditional language constructs
@@ -316,12 +321,12 @@ These declarations can be imported in the rest of the specification. We define t
     sort aliases
       Env = Map(String, V)
 
-    variables
+    components
       E : Env
 
-    constructors
-      bindVar: String * V --> Env
-      readVar: String --> V
+    arrows
+      bindVar(String, V) --> Env
+      readVar(String) --> V
 
   rules
 
@@ -344,13 +349,13 @@ And declare the ``bindVar`` and ``readVar`` *meta-functions* which update the en
     sort aliases
       Heap = Map(Int, V)
 
-    variables
+    components
       H : Heap
 
-    constructors
-      read: Int --> V
-      allocate: V --> Int
-      write: Int * V --> V
+    arrows
+      read(Int) --> V
+      allocate(V) --> Int
+      write(Int, V) --> V
 
   rules
 
@@ -361,7 +366,7 @@ And declare the ``bindVar`` and ``readVar`` *meta-functions* which update the en
       fresh => addr;
       write(addr, v) --> _.
 
-    write(addr, v) :: H --> v :: Heap {addr |--> v, H}.
+    write(addr, v) :: H --> v :: H {addr |--> v, H}.
 
 And declare *meta-functions* ``allocate``, ``read``, ``write``, which create a box, read the contents of a box and update the contents of the box, respectively. Note that since the ``allocate`` rule does not access the ``Heap`` locally it can be left implicit. We can use the *meta-functions* to re-specify the semantics of the context-sensitive *SIMPL* constructs:
 
@@ -371,7 +376,7 @@ And declare *meta-functions* ``allocate``, ``read``, ``write``, which create a b
   rules
     Let(x, v1, e2) --> v2
     where
-      Env bindVar(x, v1) |- e2 --> v2.
+      E bindVar(x, v1) |- e2 --> v2.
 
     Var(x) --> readVar(x).
 
@@ -383,8 +388,8 @@ By using the semantic abstractions over the environment the rules become more co
   rules
     Let(x, v1, e2) --> v2
     where
-      bindVar(x, v1) --> env';
-      Env env' |- e2 --> v2.
+      bindVar(x, v1) --> E';
+      E' |- e2 --> v2.
 
     Var(x) --> v
     where
@@ -396,14 +401,14 @@ Secondly the semantic components (read-only and read-write) are explicated:
   :linenos:
 
   rules
-    Env env |- Let(x, v1, e2) --> v2
+    E |- Let(x, v1, e2) --> v2
     where
-      Env env |- bindVar(x, v1) --> env';
-      Env env' |- e2 --> v2.
+      E |- bindVar(x, v1) --> E';
+      E' |- e2 --> v2.
 
-    Env env |- Var(x) --> v
+    E |- Var(x) --> v
     where
-      Env env |- readVar(x) --> v.
+      E |- readVar(x) --> v.
 
 .. note:: The performance of derived interpreters is **not** adversely affected by the introduction and use of *meta-functions*.
 
@@ -418,8 +423,6 @@ Rules for boxes can be re-specified in a similar way to those for environments:
     Unbox(BoxV(addr)) --> read(addr).
 
     Setbox(BoxV(addr), v) --> write(addr,v).
-
-The SIMPL repository at `tags/let-and-boxes-compact`_ contains the complete specification for *SIMPL* using *meta-functions*.
 
 -----------------------------------
 Growing the language with functions
@@ -454,7 +457,7 @@ From a dynamic semantics point of view we add a new type of value - ``ClosV`` - 
 
   signature
     constructors
-    ClosV: String * Exp * Env -> V
+      ClosV: String * Exp * Env -> V
 
   rules
     E |- Fun(x, e) --> ClosV(x, e, E).
@@ -463,8 +466,6 @@ From a dynamic semantics point of view we add a new type of value - ``ClosV`` - 
     where
       E  |- bindVar(x, v1) --> E';
       E' |- e --> v2.
-
-The full specification is kept at `tags/functions`_.
 
 -----------------------------------------------
 Preparing an interpreter for an object language
@@ -482,7 +483,7 @@ To get a functioning interpreter derived from a DynSem specification we have to 
 Creating a reduction entry-point
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The *SIMPL* interpreter must have a clearly defined entry point. The entry point is a reduction rule over a relation named ``-init->``. The relation named ``-init->`` does not consume semantic components and by default is the relation invoked by the interpreter at startup. First we extend the syntax definition with a constructor for the top-level of a program:
+The *SIMPL* interpreter must have a clearly defined entry point. The entry point is a reduction rule over a relation named ``-init->``. The relation named ``-init->`` should satisfy all semantic components of the arrows it applies. By default ``-ini->`` is the relation invoked by the interpreter at startup. First we extend the syntax definition with a constructor for the top-level of a program:
 
 .. code-block:: sdf3
   :linenos:
@@ -505,10 +506,10 @@ Term of sort ``Prog`` are top-level terms in *SIMPL* and reduction of a program 
   rules
     Program(e) -init-> v
     where
-      Env {} |- e :: Heap {} --> v :: Heap _.
+      E {} |- e :: H {} --> v :: H _.
 
 
-We extend the DynSem specification with a declaration of the arrow ``-init->`` reducing terms of sort ``Prog`` to a value. ``Program`` is the only term of sort ``Prog`` and we specify its reduction to value. This reduction rule introduces initial values for the variable environment ``Env`` and for the heap ``Heap``.
+We extend the DynSem specification with a declaration of the arrow ``-init->`` reducing terms of sort ``Prog`` to a value. ``Program`` is the only term of sort ``Prog`` and we specify its reduction to value. This reduction rule introduces initial values for the variable environment ``E`` and for the heap ``H``.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Configuring the interpreter generator
