@@ -100,7 +100,7 @@ Signature section
 
         .. code-block:: dynsem
 
-          variabls
+          variables
             E : Env
             H : Heap
 
@@ -163,7 +163,7 @@ Signature section
             .. code-block:: dynsem
 
               arrows
-                concat(String,) String --> String
+                concat(String, String) --> String
 
             which can be read as "define meta-function **concat** which reduces two terms of sort **String** to a term of sort **String**".
 
