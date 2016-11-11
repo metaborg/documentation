@@ -371,6 +371,9 @@ Configuration file
     interpreter.termcaching = false
       (optional) Enables inline caching of terms and pattern matching results. This can be make a performance difference for programs which are longer running or contain loops. Caching is disabled by default.
 
+    interpreter.vmargs = ""
+      (optional) Customize arguments passed to the JVM. For example setting this option to "-ea" will enable assertions in the running JVM.
+
     project.path = ../simpl.interpreter/
       Path to the interpreter project. The path must be eithe relative to the language project or absolute.
 
