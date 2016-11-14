@@ -87,6 +87,7 @@ Table of Contents
    :caption: Language Development
 
    Getting Started <source/langdev/start>
+   Continuous Integration <source/langdev/continuous-integration>
    Manual <source/langdev/manual/index>
    Meta-Languages <source/langdev/meta/lang/index>
 
