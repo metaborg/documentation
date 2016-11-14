@@ -161,6 +161,7 @@ The maven build should now succeed:
 ```
 
 ## Build on Jenkins
+(Note: can be skipped in GitHub organizations MetaBorg and MetaBorgCube)
 
 `New Item` > enter a name and choose `Multibranch Pipeline`
 
@@ -168,44 +169,65 @@ Add the git repo `Branch Sources` > `Add source` > `Git`. Fill in project reposi
 
 You should now get a message saying that the repository has branch but does not meet the criteria, as the `Jenkinsfile` is not setup yet.
 
+## Jenkins configuration
+
 Create the a file `Jenkinsfile` in the root of the repository containing (be sure to update the update site path, and to change the slack integration channel or comment out the slack integration):
 
 ```
-// workaround for branch-names which contain a slash
-def getWorkspace() {
-    pwd().replace("%2F", "_")
-}
+properties([
+  pipelineTriggers([
+    upstream(
+      threshold: hudson.model.Result.SUCCESS,
+      upstreamProjects: '/metaborg/spoofax-releng/master' // build this project after Spoofax-master is built
+    )
+  ]),
+  disableConcurrentBuilds() //disableds parallel builds
+])
 
 node{
-  ws(getWorkspace()) {
-    stage('Build and Test'){
-      try{
-        notifyBuild('Started')
-        checkout scm
-        sh "git clean -fXd" // make sure generated files are removed (git-ignored files). Use "-fxd" to also remove untracked files, but note that this will also remove .repository forcing mvn to download all artifacts each build
-        withMaven(
-          mavenLocalRepo: '.repository',
-          mavenSettingsConfig: 'org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig1430668968947',
-          mavenOpts: '-Xmx1024m -Xss16m'
-        ){
-          // Run the maven build
-          sh "mvn -B -U clean verify -DforceContextQualifier=\$(date +%Y%m%d%H%M) "
-        }
-        archiveArtifacts artifacts: 'somefolder.eclipse.updatesite/target/site/', excludes: null, onlyIfSuccessful: true
-        notifyBuild('Succeeded')
-      } catch (e) {
-        notifyBuild('Failed')
-        throw e
+  try{
+    notifyBuild('Started')
+
+    stage('Checkout') {
+      checkout scm
+      sh "git clean -fXd"
+    }
+
+    stage('Build and Test') {
+      withMaven(
+        //mavenLocalRepo: "${env.JENKINS_HOME}/m2repos/${env.EXECUTOR_NUMBER}", //http://yellowgrass.org/issue/SpoofaxWithCore/173
+        mavenLocalRepo: ".repository",
+        mavenOpts: '-Xmx1G -Xms1G -Xss16m'
+      ){
+        sh 'mvn -B -U clean verify -DforceContextQualifier=\$(date +%Y%m%d%H%M)'
       }
     }
+
+    stage('Archive') {
+      archiveArtifacts(
+        artifacts: 'yourlanguagename.eclipse.site/target/site/',
+        excludes: null,
+        onlyIfSuccessful: true
+      )
+    }
+
+    stage('Cleanup') {
+      sh "git clean -fXd"
+    }
+
+    notifyBuild('Succeeded')
+
+  } catch (e) {
+
+    notifyBuild('Failed')
+    throw e
+
   }
 }
 
 def notifyBuild(String buildStatus) {
-  // Message
   def message = """${buildStatus}: ${env.JOB_NAME} [${env.BUILD_NUMBER}] ${env.BUILD_URL}"""
 
-  // Color
   if (buildStatus == 'Succeeded') {
     color = 'good'
   } else if (buildStatus == 'Failed') {
@@ -214,25 +236,22 @@ def notifyBuild(String buildStatus) {
     color = '#4183C4' // Slack blue
   }
 
-  // Send notifications
   slackSend (color: color, message: message, channel: '#some-slack-channel')
 }
 ```
 
 Go to the Jenkins project > `Branch Indexing` > `Run now`. This should trigger the build of the master branch.
 
+## Trigger Jenkins on commit
+(Note: can be skipped in GitHub organizations MetaBorg and MetaBorgCube)
+
 In order to trigger Jenkins to build on every commit we need to install a GitHub service.
 In the GitHub repository go to `Settings` > `Integrations & services` > `Add service` > `Jenkins (Git plugin)` (not GitHub plugin) and provide the jenkins url (for example http://buildfarm.metaborg.org/ )
 
+## Build badge on GitHub
 For a GitHub build-badge add the following the the readme file:
 ```
 [![Build status](http://buildfarm.metaborg.org/job/Entity/job/master/badge/icon)](http://buildfarm.metaborg.org/job/Entity/job/master/)
 ```
-
-To trigger the build of specific branch as regression test after spoofax-master is built we need to add the trigger to the spoofax-master job (use with caution!).
-Go to the bottom `Build` > `Add build step` > `Trigger/call builds on other projects` and specify the project to build e.g. `Entity/master`.
-(Currently there is no way for a multibranch pipeline project to specify a build trigger at the project itself rather than at the spoofax-master project.)
-
-TODO: figure out how to disable parallel builds of the same branch. (Parallel builds use the same workspace, and thus the same files, which will make a build fail.)
 
 TODO: figure out how to use `Promoted Builds` to promote spoofax-master only if language build succeeds.
