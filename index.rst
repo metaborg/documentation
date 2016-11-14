@@ -23,6 +23,7 @@ Table of Contents
 - Language Development
 
   - :doc:`Getting Started <source/langdev/start>`
+  - :doc:`Continuous Integration <source/langdev/continuous-integration>`
   - Manual
 
     - :doc:`source/langdev/manual/env/intellij/index`
