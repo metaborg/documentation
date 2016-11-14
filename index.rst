@@ -23,7 +23,6 @@ Table of Contents
 - Language Development
 
   - :doc:`Getting Started <source/langdev/start>`
-  - :doc:`Continuous Integration <source/langdev/continuous-integration>`
   - Manual
 
     - :doc:`source/langdev/manual/env/intellij/index`
@@ -37,6 +36,8 @@ Table of Contents
     - :doc:`source/langdev/meta/lang/nabl2/index`
     - :doc:`source/langdev/meta/lang/dynsem/index`
     - :doc:`source/langdev/meta/lang/spt`
+
+  - :doc:`Continuous Integration <source/langdev/continuous-integration>`
 
 - Core API
 
@@ -87,9 +88,9 @@ Table of Contents
    :caption: Language Development
 
    Getting Started <source/langdev/start>
-   Continuous Integration <source/langdev/continuous-integration>
    Manual <source/langdev/manual/index>
    Meta-Languages <source/langdev/meta/lang/index>
+   Continuous Integration <source/langdev/continuous-integration>
 
 .. toctree::
    :hidden:
