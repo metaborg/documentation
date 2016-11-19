@@ -25,7 +25,7 @@ ATerms are constructed from the following elements:
 
   A constructor application `c(t1,...,tn)` creates a term by applying a constructor to a list of zero or more terms. For example, the term `Plus(Int("4"),Var("x"))` uses the constructors `Plus`, `Int`, and `Var` to create a nested term from the strings `"4"` and `"x"`.
 
-  When a constructor application has no subterms the parentheses may be omitted. Thus, the term `Zero` is equivalent to `Zero()`. Some people consider it good style to explicitly write the parentheses for nullary terms in Stratego programs. Through this rule, it is clear that a string is really a special case of a constructor application.
+  When a constructor application has no subterms (a "nullary constructor") the parentheses can be omitted. However, this syntax is discouraged because this notation conflicts with variable names in some parts of the language, leading to confusing failures when you meant a variable but accidentally matched agains a constructor. 
 * **List**: A list is a term of the form `[t1,...,tn]`, that is a list of zero or more terms between square brackets. While all applications of a specific constructor typically have the same number of subterms, lists can have a variable number of subterms. The elements of a list are typically of the same type, while the subterms of a constructor application can vary in type.
 
   Example: The second argument of the call to `"f"` in the term `Call("f",[Int("5"),Var("x")])` is a list of expressions.

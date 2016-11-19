@@ -34,8 +34,8 @@ The following Stratego fragment shows rewrite rules that instrument a function `
       ; simplify
 
     TraceProcedure :
-      FunDec(f, x*, NoTp, e) ->
-      FunDec(f, x*, NoTp,
+      FunDec(f, x*, NoTp(), e) ->
+      FunDec(f, x*, NoTp(),
              Seq([Call(Var("enterfun"),[String(f)]), e,
                   Call(Var("exitfun"),[String(f)])]))
 

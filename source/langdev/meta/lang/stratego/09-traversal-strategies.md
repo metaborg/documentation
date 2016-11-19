@@ -43,8 +43,8 @@ In [Chapter13][1] we saw how a functional style of rewriting could be encoded us
     strategies
       main = io-wrap(dnf)
     rules
-      dnf : True       ->          True
-      dnf : False      ->          False
+      dnf : True()     ->          True()
+      dnf : False()    ->          False()
       dnf : Atom(x)    ->          Atom(x)
       dnf : Not(x)     ->  Not (x)
       dnf : And(x, y)  ->  And (x, y)
