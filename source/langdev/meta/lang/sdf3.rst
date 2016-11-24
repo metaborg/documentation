@@ -643,25 +643,31 @@ files are generated in ``src-gen/signatures/scala-signatures/``.
 You can now copy the generated Scala files to a separate maven project.
 The files use a spoofax-scala interop library called
 ``org.metaborg.scalaterms``. Take a look at the generated code for hints
-on useful patterns. The interop library also has more classes to help
-with turning Java ATerms from Stratego into a handier structure in
-Scala. That in turn should help you write Scala code that can be used
-as a ``Strategy`` implementation for such strategies as
-``editor-analyze``, ``editor-hover`` or ``editor-resolve``. 
+on useful patterns. 
+
+This Scala maven project should generate a jar that you can then use in
+your Spoofax project as a provider. That will allow you to connect it to
+your Spoofax project with Stratego. You write a tiny amount of Java to
+register an external strategy, which immediately calls into the Scala
+code. The interop library also has more classes to help with turning
+Java ATerms from Stratego into a handier structure in Scala. That in
+turn should help you write Scala code that can be used as a ``Strategy``
+implementation for such strategies as ``editor-analyze``,
+``editor-hover`` or ``editor-resolve``. 
 
 Known issues
 ~~~~~~~~~~~~
 
 The following result in Scala code that doesn't compile:
 
--  Defining a context-free sort equals a lexical sort without wrapping it
-   in a constructor.
+-  Defining a context-free sort equals a lexical sort without wrapping
+   it in a constructor.
 -  Defining parts of the same sort in different files.
--  Defining the same constructor with different arities on a sort. (Should
-   work for when the sorts are different though). 
+-  Defining the same constructor with different arities on a sort.
+   (Should work for when the sorts are different though). 
 
 Planned features
 ~~~~~~~~~~~~~~~~
 
-- Used sort names to inspire field names in the case classes
+- Use sort names to inspire field names in the case classes
 - Support label syntax of SDF to get custom field names
