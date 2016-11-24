@@ -627,11 +627,11 @@ wanting to have productive productions out of templates, the Extract
 productions builder can be used.
 
 Generating Scala case classes from SDF3 grammars
-================================================
+------------------------------------------------
 
-.. warning :: 
-This feature is experimental and may result in Stratego errors during
-the generation process and/or invalid Scala code in the generated files.
+.. warning :: This feature is experimental and may result in Stratego
+              errors during the generation process and/or invalid Scala
+              code in the generated files.
 
 SDF3 generates Stratego signatures of AST nodes that the parser uses. A
 new addition is the generation of Scala case classes that are similar in
@@ -650,10 +650,18 @@ as a ``Strategy`` implementation for such strategies as
 ``editor-analyze``, ``editor-hover`` or ``editor-resolve``. 
 
 Known issues
-------------
+~~~~~~~~~~~~
+
+The following result in Scala code that doesn't compile:
 
 -  Defining a context-free sort equals a lexical sort without wrapping it
    in a constructor.
 -  Defining parts of the same sort in different files.
 -  Defining the same constructor with different arities on a sort. (Should
    work for when the sorts are different though). 
+
+Planned features
+~~~~~~~~~~~~~~~~
+
+- Used sort names to inspire field names in the case classes
+- Support label syntax of SDF to get custom field names
