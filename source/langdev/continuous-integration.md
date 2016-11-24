@@ -181,6 +181,7 @@ properties([
       upstreamProjects: '/metaborg/spoofax-releng/master' // build this project after Spoofax-master is built
     )
   ]),
+  buildDiscarder(logRotator(artifactNumToKeepStr: '3')),
   disableConcurrentBuilds() //disableds parallel builds
 ])
 
