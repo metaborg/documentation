@@ -208,23 +208,23 @@ Module `prop-eval2` defines the evaluation rules for Boolean expressions and a s
     module prop-eval2
     imports libstrategolib prop
     rules
-      Eval : Not(True)      -> False
-      Eval : Not(False)     -> True
-      Eval : And(True, x)   -> x
-      Eval : And(x, True)   -> x
-      Eval : And(False, x)  -> False
-      Eval : And(x, False)  -> False
-      Eval : Or(True, x)    -> True
-      Eval : Or(x, True)    -> True
-      Eval : Or(False, x)   -> x
-      Eval : Or(x, False)   -> x
-      Eval : Impl(True, x)  -> x
-      Eval : Impl(x, True)  -> True
-      Eval : Impl(False, x) -> True
-      Eval : Eq(False, x)   -> Not(x)
-      Eval : Eq(x, False)   -> Not(x)
-      Eval : Eq(True, x)    -> x
-      Eval : Eq(x, True)    -> x
+      Eval : Not(True())      -> False()
+      Eval : Not(False())     -> True()
+      Eval : And(True(), x)   -> x
+      Eval : And(x, True())   -> x
+      Eval : And(False(), x)  -> False()
+      Eval : And(x, False())  -> False()
+      Eval : Or(True(), x)    -> True()
+      Eval : Or(x, True())    -> True()
+      Eval : Or(False(), x)   -> x
+      Eval : Or(x, False())   -> x
+      Eval : Impl(True(), x)  -> x
+      Eval : Impl(x, True())  -> True()
+      Eval : Impl(False(), x) -> True()
+      Eval : Eq(False(), x)   -> Not(x)
+      Eval : Eq(x, False())   -> Not(x)
+      Eval : Eq(True(), x)    -> x
+      Eval : Eq(x, True())    -> x
     strategies
       main = io-wrap(eval)
       eval = bottomup(repeat(Eval))
@@ -244,7 +244,7 @@ Module `prop-desugar` defines a number of desugaring rules for Boolean expressio
 
     rules
 
-      DefN  : Not(x)     -> Impl(x, False)
+      DefN  : Not(x)     -> Impl(x, False())
       DefI  : Impl(x, y) -> Or(Not(x), y)
       DefE  : Eq(x, y)   -> And(Impl(x, y), Impl(y, x))
       DefO1 : Or(x, y)   -> Impl(Not(x), y)
@@ -270,7 +270,7 @@ Module `prop-desugar` defines a number of desugaring rules for Boolean expressio
       main-inf =
         io-wrap(impl-nf)
 
-The strategies `desugar` and `impl-nf` define two different desugaring transformation based on these rules. The `desugar` strategy gets rid of the implication and equivalence operators, while the `impl-nf` strategy reduces an expression to implicative normal-form, a format in which _only_ implication (`Impl`) and `False` are used.
+The strategies `desugar` and `impl-nf` define two different desugaring transformation based on these rules. The `desugar` strategy gets rid of the implication and equivalence operators, while the `impl-nf` strategy reduces an expression to implicative normal-form, a format in which _only_ implication (`Impl`) and `False()` are used.
 
 A final example of a one-pass traversal is the `downup` strategy, which applies its argument transformation during a traversal on the way down, and again on the way up:
 
@@ -282,9 +282,9 @@ An application of this strategy is a more efficient implementation of constant f
 
 This strategy reduces terms such as
 
-    And(... big expression ..., False)
+    And(... big expression ..., False())
 
-in one step (to `False` in this case), while the `bottomup` strategy defined above would first evaluate the big expression.
+in one step (to `False()` in this case), while the `bottomup` strategy defined above would first evaluate the big expression.
 
 ### 5.3.3.  Staged Transformations
 
