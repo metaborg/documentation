@@ -18,13 +18,13 @@ The `b` script in the <span class='file'>spoofax-releng</span> repository can ge
 Change directory into the <span class='file'>spoofax-releng</span> repository and run:
 
 ```bash
-./b gen-dev-spoofax -d ~/eclipse/spoofax-dev
+./b gen-spoofax -d ~/eclipse/spoofax-dev
 ```
 
 This will download and install Eclipse into <span class='file'>~/eclipse/spoofax-dev</span> with the right plugins and <span class='file'>eclipse.ini</span> for Spoofax development. The latest nightly version of the Spoofax plugin will be installed into that Eclipse. If you would like to install your locally built Spoofax plugin instead, pass the `-l` flag:
 
 ```bash
-./b gen-dev-spoofax -l -d ~/eclipse/spoofax-dev
+./b gen-spoofax -l -d ~/eclipse/spoofax-dev
 ```
 
 Generating an Eclipse installation can take several minutes. After it's done generating, open the Eclipse installation and confirm that it works by creating a Spoofax entity project.
