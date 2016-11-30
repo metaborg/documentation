@@ -655,6 +655,19 @@ turn should help you write Scala code that can be used as a ``Strategy``
 implementation for such strategies as ``editor-analyze``,
 ``editor-hover`` or ``editor-resolve``. 
 
+Name mangling
+~~~~~~~~~~~~~
+
+There is a small amount of name mangling used so the namespaces from
+SDF3 don't conflict when they are merged into Scala's class namespace:
+
+-  Module names get an `M` prefixed and `-` are removed
+-  Sort names get an `S` prefixed
+-  Constructor names get their arity appended
+-  Field names in constructors are the lowercased sort name combined
+   with the index in the list of children. SDF labels are currently
+   ignored. Feel free to contribute support for this. 
+
 Known issues
 ~~~~~~~~~~~~
 
@@ -663,11 +676,5 @@ The following result in Scala code that doesn't compile:
 -  Defining a context-free sort equals a lexical sort without wrapping
    it in a constructor.
 -  Defining parts of the same sort in different files.
--  Defining the same constructor with different arities on a sort.
-   (Should work for when the sorts are different though). 
-
-Planned features
-~~~~~~~~~~~~~~~~
-
-- Use sort names to inspire field names in the case classes
-- Support label syntax of SDF to get custom field names
+-  Please [report](yellowgrass.org/createIssue/SpoofaxWithCore) any
+   other issues you have. 
