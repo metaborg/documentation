@@ -520,7 +520,7 @@ To configure the interpreter generator with the specifics of *SIMPL* you will ne
 
 .. note:: The *dynsem.properties* file must be located in the root directory of the *SIMPL* language project, not the interpreter project
 
-.. code-block:: none
+.. code-block:: jproperties
   :linenos:
 
   # the name of the language. may not contain hyphens
