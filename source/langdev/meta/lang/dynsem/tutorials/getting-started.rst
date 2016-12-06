@@ -4,14 +4,15 @@ Getting started
 
 This guide will get you started with DynSem to specify the dynamic semantics of your language. You'll be guided through:
 
-1. `Defining your first DynSem module`_
-2. `Specifying context-free language constructs`_
-3. `Specifying context-sensitive language constructs`_
-4. `Specifying semantics for conditional language constructs`_
-5. `Using meta-functions to create semantic libraries`_
-6. `Preparing an interpreter for an object language`_
-7. `Extending specifications with native operations`_
-8. `Evaluating an object language program in an interpreter`_
+1. `Your first DynSem module`_
+2. `Context-free semantics`_
+3. `Context-sensitive semantics`_
+4. `Conditional semantics`_
+5. `Semantic libraries using meta-functions`_
+6. `Semantics of functions`_
+7. `Get ready for interpretation`_
+8. `Call into Java code`_
+9. `Run a program`_
 
 .. 7. `Writing to standard output and reading standard input`_
 .. 8. `Interacting with native data types`_
@@ -20,10 +21,10 @@ This guide will get you started with DynSem to specify the dynamic semantics of 
 .. note:: DynSem is actively developed and this guide requires features only available in the bleeding edge DynSem. To follow along this tutorial you should have the latest Spoofax 2.0 nightly build installed.
 
 ---------------------------------------
-The *SIMPL* language as running example
+The **SIMPL** language
 ---------------------------------------
 
-This guide is centered around a very simple language we call *SIMPL*. The *SIMPL* code is maintained in it's own `GitHub SIMPL repository`_. We start with a basic definition (in `SDF3`_) of concrete syntax which covers arithmetic expressions:
+This guide is centered around a very simple language we call *SIMPL*. The *SIMPL* code is kept in a `GitHub SIMPL repository`_. We start with a basic definition (in `SDF3`_) of concrete syntax which covers arithmetic expressions:
 
 .. code-block:: sdf3
   :linenos:
@@ -40,9 +41,9 @@ This guide is centered around a very simple language we call *SIMPL*. The *SIMPL
 
 Note that terms of the sort ``Exp`` are start symbols for *SIMPL* programs.
 
----------------------------------
-Defining your first DynSem module
----------------------------------
+------------------------
+Your first DynSem module
+------------------------
 
 We create the main DynSem module named *trans/simpl* in the file `trans/simpl.ds`:
 
@@ -94,9 +95,9 @@ Importing these makes the sorts and constructors available to the rest of the mo
 
 We declared constructor ``NumV`` which will be used to represent numerical value terms. We also declare reduction relation ``Exp --> V`` from ``Exp`` terms to values ``V``, and a variable scheme for variables named **v**. For details about the signature section of DynSem specification see the :ref:`dynsemreference`.
 
--------------------------------------------
-Specifying context-free language constructs
--------------------------------------------
+--------------------------
+Context-**free** semantics
+--------------------------
 
 We specify reduction rules for *SIMPL* constructs that do not depend on the evaluation contexts (such as environments). These are *number literals*, and simple *arithmetic operations*. The reduction rules are given in a big-step style:
 
@@ -113,7 +114,7 @@ We specify reduction rules for *SIMPL* constructs that do not depend on the eval
 
 The first rule specifies that literal terms such as ``42`` whose abstract syntax is of the form ``Lit("42")`` evaluate to ``NumV`` terms. The second rule specifies the semantics of the addition expressions of the form ``Plus(e1, e2)`` inductively on the default reduction relation. First the expression **e1** is reduced and the expectation is that it reduces to a ``NumV`` term. Variable **i1** is bound to the integer value surrounded by the resulting ``NumV`` term. This is captured in the first premise of the reduction rule. Similarly, the reduction of the right expression of the addition is captured in the second premise. The conclusion of the rule composes the two integers to a ``NumV`` term.
 
-In the rules above, ``parseI`` and ``addI`` are native operators which we provide the functionality of parsing a string into an integer, and of adding two integers, respectively. We provide the signatures for these when we look at `Extending specifications with native operations`_.
+In the rules above, ``parseI`` and ``addI`` are native operators which we provide the functionality of parsing a string into an integer, and of adding two integers, respectively. We provide the signatures for these when we look at `Call into Java code`_.
 
 .. note:: Dissimilar to regular big-step style rules, premises in DynSem are ordered. The ``Plus`` rule above states that the left expression will be evaluated first and the right expression second.
 
@@ -146,9 +147,9 @@ Specifying the reductions and term expectations implicitly allows rules to be wr
 
 .. note:: Implicit reductions are applied in left-to-right order and expand to the explicit form of the rules.
 
-------------------------------------------------
-Specifying context-sensitive language constructs
-------------------------------------------------
+-------------------------------
+Context-**sensitive** semantics
+-------------------------------
 
 We define *SIMPL* language constructs whose semantics depend on the evaluation context. First we extend the syntax definition of *SIMPL* with *let*-expressions:
 
@@ -245,9 +246,9 @@ where ``BoxV`` is a new *SIMPL* value representing the address of a box in the h
 
 Similarly to the addition of the *let*-expression, extending with a heap structure and mutable variables does not require changing the existing reduction rules. Rules do not have to explicitly mention (or handle) read-write components which they do not depend on.
 
---------------------------------------------------------
-Specifying semantics for conditional language constructs
---------------------------------------------------------
+---------------------
+Conditional semantics
+---------------------
 
 We illustrate how to specify the semantics of a conditional language construct by introducing an ``ifz`` expression in *SIMPL*. Extend the syntax definition of *SIMPL* with the following:
 
@@ -282,9 +283,9 @@ We extend the semantics with the following DynSem rule:
 
 The condition expression is first evaluated to a ``NumV``. Using the case pattern matching premise (:ref:`dynsemreference`) the two cases of interest are specified.
 
--------------------------------------------------
-Using meta-functions to create semantic libraries
--------------------------------------------------
+-------------------------------------------
+Semantic libraries using **meta-functions**
+-------------------------------------------
 
 To keep reduction rules concise and simple it is useful to introduce layers of abstraction over common semantic operations. For example, in the case of *SIMPL* we can abstract away from much of the operations that depend on the variable environment and the heap. Instead of directly manipulating the heap and environment in the reduction rules of the *SIMPL* expressions one can define *meta-functions* to encapsulate heap and environment operations. The *meta-functions* introduced can be reused in all places where access to the environment or heap is required.
 
@@ -304,7 +305,7 @@ To create the abstractions we first define a module to hold the sort declaration
     variables
       v : V
 
-.. note:: Read about *variable schemes* in the :ref:`dynsemreference_variables`.
+.. note:: Read about *variable schemes* in the :ref:`dynsem_reference_signatures`.
 
 These declarations can be imported in the rest of the specification. We define the environment meta-functions:
 
@@ -424,9 +425,9 @@ Rules for boxes can be re-specified in a similar way to those for environments:
 
     Setbox(BoxV(addr), v) --> write(addr,v).
 
------------------------------------
-Growing the language with functions
------------------------------------
+--------------------------
+Semantics of **functions**
+--------------------------
 
 We grow *SIMPL* with functions. Functions will be first class citizens *SIMPL* but will only take a single argument (will be unary). We define syntax for function declaration and application:
 
@@ -467,21 +468,21 @@ From a dynamic semantics point of view we add a new type of value - ``ClosV`` - 
       E  |- bindVar(x, v1) --> E';
       E' |- e --> v2.
 
------------------------------------------------
-Preparing an interpreter for an object language
------------------------------------------------
+--------------------------------
+Get ready for **interpretation**
+--------------------------------
 
-To get a functioning interpreter derived from a DynSem specification we have to go through the following steps:
+To get a functioning interpreter derived from a DynSem specification one has to go through the following steps:
 
-1. `Creating a reduction entry-point`_
-2. `Configuring the interpreter generator`_
-3. `Deriving language-specific interpreter components`_
+1. `A reduction entry-point`_
+2. `Configure the interpreter generator`_
+3. `Generate interpreter components`_
 
 .. _dynsem_gettingstarted_entrypoint:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Creating a reduction entry-point
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+A reduction entry-point
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The *SIMPL* interpreter must have a clearly defined entry point. The entry point is a reduction rule over a relation named ``-init->``. The relation named ``-init->`` should satisfy all semantic components of the arrows it applies. By default ``-ini->`` is the relation invoked by the interpreter at startup. First we extend the syntax definition with a constructor for the top-level of a program:
 
@@ -511,9 +512,9 @@ Term of sort ``Prog`` are top-level terms in *SIMPL* and reduction of a program 
 
 We extend the DynSem specification with a declaration of the arrow ``-init->`` reducing terms of sort ``Prog`` to a value. ``Program`` is the only term of sort ``Prog`` and we specify its reduction to value. This reduction rule introduces initial values for the variable environment ``E`` and for the heap ``H``.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Configuring the interpreter generator
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Configure the interpreter generator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To configure the interpreter generator with the specifics of *SIMPL* you will need a *dynsem.properties* file:
 
@@ -555,9 +556,9 @@ The first fragment (lines 1-3) configures the language name, a version identifie
 
 The third fragment (lines 10-15) sets parameters for the target interpreted project. ``project.path`` gives the path to the interpreter project. This must be a path relative to the language project, in this case to the *SIMPL* project. The ``project.clean`` flag indicates whether the target generation directory should be recursively removed (clean compilation target) before generation. If this property is not mentioned in *dynsem.properties*, it defaults to **false**. For a detailed explanation of all valid properties consult the :ref:`dynsem_reference_configfile` reference.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Deriving language-specific interpreter components
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Generate interpreter components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. |Generate| raw:: html
 
@@ -565,12 +566,12 @@ Deriving language-specific interpreter components
 
 An interpreter derived from a DynSem specification relies on components that are generated from the specification. This generation project happens on-demand. Ensure that the *SIMPL* language project is built and that you have the *SIMPL* interpreter project open in the Eclipse workspace. Open the top-level DynSem specification file - *simpl.ds* - and select |Generate|. Observe that files have been placed into the *SIMPL* interpreter project:
 
-.. image:: img/project_generated_files.png
+.. image:: ../img/project_generated_files.png
   :width: 200pt
 
 The *src/main/java* directory contains the *SIMPL*-specific generated term library. The *src/main/resources* directory contains the *SIMPL* parse table (*parsetable.tbl*) and an interpretable form of the DynSem specification (*specification.aterm*).
 
-.. note:: At this stage it is normal that the project contains Java errors about the missing *simpl.interpreter.natives* package. We will populate this package with native operations (`Extending specifications with native operations`_). If other errors are reported make sure you have enabled and configured annotation processing:
+.. note:: At this stage it is normal that the project contains Java errors about the missing *simpl.interpreter.natives* package. We will populate this package with native operations (see `Call into Java code`_). If other errors are reported make sure you have enabled and configured annotation processing:
 
 .. |AnnoProcProp| raw:: html
 
@@ -580,13 +581,13 @@ The *src/main/java* directory contains the *SIMPL*-specific generated term libra
 
     <span class='menuselection'>Enable project specific settings</span>
 
-.. image:: img/maven_anno_processing.png
+.. image:: ../img/maven_anno_processing.png
 
 .. warning:: If the entry |AnnoProcProp| is not available it means you propbably do not have the `M2E-APT Eclipse plugin`_ installed. Install it from the Eclipse Marketplace and try again to configure the project by selecting |EnableAnnoProc| in the window pane opened by selecting |AnnoProcProp|.
 
------------------------------------------------
-Extending specifications with native operations
------------------------------------------------
+-----------------------
+Call into **Java code**
+-----------------------
 
 Many times a semantics for a language will depend on operations whose specification/implementation will reside outside of the formal specification. In the case of the *SIMPL* language such operation are the conversion of a string representation of a number to a number literal, arithmetic operations, and the ``fresh`` address generator. More complex languages will require interactions with existent systems such as application of library functions. DynSem sepcifications can interact with specification-external (native) operations by means of ``native operators``. Although we have used native operators for arithmetic operations in *SIMPL*, this guide has so far ommitted their signature declaration:
 
@@ -602,7 +603,7 @@ Many times a semantics for a language will depend on operations whose specificat
 
 Line 3 declares the ``parseI`` native operator which takes one argument of type ``String`` and produces an ``Int``. For a detailed explanation of the ``native operators`` signature section consult the :ref:`dynsemreference`.
 
-We now provide an implementation for ``parseI`` and for ``addI``. Create the package *simpl.interpreter.natives*. This package has to be same as the one specified in the ``target.nativepackage`` property in `Configuring the interpreter generator`_. Inside the package create an abstract class named ```parseI_1``:
+We now provide an implementation for ``parseI`` and for ``addI``. Create the package *simpl.interpreter.natives*. This package has to be same as the one specified in the ``target.nativepackage`` property in `Configure the interpreter generator`_. Inside the package create an abstract class named ```parseI_1``:
 
 .. code-block:: Java
   :linenos:
@@ -677,9 +678,9 @@ The significant difference to ``parseI`` is that ``addI`` has two children. Usin
 
 .. note:: The implementation for the other native operators used by *SIMPL* can be found in the repository at `tags/native-operators`_.
 
--------------------------------------------------------
-Evaluating an object language program in an interpreter
--------------------------------------------------------
+-------------
+Run a program
+-------------
 
 .. |Import interp| raw:: html
 

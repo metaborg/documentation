@@ -24,6 +24,8 @@ Modules
 
       rules
 
+.. _dynsem_reference_signatures:
+
 -----------------
 Signature section
 -----------------
@@ -32,148 +34,148 @@ Signature section
 
   The signatures section of a DynSem module provides definitions for program abstract syntax and for additional entities used in the specification of a language's dynamic semantics.
 
-      sorts
-        Define sorts of program and value terms, separated by white space. For example:
+  sorts
+    Define sorts of program and value terms, separated by white space. For example:
 
-        .. code-block:: dynsem
+    .. code-block:: dynsem
 
-            sorts Exprs Stmts
+        sorts Exprs Stmts
 
-        A number of sorts are built-in sorts in DynSem:
+    A number of sorts are built-in sorts in DynSem:
 
-          String
-            strings as values or program terms
+      String
+        strings as values or program terms
 
-          Int
-            integers.
+      Int
+        integers.
 
-          Float
-            decimals
+      Float
+        decimals
 
-          Bool
-            booleans. Literals of sort Bool are `true` and `false`
+      Bool
+        booleans. Literals of sort Bool are `true` and `false`
 
-          List(S)
-            for lists of some sort `S`. `S` can be any sort
+      List(S)
+        for lists of some sort `S`. `S` can be any sort
 
-          Map(S1, S2)
-            for associative arrays where keys are of sort `S1` and values are of sort `S2`
+      Map(S1, S2)
+        for associative arrays where keys are of sort `S1` and values are of sort `S2`
 
-          (S1 * S2 * ... * Sn)
-            for tuples of arbitrary arity. `S1`, `S2`, ... can be any sort.
+      (S1 * S2 * ... * Sn)
+        for tuples of arbitrary arity. `S1`, `S2`, ... can be any sort.
+
+  sort aliases
+    Declare sort synonyms. Sort aliases are useful to define shorthands for composed sorts such as for Maps and Lists. For example:
+
+    .. code-block:: dynsem
 
       sort aliases
-        Declare sort synonyms. Sort aliases are useful to define shorthands for composed sorts such as for Maps and Lists. For example:
+        Env = Map(String, Value)
+        SciNum = (Float * Int)
 
-        .. code-block:: dynsem
+    declares `Env` as a sort alias for `Map(String, Value)`. Wherever the sort `Map(String, Value)` is used, the alias `Env` can be used instead. The example also declares `SciNum` as a sort alias for the pair of a `Float` and an `Int`.
 
-          sort aliases
-            Env = Map(String, Value)
-            SciNum = (Float * Int)
+    .. note:: sort-aliases are only syntactic sugar for their aliased sorts and sorts can therefore not be distinguished based on name. For example if two sort aliases `Env1` and `Env2` are defined for `Map(String, Value)` they all become equal and there is no type difference between `Env1` and `Env2`. One can now see `Env1 = Env2 = Map(String, Value)`.
 
-        declares `Env` as a sort alias for `Map(String, Value)`. Wherever the sort `Map(String, Value)` is used, the alias `Env` can be used instead. The example also declares `SciNum` as a sort alias for the pair of a `Float` and an `Int`.
+  variables
+    Defines variable prefix schemes. Variable schemes take the form `ID = S` and express the expectation that all variables prefixed with ID are of the sort S. A variable is part of the scheme X if it's name begins with X and is either followed only by numbers and/or apostrophes, or is followed by _ followed by any valid identifier. For example given the scheme:
 
-        .. note:: sort-aliases are only syntactic sugar for their aliased sorts and sorts can therefore not be distinguished based on name. For example if two sort aliases `Env1` and `Env2` are defined for `Map(String, Value)` they all become equal and there is no type difference between `Env1` and `Env2`. One can now see `Env1 = Env2 = Map(String, Value)`.
+      .. code-block:: dynsem
 
-      variables
-        Defines variable prefix schemes. Variable schemes take the form `ID = S` and express the expectation that all variables prefixed with ID are of the sort S. A variable is part of the scheme X if it's name begins with X and is either followed only by numbers and/or apostrophes, or is followed by _ followed by any valid identifier. For example given the scheme:
+        variables
+          v : Value
 
-        .. code-block:: dynsem
+      the following are valid variable names: **v1**, **v2**, **v'**, **v'''**, **v1'**, **v_foo**.
 
-          variables
-            v : Value
+      .. note:: Variable schemes can be useful in combination with [implicit reductions][1] to concisely express the expected sort.
 
-        the following are valid variable names: **v1**, **v2**, **v'**, **v'''**, **v1'**, **v_foo**.
+  components
+    Define semantic components. A semantic component has a label and a term type. All uses of the component will have a term of that type. All semantic components must be declared before use:
 
-        .. note:: Variable schemes can be useful in combination with [implicit reductions][1] to concisely express the expected sort.
+    .. code-block:: dynsem
 
       components
-        Define semantic components. A semantic component has a label and a term type. All uses of the component will have a term of that type. All semantic components must be declared before use:
+        E : Env
+        H : Heap
+
+    declares the components *E* and *H* of types *Env* and *Heap*, respectively. The declared components can now be used in arrow declarations and rules. Each semantic component declaration implicitly introduces a variable scheme for the component name and type. The example above introduces variable schemes:
+
+    .. code-block:: dynsem
+
+      variables
+        E : Env
+        H : Heap
+
+    for ease of use.
+
+  constructors
+    Define constructors for program and value terms. There are two constructor variants:
+
+      regular constructors
+        Define regular constructors. Definitions take the form `NAME: {SORT "*"}* -> SORT`, where `NAME` is the name of the constructor, followed by the sorts of the children of the constructor, and where the last `SORT` is the sort of the constructor. Example:
 
         .. code-block:: dynsem
 
-          components
-            E : Env
-            H : Heap
+          constructors
+            Plus: Exprs * Exprs -> Exprs
 
-        declares the components *E* and *H* of types *Env* and *Heap*, respectively. The declared components can now be used in arrow declarations and rules. Each semantic component declaration implicitly introduces a variable scheme for the component name and type. The example above introduces variable schemes:
-
-        .. code-block:: dynsem
-
-          variables
-            E : Env
-            H : Heap
-
-        for ease of use.
-
-      constructors
-        Define constructors for program and value terms. There are two constructor variants:
-
-          regular constructors
-            Define regular constructors. Definitions take the form `NAME: {SORT "*"}* -> SORT`, where `NAME` is the name of the constructor, followed by the sorts of the children of the constructor, and where the last `SORT` is the sort of the constructor. Example:
-
-            .. code-block:: dynsem
-
-              constructors
-                Plus: Exprs * Exprs -> Exprs
-
-          implicit constructors
-            Define unary constructors which can be implicitly constructed/deconstructed in pattern matches and term constructions. For example, the constructor:
-
-            .. code-block:: dynsem
-
-              constructors
-                OkV: V -> O {implicit}
-
-            declares the **OkV** unary constructor. In term constructions where a term of sort **O** is expected but a term *t* of sort **V** is provided, the constructor **OkV** is automatically constructed to surround term *t* to become `Ok(t)`. In pattern matches where a term of sort **O** is provided but a term of sort **V** is expected, a pattern match for the term **OkV** is automatically inserted.
-
-      arrows
-        Declare named reduction relations. Relations in DynSem have to be declared before they are used to define reductions over them. Declarations take the form `S1 -ID-> S2`. Such a declaration makes the relation `-ID->` (where ID is the relation name) available to reduce terms of sort `S1` (input sort) to terms of sort `S2` (output sort). For example, the relation declaration:
-
-          .. code-block:: dynsem
-
-              arrows
-                RO* |- Exprs :: RW-IN* -eval-> Values :: RW-IN*
-
-        declares relation **eval** to relate terms of the **Exprs** sort to terms of the **Values** sort. The declared relation has read-only components **RO*** and read-write components **RW***. Component declarations are optional but they are obeyed. Components associated with arrows are determined by merging the declaration components with those gathered from use sites of the arrows.
-
-        Multiple relations with the same name may be declared as long as their input sorts are different. Relations cannot be distinguished by their output sort; it is invalid to define two relations with the same input sort, same name but different output sorts.
-
-        .. note:: It is valid to have multiple identical arrow declarations.
-
-        The name-part of the relation declaration may be omitted, such that:
+      implicit constructors
+        Define unary constructors which can be implicitly constructed/deconstructed in pattern matches and term constructions. For example, the constructor:
 
         .. code-block:: dynsem
 
-              arrows
-                Exprs --> Values
+          constructors
+            OkV: V -> O {implicit}
 
-        is a synonym for:
+        declares the **OkV** unary constructor. In term constructions where a term of sort **O** is expected but a term *t* of sort **V** is provided, the constructor **OkV** is automatically constructed to surround term *t* to become `Ok(t)`. In pattern matches where a term of sort **O** is provided but a term of sort **V** is expected, a pattern match for the term **OkV** is automatically inserted.
+
+  arrows
+    Declare named reduction relations. Relations in DynSem have to be declared before they are used to define reductions over them. Declarations take the form `S1 -ID-> S2`. Such a declaration makes the relation `-ID->` (where ID is the relation name) available to reduce terms of sort `S1` (input sort) to terms of sort `S2` (output sort). For example, the relation declaration:
+
+      .. code-block:: dynsem
+
+          arrows
+            RO* |- Exprs :: RW-IN* -eval-> Values :: RW-IN*
+
+    declares relation **eval** to relate terms of the **Exprs** sort to terms of the **Values** sort. The declared relation has read-only components **RO*** and read-write components **RW***. Component declarations are optional but they are obeyed. Components associated with arrows are determined by merging the declaration components with those gathered from use sites of the arrows.
+
+    Multiple relations with the same name may be declared as long as their input sorts are different. Relations cannot be distinguished by their output sort; it is invalid to define two relations with the same input sort, same name but different output sorts.
+
+    .. note:: It is valid to have multiple identical arrow declarations.
+
+    The name-part of the relation declaration may be omitted, such that:
+
+    .. code-block:: dynsem
+
+          arrows
+            Exprs --> Values
+
+    is a synonym for:
+
+    .. code-block:: dynsem
+
+        arrows
+          Exprs -default-> Values
+
+    This reduction arrow can be referred to with or without mentioning it's name.
+
+      meta-functions
+        Define singleton reductions:
 
         .. code-block:: dynsem
 
-            arrows
-              Exprs -default-> Values
+          arrows
+            concat(String, String) --> String
 
-        This reduction arrow can be referred to with or without mentioning it's name.
+        which can be read as "define meta-function **concat** which reduces two terms of sort **String** to a term of sort **String**".
 
-          meta-functions
-            Define singleton reductions:
+  native operators
+    These are natively defined (in Java) operators.
+    .. error:: Not documented
 
-            .. code-block:: dynsem
-
-              arrows
-                concat(String, String) --> String
-
-            which can be read as "define meta-function **concat** which reduces two terms of sort **String** to a term of sort **String**".
-
-      native operators
-        These are natively defined (in Java) operators.
-        .. error:: Not described yet
-
-      native datatypes
-        These define datatypes implemented natively (in Java) which can be used inside DynSem specifications.
-        .. error:: Not described yet
+  native datatypes
+    These define datatypes implemented natively (in Java) which can be used inside DynSem specifications.
+    .. error:: Not documented
 
 -------------
 Rules section

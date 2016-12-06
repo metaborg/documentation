@@ -5,8 +5,8 @@ DynSem
 DynSem is a domain specific language for the concise specification of dynamic semantics of programming languages.
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 2
 
-  getting-started
+  Tutorials <tutorials/index>
   reference
   support
