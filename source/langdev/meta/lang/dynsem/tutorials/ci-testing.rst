@@ -37,8 +37,7 @@ Line 6 specifies the directory in which the JUnit test suite will be placed. The
 
 Line 8 specifies the directory in which the test programs reside. If the property is not given the default is :jprop:`project.testspath = src/test/resources`.
 
-
-After modifications, the ``dynsem.properties`` file is:
+With the above additions the ``dynsem.properties`` file becomes:
 
 .. code-block:: jproperties
   :linenos:
@@ -81,7 +80,11 @@ After modifications, the ``dynsem.properties`` file is:
   # (optional) Specify the path to the test files
   project.testspath = src/test/resources
 
-After regenerating the *SIMPL* interpreter the project structure is:
+.. |Generate| raw:: html
+
+      <span class='menuselection'>Spoofax -> Semantics -> Generate Interpreter</span>
+
+We regenerate the interpreter project by invoking |Generate|. The *SIMPL* interpreter the project structure now is:
 
 .. image:: ../img/project_generated_junit_files.png
   :width: 300pt
@@ -191,10 +194,87 @@ Tests can also be run from CLI using Maven. To do this, open a console and chang
   [INFO] BUILD SUCCESS
   [INFO] ------------------------------------------------------------------------
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Build your language from CLI
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We now have a language project and an interpreter project for *SIMPL*. We can run tests from CLI. But we cannot yet generate an interpreter from CLI. To achieve this we need to modify the language project build configuration.
+
+We contribute the following goal to the **pom.xml** file of the *SIMPL* language:
+
+.. code-block:: xml
+  :linenos:
+  :emphasize-lines: 23
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.metaborg</groupId>
+        <artifactId>spoofax-maven-plugin</artifactId>
+        <version>${metaborg-version}</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <language>ds</language>
+          <goal>Generate Interpreter</goal>
+          <fileSets>
+            <fileSet>
+              <directory>${basedir}/trans</directory>
+              <includes>
+                <include>simpl.ds</include>
+              </includes>
+            </fileSet>
+          </fileSets>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.metaborg</groupId>
+      <artifactId>org.metaborg.meta.lang.esv</artifactId>
+      <type>spoofax-language</type>
+      <version>${metaborg-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.metaborg</groupId>
+      <artifactId>org.metaborg.meta.lang.template</artifactId>
+      <type>spoofax-language</type>
+      <version>${metaborg-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.metaborg</groupId>
+      <artifactId>meta.lib.spoofax</artifactId>
+      <type>spoofax-language</type>
+      <version>${metaborg-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.metaborg</groupId>
+      <artifactId>org.metaborg.meta.lib.analysis</artifactId>
+      <type>spoofax-language</type>
+      <version>${metaborg-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.metaborg</groupId>
+      <artifactId>dynsem</artifactId>
+      <type>spoofax-language</type>
+      <version>${metaborg-version}</version>
+    </dependency>
+  </dependencies>
+
+Line 23 is the only *SIMPL*-specific entry, it needs to point to the main DynSem file of the language. By convention this must always be **LANGNAME.ds**. This addition instructs Maven to run the *Generate Interpreter* transformation on **simpl.ds** during the ``verify`` phase of the build.
+
+After this addition, issuing :bash:`mvn verify` in the *SIMPL* language project causes the interpreter project to be generated after the language is built. We can run now the *SIMPL* interpretation tests by issuing :bash:`mvn test` in the *SIMPL* interpreter project.
+
+At this stage the language project can be built and the interpreter can be generated and tested, all from the command line using Maven.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Continuous integration with Travis CI
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
