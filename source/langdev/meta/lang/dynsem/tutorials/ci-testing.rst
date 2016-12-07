@@ -278,3 +278,117 @@ At this stage the language project can be built and the interpreter can be gener
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Continuous integration with Travis CI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We now put wire everything together such that the *SIMPL* interpreter is built and tested on Travis CI for every pushed commit. The Travis build must take the following actions:
+
+1. Checkout source from Git
+2. Build the language project
+3. Generate the interpreter project
+4. Build the interpreter
+5. Run the tests
+
+Firstly, we create a Shell script (file name *travis-build.sh*) that orchestrates the build steps:
+
+.. code-block:: bash
+  :linenos:
+
+  #!/bin/bash
+  set -ev
+  cd $TRAVIS_BUILD_DIR/simpl
+  mvn -Pstandalone install
+  cd $TRAVIS_BUILD_DIR/simpl.interpreter
+  mvn test
+
+The ``$TRAVIS_BUILD_DIR`` variable is bound in the Travis CI build environment and points to the root of the Git repository. The script first builds, tests and installs the language project. During the *verify* phase the interpreter project will be generated. It then builds and tests the generated interpreter project. The ``-Pstandalone`` parameter instructs Maven to activate the *standalone* repository profile (yet to be created).
+
+Secondly, we create a *.travis.yml* configuration file:
+
+.. code-block:: yaml
+  :linenos:
+
+  language: java
+  before_script:
+    - echo "MAVEN_OPTS='-server -Xms512m -Xmx1024m -Xss16m'" > ~/.mavenrc
+  script: ./travis-build.sh
+
+  cache:
+   directories:
+     - $HOME/.m2
+
+  jdk:
+    - oraclejdk8
+
+There's nothing *SIMPL* specific here. We specify additional parameters (bigger heap, larger stack) for the building VM; instruct Travis that it should cache the Maven repository; and that the build should happen in an Oracle JDK 1.8. And of course we link the previously created build script.
+
+Thirdly, if we were to try it out on Travis the build would be broken failing to download the Metaborg dependencies. We need to add an additional Maven repository profile (the *standalone* profile) to the language projects so that it can find the Metaborg dependencies during the build. We add the following to both *pom.xml* files:
+
+.. code-block:: xml
+  :linenos:
+
+  <profiles>
+    <profile>
+      <id>standalone</id>
+      <repositories>
+        <repository>
+          <id>metaborg-release-repo</id>
+          <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>metaborg-snapshot-repo</id>
+          <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>spoofax-eclipse-repo</id>
+          <url>http://download.spoofax.org/update/nightly/</url>
+          <layout>p2</layout>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>metaborg-release-repo</id>
+          <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>metaborg-snapshot-repo</id>
+          <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+This adds the Metaborg repositories (both releases and snapshots) to a Maven profile named *standalone*.
+
+.. |BUILD STATUS| image:: https://travis-ci.org/MetaBorgCube/simpl.svg?branch=master
+    :target: https://travis-ci.org/MetaBorgCube/simpl
+    
+Fourthly, and finally we enable Travis CI builds for *SIMPL* using Travis's dashboard. We can also include a buildstatus badge: (|BUILD STATUS|).
