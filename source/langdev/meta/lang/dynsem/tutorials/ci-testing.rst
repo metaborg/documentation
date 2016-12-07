@@ -390,5 +390,5 @@ This adds the Metaborg repositories (both releases and snapshots) to a Maven pro
 
 .. |BUILD STATUS| image:: https://travis-ci.org/MetaBorgCube/simpl.svg?branch=master
     :target: https://travis-ci.org/MetaBorgCube/simpl
-    
-Fourthly, and finally we enable Travis CI builds for *SIMPL* using Travis's dashboard. We can also include a buildstatus badge: (|BUILD STATUS|).
+
+Fourthly, and finally we enable Travis CI builds for *SIMPL* using Travis's dashboard. We can also include a buildstatus badge (|BUILD STATUS|).
