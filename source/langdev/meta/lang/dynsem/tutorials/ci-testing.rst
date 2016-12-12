@@ -82,7 +82,7 @@ With the above additions the ``dynsem.properties`` file becomes:
 
 .. |Generate| raw:: html
 
-      <span class='menuselection'>Spoofax -> Semantics -> Generate Interpreter</span>
+      <span class='menuselection'>Spoofax -> Semantics -> Generate interpreter</span>
 
 We regenerate the interpreter project by invoking |Generate|. The *SIMPL* interpreter the project structure now is:
 
@@ -223,7 +223,7 @@ We contribute the following goal to the **pom.xml** file of the *SIMPL* language
         </executions>
         <configuration>
           <language>ds</language>
-          <goal>Generate Interpreter</goal>
+          <goal>Generate interpreter</goal>
           <fileSets>
             <fileSet>
               <directory>${basedir}/trans</directory>
