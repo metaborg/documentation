@@ -37,6 +37,10 @@ Table of Contents
     - :doc:`source/langdev/meta/lang/dynsem/index`
     - :doc:`source/langdev/meta/lang/spt`
 
+  - Meta-Libraries
+
+    - :doc:`source/langdev/meta/lang/stratego/index`
+
   - :doc:`Continuous Integration <source/langdev/continuous-integration>`
 
 - Core API
@@ -90,6 +94,7 @@ Table of Contents
    Getting Started <source/langdev/start>
    Manual <source/langdev/manual/index>
    Meta-Languages <source/langdev/meta/lang/index>
+   Meta-Libraries <source/langdev/meta/libraries/index>
    Continuous Integration <source/langdev/continuous-integration>
 
 .. toctree::
