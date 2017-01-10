@@ -9,6 +9,7 @@ Release notes describe the changes made in the release, and provide download lin
    :maxdepth: 1
 
    development <development>
+   2.1.0 (10-01-2017) <2.1.0>
    2.0.0 (08-07-2016) <2.0.0>
    2.0.0-beta1 (07-04-2016) <2.0.0-beta1>
    1.5.0 (18-12-2015) <1.5.0>
