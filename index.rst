@@ -77,6 +77,7 @@ Table of Contents
 
 - Migration Guides
 
+  - :doc:`2.1.0 <source/release/migrate/2.1.0>`
   - :doc:`2.0.0 <source/release/migrate/2.0.0>`
 
 
