@@ -2,9 +2,20 @@
 Spoofax 2.2.0
 =============
 
-This page is a stub for the release notes of Spoofax 2.2.0.
-Add relevant changes from Spoofax 2.1.0 to the next release to this page.
+This page contains the release notes of Spoofax 2.2.0.
 See the corresponding :ref:`migration guide <2.2.0-migration-guide>` for migrating from Spoofax 2.1 to Spoofax 2.2.
 
 Changes
 -------
+
+Core API
+~~~~~~~~
+
+- Fixes the path and project path that are passed to the editor hover strategy.
+
+NaBL2
+~~~~~
+
+- Introduces a new solver implementation with improved performance.
+- Introduces separate signature sections for *constructors*, *relations*, and *functions*.
+- Deprecates the *types* signature, which will be removed in the next release.
