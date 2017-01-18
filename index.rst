@@ -19,7 +19,7 @@ Table of Contents
 =================
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    Download <source/download>
    Support <source/support>
@@ -42,7 +42,7 @@ Table of Contents
    API Reference <source/core/api>
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Development
 
    Maven <source/dev/maven>
