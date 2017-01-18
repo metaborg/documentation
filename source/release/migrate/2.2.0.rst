@@ -1,0 +1,8 @@
+.. _2.2.0-migration-guide:
+
+=============================
+Spoofax 2.2.0 Migration Guide
+=============================
+
+This page is a stub for the migration guide of Spoofax 2.2.
+Add relevant migration guides from Spoofax 2.1.0 to the next release to this page.

@@ -251,8 +251,8 @@ In the GitHub repository go to `Settings` > `Integrations & services` > `Add ser
 
 ## Build badge on GitHub
 For a GitHub build-badge add the following the the readme file:
-  
-```markdown
+
+```
 [![Build status](http://buildfarm.metaborg.org/job/Entity/job/master/badge/icon)](http://buildfarm.metaborg.org/job/Entity/job/master/)
 ```
 

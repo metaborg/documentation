@@ -8,6 +8,7 @@ Release notes describe the changes made in the release, and provide download lin
 .. toctree::
    :maxdepth: 1
 
+   2.2.0 (stub) (??-??-????) <2.2.0>
    2.1.0 (10-01-2017) <2.1.0>
    2.0.0 (08-07-2016) <2.0.0>
    2.0.0-beta1 (07-04-2016) <2.0.0-beta1>
