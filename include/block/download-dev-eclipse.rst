@@ -1,0 +1,5 @@
+- `Windows 32-bits <dev-eclipse-windows-32_>`_
+- `Windows 64-bits <dev-eclipse-windows-64_>`_
+- `Linux 32-bits <dev-eclipse-linux-32_>`_
+- `Linux 64-bits <dev-eclipse-linux-32_>`_
+- `macOS <dev-eclipse-macos-64_>`_

@@ -1,6 +1,6 @@
-.. code:: eval_rst
+.. highlight:: sdf3
 
-    .. highlight:: sdf3
+.. _sdf3-index:
 
 SDF3
 ====
@@ -293,7 +293,7 @@ example, a template production
         else
           <Exp>
      > {case-insensitive}
-     
+
 
 accepts the same input as the regular production mentioned before.
 
@@ -643,7 +643,7 @@ files are generated in ``src-gen/signatures/scala-signatures/``.
 You can now copy the generated Scala files to a separate maven project.
 The files use a spoofax-scala interop library called
 ``org.metaborg.scalaterms``. Take a look at the generated code for hints
-on useful patterns. 
+on useful patterns.
 
 This Scala maven project should generate a jar that you can then use in
 your Spoofax project as a provider. That will allow you to connect it to
@@ -653,7 +653,7 @@ code. The interop library also has more classes to help with turning
 Java ATerms from Stratego into a handier structure in Scala. That in
 turn should help you write Scala code that can be used as a ``Strategy``
 implementation for such strategies as ``editor-analyze``,
-``editor-hover`` or ``editor-resolve``. 
+``editor-hover`` or ``editor-resolve``.
 
 Name mangling
 ~~~~~~~~~~~~~
@@ -666,7 +666,7 @@ SDF3 don't conflict when they are merged into Scala's class namespace:
 -  Constructor names get their arity appended
 -  Field names in constructors are the lowercased sort name combined
    with the index in the list of children. SDF labels are currently
-   ignored. Feel free to contribute support for this. 
+   ignored. Feel free to contribute support for this.
 
 Known issues
 ~~~~~~~~~~~~
@@ -677,4 +677,4 @@ The following result in Scala code that doesn't compile:
    it in a constructor.
 -  Defining parts of the same sort in different files.
 -  Please [report](yellowgrass.org/createIssue/SpoofaxWithCore) any
-   other issues you have. 
+   other issues you have.

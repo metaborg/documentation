@@ -1,6 +1,6 @@
-===============
+================
 Stratego Library
-===============
+================
 
 This manual details some of the Stratego library functions.
 

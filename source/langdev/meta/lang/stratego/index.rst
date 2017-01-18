@@ -1,3 +1,5 @@
+.. _stratego-index:
+
 ===============
 Stratego Manual
 ===============
@@ -8,7 +10,7 @@ The next few chapters outline the basic ideas of Stratego programming in bold st
 
 .. toctree::
    :maxdepth: 1
-   
+
    01-introduction
    02-terms
    03-running-stratego-programs

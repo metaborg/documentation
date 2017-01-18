@@ -1,0 +1,5 @@
+- `Windows 32-bits, embedded JRE <dev-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <dev-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <dev-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <dev-eclipse-linux-32-jre_>`_
+- `macOS, embedded JRE <dev-eclipse-macos-64-jre_>`_

@@ -1,5 +1,7 @@
 ```eval_rst
 .. highlight:: nabl
+
+.. _nabl-index:
 ```
 
 # NaBL

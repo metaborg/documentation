@@ -53,7 +53,7 @@ together in the directory ``trans/analysis``. Create a file
    module analysis/main
 
    imports
- 
+
      nabl2shared
      nabl2runtime
      analysis/-
@@ -63,13 +63,13 @@ Add the following lines to your main ``trans/LANGUAGE.str``.
 .. code-block:: stratego
 
    module LANGUAGE
- 
+
    imports
- 
+
      analysis/main
- 
+
    rules
- 
+
      editor-analyze = analyze(desugar-pre,desugar-post)
 
 If your language does not have a desugaring step, use
@@ -82,9 +82,9 @@ result of analysis, by adding the following lines to
 .. code-block:: esv
 
    module Main
- 
+
    imports
- 
+
      nabl2/References
      nabl2/Menus
 
@@ -107,7 +107,7 @@ generation, add the following to ``trans/analysis/main.str``.
 .. code-block:: stratego
 
    rules
-   
+
      debug-generate-constraint = debug
 
 Now, when the analysis is executed, a trace of the constraint

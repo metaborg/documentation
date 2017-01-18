@@ -1,3 +1,5 @@
+.. _dynsem-index:
+
 ======
 DynSem
 ======

@@ -762,10 +762,4 @@ TODO (probably move to dynamic rules chapter)
 [1]: stratego-rewriting-strategies.html "Chapter"
 [2]: stratego-creating-and-analyzing-terms.html "Chapter"
 [3]: stratego-dynamic-rules.html "Chapter"
-[4]: http://releases.strategoxt.org/images/callouts/1.png
-[5]: http://releases.strategoxt.org/images/callouts/2.png
-[6]: http://releases.strategoxt.org/images/callouts/3.png
-[7]: http://releases.strategoxt.org/images/callouts/4.png
-[8]: http://releases.strategoxt.org/images/callouts/5.png
-[9]: http://releases.strategoxt.org/images/callouts/6.png
 [10]: ref-pp-aterm.html "pp-aterm"

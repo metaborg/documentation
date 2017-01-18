@@ -1,3 +1,7 @@
+```eval_rst
+.. _new-completion-framework-migration-guide: 
+```
+
 # New Completions Framework
 
 In the latest Spoofax, we provide (beta) support for syntactic code completion.
@@ -11,9 +15,9 @@ Programs may contain explicit placeholders to represent incomplete structures. W
     placeholder:
       prefix: "$"
       suffix: "$"
-  
-  all placeholders in the program are going to be `$NAME$`, where `NAME` is the name of the non-terminal that the placeholder represents. Suffix are not mandatory and if no configuration is specified, placeholders will be formatted as `[[NAME]]`. 
-  
+
+  all placeholders in the program are going to be `$NAME$`, where `NAME` is the name of the non-terminal that the placeholder represents. Suffix are not mandatory and if no configuration is specified, placeholders will be formatted as `[[NAME]]`.
+
 ```eval_rst
 .. note:: It is necessary to clean the project after changing the format of placeholders in the YAML file.
 ```
@@ -58,7 +62,7 @@ Finally, syntactic code completion can also insert nullable/optional nodes that 
 
 #### Syntactic completion as error recovery
 
-Programs might already contain part of a structure in the input and thus a syntax error. For erroneous programs, syntactic code completion offers all possible ways to finish a structure by adding missing symbols at the cursor position. For example, by typing `if` and triggering code completion, the framework proposes completing the program by inserting an `if` statement. 
+Programs might already contain part of a structure in the input and thus a syntax error. For erroneous programs, syntactic code completion offers all possible ways to finish a structure by adding missing symbols at the cursor position. For example, by typing `if` and triggering code completion, the framework proposes completing the program by inserting an `if` statement.
 
  ![Completion as recovery](completion-recovery.png)
 
@@ -71,7 +75,7 @@ When a single placeholder is necessary to fix the program, the completion framew
  ![Recover placeholder](recover-placeholder.png)
 
 ```eval_rst
-.. note:: Proposals are formatted according to SDF3 productions. 
+.. note:: Proposals are formatted according to SDF3 productions.
 ```
 
 <!---#### How to migrate old projects?

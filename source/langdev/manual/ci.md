@@ -21,7 +21,7 @@ The local Maven build starts from the generate new project wizard (you need the 
 (Move the six projects to a new folder.)
 Create a parent pom.xml in this folder:
 
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
@@ -113,7 +113,7 @@ Copy the `.mvn` folder from your language folder to the parent folder. e.g. `Ent
 Fix the generated test yaml file (known issue) e.g. `Entity/Entity.test/metaborg.yaml`.
 (Error message otherwise: `[ERROR] Field 'id' must be set`)
 
-```
+```yaml
 ---
 dependencies:
   compile:
@@ -121,7 +121,7 @@ dependencies:
   - org.metaborg:org.metaborg.meta.lang.spt:${metaborgVersion}
 ```
 to
-```
+```yaml
 ---
 id: org.example:Entity.test:0.1.0-SNAPSHOT
 name: Entity
@@ -140,11 +140,11 @@ The maven build should now succeed:
 [INFO] ------------------------------------------------------------------------
 [INFO] Building Entity.build 0.1.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
-[INFO] 
+[INFO]
 [INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ Entity.build ---
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary:
-[INFO] 
+[INFO]
 [INFO] Entity ............................................. SUCCESS [ 31.033 s]
 [INFO] Entity.eclipse ..................................... SUCCESS [  1.252 s]
 [INFO] Entity.eclipse.feature ............................. SUCCESS [  0.469 s]
@@ -173,7 +173,7 @@ You should now get a message saying that the repository has branch but does not 
 
 Create the a file `Jenkinsfile` in the root of the repository containing (be sure to update the update site path, and to change the slack integration channel or comment out the slack integration):
 
-```
+```groovy
 properties([
   pipelineTriggers([
     upstream(
@@ -251,7 +251,8 @@ In the GitHub repository go to `Settings` > `Integrations & services` > `Add ser
 
 ## Build badge on GitHub
 For a GitHub build-badge add the following the the readme file:
-```
+  
+```markdown
 [![Build status](http://buildfarm.metaborg.org/job/Entity/job/master/badge/icon)](http://buildfarm.metaborg.org/job/Entity/job/master/)
 ```
 

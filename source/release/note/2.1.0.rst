@@ -1,0 +1,98 @@
+Spoofax 2.1.0
+=============
+
+Spoofax 2.1 improves on Spoofax 2.0 with several bug fixes, an implementation of syntactic completions based on SDF3, and addition of the DynSem dynamic semantics specification meta-language.
+
+See the corresponding :ref:`migration guide <2.1.0-migration-guide>` for migrating from Spoofax 2.0 to Spoofax 2.1.
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.1.0-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.1.0-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.1.0-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.1.0-eclipse-linux-32-jre_>`_
+- `macOS, embedded JRE <2.1.0-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.1.0-eclipse-windows-32_>`_
+- `Windows 64-bits <2.1.0-eclipse-windows-64_>`_
+- `Linux 32-bits <2.1.0-eclipse-linux-32_>`_
+- `Linux 64-bits <2.1.0-eclipse-linux-32_>`_
+- `macOS <2.1.0-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.1.0-eclipse-update-site|
+-  `Eclipse update site archive <2.1.0-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.1.0-intellij-update-site|
+-  `IntelliJ update site archive <2.1.0-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.1.0-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.1.0-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.1.0-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.1.0-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.1.0-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.1.0-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.1.0``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
+
+Changes
+-------
+
+Syntactic Completions
+~~~~~~~~~~~~~~~~~~~~~
+
+Spoofax now has support for syntactic completions.
+Syntactic completions are generated automatically from an SDF3 specification.
+New projects using SDF3 automatically support syntactic completions.
+Existing projects need to make a few changes, documented in the :ref:`migration guide <new-completion-framework-migration-guide>`.
+
+DynSem
+~~~~~~
+
+DynSem is a DSL for concise and modular specification of dynamic semantics of programming languages.
+Fully functional interpreters are automatically derived from dynamic semantics specifications.
+For more information about DynSem, see the following sources:
+
+-  `Paper <http://repository.tudelft.nl/islandora/object/uuid:2512f403-521a-47af-8fba-bc433509e2ca/?collection=research>`_
+-  :ref:`Documentation <dynsem-index>`
+-  :ref:`Getting started tutorial <dynsem-getting-started>`
+-  `Example language <https://github.com/MetaBorgCube/simpl>`_
+
+While DynSem was included in Spoofax 2.0.0, we did not advertise this as it was still under heavy development.
+Since 2.0.0, the following major improvements were made:
+
+1. `Redesigned semantic component and explication subsystem <https://github.com/metaborg/dynsem/pull/98>`_
+2. `Support for tuples <https://github.com/metaborg/dynsem/pull/93>`_
+3. :ref:`Updated tutorial for SIMPL <dynsem-getting-started>`
+4. :ref:`Added support for unit testing and continuous integration of generated interpreters <dynsem-ci>`

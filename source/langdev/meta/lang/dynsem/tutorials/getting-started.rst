@@ -1,3 +1,5 @@
+.. _dynsem-getting-started:
+
 ===============
 Getting started
 ===============
