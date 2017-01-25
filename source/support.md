@@ -1,4 +1,4 @@
-# Support
+# Getting Support
 
 Spoofax is an open source project. We welcome contributions from the community.
 

@@ -1,5 +1,8 @@
-Download
-========
+.. _all-downloads:
+
+=============
+All Downloads
+=============
 
 This page contains download links to all artifacts of the latest stable release, and the latest development version of Spoofax.
 
@@ -9,7 +12,7 @@ Stable release version
 The latest stable release of Spoofax is |rel-version|, released on |rel-date|.
 
 We recommend the use of the stable release version, because we test the release, and make sure that it is available indefinitely.
-If you are looking for a tutorial to get started with Spoofax, follow the :ref:`getting started guide <langdev-getting-started>`.
+Follow the :ref:`Installation Guide <installation-guide>` for instructions on how to install and run Spoofax.
 
 .. include:: /include/block/download-rel.rst
 

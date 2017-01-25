@@ -21,8 +21,9 @@ Table of Contents
 .. toctree::
    :maxdepth: 2
 
-   Download <source/download>
-   Support <source/support>
+   Installation Guide <source/install>
+   Getting Support <source/support>
+   All Downloads <source/download>
 
 .. toctree::
    :maxdepth: 2
