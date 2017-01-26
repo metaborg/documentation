@@ -26,3 +26,8 @@ SPT
 ~~~
 
 - Fix several origin tracking issues related to section markers.
+
+DynSem
+
+- Support for abrupt termination: automatic expansion and propagation of read-write semantic components with default values
+- Analysis performance improvements
