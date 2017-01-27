@@ -15,10 +15,10 @@ So, please read carefully.
 
 To report bugs or request new features use our [YellowGrass](http://yellowgrass.org/) issue trackers:
 
-* Spoofax 2.0 and higher: <http://yellowgrass.org/project/SpoofaxWithCore>
-* Spoofax 1.5 and lower: <http://yellowgrass.org/project/Spoofax>
+* Spoofax 2.0 and higher: <http://yellowgrass.org/project/Spoofax>
+* Spoofax 1.5 and lower: <http://yellowgrass.org/project/SpoofaxLegacy>
 
-In the Spoofax 2.0 Eclipse plugin, use the main menu <span class='menuselection'>Spoofax (meta) ‣ Report issue</span> to report issues, it provides a link to the [SpoofaxWithCore](http://yellowgrass.org/project/SpoofaxWithCore) project and the environment versions which you can copy paste.
+In the Spoofax 2.0 Eclipse plugin, use the main menu <span class='menuselection'>Spoofax (meta) ‣ Report issue</span> to report issues, it provides a link to the [Spoofax](http://yellowgrass.org/project/Spoofax) project and the environment versions which you can copy paste.
 
 When reporting bugs, please provide the following information such that we can easily reproduce and fix the bug:
 ​
