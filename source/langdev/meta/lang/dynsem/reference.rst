@@ -143,21 +143,12 @@ Signature section
 
     .. note:: It is valid to have multiple identical arrow declarations.
 
-    The name-part of the relation declaration may be omitted, such that:
+    The name-part of the relation declaration may be omitted, such that the following is legal:
 
     .. code-block:: dynsem
 
           arrows
             Exprs --> Values
-
-    is a synonym for:
-
-    .. code-block:: dynsem
-
-        arrows
-          Exprs -default-> Values
-
-    This reduction arrow can be referred to with or without mentioning it's name.
 
       meta-functions
         Define singleton reductions:
@@ -195,10 +186,10 @@ Rules section
 
   .. code-block:: dynsem
 
-    E |- Box(e) :: H h -default-> BoxV(addr) :: H h''
+    E |- Box(e) :: H h --> BoxV(addr) :: H h''
     where
-      E |- e :: H h -default-> v :: H h';
-      E |- allocate(v) :: H h' -default-> addr :: H h''.
+      E |- e :: H h --> v :: H h';
+      E |- allocate(v) :: H h' --> addr :: H h''.
 
   ``PAT`` is a pattern match on the input term of the rule. If the pattern match succeeds the rule applies to the term and the variables in the pattern ``PAT`` are bound in the scope of the rule. ``RO*`` and ``RW-IN*`` are optional comma-separated lists of input semantic components, read-only and read-write, respectively. ``PREM+`` is a semicolon-separated list of premises that the rule uses to compute the result term ``T``. ``RW-OUT*`` is an optional comma-separated list of the read-write semantic components that are outputed from the rule.
 
@@ -218,9 +209,9 @@ Rules section
 
       .. code-block:: dynsem
 
-        E |- e :: H h -default-> v :: H h'
+        E |- e :: H h --> v :: H h'
 
-      where the term which variable ``e`` binds to is reduced over the relation ``-default->`` to a term which is variable ``v`` is bound to. The term ``E`` is a read-only component passed into the reduction. Terms ``h` and ``h'`` pass and match the read-write semantic component of type ``H``.
+      where the term which variable ``e`` binds to is reduced over the relation ``-->`` to a term which is variable ``v`` is bound to. The term ``E`` is a read-only component passed into the reduction. Terms ``h` and ``h'`` pass and match the read-write semantic component of type ``H``.
 
     term equality premise
       The term equality premise allows checks for equality of two terms. The premise takes the following form:

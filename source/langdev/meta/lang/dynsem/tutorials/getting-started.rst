@@ -486,7 +486,7 @@ To get a functioning interpreter derived from a DynSem specification one has to 
 A reduction entry-point
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The *SIMPL* interpreter must have a clearly defined entry point. The entry point is a reduction rule over a relation named ``-init->``. The relation named ``-init->`` should satisfy all semantic components of the arrows it applies. By default ``-ini->`` is the relation invoked by the interpreter at startup. First we extend the syntax definition with a constructor for the top-level of a program:
+The *SIMPL* interpreter must have a clearly defined entry point. The entry point is a reduction rule over a relation named ``-init->``. The relation named ``-init->`` should satisfy all semantic components of the arrows it applies. By default ``-init->`` is the relation invoked by the interpreter at startup. First we extend the syntax definition with a constructor for the top-level of a program:
 
 .. code-block:: sdf3
   :linenos:
