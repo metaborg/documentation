@@ -30,5 +30,6 @@ SPT
 DynSem
 ~~~~~~
 
+- Fix analysis crashes on empty **rules** sections (`#161 <https://github.com/metaborg/dynsem/issues/161>`_)
 - Support for abrupt termination: automatic expansion and propagation of read-write semantic components with default values
 - Analysis performance improvements
