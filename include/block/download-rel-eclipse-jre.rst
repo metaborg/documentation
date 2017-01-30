@@ -1,5 +1,5 @@
 - `Windows 32-bits, embedded JRE <rel-eclipse-windows-32-jre_>`_
 - `Windows 64-bits, embedded JRE <rel-eclipse-windows-64-jre_>`_
 - `Linux 32-bits, embedded JRE <rel-eclipse-linux-32-jre_>`_
-- `Linux 64-bits, embedded JRE <rel-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <rel-eclipse-linux-64-jre_>`_
 - `macOS, embedded JRE <rel-eclipse-macos-64-jre_>`_

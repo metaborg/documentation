@@ -1,5 +1,5 @@
 - `Windows 32-bits <rel-eclipse-windows-32_>`_
 - `Windows 64-bits <rel-eclipse-windows-64_>`_
 - `Linux 32-bits <rel-eclipse-linux-32_>`_
-- `Linux 64-bits <rel-eclipse-linux-32_>`_
+- `Linux 64-bits <rel-eclipse-linux-64_>`_
 - `macOS <rel-eclipse-macos-64_>`_
