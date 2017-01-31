@@ -10,6 +10,11 @@ See the corresponding :ref:`migration guide <2.2.0-migration-guide>` for migrati
 Changes
 -------
 
+Overall
+~~~~~~~
+
+- The deprecated libraries and files from Spoofax 2.1.0 have been removed. If you have not done so yet, follow the :ref:`Spoofax 2.1.0 migration guide <2.1.0-migration-guide>` to migrate your project to the new Spoofax library.
+
 Core API
 ~~~~~~~~
 
