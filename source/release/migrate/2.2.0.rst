@@ -6,3 +6,13 @@ Spoofax 2.2.0 Migration Guide
 
 This page is a stub for the migration guide of Spoofax 2.2.
 Please write down neccessary migration steps, so that we can quickly release Spoofax 2.2.0 when it is ready.
+
+Spoofax Core
+------------
+
+Changes
+~~~~~~~
+
+The language discovery API was refactored into 2 separate types: a low-level interface for requesting creation of language components :java:ref:`~org.metaborg.core.language.ILanguageComponentFactory`, and a high-level interface :java:ref:`~org.metaborg.core.language.ILanguageDiscoveryService` that acts as a facade for loading language components and implementations.
+
+The existing methods are still available, but are deprecated and will be removed after the next release. You should change your code to use the new methods. The deprecation documentation on the Java methods show which new methods to use.

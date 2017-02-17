@@ -80,11 +80,9 @@ There are several methods in the build input builder which allow customisation o
 To run the language processing pipeline, pass the build input along with a progress reporter and cancellation token to the builder service::
 
   ISpoofaxBuilder builder = ... // Get through dependency injection
-  CancellationToken cancellationToken = new CancellationToken()
-  ISpoofaxBuildOutput output = builder.build(input, new NullProgressReporter(),
-    cancellationToken)
+  ISpoofaxBuildOutput output = builder.build(input);
 
-The result of building is a :java:ref:`~org.metaborg.spoofax.core.build.SpoofaxBuildOutput` object which denotes if the build was successful, and contains resource changes, parse, analysis, and transformation results, and any messages produced during building.
+The result of building is a :java:ref:`~org.metaborg.spoofax.core.build.ISpoofaxBuildOutput` object which denotes if the build was successful, and contains resource changes, parse, analysis, and transformation results, and any messages produced during building.
 It also includes the state of the build, which can be passed to the next build input to perform incremental processing.
 
 Manual language processing

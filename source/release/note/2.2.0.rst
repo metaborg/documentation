@@ -18,7 +18,10 @@ Overall
 Core API
 ~~~~~~~~
 
-- Fixes the path and project path that are passed to the editor hover strategy.
+- Improve: `Spoofax/190 - Extend API for language discovery <http://yellowgrass.org/issue/Spoofax/190>`_. This deprecates several methods in the language discovery API, see the :ref:`migration guide <2.2.0-migration-guide>` on how to migrate your code.
+- Fix: Path and project path that are passed to the editor hover strategy are now consistent with paths passed to other strategies.
+- Fix: `Spoofax/187 - Provide simplified builder API <http://yellowgrass.org/issue/Spoofax/187>`_.
+- Fix: `Spoofax/188 - Java type error in documented language processing code <http://yellowgrass.org/issue/Spoofax/188>`_.
 
 NaBL2
 ~~~~~
