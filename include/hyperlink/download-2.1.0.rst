@@ -13,9 +13,9 @@
 .. _2.1.0-eclipse-linux-64: http://artifacts.metaborg.org/service/local/repositories/releases/content/org/metaborg/org.metaborg.spoofax.eclipse.dist/2.1.0/org.metaborg.spoofax.eclipse.dist-2.1.0-linux-x64.tar.gz
 .. _2.1.0-eclipse-macos-64: http://artifacts.metaborg.org/service/local/repositories/releases/content/org/metaborg/org.metaborg.spoofax.eclipse.dist/2.1.0/org.metaborg.spoofax.eclipse.dist-2.1.0-macosx-x64.tar.gz
 
-.. _2.1.0-eclipse-update-site: http://tinyurl.com/spoofax-eclipse-2-1-0
-.. _2.1.0-eclipse-update-site-archive: http://artifacts.metaborg.org/content/repositories/releases/org/metaborg/org.metaborg.spoofax.eclipse.updatesite/2.1.0.qualifier/org.metaborg.spoofax.eclipse.updatesite-2.1.0.qualifier-assembly.zip
-.. |2.1.0-eclipse-update-site| replace:: ``http://tinyurl.com/spoofax-eclipse-2-1-0``
+.. _2.1.0-eclipse-update-site: https://goo.gl/dlQJhu
+.. _2.1.0-eclipse-update-site-archive: http://artifacts.metaborg.org/content/repositories/releases/org/metaborg/org.metaborg.spoofax.eclipse.updatesite/2.1.0/org.metaborg.spoofax.eclipse.updatesite-2.1.0-assembly.zip
+.. |2.1.0-eclipse-update-site| replace:: ``https://goo.gl/dlQJhu``
 
 .. _2.1.0-intellij-update-site: http://tinyurl.com/spoofax-intellij-2-1-0
 .. _2.1.0-intellij-update-site-archive: http://artifacts.metaborg.org/content/repositories/releases/org/metaborg/org.metaborg.intellij.dist/2.1.0/org.metaborg.intellij.dist-2.1.0.zip
