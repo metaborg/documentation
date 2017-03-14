@@ -12,9 +12,11 @@ Code completion can happen in three ways: expanding an explicit placeholder, exp
 
 Programs may contain explicit placeholders to represent incomplete structures. When positioning the cursor inside a placeholder and triggering code completion, the editor shows proposals in a pop-up and each proposal represents a placeholder expansion. Each non-terminal in the syntax definition generates a placeholder, and a placeholder can appear wherever the non-terminal can appear in the program. Users are able to edit the format of a placeholder (to avoid clashes with actual elements of the language) by editing the YAML file in the project. For example, if the yaml file contains the following lines:
 
-    placeholder:
-      prefix: "$"
-      suffix: "$"
+    language:
+      sdf: 
+        placeholder:
+          prefix: "$"
+          suffix: "$"
 
   all placeholders in the program are going to be `$NAME$`, where `NAME` is the name of the non-terminal that the placeholder represents. Suffix are not mandatory and if no configuration is specified, placeholders will be formatted as `[[NAME]]`.
 
@@ -78,16 +80,14 @@ When a single placeholder is necessary to fix the program, the completion framew
 .. note:: Proposals are formatted according to SDF3 productions.
 ```
 
-<!---#### How to migrate old projects?
+#### How to migrate old projects?
 
 New projects come automatically with support for the new completions framework.
 To migrate old projects it is necessary to:
 
 - add the following imports to the main Stratego file:
-	-  `completion/<LanguageName>-cp`. This imports the stratego files generated from the SDF3 grammar.
-	- `runtime/completion/-`. This imports the completion framework, part of the runtime-libraries.
-	- `completion/completion`. This imports the hook between the generic completion framework and the specific strategies for the language.
+	-  `completion/completion`. This imports the Stratego library for syntactic code completion.
 - add the following import to `<LanguageName>-Colorer.esv`:
-    - `completion/colorer/<LanguageName>-cc-esv`. This import the editor files responsible for coloring the explicit placeholders. --->
+    - `completion/colorer/<LanguageName>-cc-esv`. This import the editor files responsible for coloring the explicit placeholders. 
 
 In case of any issue or suggestion for improving the framework, please create an entry detailing your suggestion/issue with a tag `completion` in [http://yellowgrass.org/project/SpoofaxWithCore](http://yellowgrass.org/project/SpoofaxWithCore).
