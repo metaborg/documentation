@@ -16,3 +16,11 @@ Changes
 The language discovery API was refactored into 2 separate types: a low-level interface for requesting creation of language components :java:ref:`~org.metaborg.core.language.ILanguageComponentFactory`, and a high-level interface :java:ref:`~org.metaborg.core.language.ILanguageDiscoveryService` that acts as a facade for loading language components and implementations.
 
 The existing methods are still available, but are deprecated and will be removed after the next release. You should change your code to use the new methods. The deprecation documentation on the Java methods show which new methods to use.
+
+SDF3
+----
+
+Changes
+~~~~~~~
+
+Move the configurations for ``placeholders`` and ``pretty-print`` in the yaml file to be under ``language: sdf:``.

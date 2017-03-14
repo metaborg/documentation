@@ -15,6 +15,7 @@ Overall
 
 - The deprecated libraries and files from Spoofax 2.1.0 have been removed. If you have not done so yet, follow the :ref:`Spoofax 2.1.0 migration guide <2.1.0-migration-guide>` to migrate your project to the new Spoofax library.
 
+
 Core API
 ~~~~~~~~
 
@@ -28,6 +29,30 @@ Eclipse
 ~~~~~~~
 
 - Improve: Added several switches to the :guilabel:`Spoofax (meta)` menu for disabling analyses and builds, to improve usability in cases where these operations are very slow.
+
+SDF3
+~~~~
+
+- Moved placeholder and pretty-print options in the yaml file to be under ``language: sdf:`` as in:
+
+.. code-block:: yaml	
+
+   language:
+     sdf:
+       placeholder:
+         prefix: "[["
+         suffix: "]]"
+       pretty-print: LangName
+
+
+- It is possible to use the java implementation of the parse table generator by adding to the yaml file: 
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       sdf2table: java
+
 
 NaBL2
 ~~~~~

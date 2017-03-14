@@ -15,10 +15,10 @@ Programs may contain explicit placeholders to represent incomplete structures. W
     language:
       sdf: 
         placeholder:
-          prefix: "$"
-          suffix: "$"
+          prefix: "#"
+          suffix: "#"
 
-  all placeholders in the program are going to be `$NAME$`, where `NAME` is the name of the non-terminal that the placeholder represents. Suffix are not mandatory and if no configuration is specified, placeholders will be formatted as `[[NAME]]`.
+  all placeholders in the program are going to be `#NAME#`, where `NAME` is the name of the non-terminal that the placeholder represents. Suffix are not mandatory and if no configuration is specified, placeholders will be formatted as `[[NAME]]`.
 
 ```eval_rst
 .. note:: It is necessary to clean the project after changing the format of placeholders in the YAML file.
