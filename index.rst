@@ -2,7 +2,7 @@
 The Spoofax Language Workbench
 ==============================
 
-.. image:: code/spoofax/graphics/logos/Spoofax.svg
+.. image:: source/spoofax.svg
 
 The Spoofax Language Workbench supports the definition of all aspects of textual languages using high-level, declarative meta-languages, including:
 
@@ -40,7 +40,7 @@ Table of Contents
 
    Getting Started <source/core/start>
    Manual <source/core/manual/index>
-   API Reference <source/core/api>
+   API Reference <http://www.metaborg.org/projects/spoofax-api/en/latest/>
 
 .. toctree::
    :maxdepth: 2
