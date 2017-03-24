@@ -21,6 +21,8 @@ Core API
 
 - Improve: `Spoofax/190 - Extend API for language discovery <http://yellowgrass.org/issue/Spoofax/190>`_. This deprecates several methods in the language discovery API, see the :ref:`migration guide <2.2.0-migration-guide>` on how to migrate your code.
 - Improve: `Spoofax/193 - Stratego warnings in Spoofax language projects with NaBL2 analysis <http://yellowgrass.org/issue/Spoofax/193>`_. The excessive number of warnings from Stratego compilation are now filtered out.
+- Improve: Parsing and analysis can report progress and be cancelled.
+- Improve: Builds now report progress.
 - Fix: Path and project path that are passed to the editor hover strategy are now consistent with paths passed to other strategies.
 - Fix: `Spoofax/187 - Provide simplified builder API <http://yellowgrass.org/issue/Spoofax/187>`_.
 - Fix: `Spoofax/188 - Java type error in documented language processing code <http://yellowgrass.org/issue/Spoofax/188>`_.
@@ -28,24 +30,15 @@ Core API
 Eclipse
 ~~~~~~~
 
+- Upgrade: Eclipse Neon (4.6) is now required.
 - Improve: Added several switches to the :guilabel:`Spoofax (meta)` menu for disabling analyses and builds, to improve usability in cases where these operations are very slow.
+- Improve: Bind new progress reporting and cancellation in core to Eclipse progress monitors, enabling reporting of builds and cancellation of analysis.
+- Fix: Fix cancellation not being propagated in SubMonitors, preventing cancellation from working in many places.
 
 SDF3
 ~~~~
 
-- Moved placeholder and pretty-print options in the yaml file to be under ``language: sdf:`` as in:
-
-.. code-block:: yaml	
-
-   language:
-     sdf:
-       placeholder:
-         prefix: "[["
-         suffix: "]]"
-       pretty-print: LangName
-
-
-- It is possible to use the java implementation of the parse table generator by adding to the yaml file: 
+- Feature: Re-implemented the parse table generator in Java, removing the dependency on a platform-specific ``sdf2table`` binary, and fixing several long-standing bugs. This implementation is still being tested, it is therefore only enabled after opt-in. To enable the new implementation, set the following option in your :file:`metaborg.yaml` file:
 
 .. code-block:: yaml
 
@@ -53,6 +46,16 @@ SDF3
      sdf:
        sdf2table: java
 
+- Improve: Moved the ``placeholder`` and ``pretty-print`` options in the :file:`metaborg.yaml` file to be under ``language.sdf``, as in:
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       placeholder:
+         prefix: "[["
+         suffix: "]]"
+       pretty-print: LangName
 
 NaBL2
 ~~~~~

@@ -17,10 +17,26 @@ The language discovery API was refactored into 2 separate types: a low-level int
 
 The existing methods are still available, but are deprecated and will be removed after the next release. You should change your code to use the new methods. The deprecation documentation on the Java methods show which new methods to use.
 
+Eclipse
+-------
+
+Eclipse Neon (4.6) is now required.
+The Eclipse instances with integrated Spoofax we generate are already using Neon.
+However, if you manage your own Eclipse instance, you will need to upgrade to Neon.
+
 SDF3
 ----
 
 Changes
 ~~~~~~~
 
-Move the configurations for ``placeholders`` and ``pretty-print`` in the yaml file to be under ``language: sdf:``.
+ Move the ``placeholder`` and ``pretty-print`` options in the :file:`metaborg.yaml` file to be under ``language.sdf``, as in:
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       placeholder:
+         prefix: "[["
+         suffix: "]]"
+       pretty-print: LangName
