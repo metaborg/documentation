@@ -4,14 +4,16 @@
 Spoofax 2.2.0 Migration Guide
 =============================
 
-This page is a stub for the migration guide of Spoofax 2.2.
-Please write down neccessary migration steps, so that we can quickly release Spoofax 2.2.0 when it is ready.
+This migration guide describes how to migrate from Spoofax 2.1.0 to 2.2.0.
+
+Overall
+-------
+
+The deprecated libraries and files from Spoofax 2.1.0 have been removed.
+If you have not done so yet, follow the :ref:`Spoofax 2.1.0 migration guide <2.1.0-migration-guide>` to migrate your project to the new Spoofax library.
 
 Spoofax Core
 ------------
-
-Changes
-~~~~~~~
 
 The language discovery API was refactored into 2 separate types: a low-level interface for requesting creation of language components :java:ref:`~org.metaborg.core.language.ILanguageComponentFactory`, and a high-level interface :java:ref:`~org.metaborg.core.language.ILanguageDiscoveryService` that acts as a facade for loading language components and implementations.
 
@@ -26,9 +28,6 @@ However, if you manage your own Eclipse instance, you will need to upgrade to Ne
 
 SDF3
 ----
-
-Changes
-~~~~~~~
 
  Move the ``placeholder`` and ``pretty-print`` options in the :file:`metaborg.yaml` file to be under ``language.sdf``, as in:
 

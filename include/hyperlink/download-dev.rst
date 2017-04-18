@@ -1,4 +1,4 @@
-.. |dev-version| replace:: ``2.2.0-SNAPSHOT``
+.. |dev-version| replace:: ``2.3.0-SNAPSHOT``
 
 .. _dev-eclipse-windows-32-jre: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x86-jre.zip
 .. _dev-eclipse-windows-64-jre: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x64-jre.zip

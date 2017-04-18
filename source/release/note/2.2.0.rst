@@ -2,10 +2,70 @@
 Spoofax 2.2.0
 =============
 
-This page is a stub for the release notes of Spoofax 2.2.0.
-Please write down your changes to the development version, so that we can quickly release Spoofax 2.2.0 when it is ready.
+Spoofax 2.2 improves on Spoofax 2.1 with a new NaBL2 constraint solver which is optimised for performance, improved progress reporting and cancellation in Eclipse, an experimental replacement for ``sdf2table`` which fixes several long-standing bugs, improvements to the core API, and several bug fixes.
 
 See the corresponding :ref:`migration guide <2.2.0-migration-guide>` for migrating from Spoofax 2.1 to Spoofax 2.2.
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.2.0-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.2.0-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.2.0-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.2.0-eclipse-linux-32-jre_>`_
+- `macOS, embedded JRE <2.2.0-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.2.0-eclipse-windows-32_>`_
+- `Windows 64-bits <2.2.0-eclipse-windows-64_>`_
+- `Linux 32-bits <2.2.0-eclipse-linux-32_>`_
+- `Linux 64-bits <2.2.0-eclipse-linux-32_>`_
+- `macOS <2.2.0-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.2.0-eclipse-update-site|
+-  `Eclipse update site archive <2.2.0-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.2.0-intellij-update-site|
+-  `IntelliJ update site archive <2.2.0-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.2.0-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.2.0-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.2.0-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.2.0-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.2.0-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.2.0-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.2.0``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
 
 Changes
 -------
@@ -60,18 +120,18 @@ SDF3
 NaBL2
 ~~~~~
 
-- Introduces a new solver implementation with improved performance.
-- Introduces separate signature sections for *constructors*, *relations*, and *functions*.
-- Deprecates the *types* signature, which will be removed in the next release.
+- Improve: Introduces a new solver implementation with improved performance.
+- Improve: Introduces separate signature sections for *constructors*, *relations*, and *functions*.
+- Deprecate: The *types* signature, which will be removed in the next release.
 
 SPT
 ~~~
 
-- Fix several origin tracking issues related to section markers.
+- Fix: Several origin tracking issues related to section markers.
 
 DynSem
 ~~~~~~
 
-- Fix analysis crashes on empty **rules** sections (`#161 <https://github.com/metaborg/dynsem/issues/161>`_)
-- Support for abrupt termination: automatic expansion and propagation of read-write semantic components with default values
-- Analysis performance improvements
+- Fix: Analysis crashes on empty **rules** sections (`#161 <https://github.com/metaborg/dynsem/issues/161>`_)
+- Improve: Support for abrupt termination: automatic expansion and propagation of read-write semantic components with default values
+- Improve: Analysis performance improvements
