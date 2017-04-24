@@ -10,3 +10,4 @@ This is the reference manual for language development with Spoofax.
    config
    ci
    env/intellij/index
+   language-extension
