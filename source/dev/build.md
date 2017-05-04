@@ -96,10 +96,3 @@ If updating or checking out a branch of submodule fails (because of unstaged or 
 ### Weird compilation errors
 
 If you get any weird compilation errors during the build, make sure that <span class='menuselection'>Project ‣ Build Automatically</span> is turned off in Eclipse.
-
-
-## Bootstrapping
-
-```eval_rst
-.. todo:: This part of the documentation has not been written yet.
-```
