@@ -72,6 +72,5 @@ Overall
 ~~~~~~~
 
 - Fix: error when generating projects with analysis enabled (which is enabled by default).
+- Fix: possibly erroneous completions file in spoofax meta library.
 
-NaBL2
-~~~~~
