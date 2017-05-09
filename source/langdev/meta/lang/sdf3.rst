@@ -676,5 +676,8 @@ The following result in Scala code that doesn't compile:
 -  Defining a context-free sort equals a lexical sort without wrapping
    it in a constructor.
 -  Defining parts of the same sort in different files.
+-  Defining injections (`sort1 = sort2`) where the sorts are not all
+   in the same file. (Can be fixed by putting the generated Scala in
+   one file). 
 -  Please [report](yellowgrass.org/createIssue/SpoofaxWithCore) any
    other issues you have.
