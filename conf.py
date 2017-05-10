@@ -14,6 +14,7 @@ extensions = [
   'sphinx.ext.todo',
   'sphinx.ext.imgmath',
   'sphinx.ext.intersphinx',
+  'sphinxcontrib.bibtex',
   'javasphinx'
 ]
 imgmath_image_format = 'svg'
@@ -88,4 +89,3 @@ intersphinx_mapping = {'api': (spoofax_api_loc, None)}
 def setup(app):
   app.add_config_value('recommonmark_config', {'auto_toc_tree_section': 'Contents'}, 'env')
   app.add_transform(AutoStructify)
-  # app.add_stylesheet("custom.css")
