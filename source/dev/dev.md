@@ -40,7 +40,7 @@ The next step would be to get Maven integration in Eclipse.
 The [M2Eclipse](http://www.eclipse.org/m2e/) plugin would be the go to way to get that.
 Now you can start importing the Spoofax projects you want to change.
 However, you will likely run into some trouble with m2e's 'new' approach to integrating with the maven lifecycle configuration.
-The errors in your `pom.xml` file might look something like 
+The errors in your `pom.xml` file might look something like
 ```
 Plugin execution not covered by lifecycle configuration: org.codehaus.mojo:build-helper-maven-plugin:1.10:add-source
 ```
@@ -151,6 +151,7 @@ or invoke the _IntelliJ Plugin (Debug JPS)_ run configuration (_not debug_) from
 Attach a debugger, and the build will continue. From the Spoofax plugin's IntelliJ IDEA project, you can invoke the _JPS Plugin_ remote debug configuration to attach the debugger.
 
 ### Logging
+
 To get debug logging in IntelliJ, locate the `bin/log.xml` file in the IntelliJ folder and add the following snippet in the `<log4j:configuration>` element, just above the `<root>` element:
 
 ```
