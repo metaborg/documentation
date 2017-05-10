@@ -1,3 +1,7 @@
 .menuselection, .guilabel, .file, kbd {
 	background: #eee;
 }
+
+span.caption-text {
+  color: #ffffff
+}
