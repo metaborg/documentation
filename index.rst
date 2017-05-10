@@ -27,30 +27,26 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: Language Development
+   :caption: Reference Manual
 
-   Getting Started <source/langdev/start>
-   Manual <source/langdev/manual/index>
-   Meta-Languages <source/langdev/meta/lang/index>
-   Meta-Libraries <source/langdev/meta/libraries/index>
+   Spoofax Language Development <source/langdev/manual/index>
+   Spoofax Core API <source/core/manual/index>
+
+   SDF3 <source/langdev/meta/lang/sdf3>
+   Stratego <source/langdev/meta/lang/stratego/index>
+   NaBL <source/langdev/meta/lang/nabl>
+   NaBL2 <source/langdev/meta/lang/nabl2/index>
+   DynSem <source/langdev/meta/lang/dynsem/index>
+   SPT <source/langdev/meta/lang/spt>
+
+   Development <source/dev/index>
 
 .. toctree::
    :maxdepth: 2
-   :caption: Core API
+   :caption: Tutorials
 
-   Getting Started <source/core/start>
-   Manual <source/core/manual/index>
-   API Reference <http://www.metaborg.org/projects/spoofax-api/en/latest/>
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Development
-
-   Maven <source/dev/maven>
-   Build <source/dev/build>
-   Develop <source/dev/dev>
-   Contribute <source/dev/contribute>
-   Internals <source/dev/internals/index>
+   Getting Started - Language Development <source/langdev/start>
+   Getting Started - Core API <source/core/start>
 
 .. toctree::
    :maxdepth: 2

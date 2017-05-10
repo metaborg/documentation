@@ -29,3 +29,15 @@ The rest of the chapters explain the Stratego language in more detail:
    10-type-unifying-strategies
    11-concrete-object-syntax
    12-dynamic-rules
+
+This following details some of the Stratego library functions.
+
+.. toctree::
+   :maxdepth: 1
+
+   lib/01-introduction
+   lib/02-arithmetic-operations
+   lib/03-lists
+   lib/04-strings
+   lib/05-hashtables-and-sets
+   lib/06-io

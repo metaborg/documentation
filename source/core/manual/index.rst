@@ -11,3 +11,4 @@ This is the reference manual for the Spoofax Core API.
    service
    language-processing
    extend
+   API Reference <http://www.metaborg.org/projects/spoofax-api/en/latest/>
