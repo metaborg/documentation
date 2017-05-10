@@ -1,6 +1,9 @@
+.. _intellij-installation:
+
 ============
 Installation
 ============
+
 Recently we created a Spoofax plugin for IntelliJ IDEA.
 
 To install the plugin, either:
