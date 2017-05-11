@@ -1,3 +1,5 @@
+.. _spoofax-dev:
+
 **************************
 Spoofax Development Manual
 **************************
