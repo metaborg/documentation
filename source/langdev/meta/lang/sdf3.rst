@@ -11,10 +11,12 @@ The key principle underlying the design of SDF is declarative syntax definition,
 so that the user does not need to understand underlying parsing algorithm.
 
 SDF has evolved into SDF3 to serve the needs of modern language workbenches and
-at the same time improve various issues of its antecessor, SDF2. With SDF3, it is
+at the same time improve various issues of its predecessor, SDF2. With SDF3, it is
 possible to modularly describe a language's syntax, generating a parser, a pretty
 printer, and basic editor features such as syntactic code completion and syntax
-highlighting.
+highlighting. SDF3 also supports safe operator precedence and associativity
+disambiguation by means of priority declarations, and lexical ambiguities by means
+of reject rules and follow restrictions.
 
 The screenshot below illustrates an excerpt of a grammar written in SDF3, a program
 of that language being edited, its abstract syntax tree and its pretty-printed
@@ -39,8 +41,6 @@ overview of its current features.
 .. documentation <http://homepages.cwi.nl/~daybuild/daily-books/syntax/2-sdf/sdf.html>`__
 .. by Mark van den Brand, Paul Klint, and Jurgen Vinju.
 
-.. TODO: write documentation on how to use SDF3 outside of Spoofax
-
 SDF3 Overview
 -------------
 
@@ -53,7 +53,7 @@ the artifacts produced when compiling an SDF3 module.
 
 The most important of the artifacts generated from SDF3 is a parse table,
 which is used by the Scannerless Generalized LR parser to parse programs,
-producing an abstract syntax tree. Note that SGLR supports ambiguous
+producing an abstract syntax tree (AST). Note that SGLR supports ambiguous
 grammars, outputing a parse forest as result. SDF3 disambiguation mechanisms
 operate at parse table generation time, at parse time, and after parsing. Ideally,
 a single tree is produced at the end. The whole process of parsing a source program
@@ -68,12 +68,9 @@ definition.
 Modules
 -------
 
-Basic module structure
-~~~~~~~~~~~~~~~~~~~~~~
-
 An SDF3 specification consists of a number of module declarations. Each
-module may define sections containing imports, start symbols, syntax,
-restrictions, priorities, and template options.
+module may import other modules and define sections that include sort, start
+symbols, syntax, restrictions, priorities, and template options.
 
 Imports
 ~~~~~~~
@@ -99,13 +96,10 @@ definition of the syntax. An import section is structured as follows:
 
     imports <ModuleName>*
 
-Grammars
---------
-
 Symbols
-~~~~~~~
+-------
 
-The elementary building block of SDF3 syntax rules is a symbol. SDF3 symbols can
+The building block of SDF3 productions is a symbol. SDF3 symbols can
 be compared to terminals and non-terminals in other grammar formalisms. The
 elementary symbols are literals, sorts and character classes.
 
@@ -115,7 +109,7 @@ such as lists and optionals. Note that these symbols are also non-terminals, and
 are just shorthands for common structures present in context-free grammars.
 
 Character classes
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~
 
 Character classes occur only in lexical syntax and are enclosed by ``[`` and ``]``.
 A character class consists of a list of zero or more characters (which stand for
@@ -139,12 +133,19 @@ Additionally, special ASCII characters are represented by:
 - ``\t`` : horizontal tabulation
 - ``\x`` : a non-printable character with decimal code x
 
-**Character Class Operators**:
+**Character Class Operators**: SDF3 provides the following operators for character
+classes:
 
+- (complement) ``~`` : Accepts all the characters that are *not* in the original class.
+- (difference) ``/`` : Accepts all the characters in the first class unless they are in a second class.
+- (union) ``\/`` : Accepts all the characters in either character classes.
+- (intersection) ``/\`` : Accepts all the characters that are accepted by both character classes.
 
+Note that the first operator is unary and the other ones are left associative binary
+operators. Furthermore, such operators are not applicable to other symbols in general.
 
 Literals
-^^^^^^^^
+~~~~~~~~
 
 A literal symbol defines a fixed length word. This usually corresponds to a
 terminal symbol in ordinary context-free grammars, for example ``"true"`` or
@@ -171,14 +172,115 @@ The literal above accepts case-insensitive inputs such as
 ``definition``, ``DEFINITION``, ``DeFiNiTiOn`` or ``defINITION``.
 
 Sorts
-^^^^^
+~~~~~
 
 A sort correspond to a plain non-terminal, for example, ``Statement`` or ``Exp``.
 Sort names start with a capital letter and may be follow by letters, digits or
 hyphen. Note that unlike SDF2, SDF3 does not support parameterized sorts (yet!).
 
+Optionals
+~~~~~~~~~
 
+SDF3 provides a shorthand for describing zero or exactly one occurrence of a sort
+by appending the sort with ``?``. For example, the sort ``Extends?`` can be parsed
+as ``Extends`` or without consuming any input. Internally, SDF3 generates the
+following productions after normalizing the grammar
 
+::
+
+     Extends?.None =
+     Extends?.Some = Extends
+
+Note that using ``?`` adds the constructors ``None`` and ``Some`` to the final
+abstract syntax tree.
+
+Lists
+~~~~~
+
+Lists symbols as the name says, indicate that a symbol should occur several times.
+In this way, it is also possible to construct flat structures to represent them.
+SDF3 provides support for two types of lists, with and without separators.
+Furthermore, it is also possible to indicate whether a list can be empty (``*``) or
+should have at least one element (``+``). For example, a list ``Statement*`` indicates
+zero or more ``Statement``, whereas a list with separator ``{ID ","}+`` indicates one
+or more ``ID`` separated by ``,``. Note that SDF3 only supports literal symbols as
+separators.
+
+Again, SDF3 generates the following productions to represent lists, when normalizing
+the grammar
+
+::
+
+     Statement* =
+     Statement* = Statement+
+     Statement+ = Statement+ Statement
+     Statement+ = Statement
+
+     {ID ","}* =
+     {ID ","}* = {ID ","}+
+     {ID ","}+ = {ID ","}+ "," {ID ","}
+     {ID ","}+ = {ID ","}
+
+When parsing a context-free list, SDF3 produces a flattened list as an AST node such as
+``[Statement, ..., Statement]`` or ``[ID, ..., ID]``. Note that because the separator
+is a literal, it does not appear in the AST.
+
+Alternative
+~~~~~~~~~~~
+
+Alternative symbols express the choice between two symbols, for example, ``ID | INT``. That is,
+the symbol ``ID | INT`` can be parsed as either ``ID`` or ``INT``. For that reason,
+SDF3 normalizes alternatives by generating the following productions:
+
+::
+
+     ID | INT = ID
+     ID | INT = INT
+
+Note that SDF3 only allow alternative symbols to occur in lexical syntax. Furthermore,
+note that the alternative operator is right associative and binds stronger than any operator.
+That is, ``ID "," | ID ";"`` expresses ``ID ("," | ID) ";"``. To express
+``(ID ",") | (ID ";")``, we can use a sequence symbol.
+
+Sequence
+~~~~~~~~
+
+A sequence operator allows grouping of two or more symbols. Sequences are useful
+when combined with other symbols such, lists or optionals, for example ``("e" [0-9]+)?``.
+Like alternative symbols, sequences can only occur in lexical syntax. A sequence
+symbol is normalized as:
+
+::
+
+     ("e" [0-9]+) = "e" [0-9]+
+
+Labeled symbols
+~~~~~~~~~~~~~~~
+
+SDF3 supports decorating symbols with labels, such as ``myList:{elem:Stmt ";"}*``.
+The labels have no semantics but can be used by other tools that use SDF3 grammars
+as input.
+
+``LAYOUT``
+~~~~~~~~~~
+
+The ``LAYOUT`` symbol is a reserved sort name. It is used to indicate the whitespace
+that can appear in between context-free symbols. The user must define the symbol
+``LAYOUT`` such as:
+
+::
+
+     LAYOUT = [\ \t\n]
+
+Note that the production above should be defined in the lexical syntax.
+
+Grammar Sections
+----------------
+
+As seen before, a SDF3 module may constitute of zero or more sections. All sections
+contribute to the final grammar that defines a language. Sections can define
+production rules, priorities, restrictions, or simply specify some characteristics
+of the syntax definition.
 
 Sort declarations
 ~~~~~~~~~~~~~~~~~
@@ -192,9 +294,8 @@ the following form:
 
       <Sort>*
 
-Sort names always start with a capital letter and can be followed by
-letters, digits or hyphens ``-``. Writing a sort name in this section *defines*
-the sort without explicitly specifying (any of) its production (s).
+Writing a sort in this section only indicates that a sort has been defined, even if
+it does not have any explicit production visible.
 
 Start symbols
 ~~~~~~~~~~~~~
@@ -205,7 +306,7 @@ start symbols are defined it is not possible to recognize terms. This
 has the effect that input sentences corresponding to these symbols can
 be parsed. So, if we want to recognize boolean terms we have to define
 explicitly the sort ``Boolean`` as a start symbol in the module
-``Booleans``. Any symbol and also lists, tuples, etc., can serve as a
+``Booleans``. Any symbol and also lists, optionals, etc., can serve as a
 start-symbol. A definition of lexical start symbols looks like
 
 ::
@@ -270,8 +371,9 @@ Context-free syntax
 The context-free syntax describes the more high-level syntactic
 structure of sentences in a language. A context-free syntax contains a
 list of productions. Elements of the right-hand side of a context-free
-production are pre-processed before parser generation by adding the
-``LAYOUT?`` symbol everywhere. Context-free syntax has the form:
+production are pre-processed in a normalization step before parser generation
+that adds the ``LAYOUT?`` symbol between any two symbols. Context-free syntax
+has the form:
 
 ::
 
@@ -307,8 +409,8 @@ by the SDF3 normalizer. When writing kernel syntax, one has more control over th
 layout between symbols of a production.
 
 As part of normalization, among other things, SDF3 renames each symbol in the
-lexical syntax to include the prefix ``-LEX`` and each symbol in the context-free
-syntax to include the prefix ``-CF``. For example, the two productions above
+lexical syntax to include the suffix ``-LEX`` and each symbol in the context-free
+syntax to include the suffix ``-CF``. For example, the two productions above
 written in kernel syntax look like
 
 ::
@@ -319,13 +421,13 @@ written in kernel syntax look like
       BinaryConst-LEX = [0-1]+
 
 Literals and character-classes are lexical by definition, thus they do not need any
-prefix. Note that each symbol in kernel syntax is uniquely identified by its full
+suffix. Note that each symbol in kernel syntax is uniquely identified by its full
 name including ``-CF`` and ``-LEX``. That is, two symbols named ``Block-CF`` and
 ``Block`` are different, if both occur in kernel syntax. However, ``Block-CF`` is
 the same symbol as ``Block`` if the latter appears in a context-free syntax section.
 
-As mentioned before, when writing kernel syntax, the explicit layout in between
-symbols is considered when parsing a program. For example, the production
+As mentioned before, layout can only occur in between symbols if explicitly
+specified. For example, the production
 
 ::
 
@@ -349,21 +451,21 @@ Productions
 
 The basic building block of syntax sections is the production.
 The left-hand side of a regular production rule can
-be either just a sort or a sort followed by ``.`` and a constructor
+be either just a symbol or a symbol followed by ``.`` and a constructor
 name. The right-hand side consists of zero or more symbols. Both sides
 are separated by ``=``:
 
 ::
 
-    <Sort>               = <Symbol>*
-    <Sort>.<Constructor> = <Symbol>*
+    <Symbol>               = <Symbol>*
+    <Symbol>.<Constructor> = <Symbol>*
 
-A production is read as the definition. The sort on the left-hand side
+A production is read as the definition. The symbol on the left-hand side
 is defined by the right-hand side of the production.
 
-The symbols in a production can be arbitrarily complex as we will show below.
 Productions are used to describe lexical as well as context-free syntax.
-Productions may also occur in priority sections. All productions with the same sort
+Productions may also occur in priority sections, but might also be referred to
+by its ``<Symbol>.<Constructor>``. All productions with the same symbol
 together define the alternatives for that symbol.
 
 Attributes
@@ -397,21 +499,24 @@ The following syntax-related attributes exist:
 
 -  ``left``, ``right``, ``non-assoc``, ``assoc`` are disambiguation
    constructs used to define the associativity of productions. See
-   associativity.
+   associativity_.
 -  ``prefer`` and ``avoid`` are disambiguation constructs to define
-   preference of one derivation over others. See preferences.
+   preference of one derivation over others. See preferences_.
 -  ``reject`` is a disambiguation construct that implements language
-   difference. It is used for keyword reservation. See rejections.
+   difference. It is used for keyword reservation. See rejections_.
+
+.. TODO: Talk about layout-sensitive parsing and layout sensitive attributes
+
+
 
 Template Productions
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 Template productions are an alternative way of defining productions.
 Similarly, they consist of a left-hand side and a right-hand side
 separated by ``=``. The left-hand side is the same as for productive
 rules. The right-hand side is a template delimited by ``<`` and ``>``.
-The template can contain zero or more symbols and can be followed by
-optional attributes:
+The template can contain zero or more symbols:
 
 ::
 
@@ -434,10 +539,10 @@ It is worth noting that:
 -  literal strings are tokenized on space characters (whitespace, tab);
 -  additionally, literal strings are tokenized on boundaries between
    characters from the set given by the tokenize option, see the
-   tokenize template option;
+   tokenize_ template option;
 -  placeholders translate literally. If a separator containing any
-   non-layout characters is given, the placeholder maps to a list with
-   separator.
+   layout characters is given, the placeholder maps to a list with
+   separator that strips the layout.
 
 An example of a template rule:
 
@@ -448,23 +553,20 @@ An example of a template rule:
 Here, the ``+`` symbol is a literal string and ``<Exp>`` is a
 placeholder for sort ``Exp``.
 
-Placeholders can also have a number of options:
+Placeholders are of the form:
 
 -  ``<Sort?>``: optional placeholder
 -  ``<Sort*>``: repetition (0...n)
 -  ``<Sort+>``: repetition (1...n)
 -  ``<{Sort ","}*>``: repetition with separator
--  ``<Sort>``: placeholder with replacement text
--  ``<Sort; hide>``: placeholder hidden from completion template
-   (``Sort`` needs to have a production ``Sort.Cons =``)
--  ``<Sort; cursor>``: placeholder shows in completion template with
-   empty name (``Sort`` needs to have a production ``Sort.Cons =``)
+
+.. TODO Explain why one should use template productions.
 
 Case-insensitive Literals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-SDF3 allows defining case-insensitive literals as single-quoted strings
-in regular productions. For example:
+As we showed before, SDF3 allows defining case-insensitive literals as
+single-quoted strings in regular productions. For example:
 
 ::
 
@@ -488,10 +590,9 @@ example, a template production
 
 accepts the same input as the regular production mentioned before.
 
-Moreover, lexical symbols can also be annotated as case-insensitive. In
-this case, the constructed abstract syntax tree contains lower-case
-symbols, but the original term is preserved via origin-tracking. For
-example:
+Moreover, lexical symbols can also be annotated as case-insensitive to parse as
+such. The constructed abstract syntax tree contains lower-case symbols, but the
+original term is preserved via origin-tracking. For example:
 
 ::
 
@@ -574,7 +675,7 @@ reject
 ^^^^^^
 
 Convenient way for setting up reject rules for keywords. See the section
-on rejections for more information. The structure of the reject option
+on rejections_ for more information. The structure of the reject option
 is as follows:
 
 ::
@@ -592,9 +693,11 @@ template options are specified, the last one is used.
 Disambiguation
 --------------
 
-The semantics of SDF3 can be seen as two-staged. First, the grammar
-generates all possible derivations. Second, the disambiguation
-constructs remove a number of derivations that are not valid.
+As we showed before, the semantics of SDF3 can be seen as two-staged.
+First, the grammar generates all possible derivations. Second, the disambiguation
+constructs remove a number of derivations that are not valid. Note that SDF3
+actually performs some disambiguation when generating the parse table or during
+parsing.
 
 Rejections
 ~~~~~~~~~~
@@ -624,7 +727,7 @@ Preferences
 ~~~~~~~~~~~
 
 The preferences mechanism is another disambiguation filter that provides
-a filter semantics to a production attribute. The attributes ``prefer``
+a post parse filter to parse forests. The attributes ``prefer``
 and ``avoid`` are the only disambiguation constructs that compare
 alternative derivations.
 
@@ -644,19 +747,19 @@ mechanism compares the top nodes of each alternative:
    other derivations that do not have ``prefer`` at the top node will be
    removed.
 
-The preference attribute can be used to handle the 'dangling else'
-problem. Here is an example:
+The preference attribute can be used to handle the case when two productions
+can parse the same input. Here is an example:
 
 ::
 
-    Exp.IfThenElse = <"if" <Exp> "then" <Exp> "else" <Exp>>
-    Exp.IfThen     = <"if" <Exp> "then" <Exp>>  {prefer}
+    Exp.FunctionApp = <<Expr> <Expr*>>
+    Exp.Constructor = <<ID> <Expr>>  {prefer}
 
 Priorities
 ~~~~~~~~~~
 
 Priorities are one of SDF3's most often used disambiguation constructs.
-A priority 'grammar' defines the relative priorities between
+A priority section defines the relative priorities between
 productions. Priorities are a powerful disambiguation construct. The
 idea behind the semantics of priorities is that productions with a
 higher priority "bind stronger" than productions with a lower priority.
@@ -669,7 +772,10 @@ syntax looks like this:
 
     context-free priorities
 
-      <Production> >  <Production>
+      <ProductionRef> >  <ProductionRef>
+
+Where ``<ProductionRef>`` can either be ``<Sort>.<Cons>`` or the entire
+production itself.
 
 Several priorities in a priority grammar are separated by commas. If
 more productions have the same priority they may be grouped between
@@ -679,18 +785,27 @@ curly braces on each side of the > sign.
 
     context-free priorities
 
-      {<Production> <Production> }
-                    >  <Production>,
-       <Production>
-                    >  <Production>
+      {<ProductionRef> <ProductionRef>}
+                    >  <ProductionRef>,
+       <ProductionRef>
+                    >  <ProductionRef>
 
 By default, the priority relation is automatically transitively closed
-(i.e. if A > B and B > C then A > C).
+(i.e. if A > B and B > C then A > C). To specify a non-transitive priority
+relation it is necessary to include a dot before the > sign (``.>``).
 
-The priority relation applies to all arguments of the first production
-(i.e. in the parse tree, the second production can not be a child of any
-member of the first production). If A > B, then all trees are removed
-that have a B node as a direct child of an A node.
+SDF3 provides *safe* disambiguation, meaning that priority relations only remove
+ambiguous derivations. Furthermore, SDF3 also allows tree filtering by means
+of indexed priorities such as:
+
+::
+
+    context-free priorities
+
+      <ProductionRef> <idx> >  <ProductionRef>
+
+where the symbol at position ``idx`` (starting with 0) in the first production
+should not derive the second production.
 
 An example defining priorities for the addition, subtraction and
 multiplication operators is listed below. Because addition and
@@ -793,6 +908,23 @@ character.
 ::
 
     ID -/- [a-zA-Z0-9\_]
+
+Configuring SDF3
+----------------
+
+.. todo:: This part part of the documentation is not yet written.
+
+.. TODO: write documentation on how to use SDF3 outside of Spoofax
+
+Examples
+--------
+
+.. todo:: This part part of the documentation is not yet written.
+
+Bibliography
+------------
+
+.. todo:: This part part of the documentation is not yet written.
 
 Migrating SDF2 grammars to SDF3 grammars
 ----------------------------------------
