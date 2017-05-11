@@ -10,7 +10,7 @@ DynSem's features and design are still evolving. Please write to us if you want 
 
 ## Contributing
 
-All DynSem code is open source and licensed under Apache License 2.0 and resides in its [GitHub repository][2]. If you would like to contribute to DynSem please fork the repository and follow the customary procedure to submit your contributions as pull requests.
+All of DynSem is open source and licensed under Apache License 2.0 and lives in the [GitHub repository][2]. If you would like to contribute to DynSem please fork the repository and follow the customary procedure to submit your contributions as pull requests.
 
 
 [1]: https://github.com/metaborg/dynsem/issues
