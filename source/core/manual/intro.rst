@@ -65,6 +65,6 @@ Spoofax Core has been designed and implemented with several goals in mind:
 
   - Spoofax Core supports extensibility in several places, without having to change the source code.
 
-The source code of Spoofax Core can be found in the `metaborg/spoofax repository on GitHub <https://github.com/metaborg/spoofax>`_.
+The source code of Spoofax Core can be found in the `metaborg/spoofax repository on GitHub <https://github.com/metaborg/spoofax>`__.
 
 Next, we describe the architecture of Spoofax Core.

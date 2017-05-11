@@ -7,10 +7,10 @@ Components
 
 Spoofax Core consists of four components implemented as Java libraries:
 
-- MetaBorg Core (`org.metaborg.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.core>`_)
-- Spoofax Core (`org.metaborg.spoofax.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.spoofax.core>`_)
-- MetaBorg-meta Core (`org.metaborg.meta.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.meta.core>`_)
-- Spoofax-meta Core (`org.metaborg.spoofax.meta.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.spoofax.meta.core>`_)
+- MetaBorg Core (`org.metaborg.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.core>`__)
+- Spoofax Core (`org.metaborg.spoofax.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.spoofax.core>`__)
+- MetaBorg-meta Core (`org.metaborg.meta.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.meta.core>`__)
+- Spoofax-meta Core (`org.metaborg.spoofax.meta.core <https://github.com/metaborg/spoofax/tree/master/org.metaborg.spoofax.meta.core>`__)
 
 The architecture of these components is as follows:
 
@@ -37,10 +37,10 @@ The Eclipse meta plugin is a separate plugin for *building* Spoofax languages. W
 
 We have developed the following adapters and plugins:
 
-- `Sunshine (command-line adapter) <https://github.com/metaborg/spoofax-sunshine>`_
-- `Maven plugin <https://github.com/metaborg/spoofax-maven>`_
-- `Eclipse plugin <https://github.com/metaborg/spoofax-eclipse>`_
-- `IntelliJ plugin <https://github.com/metaborg/spoofax-intellij>`_
+- `Sunshine (command-line adapter) <https://github.com/metaborg/spoofax-sunshine>`__
+- `Maven plugin <https://github.com/metaborg/spoofax-maven>`__
+- `Eclipse plugin <https://github.com/metaborg/spoofax-eclipse>`__
+- `IntelliJ plugin <https://github.com/metaborg/spoofax-intellij>`__
 
 Dependencies
 ------------
@@ -53,11 +53,11 @@ Components have several internal and external dependencies, where internal depen
 
 For example, Spoofax Core depends on the Stratego runtime and JSGLR parser which are developed internally, whereas MetaBorg core only depends on basic third-party libraries like logging and a file system abstraction (VFS). The dependencies for each component are listed in their Maven :file:`pom.xml` files:
 
-- `org.metaborg.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.core/pom.xml>`_
-- `org.metaborg.spoofax.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.spoofax.core/pom.xml>`_
-- `org.metaborg.meta.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.meta.core/pom.xml>`_
-- `org.metaborg.spoofax.meta.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.spoofax.meta.core/pom.xml>`_
+- `org.metaborg.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.core/pom.xml>`__
+- `org.metaborg.spoofax.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.spoofax.core/pom.xml>`__
+- `org.metaborg.meta.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.meta.core/pom.xml>`__
+- `org.metaborg.spoofax.meta.core <https://github.com/metaborg/spoofax/blob/master/org.metaborg.spoofax.meta.core/pom.xml>`__
 
-Versions for most dependencies are managed in the ``dependencyManagement`` section of the `parent POM file <https://github.com/metaborg/spoofax-deploy/blob/master/parent/pom.xml>`_.
+Versions for most dependencies are managed in the ``dependencyManagement`` section of the `parent POM file <https://github.com/metaborg/spoofax-deploy/blob/master/parent/pom.xml>`__.
 Dependencies with version ``${metaborg-version}`` denote internal dependencies.
 When embedding Spoofax Core into an application, both external and internal dependencies must be embedded.
