@@ -27,17 +27,23 @@ MetaBorgCube
 
 The `MetaBorgCube <https://github.com/metaborgcube>`_ github organization is a collection of language projects developed with Spoofax. Here is a selection:
 
+Jasmin
+  A Spoofax editor for Jasmin, an assembler for the Java Virtual Machine. (`Repository <https://github.com/MetaBorgCube/spoofax-jasmin>`_)
+  
+Grace
+  A programming language designed for programming education. The Spoofax project defines a syntax definition, desugaring, and operational semantics for the language. (`Repository <https://github.com/MetaBorgCube/metaborg-grace>`_)
+
 CERN Code Gen
-  A DSL for generation of PLC code <https://github.com/MetaBorgCube/cern-languages>
+  A DSL for generation of PLC code. (`Repository <https://github.com/MetaBorgCube/cern-languages>`_)
   
 Other Projects 
 ----------------------
 
 Green-Marl
-  A DSL for graph analysis developed at Oracle Labs
+  A DSL for graph analysis developed at Oracle Labs for `running graph algorithms in PGX <https://docs.oracle.com/cd/E56133_01/latest/reference/overview/run.html>`_
   
 PGQL `Property Graph Query Language <http://pgql-lang.org/>`_
-  A DSL for graph querying developed at Oracle Labs <https://github.com/oracle/pgql-lang>
+  A DSL for graph querying developed at Oracle Labs as part of `Parallel Graph AnalytiX <https://docs.oracle.com/cd/E56133_01/latest/index.html>`_ framework. The Spoofax definition is part of the open source implementation <https://github.com/oracle/pgql-lang>.
 
 LeQuest
   A DSL for modeling medical equipment interfaces for development of training software.
