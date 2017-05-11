@@ -274,7 +274,7 @@ that can appear in between context-free symbols. The user must define the symbol
 
 Note that the production above should be defined in the lexical syntax.
 
-Grammar Sections
+Grammar Elements
 ----------------
 
 As seen before, a SDF3 module may constitute of zero or more sections. All sections
@@ -447,7 +447,7 @@ of statements. This means that a fragment such as:
 would not be recognized as a block.
 
 Productions
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 The basic building block of syntax sections is the production.
 The left-hand side of a regular production rule can
@@ -507,7 +507,10 @@ The following syntax-related attributes exist:
 
 .. TODO: Talk about layout-sensitive parsing and layout sensitive attributes
 
+Templates
+~~~~~~~~~
 
+.. todo:: This part needs a proper introduction.
 
 Template Productions
 ^^^^^^^^^^^^^^^^^^^^
@@ -604,7 +607,7 @@ syntax tree. By consulting the origin information on this node, it is
 possible to know which term was used as input to the parser.
 
 Template options
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 Template options are options that are applied to the current file. A
 template options section is structured as follows:
@@ -620,75 +623,67 @@ template option sections are specified, the last one is used.
 
 There are three kinds of template options.
 
-keyword
-^^^^^^^
+**keyword**
+  Convenient way for setting up lexical follow restrictions for keywords. See the section on follow restrictions for more information. The
+  structure of the keyword option is as follows:
 
-Convenient way for setting up lexical follow restrictions for keywords.
-See the section on follow restrictions for more information. The
-structure of the keyword option is as follows:
+  ::
 
-::
+      keyword -/- <Pattern>
 
-    keyword -/- <Pattern>
+  This will add a follow restriction on the pattern for each keyword in
+  the language. Keywords are automatically detected, any terminal that
+  ends with an alphanumeric character is considered a keyword.
 
-This will add a follow restriction on the pattern for each keyword in
-the language. Keywords are automatically detected, any terminal that
-ends with an alphanumeric character is considered a keyword.
+  Multiple keyword options are not supported. If multiple keyword options
+  are specified, the last one is used.
 
-Multiple keyword options are not supported. If multiple keyword options
-are specified, the last one is used.
+  Note that this only sets up follow restrictions, rejection of keywords
+  as identifiers still needs to be written manually.
 
-Note that this only sets up follow restrictions, rejection of keywords
-as identifiers still needs to be written manually.
+**tokenize**
+  Specifies which characters may have layout around them. The structure of a tokenize option is as follows:
 
-tokenize
-^^^^^^^^
+  ::
 
-Specifies which characters may have layout around them. The structure of
-a tokenize option is as follows:
+      tokenize : "<Character*>"
 
-::
+  Consider the following grammar specification:
 
-    tokenize : "<Character*>"
+  ::
 
-Consider the following grammar specification:
+      template options
 
-::
+        tokenize : "("
 
-    template options
+      context-free syntax
 
-      tokenize : "("
+        Exp.Call = <<ID>();>
 
-    context-free syntax
+  Because layout is allowed around the ``(`` and ``)`` characters, there
+  may be layout between ``()`` and ``;`` in the template rule. If no
+  tokenize option is specified, it defaults to the default value of
+  ``()``.
 
-      Exp.Call = <<ID>();>
+  Multiple tokenize options are not supported. If multiple tokenize
+  options are specified, the last one is used.
 
-Because layout is allowed around the ``(`` and ``)`` characters, there
-may be layout between ``()`` and ``;`` in the template rule. If no
-tokenize option is specified, it defaults to the default value of
-``()``.
+**reject**
+  Convenient way for setting up reject rules for keywords. See the section
+  on rejections_ for more information. The structure of the reject option
+  is as follows:
 
-Multiple tokenize options are not supported. If multiple tokenize
-options are specified, the last one is used.
+  ::
 
-reject
-^^^^^^
+      Symbol = keyword {attrs}
 
-Convenient way for setting up reject rules for keywords. See the section
-on rejections_ for more information. The structure of the reject option
-is as follows:
+  where ``Symbol`` is the symbol to generate the rules for. Note that
+  ``attrs`` can be include any attribute, but by using ``reject``, reject
+  rules such as ``ID = "true" {reject}`` are generated for all keywords
+  that appear in the templates.
 
-::
-
-    Symbol = keyword {attrs}
-
-where ``Symbol`` is the symbol to generate the rules for. Note that
-``attrs`` can be include any attribute, but by using ``reject``, reject
-rules such as ``ID = "true" {reject}`` are generated for all keywords
-that appear in the templates.
-
-Multiple reject template options are not supported. If multiple reject
-template options are specified, the last one is used.
+  Multiple reject template options are not supported. If multiple reject
+  template options are specified, the last one is used.
 
 Disambiguation
 --------------
@@ -707,7 +702,7 @@ set of valid derivations for the left-hand side of the production will
 not contain the construction described on the right-hand side. In other
 words, the language defined by the sort on the left-hand side has become
 smaller, removing all the constructions generated by the rule on the
-right-hand side.
+right-hand side. Disambiguation by ``reject`` occurs at parse time (mostly).
 
 A rule can be marked as rejected by using the attribute ``{reject}``
 after the rule:
@@ -729,7 +724,7 @@ Preferences
 The preferences mechanism is another disambiguation filter that provides
 a post parse filter to parse forests. The attributes ``prefer``
 and ``avoid`` are the only disambiguation constructs that compare
-alternative derivations.
+alternative derivations after parsing.
 
 The following definition assumes that derivations are represented using
 parse forests with "packaged ambiguity nodes". This means that whenever
@@ -760,12 +755,12 @@ Priorities
 
 Priorities are one of SDF3's most often used disambiguation constructs.
 A priority section defines the relative priorities between
-productions. Priorities are a powerful disambiguation construct. The
-idea behind the semantics of priorities is that productions with a
-higher priority "bind stronger" than productions with a lower priority.
-The essence of the priority disambiguation construct is that certain
-parse trees are removed from the ‘forest’ (the set of all possible parse
-trees that can be derived from a segment of code). The basic priority
+productions. Priorities are a powerful disambiguation construct because
+it occurs at parse generation time. The idea behind the semantics of priorities
+is that productions with a higher priority "bind stronger" than productions with
+a lower priority. The essence of the priority disambiguation construct is
+that certain parse trees are removed from the ‘forest’ (the set of all possible
+parse trees that can be derived from a segment of code). The basic priority
 syntax looks like this:
 
 ::
