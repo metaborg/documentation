@@ -16,11 +16,7 @@ This guide will get you started with DynSem to specify the dynamic semantics of 
 8. `Call into Java code`_
 9. `Run a program`_
 
-.. 7. `Writing to standard output and reading standard input`_
-.. 8. `Interacting with native data types`_
-.. 9. `Interacting with the interpreter from Java`_
-
-.. note:: DynSem is actively developed and this guide requires features only available in the bleeding edge DynSem. To follow along this tutorial you should have the latest Spoofax 2.0 nightly build installed.
+.. note:: DynSem is actively developed and this guide requires features only available in the bleeding edge DynSem. To follow along this tutorial it's best to have the latest Spoofax 2.3.0 nightly build installed.
 
 ---------------------------------------
 The **SIMPL** language
@@ -134,6 +130,8 @@ The rules for subtraction and multiplication proceed similarly:
   where
     e1 --> NumV(i1);
     e2 --> NumV(i2).
+
+.. _dynsem implicit reductions:
 
 In all three rules seen so far ( ``Plus``, ``Minus``, ``Times`` ) the reductions for the subexpressions can be specified implicitly:
 
