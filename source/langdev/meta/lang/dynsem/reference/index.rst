@@ -8,21 +8,8 @@ This is the root of DynSem's language reference. The documentation is organized 
   :maxdepth: 2
 
   Old reference <reference>
-  Modules, files and imports
-  Term signatures
-  Rules, arrows and meta-functions
-  Explication of semantic components
+  Modules, files and imports <modules>
+  signatures-terms
+  rules
   Built-in terms & operations
   Configuration <configuration>
-
-..
-..
-..
-.. DynSem is a domain specific language for the concise specification of dynamic semantics of programming languages.
-..
-.. .. toctree::
-..   :maxdepth: 2
-..
-..   Reference <reference/index>
-..   Tutorials <tutorials/index>
-..   support
