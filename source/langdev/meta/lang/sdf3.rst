@@ -5,9 +5,65 @@
 SDF3
 ====
 
-This is the SDF3 reference manual. It is partially based on the `SDF2
-documentation <http://homepages.cwi.nl/~daybuild/daily-books/syntax/2-sdf/sdf.html>`__
-by Mark van den Brand, Paul Klint, and Jurgen Vinju.
+The SDF family of Syntax Definition Formalisms provides support for declarative
+definition of the syntax of programming languages and domain-specific languages.
+The key principle underlying the design of SDF is declarative syntax definition,
+so that the user does not need to understand underlying parsing algorithm.
+
+SDF has evolved into SDF3 to serve the needs of modern language workbenches and
+at the same time improve various issues of its antecessor, SDF2. With SDF3, it is
+possible to modularly describe a language's syntax, generating a parser, a pretty
+printer, and basic editor features such as syntactic code completion and syntax
+highlighting.
+
+The screenshot below illustrates an excerpt of a grammar written in SDF3, a program
+of that language being edited, its abstract syntax tree and its pretty-printed
+version.
+
+.. TODO take the screenshot
+
+To list the main improvements of SDF3 with respect to SDF2:
+
+  - SDF3 incorporates constructors into the syntax definition, providing a direct correspondence between abstract syntax trees and grammar rules.
+
+  - Grammar rules follow the productive form, improving readability and consistency with main-stream grammar formalisms.
+
+  - Grammar rules can be used next to template productions, which considers the whitespace surrounding symbols when deriving a pretty-printer.
+
+  - Finally, grammar rules can be identified by its sort and constructor, and do not need to be duplicated in the priorities section.
+
+SDF3 is in constant evolution, and this documentation provides an up-to-date
+overview of its current features.
+
+.. This is the SDF3 reference manual. It is partially based on the `SDF2
+.. documentation <http://homepages.cwi.nl/~daybuild/daily-books/syntax/2-sdf/sdf.html>`__
+.. by Mark van den Brand, Paul Klint, and Jurgen Vinju.
+
+.. TODO: write documentation on how to use SDF3 outside of Spoofax
+
+SDF3 Overview
+-------------
+
+Even though the primary goal of SDF3 is syntax definition, it is used as input
+to generate many artifacts that are used in Spoofax. The figure below illustrates
+the artifacts produced when compiling an SDF3 module.
+
+.. figure:: images/CompilingSDF3.png
+   :align: center
+
+The most important of the artifacts generated from SDF3 is a parse table,
+which is used by the Scannerless Generalized LR parser to parse programs,
+producing an abstract syntax tree. Note that SGLR supports ambiguous
+grammars, outputing a parse forest as result. SDF3 disambiguation mechanisms
+operate at parse table generation time, at parse time, and after parsing. Ideally,
+a single tree is produced at the end. The whole process of parsing a source program
+is described in the figure below.
+
+.. figure:: images/parsing.png
+   :align: center
+
+In the remainder of this documentation we present the elements of an SDF3
+definition.
 
 Modules
 -------
@@ -16,8 +72,8 @@ Basic module structure
 ~~~~~~~~~~~~~~~~~~~~~~
 
 An SDF3 specification consists of a number of module declarations. Each
-module may define sections containing imports, lexical syntax,
-context-free syntax, disambiguations and template options.
+module may define sections containing imports, start symbols, syntax,
+restrictions, priorities, and template options.
 
 Imports
 ~~~~~~~
@@ -46,6 +102,84 @@ definition of the syntax. An import section is structured as follows:
 Grammars
 --------
 
+Symbols
+~~~~~~~
+
+The elementary building block of SDF3 syntax rules is a symbol. SDF3 symbols can
+be compared to terminals and non-terminals in other grammar formalisms. The
+elementary symbols are literals, sorts and character classes.
+
+Intrinsically, only character classes are real terminal symbols. All other symbols
+represent non-terminals. SDF3 also support symbols that capture BNF-like notation
+such as lists and optionals. Note that these symbols are also non-terminals, and
+are just shorthands for common structures present in context-free grammars.
+
+Character classes
+^^^^^^^^^^^^^^^^^
+
+Character classes occur only in lexical syntax and are enclosed by ``[`` and ``]``.
+A character class consists of a list of zero or more characters (which stand for
+themselves) such as ``[x]`` to represent the character ``x``,  or character ranges,
+as an abbreviation for all the characters in the range such as ``[0-9]`` representing
+``0``, ``1``, ..., ``9``. A valid range consists of ``[c1-c2]``, where the character
+``c2`` has a higher ASCII code than ``c1``. Note that nested character classes can also
+be concatenated within the same character class symbol, for example ``[c1c2-c3c4-c5]``
+includes the characters ``c1`` and the ranges ``c2-c3``, ``c4-c5``. In this case,
+the nested character classes do not need to be ordered, as SDF3 orders them when
+performing a normalization step.
+
+**Escaped Characters**: SDF3 uses a backslash (``\``) as a escape for the quoting
+of special characters. One should use ``\c`` whenever ``c`` is not a digit or a letter
+in a character class.
+
+Additionally, special ASCII characters are represented by:
+
+- ``\n`` : newline character
+- ``\r`` : carriage return
+- ``\t`` : horizontal tabulation
+- ``\x`` : a non-printable character with decimal code x
+
+**Character Class Operators**:
+
+
+
+Literals
+^^^^^^^^
+
+A literal symbol defines a fixed length word. This usually corresponds to a
+terminal symbol in ordinary context-free grammars, for example ``"true"`` or
+``"+"``. Literals must always be quoted and consist of (possibly escaped)
+ASCII characters.
+
+As literals are also regular non-terminals, SDF3 automatically generates productions
+for them in terms of terminal symbols.
+
+::
+
+     "definition" = [d][e][f][i][n][i][t][i][o][n]
+
+Note that the production above defines a case-sensitive implementation of the
+defined literal. Case-insensitive literals are defined using single-quoted strings
+as in ``'true'`` or ``'else'``. SDF3 generates a different production for
+case-insensitive literals as
+
+::
+
+     'definition' = [dD][eE][fF][iI][nN][iI][tT][iI][oO][nN]
+
+The literal above accepts case-insensitive inputs such as
+``definition``, ``DEFINITION``, ``DeFiNiTiOn`` or ``defINITION``.
+
+Sorts
+^^^^^
+
+A sort correspond to a plain non-terminal, for example, ``Statement`` or ``Exp``.
+Sort names start with a capital letter and may be follow by letters, digits or
+hyphen. Note that unlike SDF2, SDF3 does not support parameterized sorts (yet!).
+
+
+
+
 Sort declarations
 ~~~~~~~~~~~~~~~~~
 
@@ -59,7 +193,8 @@ the following form:
       <Sort>*
 
 Sort names always start with a capital letter and can be followed by
-letters, digits or hyphens ``-``.
+letters, digits or hyphens ``-``. Writing a sort name in this section *defines*
+the sort without explicitly specifying (any of) its production (s).
 
 Start symbols
 ~~~~~~~~~~~~~
@@ -87,8 +222,20 @@ while context-free start symbols are defined as
 
       <Symbol>*
 
-In contrast to lexical start-symbols, context-free start symbols can be
-surrounded by optional layout.
+SDF3 also supports kernel start-symbols
+
+::
+
+    start-symbols
+
+      <Symbol>*
+
+
+In contrast to lexical and kernel start-symbols, context-free start symbols can be
+surrounded by optional layout. A lexical start-symbol should have been defined
+by a production in the lexical syntax; a context-free symbol should have been
+defined in the context-free syntax. Both symbols can also be defined in kernel syntax
+using the prefix ``-LEX`` or ``-CF``.
 
 Lexical syntax
 ~~~~~~~~~~~~~~
@@ -138,7 +285,7 @@ An example production rule:
 
     context-free syntax
 
-      Block = "{" Statement* "}"
+      Block.Block = "{" Statement* "}"
 
 SDF3 automatically allows for layout to be present between the symbols
 of a rule. This means that a fragment such as:
@@ -152,11 +299,56 @@ of a rule. This means that a fragment such as:
 will still be recognized as a block (assuming that the newline and
 line-feed characters are defined as layout).
 
+Kernel syntax
+~~~~~~~~~~~~~
+
+The rules from context-free and lexical syntax are translated into kernel syntax
+by the SDF3 normalizer. When writing kernel syntax, one has more control over the
+layout between symbols of a production.
+
+As part of normalization, among other things, SDF3 renames each symbol in the
+lexical syntax to include the prefix ``-LEX`` and each symbol in the context-free
+syntax to include the prefix ``-CF``. For example, the two productions above
+written in kernel syntax look like
+
+::
+
+    syntax
+
+      Block-CF.Block  = "{" LAYOUT?-CF Statement*-CF LAYOUT?-CF "}"
+      BinaryConst-LEX = [0-1]+
+
+Literals and character-classes are lexical by definition, thus they do not need any
+prefix. Note that each symbol in kernel syntax is uniquely identified by its full
+name including ``-CF`` and ``-LEX``. That is, two symbols named ``Block-CF`` and
+``Block`` are different, if both occur in kernel syntax. However, ``Block-CF`` is
+the same symbol as ``Block`` if the latter appears in a context-free syntax section.
+
+As mentioned before, when writing kernel syntax, the explicit layout in between
+symbols is considered when parsing a program. For example, the production
+
+::
+
+    syntax
+
+      Block-CF.Block  = "{" Statement*-CF LAYOUT?-CF "}"
+
+does not allow layout to occur in between the opening bracket and the list
+of statements. This means that a fragment such as:
+
+::
+
+    {
+      x = 1;
+    }
+
+would not be recognized as a block.
+
 Productions
 ^^^^^^^^^^^
 
-The basic building block of lexical syntax and context-free syntax
-sections is the production. The left-hand side of a productive rule can
+The basic building block of syntax sections is the production.
+The left-hand side of a regular production rule can
 be either just a sort or a sort followed by ``.`` and a constructor
 name. The right-hand side consists of zero or more symbols. Both sides
 are separated by ``=``:
@@ -169,11 +361,10 @@ are separated by ``=``:
 A production is read as the definition. The sort on the left-hand side
 is defined by the right-hand side of the production.
 
-The symbols in a production can be arbitrarily complex but the
-implementation may impose some limitations on this. Productions are used
-to describe lexical as well as context-free syntax. Productions also
-occur in priority sections. All productions with the same sort together
-define the alternatives for that symbol.
+The symbols in a production can be arbitrarily complex as we will show below.
+Productions are used to describe lexical as well as context-free syntax.
+Productions may also occur in priority sections. All productions with the same sort
+together define the alternatives for that symbol.
 
 Attributes
 ^^^^^^^^^^
@@ -678,6 +869,6 @@ The following result in Scala code that doesn't compile:
 -  Defining parts of the same sort in different files.
 -  Defining injections (`sort1 = sort2`) where the sorts are not all
    in the same file. (Can be fixed by putting the generated Scala in
-   one file). 
+   one file).
 -  Please [report](yellowgrass.org/createIssue/SpoofaxWithCore) any
    other issues you have.
