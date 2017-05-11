@@ -9,6 +9,6 @@ DynSem is a domain specific language for the concise specification of dynamic se
 .. toctree::
   :maxdepth: 2
 
-  reference
+  Reference <reference/index>
   Tutorials <tutorials/index>
   support
