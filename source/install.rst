@@ -1,7 +1,7 @@
 .. _installation-guide:
 
 ==================
-Installation Guide
+Installing Spoofax
 ==================
 
 Spoofax is distributed as an Eclipse plugin.
