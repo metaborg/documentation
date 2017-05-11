@@ -5,3 +5,7 @@
 div.wy-menu.wy-menu-vertical span.caption-text {
   color: #ffffff
 }
+
+dd {
+  line-height: 24px;
+}
