@@ -1,5 +1,5 @@
-Getting Started with NaBL2
-==========================
+Configuration
+=============
 
 We will show you how to prepare your project for use with NaBL2, and
 write your first small specification.
@@ -90,6 +90,29 @@ result of analysis, by adding the following lines to
 
 You can now continue to the :doc:`example specification here
 <example>`, or directly to the :doc:`language reference <reference>`.
+
+Settings
+--------
+
+.. code-block:: yaml
+
+   runtime:
+     nabl2:
+       debug: all
+
+List all possible flags here, and describe the resulting output.
+
+Custom analysis
+---------------
+
+Implements hooks to add your own analysis step
+
+Custom pretty-printing
+----------------------
+
+Printing of terms
+
+Make sure everything can be printed
 
 Debugging
 ---------

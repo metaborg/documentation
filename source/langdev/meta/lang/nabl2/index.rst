@@ -17,6 +17,8 @@ uses scope graphs to do name resolution.
 .. toctree::
    :maxdepth: 1
 
-   getting-started
-   example
+   introduction
    reference
+   configuration
+   examples
+   bibliography
