@@ -1,4 +1,4 @@
-.. _all-downloads:
+.. _development-release:
 
 =============
 Current Development Release

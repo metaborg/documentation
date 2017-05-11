@@ -1,4 +1,4 @@
-.. _all-downloads:
+.. _stable-release:
 
 =============
 Latest Stable Release
