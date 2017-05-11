@@ -12,7 +12,8 @@ Table of Contents
    :caption: Overview
    :numbered: 3
 
-   The Spoofax Language Workbench <source/spoofax.rst>  
+   The Spoofax Language Workbench <source/overview/spoofax.rst>  
+   Publications <source/overview/publications.rst>
    
 .. toctree::
    :maxdepth: 2

@@ -7,31 +7,27 @@
 .. - Where can I get it?
 .. - How do I use it?
 
-==================
+====================================
 The Spoofax Language Workbench
-==================
+====================================
 
+Spoofax is a platform for developing textual (domain-specific) programming languages. 
+The platform provides the following ingredients:
 
+* Meta-languages for high-level declarative language definition. 
+* An interactive environment for developing languages using these meta-languages
+* Code generators that produces parsers, type checkers, compilers, interpreters, and other tools from language definitions
+* Generation of full-featured Eclipse editor plugins from language definitions 
+* Generation of full-featured IntelliJ editor plugins from language definitions (experimental)
+* An API for programmatically combining the components of a language implementation
 
-Language Workbench
-------------------
-
-Spoofax is a platform for developing textual (domain-specific) programming languages 
-
-parser, type checker, compiler and/or interpreter
-
-full-featured Eclipse editor plugins
-
-
-With the Spoofax/IMP language workbench, you can write the grammar of your language using the high-level SDF grammar formalism. Based on this grammar, basic editor services such as syntax highlighting and code folding are automatically provided. Using high-level descriptor languages, these services can be customized. More sophisticated services such as error marking and content completion can be specified using rewrite rules in the Stratego language. 
-
-A language workbench is an interactive environment for the development of (domain-specific) programming languages.
+With Spoofax you can focus on the essence of language definition and ignore irrelevant implementation details.
 
 
 Software Languages
 ------------------
 
-Spoofax supports the development of textual languages
+Spoofax supports the development of _textual_ languages, but does not otherwise restrict what kind of language you develop. Spoofax can be used to develop
 
 - programming languages
 - domain-specific languages
@@ -40,8 +36,8 @@ Spoofax supports the development of textual languages
 - data modeling languages
 - web programming 
 
-Features of Spoofax Languages
------------------------------
+Creating Full-Featured Editors
+-------------------------------------
 
 From a language definition using these meta-languages, Spoofax generates full-featured Eclipse and IntelliJ editor plugins, as well as a command-line interface.
 The generated editors include syntax highlighting, syntax checking, parse error recovery, error markers for syntactic and semantic errors, and custom operations, such as invoking an interpreter or compiler.
@@ -57,7 +53,6 @@ what do you get when developing a language with Spoofax?
   - Outline view
   - Syntactic code completion
   - Formatting
-  .. - Code folding
 
 * Semantic editor services
 
@@ -66,14 +61,11 @@ what do you get when developing a language with Spoofax?
   - Inline error messages
   - Reference resolution: navigate to declaration
 
-* Builders
+* Builders invoked from configurable menu
 
   - Code generation
   - Transformations
   - Refactoring
-
-
-* Testing language definitions
 
 * Deployment
 
@@ -81,7 +73,12 @@ what do you get when developing a language with Spoofax?
   - IntelliJ plugin (experimental)
 
 
-invoked from configurable menu
+
+Testing
+-----------
+
+* Testing language definitions
+
 
 Philosophy
 ----------
