@@ -965,11 +965,14 @@ Examples
 
 .. todo:: This part part of the documentation is not yet written.
 
+.. TODO small grammars and point to repos that use SDF3
+
 Bibliography
 ------------
 
 .. todo:: This part part of the documentation is not yet written.
 
+.. TODO point to papers involving SDF3 and related work
 
 
 Migrating SDF2 grammars to SDF3 grammars
