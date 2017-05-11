@@ -10,7 +10,7 @@ DynSem specifications can be split over multiple files. Every file constituted a
 
   IMPORTS*
 
-  SIGNATURES*
+  SIGNATURE*
 
   RULES*
 
@@ -45,7 +45,7 @@ The semantics of imports are those of the `C include directive`_, i.e. imports a
 Signatures
 ~~~~~~~~~~
 
-A module may have any number of **signatures** sections. **Signatures** are used to declare sorts, constructors, components and arrows. See :ref:`dynsemtermsignatures` for defining sorts and constructors, and :ref:`dynsemarrowsignatures` for defining components, arrows and other operations.
+A module may have any number of **signature** sections. Signatures are used to declare sorts, constructors, components and arrows. See :ref:`dynsemtermsignatures` for defining sorts and constructors, and :ref:`dynsemarrowsignatures` for defining components, arrows and other operations.
 
 ~~~~~
 Rules

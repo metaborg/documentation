@@ -11,5 +11,5 @@ This is the root of DynSem's language reference. The documentation is organized 
   Modules, files and imports <modules>
   signatures-terms
   rules
-  Built-in terms & operations
-  Configuration <configuration>
+  builtins
+  configuration
