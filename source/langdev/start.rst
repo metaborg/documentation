@@ -1,7 +1,7 @@
 .. _langdev-getting-started:
 
 ====================================
-Language Development Getting Started
+Creating a Language Project
 ====================================
 
 This guide will get you started with language development in Spoofax, within an Eclipse environment.
