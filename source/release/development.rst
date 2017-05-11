@@ -1,8 +1,8 @@
 .. _development-release:
 
-=============
+===============================
 Current Development Release
-=============
+===============================
 
 This page contains download links to all artifacts of the latest development version of Spoofax.
 
