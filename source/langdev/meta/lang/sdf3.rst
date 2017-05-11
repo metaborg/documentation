@@ -18,11 +18,12 @@ highlighting. SDF3 also supports safe operator precedence and associativity
 disambiguation by means of priority declarations, and lexical ambiguities by means
 of reject rules and follow restrictions.
 
-The screenshot below illustrates an excerpt of a grammar written in SDF3, a program
-of that language being edited, its abstract syntax tree and its pretty-printed
-version.
+The screenshot below from Spoofax illustrates an excerpt of a grammar written
+in SDF3, a program of that language being edited, its pretty-printed
+version and its abstract syntax tree.
 
-.. TODO take the screenshot
+.. figure:: images/sdf3-spoofax.png
+   :align: center
 
 To list the main improvements of SDF3 with respect to SDF2:
 
@@ -515,7 +516,45 @@ The following syntax-related attributes exist:
 Templates
 ~~~~~~~~~
 
-.. todo:: This part needs a proper introduction.
+Templates are a major change in SDF3 when comparing to SDF2. They are essential
+when aiming to generate a nice pretty printer or generate proper syntactic code
+completion templates. When generating such artifacts, a general production simply
+introduces a whitespace in between symbols.
+
+For example, when writing a grammar rule
+
+::
+
+    Statement.If = "if" "(" Exp ")" Exp "else" Exp
+
+and pretty printing a valid program, we would get the text in a single line
+separated by spaces, as:
+
+.. figure:: images/pp-no-template.png
+   :align: center
+
+Furthermore, code completion would consider the same indentation when inserting
+code snippets.
+
+However, when using template productions such as
+
+::
+
+    Statement.If = <
+      if (<Exp>)
+        <Exp>
+      else
+        <Exp>>
+
+We would get the following program.
+
+.. figure:: images/pp-template.png
+   :align: center
+
+Again, code completion would also consider this indentation for proposals.
+
+That is, in template productions, the surrounding layout is used to nicely pretty
+print programs and its code completion suggestions.
 
 Template Productions
 ^^^^^^^^^^^^^^^^^^^^
@@ -916,6 +955,11 @@ Configuring SDF3
 
 .. TODO: write documentation on how to use SDF3 outside of Spoofax
 
+Layout-sensitive parsing
+------------------------
+
+.. todo:: This part part of the documentation is not yet written.
+
 Examples
 --------
 
@@ -925,6 +969,8 @@ Bibliography
 ------------
 
 .. todo:: This part part of the documentation is not yet written.
+
+
 
 Migrating SDF2 grammars to SDF3 grammars
 ----------------------------------------
