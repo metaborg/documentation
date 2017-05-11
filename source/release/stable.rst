@@ -1,8 +1,8 @@
 .. _stable-release:
 
-=============
+===============================
 Latest Stable Release
-=============
+===============================
 
 This page contains download links to all artifacts of the latest stable release of Spoofax.
 

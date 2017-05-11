@@ -76,6 +76,7 @@ what do you get when developing a language with Spoofax?
 * Testing language definitions
 
 * Deployment
+
   - Eclipse plugin
   - IntelliJ plugin (experimental)
 
@@ -107,3 +108,4 @@ The Spoofax Language Workbench supports the definition of all aspects of textual
 Examples
 
 - All the Spoofax meta-languages have been bootstrapped. That is,  
+
