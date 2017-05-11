@@ -1,6 +1,6 @@
------------------
+-------
 Modules
------------------
+-------
 
 DynSem specifications can be split over multiple files. Every file constituted a **module**. Every module begins with a module declaration and optionally provides subsections:
 

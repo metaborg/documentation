@@ -7,8 +7,7 @@ This is the root of DynSem's language reference. The documentation is organized 
 .. toctree::
   :maxdepth: 2
 
-  Old reference <reference>
-  Modules, files and imports <modules>
+  modules
   signatures-terms
   rules
   builtins
