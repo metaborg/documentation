@@ -1,5 +1,5 @@
 =============
-Release Notes
+All Releases
 =============
 
 This section contains the release notes for all versions of Spoofax, starting at version 1.0.0.
