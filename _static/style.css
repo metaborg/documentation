@@ -94,8 +94,11 @@ div[class^="highlight"] pre {
  * styles, which use custom tokens
  */
 
-.k {
+.k { /* keywords */
   font-weight: 600;
+}
+.o { /* operators */
+  font-weight: normal;
 }
 
 .syntax.lex, .x-Syntax-Lex {
