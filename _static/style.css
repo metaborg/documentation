@@ -7,10 +7,13 @@
 /* fonts */
 
 body {
+  background: transparent;
+}
+
+body, p {
   font-family: Charter, serif;
   font-size: 18px;
   line-height: 1.4;
-  background: white;
 }
 
 h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
@@ -114,7 +117,7 @@ div[class^='highlight'] {
   color: black; 
   font-family: Helvetica, sans-serif;
   font-size: 16px;
-  border-right: 1px solid black;
+  border-right: 1px solid gray;
 }
 
 
@@ -139,13 +142,13 @@ div[class^='highlight'] {
     display: inline-block
 }
 .wy-menu-horiz li:hover {
-    background: rgba(255, 255, 255, 0.1)
+    background: lightgray; 
 }
 .wy-menu-horiz li.divide-left {
-    border-left: solid 1px #404040
+    border-left: solid 0px #404040
 }
 .wy-menu-horiz li.divide-right {
-    border-right: solid 1px #404040
+    border-right: solid 0px #404040
 }
 .wy-menu-horiz a {
     height: 32px;
@@ -156,6 +159,7 @@ div[class^='highlight'] {
 .wy-menu-vertical {
     width: 300px
 }
+
 .wy-menu-vertical header,
 .wy-menu-vertical p.caption {
     height: 32px;
@@ -167,28 +171,34 @@ div[class^='highlight'] {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 80%;
-    color: #555;
-    white-space: nowrap
+    color: #eee;
+    white-space: nowrap;
+    font-family: Helvetica, sans-serif;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    background: #333;
 }
+
 .wy-menu-vertical ul {
     margin-bottom: 0
 }
 .wy-menu-vertical li.divide-top {
-    border-top: solid 1px #404040
+    border-top: solid 0px #404040
 }
 .wy-menu-vertical li.divide-bottom {
-    border-bottom: solid 1px #404040
+    border-bottom: solid 0px #404040
 }
 .wy-menu-vertical li.current {
-    background: #e3e3e3
+    background: white
 }
 .wy-menu-vertical li.current a {
-    color: gray;
-    border-right: solid 1px #c9c9c9;
+    color: #444;
+    border-right: solid 0px #c9c9c9;
     padding: .4045em 2.427em
 }
 .wy-menu-vertical li.current a:hover {
-    background: #d6d6d6
+    background: lightgray;
+    color: black;
 }
 .wy-menu-vertical li code,
 .wy-menu-vertical li .rst-content tt,
@@ -205,34 +215,34 @@ div[class^='highlight'] {
     margin-left: -1.2em;
     font-size: 0.8em;
     line-height: 1.6em;
-    color: #4d4d4d
+    color: black;
 }
 .wy-menu-vertical li.on a,
 .wy-menu-vertical li.current>a {
-    color: #404040;
+    color: black;
     padding: .4045em 1.618em;
     font-weight: bold;
     position: relative;
-    background: #fcfcfc;
+    background: white;
     border: none;
-    border-bottom: solid 1px #c9c9c9;
-    border-top: solid 1px #c9c9c9;
-    padding-left: 1.618em -4px
+    border-bottom: solid 0px #c9c9c9;
+    border-top: solid 0px #c9c9c9;
+    padding-left: 1.618em -4px;
 }
 .wy-menu-vertical li.on a:hover,
 .wy-menu-vertical li.current>a:hover {
-    background: #fcfcfc
+    background: lightgray;
 }
 .wy-menu-vertical li.on a:hover span.toctree-expand,
 .wy-menu-vertical li.current>a:hover span.toctree-expand {
-    color: gray
+    color: black;
 }
 .wy-menu-vertical li.on a span.toctree-expand,
 .wy-menu-vertical li.current>a span.toctree-expand {
     display: block;
     font-size: 0.8em;
     line-height: 1.6em;
-    color: #333
+    color: black;
 }
 .wy-menu-vertical li.toctree-l1.current li.toctree-l2>ul,
 .wy-menu-vertical li.toctree-l2.current li.toctree-l3>ul {
@@ -243,39 +253,41 @@ div[class^='highlight'] {
     display: block
 }
 .wy-menu-vertical li.toctree-l2.current>a {
-    background: #c9c9c9;
+    background: white;
     padding: .4045em 2.427em
 }
 .wy-menu-vertical li.toctree-l2.current li.toctree-l3>a {
     display: block;
-    background: #c9c9c9;
+    background: white;
     padding: .4045em 4.045em
 }
 .wy-menu-vertical li.toctree-l2 a:hover span.toctree-expand {
-    color: gray
+    color: black;
+    background: lightgray;
 }
 .wy-menu-vertical li.toctree-l2 span.toctree-expand {
-    color: #a3a3a3
+    color: black;
 }
 .wy-menu-vertical li.toctree-l3 {
     font-size: 0.9em
 }
 .wy-menu-vertical li.toctree-l3.current>a {
-    background: #bdbdbd;
+    background: white;
     padding: .4045em 4.045em
 }
 .wy-menu-vertical li.toctree-l3.current li.toctree-l4>a {
     display: block;
-    background: #bdbdbd;
+    background: white;
     padding: .4045em 5.663em;
     border-top: none;
     border-bottom: none
 }
 .wy-menu-vertical li.toctree-l3 a:hover span.toctree-expand {
-    color: gray
+    color: black;
+    background: lightgray;
 }
 .wy-menu-vertical li.toctree-l3 span.toctree-expand {
-    color: #969696
+    color: black;
 }
 .wy-menu-vertical li.toctree-l4 {
     font-size: 0.9em
@@ -292,7 +304,7 @@ div[class^='highlight'] {
 }
 .wy-menu-vertical li ul li a {
     margin-bottom: 0;
-    color: #b3b3b3;
+    color: black;
     font-weight: normal
 }
 .wy-menu-vertical a {
@@ -302,19 +314,19 @@ div[class^='highlight'] {
     display: block;
     position: relative;
     font-size: 90%;
-    color: #b3b3b3
+    color: black
 }
 .wy-menu-vertical a:hover {
-    background-color: #4e4a4a;
-    cursor: pointer
+    background: lightgray;
+    cursor: pointer;
 }
 .wy-menu-vertical a:hover span.toctree-expand {
-    color: #b3b3b3
+    color: black;
 }
 .wy-menu-vertical a:active {
-    background-color: #2980B9;
+    background-color: white;
     cursor: pointer;
-    color: #fff
+    color: black;
 }
 .wy-menu-vertical a:active span.toctree-expand {
     color: #fff
@@ -336,20 +348,20 @@ div[class^='highlight'] {
     width: 100%;
     border-radius: 50px;
     padding: 6px 12px;
-    border-color: #2472a4
+    border-color: #2472a4;
 }
 .wy-side-nav-search img {
     display: block;
     margin: auto auto .809em auto;
     height: 45px;
     width: 45px;
-    background-color: #2980B9;
+    background-color: white;
     padding: 5px;
     border-radius: 100%
 }
 .wy-side-nav-search>a,
 .wy-side-nav-search .wy-dropdown>a {
-    color: #fcfcfc;
+    color: black
     font-size: 100%;
     font-weight: bold;
     display: inline-block;
@@ -358,7 +370,7 @@ div[class^='highlight'] {
 }
 .wy-side-nav-search>a:hover,
 .wy-side-nav-search .wy-dropdown>a:hover {
-    background: rgba(255, 255, 255, 0.1)
+    background: white;
 }
 .wy-side-nav-search>a img.logo,
 .wy-side-nav-search .wy-dropdown>a img.logo {
@@ -378,16 +390,16 @@ div[class^='highlight'] {
     margin-top: -.4045em;
     margin-bottom: .809em;
     font-weight: normal;
-    color: rgba(255, 255, 255, 0.3)
+    color: black
 }
 .wy-nav .wy-menu-vertical header {
-    color: #2980B9
+    color: black
 }
 .wy-nav .wy-menu-vertical a {
-    color: #b3b3b3
+    color: black
 }
 .wy-nav .wy-menu-vertical a:hover {
-    background-color: #2980B9;
-    color: #fff
+    background-color: white;
+    color: black;
 }
 
