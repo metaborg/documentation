@@ -94,6 +94,10 @@ div[class^="highlight"] pre {
  * styles, which use custom tokens
  */
 
+.k {
+  font-weight: 600;
+}
+
 .syntax.lex, .x-Syntax-Lex {
   font-style: italic;
   color: teal;
@@ -116,7 +120,7 @@ div[class^="highlight"] pre {
   color: #404040;
 }
 .syntax.cf.keyword, .x-Syntax-CF-Keyword {
-  font-weight: bold;
+  font-weight: 600;
 }
 .syntax.cf.punctuation, .x-Syntax-CF-Punctuation {
 }
