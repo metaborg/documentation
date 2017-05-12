@@ -1,21 +1,85 @@
+
+/* dd {
+  line-height: 24px;
+}
+*/
+
+body {
+  font-family: Charter, serif;
+  font-size: 18px;
+}
+
+.wy-nav-side {
+  background: white;
+  color: black; 
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  border-right: 1px solid black;
+}
+
+.wy-menu-vertical li a {
+  color : black;
+}
+.wy-menu-vertical li.current a {
+  color : black;
+}
+
 .menuselection, .guilabel, .file, kbd {
 	background: #eee;
 }
 
 div.wy-menu.wy-menu-vertical span.caption-text {
-  color: #ffffff
+  color: black;
 }
 
-dd {
-  line-height: 24px;
+.wy-nav-content {
+  padding : 0;
 }
 
-body {
-  font-family: Charter;
+body, p {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.wy-plain-list-disc, .rst-content .section ul, .rst-content .toctree-wrapper ul, article ul {
+  line-height: 1.4;
+}
+
+h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
+  font-family : Helvetica, sans-serif;
+  font-weight : 200;
+}
+
+h2 {
+  border-top : 1px solid black;
+  padding-top: 10px;
+  margin-top: 50px;
 }
 
 pre, code, .rst-content tt, .rst-content code {
-  font-family: 'Source Code Pro', monospace;
+  font-family: "Source Code Pro", monospace;
+  font-size: 90%;
+}
+
+code, .rst-content tt, .rst-content code {
+  border : 0px;
+}
+.rst-content code.literal {
+  color : inherit;
+}
+
+code {
+  font-size: 80%;
+}
+
+div[class^="highlight"] pre {
+  font-family: "Source Code Pro", monospace;
+  font-size: 90%;
+  line-height: 1.4;
+}
+
+.rst-content table.docutils.citation, .rst-content table.docutils.footnote {
+  color: inherit;
 }
 
 .wy-nav-content-wrap {
