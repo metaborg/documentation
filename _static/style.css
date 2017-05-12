@@ -1,49 +1,16 @@
-
 /* dd {
   line-height: 24px;
 }
 */
 
+
+/* fonts */
+
 body {
   font-family: Charter, serif;
   font-size: 18px;
-}
-
-.wy-nav-side {
-  background: white;
-  color: black; 
-  font-family: Helvetica, sans-serif;
-  font-size: 16px;
-  border-right: 1px solid black;
-}
-
-.wy-menu-vertical li a {
-  color : black;
-}
-.wy-menu-vertical li.current a {
-  color : black;
-}
-
-.menuselection, .guilabel, .file, kbd {
-	background: #eee;
-}
-
-div.wy-menu.wy-menu-vertical span.caption-text {
-  color: black;
-}
-
-.wy-nav-content {
-  /* padding-left : 20px; */
-  background: white;
-} 
-
-body, p {
-  font-size: 18px;
   line-height: 1.4;
-}
-
-.wy-plain-list-disc, .rst-content .section ul, .rst-content .toctree-wrapper ul, article ul {
-  line-height: 1.4;
+  background: white;
 }
 
 h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
@@ -56,6 +23,9 @@ h2 {
   padding-top: 10px;
   margin-top: 50px;
   font-size: 120%;
+}
+h3, h4, h5, h6 {
+  font-size: 115%;
 }
 
 pre, code, .rst-content tt, .rst-content code {
@@ -80,13 +50,21 @@ div[class^="highlight"] pre {
   line-height: 1.6;
 }
 
-.rst-content table.docutils.citation, .rst-content table.docutils.footnote {
-  color: inherit;
+.codeblock,
+pre.literal-block,
+.rst-content .literal-block,
+.rst-content pre.literal-block,
+div[class^='highlight'] {
+    padding: 0px;
+    overflow-x: auto;
+    background: #fff;
+    margin: 1px 0 24px 0;
+    
+    border-width: 0px 0px 0px 1.5px;
+    border-style: solid;
+    border-color: gray;
 }
 
-.wy-nav-content-wrap {
-  background: white;
-}
 
 /** Rules for syntax
  *
@@ -114,3 +92,289 @@ div[class^="highlight"] pre {
     font-weight: normal;
     color: teal;
 }
+
+
+/* navigation bar */
+
+.wy-nav-side {
+  background: white;
+  color: black; 
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  border-right: 1px solid black;
+}
+
+
+/* navigation sidebar */
+
+.wy-menu a:hover {
+    text-decoration: none
+}
+.wy-menu-horiz {
+    *zoom: 1
+}
+.wy-menu-horiz:before,
+.wy-menu-horiz:after {
+    display: table;
+    content: ""
+}
+.wy-menu-horiz:after {
+    clear: both
+}
+.wy-menu-horiz ul,
+.wy-menu-horiz li {
+    display: inline-block
+}
+.wy-menu-horiz li:hover {
+    background: rgba(255, 255, 255, 0.1)
+}
+.wy-menu-horiz li.divide-left {
+    border-left: solid 1px #404040
+}
+.wy-menu-horiz li.divide-right {
+    border-right: solid 1px #404040
+}
+.wy-menu-horiz a {
+    height: 32px;
+    display: inline-block;
+    line-height: 32px;
+    padding: 0 16px
+}
+.wy-menu-vertical {
+    width: 300px
+}
+.wy-menu-vertical header,
+.wy-menu-vertical p.caption {
+    height: 32px;
+    display: inline-block;
+    line-height: 32px;
+    padding: 0 1.618em;
+    margin-bottom: 0;
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 80%;
+    color: #555;
+    white-space: nowrap
+}
+.wy-menu-vertical ul {
+    margin-bottom: 0
+}
+.wy-menu-vertical li.divide-top {
+    border-top: solid 1px #404040
+}
+.wy-menu-vertical li.divide-bottom {
+    border-bottom: solid 1px #404040
+}
+.wy-menu-vertical li.current {
+    background: #e3e3e3
+}
+.wy-menu-vertical li.current a {
+    color: gray;
+    border-right: solid 1px #c9c9c9;
+    padding: .4045em 2.427em
+}
+.wy-menu-vertical li.current a:hover {
+    background: #d6d6d6
+}
+.wy-menu-vertical li code,
+.wy-menu-vertical li .rst-content tt,
+.rst-content .wy-menu-vertical li tt {
+    border: none;
+    background: inherit;
+    color: inherit;
+    padding-left: 0;
+    padding-right: 0
+}
+.wy-menu-vertical li span.toctree-expand {
+    display: block;
+    float: left;
+    margin-left: -1.2em;
+    font-size: 0.8em;
+    line-height: 1.6em;
+    color: #4d4d4d
+}
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.current>a {
+    color: #404040;
+    padding: .4045em 1.618em;
+    font-weight: bold;
+    position: relative;
+    background: #fcfcfc;
+    border: none;
+    border-bottom: solid 1px #c9c9c9;
+    border-top: solid 1px #c9c9c9;
+    padding-left: 1.618em -4px
+}
+.wy-menu-vertical li.on a:hover,
+.wy-menu-vertical li.current>a:hover {
+    background: #fcfcfc
+}
+.wy-menu-vertical li.on a:hover span.toctree-expand,
+.wy-menu-vertical li.current>a:hover span.toctree-expand {
+    color: gray
+}
+.wy-menu-vertical li.on a span.toctree-expand,
+.wy-menu-vertical li.current>a span.toctree-expand {
+    display: block;
+    font-size: 0.8em;
+    line-height: 1.6em;
+    color: #333
+}
+.wy-menu-vertical li.toctree-l1.current li.toctree-l2>ul,
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3>ul {
+    display: none
+}
+.wy-menu-vertical li.toctree-l1.current li.toctree-l2.current>ul,
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3.current>ul {
+    display: block
+}
+.wy-menu-vertical li.toctree-l2.current>a {
+    background: #c9c9c9;
+    padding: .4045em 2.427em
+}
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3>a {
+    display: block;
+    background: #c9c9c9;
+    padding: .4045em 4.045em
+}
+.wy-menu-vertical li.toctree-l2 a:hover span.toctree-expand {
+    color: gray
+}
+.wy-menu-vertical li.toctree-l2 span.toctree-expand {
+    color: #a3a3a3
+}
+.wy-menu-vertical li.toctree-l3 {
+    font-size: 0.9em
+}
+.wy-menu-vertical li.toctree-l3.current>a {
+    background: #bdbdbd;
+    padding: .4045em 4.045em
+}
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4>a {
+    display: block;
+    background: #bdbdbd;
+    padding: .4045em 5.663em;
+    border-top: none;
+    border-bottom: none
+}
+.wy-menu-vertical li.toctree-l3 a:hover span.toctree-expand {
+    color: gray
+}
+.wy-menu-vertical li.toctree-l3 span.toctree-expand {
+    color: #969696
+}
+.wy-menu-vertical li.toctree-l4 {
+    font-size: 0.9em
+}
+.wy-menu-vertical li.current ul {
+    display: block
+}
+.wy-menu-vertical li ul {
+    margin-bottom: 0;
+    display: none
+}
+.wy-menu-vertical .local-toc li ul {
+    display: block
+}
+.wy-menu-vertical li ul li a {
+    margin-bottom: 0;
+    color: #b3b3b3;
+    font-weight: normal
+}
+.wy-menu-vertical a {
+    display: inline-block;
+    line-height: 18px;
+    padding: .4045em 1.618em;
+    display: block;
+    position: relative;
+    font-size: 90%;
+    color: #b3b3b3
+}
+.wy-menu-vertical a:hover {
+    background-color: #4e4a4a;
+    cursor: pointer
+}
+.wy-menu-vertical a:hover span.toctree-expand {
+    color: #b3b3b3
+}
+.wy-menu-vertical a:active {
+    background-color: #2980B9;
+    cursor: pointer;
+    color: #fff
+}
+.wy-menu-vertical a:active span.toctree-expand {
+    color: #fff
+}
+.wy-side-nav-search {
+    display: block;
+    width: 300px;
+    padding: .809em;
+    margin-bottom: .809em;
+    z-index: 200;
+    background-color: #2980B9;
+    text-align: center;
+    padding: .809em;
+    display: block;
+    color: #fcfcfc;
+    margin-bottom: .809em
+}
+.wy-side-nav-search input[type=text] {
+    width: 100%;
+    border-radius: 50px;
+    padding: 6px 12px;
+    border-color: #2472a4
+}
+.wy-side-nav-search img {
+    display: block;
+    margin: auto auto .809em auto;
+    height: 45px;
+    width: 45px;
+    background-color: #2980B9;
+    padding: 5px;
+    border-radius: 100%
+}
+.wy-side-nav-search>a,
+.wy-side-nav-search .wy-dropdown>a {
+    color: #fcfcfc;
+    font-size: 100%;
+    font-weight: bold;
+    display: inline-block;
+    padding: 4px 6px;
+    margin-bottom: .809em
+}
+.wy-side-nav-search>a:hover,
+.wy-side-nav-search .wy-dropdown>a:hover {
+    background: rgba(255, 255, 255, 0.1)
+}
+.wy-side-nav-search>a img.logo,
+.wy-side-nav-search .wy-dropdown>a img.logo {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: auto;
+    border-radius: 0;
+    max-width: 100%;
+    background: transparent
+}
+.wy-side-nav-search>a.icon img.logo,
+.wy-side-nav-search .wy-dropdown>a.icon img.logo {
+    margin-top: 0.85em
+}
+.wy-side-nav-search>div.version {
+    margin-top: -.4045em;
+    margin-bottom: .809em;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.3)
+}
+.wy-nav .wy-menu-vertical header {
+    color: #2980B9
+}
+.wy-nav .wy-menu-vertical a {
+    color: #b3b3b3
+}
+.wy-nav .wy-menu-vertical a:hover {
+    background-color: #2980B9;
+    color: #fff
+}
+
