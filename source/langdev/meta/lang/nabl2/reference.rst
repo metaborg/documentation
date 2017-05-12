@@ -6,7 +6,7 @@ Language Reference
    :class: highlight
 
 .. role:: doc-cf(code)
-   :language: sdf3
+   :language: doc-cf
    :class: highlight
 
 This section gives a systematic overview of the NaBL2 language.
@@ -56,7 +56,7 @@ Every module is defined in its own file, with the extensions
 ``.nabl2``. The module name and the file paths must coincide.
 
    *Example.* An empty module ``analysis/main``, defined in a file
-   ``.../analysis/main.nabl2``.
+   :file:`.../analysis/main.nabl2`.
 
    .. code-block:: nabl2
 
