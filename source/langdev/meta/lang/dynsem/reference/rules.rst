@@ -77,6 +77,8 @@ Signatures of arrows, components and meta-functions
 
     .. error:: Not documented
 
+.. _dynsem_rules:
+
 ~~~~~
 Rules
 ~~~~~

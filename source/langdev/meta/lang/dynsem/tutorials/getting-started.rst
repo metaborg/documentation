@@ -91,7 +91,7 @@ Importing these makes the sorts and constructors available to the rest of the mo
     variables
       v : V
 
-We declared constructor ``NumV`` which will be used to represent numerical value terms. We also declare reduction relation ``Exp --> V`` from ``Exp`` terms to values ``V``, and a variable scheme for variables named **v**. For details about the signature section of DynSem specification see the :ref:`dynsemreference`.
+We declared constructor ``NumV`` which will be used to represent numerical value terms. We also declare reduction relation ``Exp --> V`` from ``Exp`` terms to values ``V``, and a variable scheme for variables named **v**. For details about the signature section of DynSem specification see the :ref:`dynsemtermsignatures` and :ref:`dynsemarrowsignatures`.
 
 --------------------------
 Context-**free** semantics
@@ -281,7 +281,7 @@ We extend the semantics with the following DynSem rule:
           e2 --> v
       }.
 
-The condition expression is first evaluated to a ``NumV``. Using the case pattern matching premise (:ref:`dynsemreference`) the two cases of interest are specified.
+The condition expression is first evaluated to a ``NumV``. The two cases of interest are handled using the case pattern matching premise (:ref:`dynsem_rules`).
 
 -------------------------------------------
 Semantic libraries using **meta-functions**
@@ -289,7 +289,7 @@ Semantic libraries using **meta-functions**
 
 To keep reduction rules concise and simple it is useful to introduce layers of abstraction over common semantic operations. For example, in the case of *SIMPL* we can abstract away from much of the operations that depend on the variable environment and the heap. Instead of directly manipulating the heap and environment in the reduction rules of the *SIMPL* expressions one can define *meta-functions* to encapsulate heap and environment operations. The *meta-functions* introduced can be reused in all places where access to the environment or heap is required.
 
-.. note:: *Meta-functions* declarations are 2-in-1 auxiliary constructors and relation declaration used for library abstractions. They benefit from implicit propagation of semantic components just like regular reduction rules. See :ref:`dynsemreference` for details on how they are declared.
+.. note:: *Meta-functions* declarations are 2-in-1 auxiliary constructors and relation declaration used for library abstractions. They benefit from implicit propagation of semantic components just like regular reduction rules. See :ref:`dynsemarrowsignatures` for details on how they are declared.
 
 To create the abstractions we first define a module to hold the sort declaration for ``V`` and the variable scheme **v**:
 
@@ -381,7 +381,7 @@ And declare *meta-functions* ``allocate``, ``read``, ``write``, which create a b
 
     Var(x) --> readVar(x).
 
-By using the semantic abstractions over the environment the rules become more concise and do not depend on specific implementations. Note that because the environment does not have to be explicitly propagated the rules can rely on *implicit reductions* (see :ref:`dynsemreference`). The rules above automatically expand to their fully explicated variants. During the expansion first the implicit reductions are lifted:
+By using the semantic abstractions over the environment the rules become more concise and do not depend on specific implementations. Note that because the environment does not have to be explicitly propagated the rules can rely on *implicit reductions*. The rules above automatically expand to their fully explicated variants. During the expansion first the implicit reductions are lifted:
 
 .. code-block:: dynsem
   :linenos:
@@ -601,7 +601,7 @@ Many times a semantics for a language will depend on operations whose specificat
       subI: Int * Int -> Int
       mulI: Int * Int -> Int
 
-Line 3 declares the ``parseI`` native operator which takes one argument of type ``String`` and produces an ``Int``. For a detailed explanation of the ``native operators`` signature section consult the :ref:`dynsemreference`.
+Line 3 declares the ``parseI`` native operator which takes one argument of type ``String`` and produces an ``Int``. For a detailed explanation of the ``native operators`` signature section consult the :ref:`dynsemtermsignatures` page.
 
 We now provide an implementation for ``parseI`` and for ``addI``. Create the package *simpl.interpreter.natives*. This package has to be same as the one specified in the ``target.nativepackage`` property in `Configure the interpreter generator`_. Inside the package create an abstract class named ```parseI_1``:
 
