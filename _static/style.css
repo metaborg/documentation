@@ -33,8 +33,9 @@ div.wy-menu.wy-menu-vertical span.caption-text {
 }
 
 .wy-nav-content {
-  padding : 0;
-}
+  /* padding-left : 20px; */
+  background: white;
+} 
 
 body, p {
   font-size: 18px;
@@ -54,6 +55,7 @@ h2 {
   border-top : 1px solid black;
   padding-top: 10px;
   margin-top: 50px;
+  font-size: 120%;
 }
 
 pre, code, .rst-content tt, .rst-content code {
