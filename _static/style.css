@@ -9,3 +9,15 @@ div.wy-menu.wy-menu-vertical span.caption-text {
 dd {
   line-height: 24px;
 }
+
+body {
+  font-family: Charter;
+}
+
+pre, code, .rst-content tt, .rst-content code {
+  font-family: 'Source Code Pro', monospace;
+}
+
+.wy-nav-content-wrap {
+  background: white;
+}
