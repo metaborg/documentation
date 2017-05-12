@@ -30,6 +30,12 @@ The `MetaBorgCube <https://github.com/metaborgcube>`_ github organization is a c
 Jasmin
   A Spoofax editor for Jasmin, an assembler for the Java Virtual Machine. (`Repository <https://github.com/MetaBorgCube/spoofax-jasmin>`_)
   
+IceDust
+  a data modeling language https://github.com/MetaBorgCube/IceDust
+  
+Simpl
+  A small imperative language to demonstrate DynSem (`Repository <https://github.com/MetaBorgCube/simpl>`_)
+  
 Grace
   A programming language designed for programming education. The Spoofax project defines a syntax definition, desugaring, and operational semantics for the language. (`Repository <https://github.com/MetaBorgCube/metaborg-grace>`_)
 
