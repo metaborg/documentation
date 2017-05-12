@@ -21,3 +21,30 @@ pre, code, .rst-content tt, .rst-content code {
 .wy-nav-content-wrap {
   background: white;
 }
+
+/** Rules for syntax
+ *
+ * Rules for highlighting of syntax rules in `doc-lex` and `doc-cf`
+ * styles, which use custom tokens
+ */
+
+.syntax.meta, .x-Syntax-Meta {
+    font-style: italic;
+    font-weight: lighter;
+    color: teal;
+}
+.syntax.meta.variable, .x-Syntax-Meta-Variable {
+}
+.syntax.meta.punctuation, .x-Syntax-Meta-Punctuation {
+    font-weight: lighter;
+}
+
+.syntax.object, .x-Syntax-Object {
+    font-style: normal;
+    font-weight: bold;
+	color: #404040;
+}
+.x-Syntax-Object-Char,.syntax.object.char {
+    font-weight: normal;
+    color: teal;
+}
