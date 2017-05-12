@@ -39,9 +39,6 @@ Simpl
 Grace
   A programming language designed for programming education. The Spoofax project defines a syntax definition, desugaring, and operational semantics for the language. (`Repository <https://github.com/MetaBorgCube/metaborg-grace>`_)
 
-CERN Code Gen
-  A DSL for generation of PLC code. (`Repository <https://github.com/MetaBorgCube/cern-languages>`_)
-  
 Other Projects 
 ----------------------
 
