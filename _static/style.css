@@ -69,13 +69,13 @@ code, .rst-content tt, .rst-content code {
 }
 
 code {
-  font-size: 80%;
+  font-size: 75%;
 }
 
 div[class^="highlight"] pre {
   font-family: "Source Code Pro", monospace;
-  font-size: 90%;
-  line-height: 1.4;
+  font-size: 85%;
+  line-height: 1.6;
 }
 
 .rst-content table.docutils.citation, .rst-content table.docutils.footnote {
