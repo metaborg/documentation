@@ -92,23 +92,29 @@ div[class^="highlight"] pre {
  * styles, which use custom tokens
  */
 
-.syntax.meta, .x-Syntax-Meta {
-    font-style: italic;
-    font-weight: lighter;
-    color: teal;
+.syntax.lex, .x-Syntax-Lex {
+  font-style: italic;
+  color: teal;
 }
-.syntax.meta.variable, .x-Syntax-Meta-Variable {
+.syntax.lex.variable, .x-Syntax-Lex-Variable {
 }
-.syntax.meta.punctuation, .x-Syntax-Meta-Punctuation {
-    font-weight: lighter;
+.syntax.lex.literal, .x-Syntax-Lex-Literal {
+  font-style: normal;
+  color: #404040;
+}
+.syntax.lex.punctuation, .x-Syntax-Lex-Punctuation {
+}
+.syntax.lex.char, .x-Syntax-Lex-Char {
+  font-style: normal;
+  color: #404040;
 }
 
-.syntax.object, .x-Syntax-Object {
-    font-style: normal;
-    font-weight: bold;
-	color: #404040;
+.syntax.cf, .x-Syntax-CF {
+  font-style: normal;
+  color: #404040;
 }
-.x-Syntax-Object-Char,.syntax.object.char {
-    font-weight: normal;
-    color: teal;
+.syntax.cf.keyword, .x-Syntax-CF-Keyword {
+  font-weight: bold;
+}
+.syntax.cf.punctuation, .x-Syntax-CF-Punctuation {
 }
