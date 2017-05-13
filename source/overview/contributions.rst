@@ -23,6 +23,7 @@ Funding was provided by the following funding agencies and companies
 - `The Netherlands Organisation for Scientific Research (NWO) <https://www.nwo.nl/en>`_
 - Philips Research
 - Oracle Labs
+- Capes, Coordenaca de Bolsas, Brasil
 
 Contributors
 ---------------------
