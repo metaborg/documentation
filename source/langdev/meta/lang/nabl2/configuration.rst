@@ -1,3 +1,4 @@
+=============
 Configuration
 =============
 
@@ -89,7 +90,7 @@ result of analysis, by adding the following lines to
      nabl2/Menus
 
 You can now continue to the :doc:`example specification here
-<example>`, or directly to the :doc:`language reference <reference>`.
+<examples>`, or directly to the :doc:`language reference <reference>`.
 
 Settings
 --------
