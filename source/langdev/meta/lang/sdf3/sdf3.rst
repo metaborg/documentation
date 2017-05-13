@@ -5,6 +5,9 @@
 SDF3
 ====
 
+.. sectnum::
+   :depth: 3
+   
 The SDF family of Syntax Definition Formalisms provides support for declarative
 definition of the syntax of programming languages and domain-specific languages.
 The key principle underlying the design of SDF is declarative syntax definition,
