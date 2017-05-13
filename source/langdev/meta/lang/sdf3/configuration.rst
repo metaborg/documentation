@@ -1,5 +1,5 @@
-Configuring SDF3
-----------------
+SDF3 Configuration 
+--------------------
 
 .. todo:: This part part of the documentation is not yet written.
 

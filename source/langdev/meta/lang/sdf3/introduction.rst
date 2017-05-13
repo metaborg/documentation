@@ -1,4 +1,6 @@
-
+==================
+SDF3 Overview
+==================
 
 The SDF family of Syntax Definition Formalisms provides support for declarative
 definition of the syntax of programming languages and domain-specific languages.
@@ -37,8 +39,6 @@ overview of its current features.
 .. documentation <http://homepages.cwi.nl/~daybuild/daily-books/syntax/2-sdf/sdf.html>`__
 .. by Mark van den Brand, Paul Klint, and Jurgen Vinju.
 
-SDF3 Overview
--------------
 
 Even though the primary goal of SDF3 is syntax definition, it is used as input
 to generate many artifacts that are used in Spoofax. The figure below illustrates

@@ -1,4 +1,4 @@
-Examples
+SDF3 Examples
 --------
 
 .. todo:: This part part of the documentation is not yet written.
