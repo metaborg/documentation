@@ -27,7 +27,7 @@ Table of Contents
    :maxdepth: 1
    :caption: Reference Manual
  
-   Syntax Definition <source/langdev/meta/lang/sdf3/sdf3>
+   Syntax Definition <source/langdev/meta/lang/sdf3/index>
    Transformation <source/langdev/meta/lang/stratego/index>
    Name & Type Analysis <source/langdev/meta/lang/nabl2/index>  
    Dynamic Semantics <source/langdev/meta/lang/dynsem/index>
