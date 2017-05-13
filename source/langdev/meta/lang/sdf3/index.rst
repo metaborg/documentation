@@ -1,4 +1,4 @@
-.. _nabl2-index:
+.. _sdf3-index:
 
 ================================
 Syntax Definition with SDF3
@@ -10,6 +10,7 @@ The definition of a textual (programming) language starts with its syntax. A gra
 .. toctree::
    :maxdepth: 1
    :numbered: 2
+   :caption: Table of Contents
    
    introduction
    reference
