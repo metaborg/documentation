@@ -28,13 +28,14 @@ Table of Contents
    :caption: Reference Manual
  
    Syntax Definition <source/langdev/meta/lang/sdf3/index>
+   Static Semantics <source/langdev/meta/lang/nabl2/index>  
    Transformation <source/langdev/meta/lang/stratego/index>
-   Name & Type Analysis <source/langdev/meta/lang/nabl2/index>  
    Dynamic Semantics <source/langdev/meta/lang/dynsem/index>
-   Testing <source/langdev/meta/lang/spt>
    Editor Services <source/langdev/meta/lang/esv>
+   
+   Language Testing <source/langdev/meta/lang/spt>
    Language Development <source/langdev/manual/index> 
-   API <source/core/manual/index>
+   Programmatic API <source/core/manual/index>
    Developing Spoofax <source/dev/index>
 
 .. toctree::
@@ -47,7 +48,7 @@ Table of Contents
    Migration Guides <source/release/migrate/index>
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contributions
    
    Contributions <source/overview/contributions.rst>
