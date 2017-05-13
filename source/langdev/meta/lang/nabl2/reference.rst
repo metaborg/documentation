@@ -168,22 +168,22 @@ several builtin sorts. One can refer to the following sorts:
 * *Occurrences* using the :doc-lex:`"occurrence"` keyword.
 * Sort *variables* are written using lowercase identifiers.
 
-   For example, a module specifying the types for a language with
-   numbers, functions, and records identified by scopes, might look
-   like this:
-   
-   .. code-block:: nabl2
+For example, a module specifying the types for a language with
+numbers, functions, and records identified by scopes, might look
+like this:
 
-      module example
+.. code-block:: nabl2
 
-      signature
+   module example
 
-         sorts Type
+   signature
 
-         constructors
-           NumT : Type
-           FunT : Type * Type -> Type
-           RecT : scope -> Type
+      sorts Type
+
+      constructors
+        NumT : Type
+        FunT : Type * Type -> Type
+        RecT : scope -> Type
 
 Name binding
 ^^^^^^^^^^^^
@@ -212,24 +212,24 @@ block of the form :doc-lex:`"{" {(prop-id ":" sort-ref) ","}*
 "}"`. Properties are identified by lowercase identifiers, and ``type``
 is a reserved property keyword that cannot be used.
 
-   The following example defines three namespaces: 1) for modules,
-   without a type or properties, 2) for classes, which has a property
-   to record the body of the class, and 3) for variables, which has a
-   type property, of sort ``Type``. For completeness the sort
-   declaration for ``Type`` is shown as well.
+The following example defines three namespaces: 1) for modules,
+without a type or properties, 2) for classes, which has a property
+to record the body of the class, and 3) for variables, which has a
+type property, of sort ``Type``. For completeness the sort
+declaration for ``Type`` is shown as well.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module example
+   module example
 
-      signature
+   signature
 
-        sorts Type
-      
-        namespaces
-          Module
-          Class { body : term }
-          Var : Type
+     sorts Type
+   
+     namespaces
+       Module
+       Class { body : term }
+       Var : Type
 
 Name resolution
 """""""""""""""
@@ -274,22 +274,22 @@ keyword. The regular expression has the following syntax:
 * Parenthesis, written as :doc-lex:`"(" regexp ")"` , can be used to
   group complex expressions.
 
-   The following example shows the default parameters, that are used
-   if no parameters are specified:
+The following example shows the default parameters, that are used
+if no parameters are specified:
   
-   .. code-block:: nabl2
-   
-      name resolution
-        labels
-          P I
-   
-        order
-          D < P,
-          D < I,
-          I < P
-   
-        well-formedness
-          P* I*
+.. code-block:: nabl2
+
+   name resolution
+     labels
+       P I
+
+     order
+       D < P,
+       D < I,
+       I < P
+
+     well-formedness
+       P* I*
  
 Functions and relations
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -340,32 +340,32 @@ the type. A rule signature is written as :doc-lex:`rule-id? "[["
 sort-ref "^" "(" {sort-ref ","}* ")" (":" sort-ref)?  "]]"`. Rules are
 identified by uppercase identifiers.
 
-   The following example shows a module that defines a default rule
-   for expressions, and rules for recursive and parallel bindings. The
-   rule for expressions has one scope parameter, and expressions are
-   assigned a type of sort ``Type``. The bind rules are named, and
-   match on the same AST sort ``Bind``. They take two scope
-   parameters, and do not assign any type to the bind construct.
+The following example shows a module that defines a default rule
+for expressions, and rules for recursive and parallel bindings. The
+rule for expressions has one scope parameter, and expressions are
+assigned a type of sort ``Type``. The bind rules are named, and
+match on the same AST sort ``Bind``. They take two scope
+parameters, and do not assign any type to the bind construct.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module example
+   module example
 
-      signature
+   signature
 
-        constraint generator
-          [[ Expr ^ (scope) : Type ]]
-          BindPar[[ Bind ^ (scope, scope) ]]
-          BindRec[[ Bind ^ (scope, scope) ]]
+     constraint generator
+       [[ Expr ^ (scope) : Type ]]
+       BindPar[[ Bind ^ (scope, scope) ]]
+       BindRec[[ Bind ^ (scope, scope) ]]
 
 NaBL2 supports higher-order rules. In those cases, the
 :doc-lex:`rule-id` is extended with a list of parameters, written as
 :doc-lex:`rule-id "(" {rule-id ","}* ")"`.
 
-   For example, the rule that applies some rule, given as a parameter
-   ``X``, to the elements of a list has signature ``Map1(X)[[ a ^ (b)
-   ]]``. Note that we use variables ``a`` and ``b`` for the AST and
-   parameter sort respectively, since the map rule is polymorphic.
+For example, the rule that applies some rule, given as a parameter
+``X``, to the elements of a list has signature ``Map1(X)[[ a ^ (b)
+]]``. Note that we use variables ``a`` and ``b`` for the AST and
+parameter sort respectively, since the map rule is polymorphic.
 
 Rules
 -----
@@ -398,19 +398,19 @@ top-level declarations. If the rule has no clauses, the rule can be
 closed without a clause definition. For example, ``init ^ ().`` is
 shorthand for ``init ^ () := true.``
 
-   In the example module below, the default rule takes one scope
-   parameter. The init rule creates a new scope, which will be used as
-   the initial value for constraint generation.
+In the example module below, the default rule takes one scope
+parameter. The init rule creates a new scope, which will be used as
+the initial value for constraint generation.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module example
+   module example
 
-      rules
+   rules
 
-        init ^ (s) := new s.
+     init ^ (s) := new s.
 
-        [[ t ^ (s) ]].
+     [[ t ^ (s) ]].
 
 Generation rules
 ^^^^^^^^^^^^^^^^
