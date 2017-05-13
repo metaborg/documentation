@@ -9,7 +9,6 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: Overview
    :numbered: 3
 
    The Spoofax Language Workbench <source/overview/spoofax.rst>
