@@ -24,7 +24,7 @@ Spoofax is a platform for the development of textual (domain-specific) programmi
    :maxdepth: 2
    :caption: Reference Manual
  
-   Syntax Definition with SDF2 <source/langdev/meta/lang/sdf3/index>
+   Syntax Definition with SDF3 <source/langdev/meta/lang/sdf3/index>
    Static Semantics with NaBL2 <source/langdev/meta/lang/nabl2/index>  
    Transformation with Stratego <source/langdev/meta/lang/stratego/index>
    Dynamic Semantics with DynSem <source/langdev/meta/lang/dynsem/index>
