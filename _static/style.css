@@ -14,6 +14,7 @@ body, p {
   font-family: Charter, serif;
   font-size: 18px;
   line-height: 1.4;
+  color: black;
 }
 
 h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
@@ -68,6 +69,12 @@ div[class^='highlight'] {
     border-color: gray;
 }
 
+/* citations */
+
+
+.rst-content table.docutils.citation, .rst-content table.docutils.footnote {
+  color : black;
+}
 
 /** Rules for syntax
  *
@@ -176,7 +183,7 @@ div[class^='highlight'] {
     font-family: Helvetica, sans-serif;
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
-    background: #333;
+    background: #2980B9;
 }
 
 .wy-menu-vertical ul {
@@ -335,7 +342,8 @@ div[class^='highlight'] {
     display: block;
     width: 300px;
     padding: .809em;
-    margin-bottom: .809em;
+    /* margin-bottom: .809em; */
+    margin-bottom: 0;
     z-index: 200;
     background-color: #2980B9;
     text-align: center;
