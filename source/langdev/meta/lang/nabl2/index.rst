@@ -1,8 +1,8 @@
 .. _nabl2-index:
 
-=====
-NaBL2
-=====
+=======================================
+Static Semantics Definition with NaBL2
+=======================================
 
 NaBL2 is a meta-language to specify name binding and type checking
 rules of your language. NaBL2 uses a constraint-based approach, and
@@ -11,6 +11,7 @@ uses scope graphs to do name resolution.
 .. toctree::
    :maxdepth: 1
    :numbered: 2
+   :caption: Table of Contents
    
    introduction
    reference
