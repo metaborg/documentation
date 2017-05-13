@@ -5,10 +5,6 @@ Language Reference
    :language: doc-lex
    :class: highlight
 
-.. role:: doc-cf(code)
-   :language: doc-cf
-   :class: highlight
-
 This section gives a systematic overview of the NaBL2 language.
 
 Lexical matters
@@ -40,11 +36,11 @@ when the closing ``*/`` is omitted.
 Modules
 -------
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
-   module \[module-id]
+   module [module-id]
 
-     \[section*]
+     [section*]
  
 NaBL2 specifications are organized in modules. A module is identified
 by a module identifier. Module identifiers consist of one or more
@@ -71,11 +67,11 @@ subsequents sections deal with signatures and rules.
 Imports
 ^^^^^^^
  
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
   imports
 
-    \[module-ref*]
+    [module-ref*]
 
 A module can import definitions from other modules be importing the
 other module. Imports are specified in an ``imports`` section, which
@@ -106,11 +102,11 @@ A wildcard import does not work recursively. For example,
 Signatures
 ----------
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
   signatures
 
-    \[signature*]
+    [signature*]
 
 Signatures contain definitions and parameters used in the
 specification. In the rest of this section, signatures for terms, name
@@ -119,15 +115,15 @@ binding, functions and relations, and constraint rules are described.
 Term sorts and constructors
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    sorts
 
-     \[sort-id*]
+     [sort-id*]
 
    constructors
 
-     \[ctor-def*]
+     [ctor-def*]
 
 Terms in NaBL2 are multi-sorted, and are defined in the ``sorts`` and
 ``constructors`` signatures.
@@ -195,11 +191,11 @@ parameters for name resolution.
 Namespaces
 """"""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    namespaces
 
-     \[namespace-def*]
+     [namespace-def*]
 
 Namespaces are defined in the ``namespaces`` signature. Namespaces are
 identified by uppercase identifiers. A namespace definition has the
@@ -234,15 +230,15 @@ declaration for ``Type`` is shown as well.
 Name resolution
 """""""""""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    name resolution
      labels
-       \[label-id*]
+       [label-id*]
      order
-       \[{label-order ","}*]
+       [{label-order ","}*]
      well-formedness
-       \[label-regexp]
+       [label-regexp]
 
 Name resolution parameters are specified in a ``name-resolution``
 signature. Note that this block can only be specified once per
@@ -297,18 +293,18 @@ Functions and relations
 Functions
 """""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    functions
 
 Relations
 """""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    relations
 
-     \[( relation-option* relation-id (":" sort-ref "*" sort-ref)? "{" {variance-pattern ","}* "}" )*]
+     [( relation-option* relation-id (":" sort-ref "*" sort-ref)? "{" {variance-pattern ","}* "}" )*]
 
 .. code-block:: doc-lex
 
@@ -327,11 +323,11 @@ Relations
 Rules
 ^^^^^
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    constraint generator
 
-     \[rule-def*]
+     [rule-def*]
 
 The type signatures for constraint generation rules are defined in a
 ``constraint generator`` signature. Rule signatures describe the sort
@@ -370,11 +366,11 @@ parameter sort respectively, since the map rule is polymorphic.
 Rules
 -----
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    rules
 
-     \[rule*]
+     [rule*]
 
 The rules section of a module defines syntax directed constraint
 generation rules.
@@ -382,10 +378,10 @@ generation rules.
 Init rule
 ^^^^^^^^^
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-<
 
-   init ^ ( \<{parameter ","}*> ) \<(":" type)?> := \<{clause ","}+> .
-   init ^ ( \<{parameter ","}*> ) \<(":" type)?> .
+   init ^ ( <{parameter ","}*> ) <(":" type)?> := <{clause ","}+> .
+   init ^ ( <{parameter ","}*> ) <(":" type)?> .
 
 Constraint generation starts by applying the default rule to the
 top-level constructor. The ``init`` rule, which must be specified
@@ -415,10 +411,10 @@ the initial value for constraint generation.
 Generation rules
 ^^^^^^^^^^^^^^^^
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-<
 
-   \<rule-id?> [[ \<pattern> ^ ( \<{parameter ","}*> ) \<(":" type)?> ]] := \<{clause ","}+> .
-   \<rule-id?> [[ \<pattern> ^ ( \<{parameter ","}*> ) \<(":" type)?> ]] .
+   <rule-id?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] := <{clause ","}+> .
+   <rule-id?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] .
 
 Variables not matched in the pattern, bound to parameters, or new
 scopes, are automatically inferred to be unification variables.

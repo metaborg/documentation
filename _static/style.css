@@ -93,6 +93,7 @@ div[class^='highlight'] {
   color: #404040;
 }
 .syntax.lex.punctuation, .x-Syntax-Lex-Punctuation {
+  font-weight: 300;
 }
 .syntax.lex.char, .x-Syntax-Lex-Char {
   font-style: normal;
@@ -106,7 +107,10 @@ div[class^='highlight'] {
 .syntax.cf.keyword, .x-Syntax-CF-Keyword {
   font-weight: 600;
 }
-.syntax.cf.punctuation, .x-Syntax-CF-Punctuation {
+.syntax.cf.punctuation.quote, .x-Syntax-CF-Punctuation-Quote {
+  font-style: italic;
+  font-weight: 300;
+  color: teal;
 }
 
 
