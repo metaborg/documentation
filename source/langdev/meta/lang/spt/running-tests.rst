@@ -80,16 +80,14 @@ For those interested in giving it a try:
 
 1. Obtaining the test runner jar::
 
-  bash
-  $ git clone https://github.com/metaborg/spt.git
-  $ cd spt/org.metaborg.spt.cmd
-  $ mvn package
-  $ ls target/org.metaborg.spt.cmd*
-    target/org.metaborg.spt.cmd-2.0.0-SNAPSHOT.jar
+    bash
+    $ git clone https://github.com/metaborg/spt.git
+    $ cd spt/org.metaborg.spt.cmd
+    $ mvn package
+    $ ls target/org.metaborg.spt.cmd*
+      target/org.metaborg.spt.cmd-2.0.0-SNAPSHOT.jar
 
-This jar is the executable jar that contains the test runner.
-Next up, we want to run the tests for our language.
-To do so, we need:
+This jar is the executable jar that contains the test runner. Next up, we want to run the tests for our language. To do so, we need:
 
   1. the directory with tests to run (e.g., ``path/to/test/project``)
   2. the language under test (e.g. ``path/to/MiniJava/project``)
@@ -99,42 +97,39 @@ To do so, we need:
 2. You should already have your tests and your language project, so next up is the SPT language.
   This is in the same repo as the command line runner::
 
-  bash
-  $ cd spt/org.metaborg.meta.lang.spt
-  $ mvn verify
+     $ cd spt/org.metaborg.meta.lang.spt
+     $ mvn verify
 
 3. If you want to use the ``run`` and ``transform`` expectations, you also need the Stratego language::
 
-  bash
-  $ git clone https://github.com/metaborg/stratego.git
-  $ cd stratego/org.metaborg.meta.lang.stratego
-  $ mvn verify
+     $ git clone https://github.com/metaborg/stratego.git
+     $ cd stratego/org.metaborg.meta.lang.stratego
+     $ mvn verify
 
 4. Now we can run the tests::
 
-  bash
-  $ java -jar spt/org.metaborg.spt.cmd/target/org.metaborg.spt.cmd-2.0.0-SNAPSHOT.jar -h
-  Usage: <main class> [options]
-    Options:
-      --help, -h
-         Shows usage help
-         Default: false
-      --lang, -ol
-         Location of any other language that should be loaded
-         Default: []
-    * --lut, -l
-         Location of the language under test
-    * --spt, -s
-         Location of the SPT language
-      --start-symbol, -start
-         Start Symbol for these tests
-    * --tests, -t
-       Location of test files
-  $ java -jar spt/org.metaborg.spt.cmd/target/org.metaborg.spt.cmd-2.0.0-SNAPSHOT.jar
-     --lut /path/to/MiniJava/project
-     --tests /path/to/test/project
-     --spt spt/org.metaborg.meta.lang.spt
-     --lang stratego/org.metaborg.meta.lang.stratego
+	  $ java -jar spt/org.metaborg.spt.cmd/target/org.metaborg.spt.cmd-2.0.0-SNAPSHOT.jar -h
+	  Usage: <main class> [options]
+	    Options:
+	      --help, -h
+	         Shows usage help
+	         Default: false
+	      --lang, -ol
+	         Location of any other language that should be loaded
+	         Default: []
+	    * --lut, -l
+	         Location of the language under test
+	    * --spt, -s
+	         Location of the SPT language
+	      --start-symbol, -start
+	         Start Symbol for these tests
+	    * --tests, -t
+	       Location of test files
+	  $ java -jar spt/org.metaborg.spt.cmd/target/org.metaborg.spt.cmd-2.0.0-SNAPSHOT.jar
+	     --lut /path/to/MiniJava/project
+	     --tests /path/to/test/project
+	     --spt spt/org.metaborg.meta.lang.spt
+	     --lang stratego/org.metaborg.meta.lang.stratego
 
 
 Run using the SPT Framework
