@@ -1,7 +1,17 @@
+SDF3 Bibliography
+-----------------------
 
-Bibliography
-------------
+SDF3 is the successor of SDF2, which is itself the successor of SDF.
 
-.. todo:: This part part of the documentation is not yet written.
+* SDF
+* SDF2 :cite:`s-Vis97.thesis`
+* Disambiguation filters :cite:`s-KlintV94`
+* scannerless generalized-LR parsing
+* template productions
+* syntactic completions
+* safe and complete disambiguation
 
-.. TODO point to papers involving SDF3 and related work
+.. bibliography:: sdf3.bib 
+   :style: plain  
+   :labelprefix: S
+   :keyprefix: s-
