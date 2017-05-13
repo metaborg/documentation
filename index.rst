@@ -33,7 +33,7 @@ Table of Contents
    Dynamic Semantics <source/langdev/meta/lang/dynsem/index>
    Editor Services <source/langdev/meta/lang/esv>
    
-   Language Testing <source/langdev/meta/lang/spt>
+   Language Testing <source/langdev/meta/lang/spt/index>
    Language Development <source/langdev/manual/index> 
    Programmatic API <source/core/manual/index>
    Developing Spoofax <source/dev/index>
