@@ -66,7 +66,7 @@ The **signature** section of a DynSem module provides definitions for program te
 
       the following are valid variable names: **v1**, **v2**, **v'**, **v'''**, **v1'**, **v_foo**.
 
-      .. note:: Variable schemes can be useful in combination with `dynsem implicit reductions`_ to concisely express the expected sort.
+      .. note:: Variable schemes can be useful in combination with dynsem implicit reductions to concisely express the expected sort.
 
 .. describe:: native datatypes
 
