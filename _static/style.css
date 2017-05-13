@@ -14,6 +14,7 @@ body, p {
   font-family: Charter, serif;
   font-size: 18px;
   line-height: 1.4;
+  color: black;
 }
 
 h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
@@ -68,6 +69,12 @@ div[class^='highlight'] {
     border-color: gray;
 }
 
+/* citations */
+
+
+.rst-content table.docutils.citation, .rst-content table.docutils.footnote {
+  color : black;
+}
 
 /** Rules for syntax
  *
@@ -127,6 +134,23 @@ div[class^='highlight'] {
 
 /* navigation sidebar */
 
+.fa-plus-square-o:before,
+.wy-menu-vertical li span.toctree-expand:before {
+    content: ""
+}
+
+.fa-minus-square-o:before,
+.wy-menu-vertical li.on a span.toctree-expand:before,
+.wy-menu-vertical li.current>a span.toctree-expand:before {
+    content: ""
+}
+.fa-minus-square-o:before,
+.wy-menu-vertical li.on a span.toctree-expand:before,
+.wy-menu-vertical li.current>a span.toctree-expand:before {
+    content: ""
+}
+
+
 .wy-menu a:hover {
     text-decoration: none
 }
@@ -174,13 +198,13 @@ div[class^='highlight'] {
     display: block;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 80%;
-    color: #eee;
+    font-size: 85%;
+    color: white;
     white-space: nowrap;
     font-family: Helvetica, sans-serif;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
-    background: #333;
+    border-top: 0px solid gray;
+    border-bottom: 0px solid gray;
+    background: #2980B9;
 }
 
 .wy-menu-vertical ul {
@@ -339,7 +363,8 @@ div[class^='highlight'] {
     display: block;
     width: 300px;
     padding: .809em;
-    margin-bottom: .809em;
+    /* margin-bottom: .809em; */
+    margin-bottom: 0;
     z-index: 200;
     background-color: #2980B9;
     text-align: center;
