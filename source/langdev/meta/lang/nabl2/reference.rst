@@ -112,9 +112,15 @@ Signatures
 Signatures contain definitions and parameters used in the
 specification. In the rest of this section, signatures for terms, name
 binding, functions and relations, and constraint rules are described.
+ 
+Terms
+^^^^^
 
-Sorts and constructors
-^^^^^^^^^^^^^^^^^^^^^^
+Terms in NaBL2 are multi-sorted, and are defined in the ``sorts`` and
+``constructors`` signatures.
+
+Sorts
+"""""
 
 .. code-block:: doc-cf-[
 
@@ -122,31 +128,30 @@ Sorts and constructors
 
      [sort-id*]
 
+*Available since version 2.3.0*
+ 
+The ``sorts`` signature lists the sorts that are available. Sort are
+identified by uppercase identifiers.
+
+*Example.* Module declaring one sort ``Type``.
+
+.. code-block:: nabl2
+
+   module example
+
+   signature
+
+     sorts Type
+
+Constructors
+""""""""""""
+
+.. code-block:: doc-cf-[
+
    constructors
 
      [ctor-def*]
 
-Terms in NaBL2 are multi-sorted, and are defined in the ``sorts`` and
-``constructors`` signatures.
-
-The ``sorts`` signature lists the sorts that are available. Sort are
-identified by uppercase identifiers.
-
-   *Example.* Module declaring one sort ``Type``.
-
-   .. code-block:: nabl2
-
-      module example
-
-      signature
-
-        sorts Type
-
-.. note::
-
-   Sort definitions were introduced in Spoofax 2.3.0, and are not
-   available in earlier versions.
- 
 Constructors are defined in a ``constructors`` signature, and
 identified by uppercase identifiers.  Constructor definitions are
 written as follows:
