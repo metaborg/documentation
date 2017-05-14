@@ -871,7 +871,10 @@ character.
 
 
 Layout-sensitive parsing
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+SDF3 supports definition of layout sensitive syntax by means of layout constraints. 
+While we haven't covered this feature in this documentation, the paper :cite:`s-ErdwegRKO12` describes the concepts.
 
 .. todo:: This part part of the documentation is not yet written.
 
