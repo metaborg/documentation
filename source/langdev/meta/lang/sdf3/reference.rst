@@ -1,6 +1,6 @@
 .. highlight:: sdf3
 
-.. _sdf3-index:
+.. _sdf3-reference:
 
 ===========================
 SDF3 Reference Manual
@@ -439,7 +439,6 @@ The following syntax-related attributes exist:
    priorities and associativity is that when a non-terminal is
    disambiguated using either of them, a production rule with the
    ``bracket`` attribute is probably also needed.
-
 -  ``left``, ``right``, ``non-assoc``, ``assoc`` are disambiguation
    constructs used to define the associativity of productions. See
    associativity_.
@@ -500,16 +499,12 @@ Template productions are an alternative way of defining productions.
 Similarly, they consist of a left-hand side and a right-hand side
 separated by ``=``. The left-hand side is the same as for productive
 rules. The right-hand side is a template delimited by ``<`` and ``>``.
-The template can contain zero or more symbols:
-
-::
+The template can contain zero or more symbols::
 
     <Sort>               = < <Symbol>* >
     <Sort>.<Constructor> = < <Symbol>* >
 
-Alternatively, square brackets can be used to delimit a template:
-
-::
+Alternatively, square brackets can be used to delimit a template::
 
     <Sort>               = [ <Symbol>* ]
     <Sort>.<Constructor> = [ <Symbol>* ]
@@ -523,14 +518,12 @@ It is worth noting that:
 -  literal strings are tokenized on space characters (whitespace, tab);
 -  additionally, literal strings are tokenized on boundaries between
    characters from the set given by the tokenize option, see the
-   tokenize_ template option;
+   tokenize template option;
 -  placeholders translate literally. If a separator containing any
    layout characters is given, the placeholder maps to a list with
    separator that strips the layout.
 
-An example of a template rule:
-
-::
+An example of a template rule::
 
     Exp.Addition = < <Exp> + <Exp> >
 
@@ -550,9 +543,7 @@ Case-insensitive Literals
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 As we showed before, SDF3 allows defining case-insensitive literals as
-single-quoted strings in regular productions. For example:
-
-::
+single-quoted strings in regular productions. For example::
 
      Exp.If = 'if' "(" Exp ")" Exp 'else' Exp
 
@@ -560,9 +551,7 @@ accepts case-insensitive keywords for ``if`` and ``else`` such as
 ``if``, ``IF``, ``If``, ``else``, ``ELSE`` or ``ELsE``. However, to
 generate case-insensitive literals from template productions, it is
 necessary to add annotate these productions as case-insensitive. For
-example, a template production
-
-::
+example, a template production::
 
      Exp.If = <
         if(<Exp>)
@@ -571,14 +560,11 @@ example, a template production
           <Exp>
      > {case-insensitive}
 
-
 accepts the same input as the regular production mentioned before.
 
 Moreover, lexical symbols can also be annotated as case-insensitive to parse as
 such. The constructed abstract syntax tree contains lower-case symbols, but the
-original term is preserved via origin-tracking. For example:
-
-::
+original term is preserved via origin-tracking. For example::
 
     ID = [a-zA-z][a-zA-Z0-9]* {case-insensitive}
 
@@ -591,9 +577,7 @@ Template options
 ^^^^^^^^^^^^^^^^
 
 Template options are options that are applied to the current file. A
-template options section is structured as follows:
-
-::
+template options section is structured as follows::
 
     template options
 
@@ -887,7 +871,10 @@ character.
 
 
 Layout-sensitive parsing
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+SDF3 supports definition of layout sensitive syntax by means of layout constraints. 
+While we haven't covered this feature in this documentation, the paper :cite:`s-ErdwegRKO12` describes the concepts.
 
 .. todo:: This part part of the documentation is not yet written.
 

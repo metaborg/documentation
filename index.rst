@@ -2,20 +2,17 @@
 The Spoofax Language Workbench
 ==============================
 
-.. .. image:: source/spoofax.svg
-
-Table of Contents
-=================
+Spoofax is a platform for the development of textual (domain-specific) programming languages. 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    The Spoofax Language Workbench <source/overview/spoofax.rst>
    Examples <source/overview/examples.rst>
    Publications <source/overview/publications.rst>
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Tutorials
 
    Installing Spoofax <source/install>
@@ -24,21 +21,22 @@ Table of Contents
    Getting Support <source/support>
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Reference Manual
  
-   Syntax Definition <source/langdev/meta/lang/sdf3/index>
-   Transformation <source/langdev/meta/lang/stratego/index>
-   Name & Type Analysis <source/langdev/meta/lang/nabl2/index>  
-   Dynamic Semantics <source/langdev/meta/lang/dynsem/index>
-   Testing <source/langdev/meta/lang/spt>
-   Editor Services <source/langdev/meta/lang/esv>
-   Language Development <source/langdev/manual/index> 
-   API <source/core/manual/index>
+   Syntax Definition with SDF3 <source/langdev/meta/lang/sdf3/index>
+   Static Semantics with NaBL2 <source/langdev/meta/lang/nabl2/index>  
+   Transformation with Stratego <source/langdev/meta/lang/stratego/index>
+   Dynamic Semantics with DynSem <source/langdev/meta/lang/dynsem/index>
+   Editor Services with ESV <source/langdev/meta/lang/esv>
+   
+   Language Testing with SPT <source/langdev/meta/lang/spt/index>
+   Building Languages <source/langdev/manual/index> 
+   Programmatic API <source/core/manual/index>
    Developing Spoofax <source/dev/index>
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Releases
 
    Latest Stable Release <source/release/stable>

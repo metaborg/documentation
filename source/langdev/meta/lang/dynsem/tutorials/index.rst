@@ -5,7 +5,6 @@ DynSem tutorials
 The following DynSem tutorials are available:
 
 .. toctree::
-  :maxdepth: 2
 
   Getting Started with DynSem <getting-started>
   daemon-mode

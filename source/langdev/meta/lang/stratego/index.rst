@@ -1,12 +1,10 @@
 .. _stratego-index:
 
-===============
-Stratego Manual
-===============
+=====================================
+Transformation with Stratego 
+=====================================
 
-This manual will introduce the Stratego program transformation language.
-
-The next few chapters outline the basic ideas of Stratego programming in bold strokes:
+Parsing a program text results in an abstract syntax tree. Stratego is a language for defining transformations on such trees. Stratego provides a term notation to construct and deconstruct trees and uses *term rewriting* to define transformations. Instead of applying all rewrite rules to all sub-terms, Stratego supports programmable *rewriting strategies* that control the application of rewrite rules.
 
 .. toctree::
    :maxdepth: 1
@@ -16,12 +14,6 @@ The next few chapters outline the basic ideas of Stratego programming in bold st
    03-running-stratego-programs
    04-term-rewriting
    05-rewriting-strategies
-
-The rest of the chapters explain the Stratego language in more detail:
-
-.. toctree::
-   :maxdepth: 1
-
    06-rules-and-strategies
    07-strategy-combinators
    08-creating-and-analyzing-terms
@@ -29,15 +21,4 @@ The rest of the chapters explain the Stratego language in more detail:
    10-type-unifying-strategies
    11-concrete-object-syntax
    12-dynamic-rules
-
-This following details some of the Stratego library functions.
-
-.. toctree::
-   :maxdepth: 1
-
-   lib/01-introduction
-   lib/02-arithmetic-operations
-   lib/03-lists
-   lib/04-strings
-   lib/05-hashtables-and-sets
-   lib/06-io
+   lib/index
