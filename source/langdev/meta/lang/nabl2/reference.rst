@@ -112,8 +112,8 @@ Signatures contain definitions and parameters used in the
 specification. In the rest of this section, signatures for terms, name
 binding, functions and relations, and constraint rules are described.
 
-Term sorts and constructors
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Sorts and constructors
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doc-cf-[
 
@@ -141,6 +141,11 @@ identified by uppercase identifiers.
 
         sorts Type
 
+.. note::
+
+   Sort definitions were introduced in Spoofax 2.3.0, and are not
+   available in earlier versions.
+ 
 Constructors are defined in a ``constructors`` signature, and
 identified by uppercase identifiers.  Constructor definitions are
 written as follows:
