@@ -2,9 +2,6 @@
 Services
 ========
 
-.. todo:: Descriptions for services have not been added yet.
-
-
 This manual describes all services in Spoofax Core.
 A service is a class (and typically a singleton) that provides a single piece of functionality to the Spoofax Core system.
 Services can be accessed through facades, or injected through dependency injection.

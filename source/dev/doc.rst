@@ -44,6 +44,16 @@ Bibliographies
 
 BibTeX bibliographies and citations are supported through the `sphinxcontrib-bibtext <https://sphinxcontrib-bibtex.readthedocs.io/en/latest/quickstart.html#minimal-example>`__ extension.
 
+To create a separate bibliography for a chapter use a label and key prefix as follows::
+
+   Syntactic completions :cite:`s-AmorimEWV16` 
+
+   .. bibliography:: ../../../../bib/spoofax.bib 
+      :style: plain  
+      :labelprefix: S
+      :keyprefix: s-
+   
+   
 Customizing HTML with CSS and JavaScript
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

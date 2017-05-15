@@ -1,5 +1,5 @@
 ========================
-Core API Getting Started
+Using the API
 ========================
 
 This guide will get you started with the Spoofax Core API, within an Eclipse environment.

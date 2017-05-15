@@ -14,7 +14,7 @@ The Spoofax Language Workbench
 Spoofax is a platform for developing textual (domain-specific) programming languages. 
 The platform provides the following ingredients:
 
-- Meta-languages for high-level declarative language definition. 
+- Meta-languages for high-level declarative language definition
 - An interactive environment for developing languages using these meta-languages
 - Code generators that produces parsers, type checkers, compilers, interpreters, and other tools from language definitions
 - Generation of full-featured Eclipse editor plugins from language definitions 
@@ -115,7 +115,7 @@ SPT
 ESV
   The ESV editor services language is used to configure language definitions.
   
-Developing a Language Workbench
+A Platform for Language Engineering
 -------------------------------------
 
 Spoofax is a platform for language engineers. That is, it provides full support for software engineering of language implementations.
@@ -138,7 +138,7 @@ Continuous integration
 Open source
   Spoofax is open source and available under the Apache 2.0 license. The sources are maintained in the `MetaBorg <https://github.com/metaborg>`_ github organization; pull requests are welcome. 
 
-Platform for Research
+A Platform for Research
 --------------------------
 
 Spoofax is a platform for language engineering research. 

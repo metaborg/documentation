@@ -1,12 +1,9 @@
+==================
 Language Reference
 ==================
 
 .. role:: doc-lex(code)
    :language: doc-lex
-   :class: highlight
-
-.. role:: doc-cf(code)
-   :language: sdf3
    :class: highlight
 
 This section gives a systematic overview of the NaBL2 language.
@@ -40,11 +37,11 @@ when the closing ``*/`` is omitted.
 Modules
 -------
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
-   module \[module-id]
+   module [module-id]
 
-     \[section*]
+     [section*]
  
 NaBL2 specifications are organized in modules. A module is identified
 by a module identifier. Module identifiers consist of one or more
@@ -56,7 +53,7 @@ Every module is defined in its own file, with the extensions
 ``.nabl2``. The module name and the file paths must coincide.
 
    *Example.* An empty module ``analysis/main``, defined in a file
-   ``.../analysis/main.nabl2``.
+   :file:`.../analysis/main.nabl2`.
 
    .. code-block:: nabl2
 
@@ -71,11 +68,11 @@ subsequents sections deal with signatures and rules.
 Imports
 ^^^^^^^
  
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
   imports
 
-    \[module-ref*]
+    [module-ref*]
 
 A module can import definitions from other modules be importing the
 other module. Imports are specified in an ``imports`` section, which
@@ -106,44 +103,54 @@ A wildcard import does not work recursively. For example,
 Signatures
 ----------
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
   signatures
 
-    \[signature*]
+    [signature*]
 
 Signatures contain definitions and parameters used in the
 specification. In the rest of this section, signatures for terms, name
 binding, functions and relations, and constraint rules are described.
-
-Term sorts and constructors
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: doc-cf
-
-   sorts
-
-     \[sort-id*]
-
-   constructors
-
-     \[ctor-def*]
+ 
+Terms
+^^^^^
 
 Terms in NaBL2 are multi-sorted, and are defined in the ``sorts`` and
 ``constructors`` signatures.
 
+Sorts
+"""""
+
+.. code-block:: doc-cf-[
+
+   sorts
+
+     [sort-id*]
+
+*Available since version 2.3.0*
+ 
 The ``sorts`` signature lists the sorts that are available. Sort are
 identified by uppercase identifiers.
 
-   *Example.* Module declaring one sort ``Type``.
+*Example.* Module declaring one sort ``Type``.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module example
+   module example
 
-      signature
+   signature
 
-        sorts Type
+     sorts Type
+
+Constructors
+""""""""""""
+
+.. code-block:: doc-cf-[
+
+   constructors
+
+     [ctor-def*]
 
 Constructors are defined in a ``constructors`` signature, and
 identified by uppercase identifiers.  Constructor definitions are
@@ -168,22 +175,22 @@ several builtin sorts. One can refer to the following sorts:
 * *Occurrences* using the :doc-lex:`"occurrence"` keyword.
 * Sort *variables* are written using lowercase identifiers.
 
-   For example, a module specifying the types for a language with
-   numbers, functions, and records identified by scopes, might look
-   like this:
-   
-   .. code-block:: nabl2
+For example, a module specifying the types for a language with
+numbers, functions, and records identified by scopes, might look
+like this:
 
-      module example
+.. code-block:: nabl2
 
-      signature
+   module example
 
-         sorts Type
+   signature
 
-         constructors
-           NumT : Type
-           FunT : Type * Type -> Type
-           RecT : scope -> Type
+      sorts Type
+
+      constructors
+        NumT : Type
+        FunT : Type * Type -> Type
+        RecT : scope -> Type
 
 Name binding
 ^^^^^^^^^^^^
@@ -195,11 +202,11 @@ parameters for name resolution.
 Namespaces
 """"""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    namespaces
 
-     \[namespace-def*]
+     [namespace-def*]
 
 Namespaces are defined in the ``namespaces`` signature. Namespaces are
 identified by uppercase identifiers. A namespace definition has the
@@ -212,37 +219,37 @@ block of the form :doc-lex:`"{" {(prop-id ":" sort-ref) ","}*
 "}"`. Properties are identified by lowercase identifiers, and ``type``
 is a reserved property keyword that cannot be used.
 
-   The following example defines three namespaces: 1) for modules,
-   without a type or properties, 2) for classes, which has a property
-   to record the body of the class, and 3) for variables, which has a
-   type property, of sort ``Type``. For completeness the sort
-   declaration for ``Type`` is shown as well.
+The following example defines three namespaces: 1) for modules,
+without a type or properties, 2) for classes, which has a property
+to record the body of the class, and 3) for variables, which has a
+type property, of sort ``Type``. For completeness the sort
+declaration for ``Type`` is shown as well.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module example
+   module example
 
-      signature
+   signature
 
-        sorts Type
-      
-        namespaces
-          Module
-          Class { body : term }
-          Var : Type
+     sorts Type
+   
+     namespaces
+       Module
+       Class { body : term }
+       Var : Type
 
 Name resolution
 """""""""""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    name resolution
      labels
-       \[label-id*]
+       [label-id*]
      order
-       \[{label-order ","}*]
+       [{label-order ","}*]
      well-formedness
-       \[label-regexp]
+       [label-regexp]
 
 Name resolution parameters are specified in a ``name-resolution``
 signature. Note that this block can only be specified once per
@@ -274,22 +281,22 @@ keyword. The regular expression has the following syntax:
 * Parenthesis, written as :doc-lex:`"(" regexp ")"` , can be used to
   group complex expressions.
 
-   The following example shows the default parameters, that are used
-   if no parameters are specified:
+The following example shows the default parameters, that are used
+if no parameters are specified:
   
-   .. code-block:: nabl2
-   
-      name resolution
-        labels
-          P I
-   
-        order
-          D < P,
-          D < I,
-          I < P
-   
-        well-formedness
-          P* I*
+.. code-block:: nabl2
+
+   name resolution
+     labels
+       P I
+
+     order
+       D < P,
+       D < I,
+       I < P
+
+     well-formedness
+       P* I*
  
 Functions and relations
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -297,18 +304,18 @@ Functions and relations
 Functions
 """""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    functions
 
 Relations
 """""""""
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    relations
 
-     \[( relation-option* relation-id (":" sort-ref "*" sort-ref)? "{" {variance-pattern ","}* "}" )*]
+     [( relation-option* relation-id (":" sort-ref "*" sort-ref)? "{" {variance-pattern ","}* "}" )*]
 
 .. code-block:: doc-lex
 
@@ -327,11 +334,11 @@ Relations
 Rules
 ^^^^^
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    constraint generator
 
-     \[rule-def*]
+     [rule-def*]
 
 The type signatures for constraint generation rules are defined in a
 ``constraint generator`` signature. Rule signatures describe the sort
@@ -340,41 +347,41 @@ the type. A rule signature is written as :doc-lex:`rule-id? "[["
 sort-ref "^" "(" {sort-ref ","}* ")" (":" sort-ref)?  "]]"`. Rules are
 identified by uppercase identifiers.
 
-   The following example shows a module that defines a default rule
-   for expressions, and rules for recursive and parallel bindings. The
-   rule for expressions has one scope parameter, and expressions are
-   assigned a type of sort ``Type``. The bind rules are named, and
-   match on the same AST sort ``Bind``. They take two scope
-   parameters, and do not assign any type to the bind construct.
+The following example shows a module that defines a default rule
+for expressions, and rules for recursive and parallel bindings. The
+rule for expressions has one scope parameter, and expressions are
+assigned a type of sort ``Type``. The bind rules are named, and
+match on the same AST sort ``Bind``. They take two scope
+parameters, and do not assign any type to the bind construct.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module example
+   module example
 
-      signature
+   signature
 
-        constraint generator
-          [[ Expr ^ (scope) : Type ]]
-          BindPar[[ Bind ^ (scope, scope) ]]
-          BindRec[[ Bind ^ (scope, scope) ]]
+     constraint generator
+       [[ Expr ^ (scope) : Type ]]
+       BindPar[[ Bind ^ (scope, scope) ]]
+       BindRec[[ Bind ^ (scope, scope) ]]
 
 NaBL2 supports higher-order rules. In those cases, the
 :doc-lex:`rule-id` is extended with a list of parameters, written as
 :doc-lex:`rule-id "(" {rule-id ","}* ")"`.
 
-   For example, the rule that applies some rule, given as a parameter
-   ``X``, to the elements of a list has signature ``Map1(X)[[ a ^ (b)
-   ]]``. Note that we use variables ``a`` and ``b`` for the AST and
-   parameter sort respectively, since the map rule is polymorphic.
+For example, the rule that applies some rule, given as a parameter
+``X``, to the elements of a list has signature ``Map1(X)[[ a ^ (b)
+]]``. Note that we use variables ``a`` and ``b`` for the AST and
+parameter sort respectively, since the map rule is polymorphic.
 
 Rules
 -----
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-[
 
    rules
 
-     \[rule*]
+     [rule*]
 
 The rules section of a module defines syntax directed constraint
 generation rules.
@@ -382,10 +389,10 @@ generation rules.
 Init rule
 ^^^^^^^^^
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-<
 
-   init ^ ( \<{parameter ","}*> ) \<(":" type)?> := \<{clause ","}+> .
-   init ^ ( \<{parameter ","}*> ) \<(":" type)?> .
+   init ^ ( <{parameter ","}*> ) <(":" type)?> := <{clause ","}+> .
+   init ^ ( <{parameter ","}*> ) <(":" type)?> .
 
 Constraint generation starts by applying the default rule to the
 top-level constructor. The ``init`` rule, which must be specified
@@ -398,27 +405,27 @@ top-level declarations. If the rule has no clauses, the rule can be
 closed without a clause definition. For example, ``init ^ ().`` is
 shorthand for ``init ^ () := true.``
 
-   In the example module below, the default rule takes one scope
-   parameter. The init rule creates a new scope, which will be used as
-   the initial value for constraint generation.
+In the example module below, the default rule takes one scope
+parameter. The init rule creates a new scope, which will be used as
+the initial value for constraint generation.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module example
+   module example
 
-      rules
+   rules
 
-        init ^ (s) := new s.
+     init ^ (s) := new s.
 
-        [[ t ^ (s) ]].
+     [[ t ^ (s) ]].
 
 Generation rules
 ^^^^^^^^^^^^^^^^
 
-.. code-block:: doc-cf
+.. code-block:: doc-cf-<
 
-   \<rule-id?> [[ \<pattern> ^ ( \<{parameter ","}*> ) \<(":" type)?> ]] := \<{clause ","}+> .
-   \<rule-id?> [[ \<pattern> ^ ( \<{parameter ","}*> ) \<(":" type)?> ]] .
+   <rule-id?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] := <{clause ","}+> .
+   <rule-id?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] .
 
 Variables not matched in the pattern, bound to parameters, or new
 scopes, are automatically inferred to be unification variables.

@@ -15,6 +15,8 @@ The rest of the manual goes into more detail on these subjects.
    intro
    arch
    concepts
+   design
+   depinj
    service
    language-processing
    extend

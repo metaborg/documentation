@@ -1,15 +1,80 @@
-.menuselection, .guilabel, .file, kbd {
-	background: #eee;
-}
-
-div.wy-menu.wy-menu-vertical span.caption-text {
-  color: #ffffff
-}
-
-dd {
+/* dd {
   line-height: 24px;
 }
+*/
 
+
+/* fonts */
+
+body {
+  background: transparent;
+}
+
+body, p {
+  font-family: Charter, serif;
+  font-size: 18px;
+  line-height: 1.4;
+  color: black;
+}
+
+h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
+  font-family : Helvetica, sans-serif;
+  font-weight : 200;
+}
+
+h2 {
+  border-top : 1px solid black;
+  padding-top: 10px;
+  margin-top: 50px;
+  font-size: 120%;
+}
+h3, h4, h5, h6 {
+  font-size: 115%;
+}
+
+pre, code, .rst-content tt, .rst-content code {
+  font-family: "Source Code Pro", monospace;
+  font-size: 90%;
+}
+
+code, .rst-content tt, .rst-content code {
+  border : 0px;
+}
+.rst-content code.literal {
+  color : inherit;
+}
+
+code {
+  font-size: 75%;
+}
+
+div[class^="highlight"] pre {
+  font-family: "Source Code Pro", monospace;
+  font-size: 85%;
+  line-height: 1.6;
+}
+
+.codeblock,
+pre.literal-block,
+.rst-content .literal-block,
+.rst-content pre.literal-block,
+div[class^='highlight'] {
+    padding: 0px;
+    overflow-x: auto;
+    background: #fff;
+    margin: 1px 0 24px 0;
+    
+    border-width: 0px 0px 0px 1.5px;
+    border-style: solid;
+    border-color: gray;
+}
+
+/* citations */
+
+
+.rst-content table.docutils.citation, .rst-content table.docutils.footnote {
+  color : black;
+}
 
 /** Rules for syntax
  *
@@ -17,23 +82,353 @@ dd {
  * styles, which use custom tokens
  */
 
-.syntax.meta, .x-Syntax-Meta {
-    font-style: italic;
-    font-weight: lighter;
-    color: teal;
+.k { /* keywords */
+  font-weight: 600;
 }
-.syntax.meta.variable, .x-Syntax-Meta-Variable {
-}
-.syntax.meta.punctuation, .x-Syntax-Meta-Punctuation {
-    font-weight: lighter;
+.o { /* operators */
+  font-weight: normal;
 }
 
-.syntax.object, .x-Syntax-Object {
-    font-style: normal;
+.syntax.lex, .x-Syntax-Lex {
+  font-style: italic;
+  color: teal;
+}
+.syntax.lex.variable, .x-Syntax-Lex-Variable {
+}
+.syntax.lex.literal, .x-Syntax-Lex-Literal {
+  font-style: normal;
+  color: #404040;
+}
+.syntax.lex.punctuation, .x-Syntax-Lex-Punctuation {
+  font-weight: 300;
+}
+.syntax.lex.char, .x-Syntax-Lex-Char {
+  font-style: normal;
+  color: #404040;
+}
+
+.syntax.cf, .x-Syntax-CF {
+  font-style: normal;
+  color: #404040;
+}
+.syntax.cf.keyword, .x-Syntax-CF-Keyword {
+  font-weight: 600;
+}
+.syntax.cf.punctuation.quote, .x-Syntax-CF-Punctuation-Quote {
+  font-style: italic;
+  font-weight: 300;
+  color: teal;
+}
+
+
+/* navigation bar */
+
+.wy-nav-side {
+  background: white;
+  color: black; 
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  border-right: 1px solid gray;
+}
+
+
+/* navigation sidebar */
+
+.fa-plus-square-o:before,
+.wy-menu-vertical li span.toctree-expand:before {
+    content: ""
+}
+
+.fa-minus-square-o:before,
+.wy-menu-vertical li.on a span.toctree-expand:before,
+.wy-menu-vertical li.current>a span.toctree-expand:before {
+    content: ""
+}
+.fa-minus-square-o:before,
+.wy-menu-vertical li.on a span.toctree-expand:before,
+.wy-menu-vertical li.current>a span.toctree-expand:before {
+    content: ""
+}
+
+
+.wy-menu a:hover {
+    text-decoration: none
+}
+.wy-menu-horiz {
+    *zoom: 1
+}
+.wy-menu-horiz:before,
+.wy-menu-horiz:after {
+    display: table;
+    content: ""
+}
+.wy-menu-horiz:after {
+    clear: both
+}
+.wy-menu-horiz ul,
+.wy-menu-horiz li {
+    display: inline-block
+}
+.wy-menu-horiz li:hover {
+    background: lightgray; 
+}
+.wy-menu-horiz li.divide-left {
+    border-left: solid 0px #404040
+}
+.wy-menu-horiz li.divide-right {
+    border-right: solid 0px #404040
+}
+.wy-menu-horiz a {
+    height: 32px;
+    display: inline-block;
+    line-height: 32px;
+    padding: 0 16px
+}
+.wy-menu-vertical {
+    width: 300px
+}
+
+.wy-menu-vertical header,
+.wy-menu-vertical p.caption {
+    height: 32px;
+    display: inline-block;
+    line-height: 32px;
+    padding: 0 1.618em;
+    margin-bottom: 0;
+    display: block;
     font-weight: bold;
-	color: #404040;
+    text-transform: uppercase;
+    font-size: 85%;
+    color: white;
+    white-space: nowrap;
+    font-family: Helvetica, sans-serif;
+    border-top: 0px solid gray;
+    border-bottom: 0px solid gray;
+    background: #2980B9;
 }
-.x-Syntax-Object-Char,.syntax.object.char {
+
+.wy-menu-vertical ul {
+    margin-bottom: 0
+}
+.wy-menu-vertical li.divide-top {
+    border-top: solid 0px #404040
+}
+.wy-menu-vertical li.divide-bottom {
+    border-bottom: solid 0px #404040
+}
+.wy-menu-vertical li.current {
+    background: white
+}
+.wy-menu-vertical li.current a {
+    color: #444;
+    border-right: solid 0px #c9c9c9;
+    padding: .4045em 2.427em
+}
+.wy-menu-vertical li.current a:hover {
+    background: lightgray;
+    color: black;
+}
+.wy-menu-vertical li code,
+.wy-menu-vertical li .rst-content tt,
+.rst-content .wy-menu-vertical li tt {
+    border: none;
+    background: inherit;
+    color: inherit;
+    padding-left: 0;
+    padding-right: 0
+}
+.wy-menu-vertical li span.toctree-expand {
+    display: block;
+    float: left;
+    margin-left: -1.2em;
+    font-size: 0.8em;
+    line-height: 1.6em;
+    color: black;
+}
+.wy-menu-vertical li.on a,
+.wy-menu-vertical li.current>a {
+    color: black;
+    padding: .4045em 1.618em;
+    font-weight: bold;
+    position: relative;
+    background: white;
+    border: none;
+    border-bottom: solid 0px #c9c9c9;
+    border-top: solid 0px #c9c9c9;
+    padding-left: 1.618em -4px;
+}
+.wy-menu-vertical li.on a:hover,
+.wy-menu-vertical li.current>a:hover {
+    background: lightgray;
+}
+.wy-menu-vertical li.on a:hover span.toctree-expand,
+.wy-menu-vertical li.current>a:hover span.toctree-expand {
+    color: black;
+}
+.wy-menu-vertical li.on a span.toctree-expand,
+.wy-menu-vertical li.current>a span.toctree-expand {
+    display: block;
+    font-size: 0.8em;
+    line-height: 1.6em;
+    color: black;
+}
+.wy-menu-vertical li.toctree-l1.current li.toctree-l2>ul,
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3>ul {
+    display: none
+}
+.wy-menu-vertical li.toctree-l1.current li.toctree-l2.current>ul,
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3.current>ul {
+    display: block
+}
+.wy-menu-vertical li.toctree-l2.current>a {
+    background: white;
+    padding: .4045em 2.427em
+}
+.wy-menu-vertical li.toctree-l2.current li.toctree-l3>a {
+    display: block;
+    background: white;
+    padding: .4045em 4.045em
+}
+.wy-menu-vertical li.toctree-l2 a:hover span.toctree-expand {
+    color: black;
+    background: lightgray;
+}
+.wy-menu-vertical li.toctree-l2 span.toctree-expand {
+    color: black;
+}
+.wy-menu-vertical li.toctree-l3 {
+    font-size: 0.9em
+}
+.wy-menu-vertical li.toctree-l3.current>a {
+    background: white;
+    padding: .4045em 4.045em
+}
+.wy-menu-vertical li.toctree-l3.current li.toctree-l4>a {
+    display: block;
+    background: white;
+    padding: .4045em 5.663em;
+    border-top: none;
+    border-bottom: none
+}
+.wy-menu-vertical li.toctree-l3 a:hover span.toctree-expand {
+    color: black;
+    background: lightgray;
+}
+.wy-menu-vertical li.toctree-l3 span.toctree-expand {
+    color: black;
+}
+.wy-menu-vertical li.toctree-l4 {
+    font-size: 0.9em
+}
+.wy-menu-vertical li.current ul {
+    display: block
+}
+.wy-menu-vertical li ul {
+    margin-bottom: 0;
+    display: none
+}
+.wy-menu-vertical .local-toc li ul {
+    display: block
+}
+.wy-menu-vertical li ul li a {
+    margin-bottom: 0;
+    color: black;
+    font-weight: normal
+}
+.wy-menu-vertical a {
+    display: inline-block;
+    line-height: 18px;
+    padding: .4045em 1.618em;
+    display: block;
+    position: relative;
+    font-size: 90%;
+    color: black
+}
+.wy-menu-vertical a:hover {
+    background: lightgray;
+    cursor: pointer;
+}
+.wy-menu-vertical a:hover span.toctree-expand {
+    color: black;
+}
+.wy-menu-vertical a:active {
+    background-color: white;
+    cursor: pointer;
+    color: black;
+}
+.wy-menu-vertical a:active span.toctree-expand {
+    color: #fff
+}
+.wy-side-nav-search {
+    display: block;
+    width: 300px;
+    padding: .809em;
+    /* margin-bottom: .809em; */
+    margin-bottom: 0;
+    z-index: 200;
+    background-color: #2980B9;
+    text-align: center;
+    padding: .809em;
+    display: block;
+    color: #fcfcfc;
+    margin-bottom: .809em
+}
+.wy-side-nav-search input[type=text] {
+    width: 100%;
+    border-radius: 50px;
+    padding: 6px 12px;
+    border-color: #2472a4;
+}
+.wy-side-nav-search img {
+    display: block;
+    margin: auto auto .809em auto;
+    height: 45px;
+    width: 45px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 100%
+}
+.wy-side-nav-search>a,
+.wy-side-nav-search .wy-dropdown>a {
+    color: black
+    font-size: 100%;
+    font-weight: bold;
+    display: inline-block;
+    padding: 4px 6px;
+    margin-bottom: .809em
+}
+.wy-side-nav-search>a:hover,
+.wy-side-nav-search .wy-dropdown>a:hover {
+    background: white;
+}
+.wy-side-nav-search>a img.logo,
+.wy-side-nav-search .wy-dropdown>a img.logo {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: auto;
+    border-radius: 0;
+    max-width: 100%;
+    background: transparent
+}
+.wy-side-nav-search>a.icon img.logo,
+.wy-side-nav-search .wy-dropdown>a.icon img.logo {
+    margin-top: 0.85em
+}
+.wy-side-nav-search>div.version {
+    margin-top: -.4045em;
+    margin-bottom: .809em;
     font-weight: normal;
-    color: teal;
+    color: black
 }
+.wy-nav .wy-menu-vertical header {
+    color: black
+}
+.wy-nav .wy-menu-vertical a {
+    color: black
+}
+.wy-nav .wy-menu-vertical a:hover {
+    background-color: white;
+    color: black;
+}
+

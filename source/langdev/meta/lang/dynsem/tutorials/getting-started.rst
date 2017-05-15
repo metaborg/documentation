@@ -305,7 +305,7 @@ To create the abstractions we first define a module to hold the sort declaration
     variables
       v : V
 
-.. note:: Read about *variable schemes* in the :ref:`dynsem_reference_signatures`.
+.. note:: Read about *variable schemes* in the dynsem_reference_signatures section.
 
 These declarations can be imported in the rest of the specification. We define the environment meta-functions:
 
