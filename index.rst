@@ -21,6 +21,8 @@
    :maxdepth: 2
    :caption: Reference Manual
 
+   source/langdev/meta/lang/tour/index
+   source/langdev/meta/lang/aterm/index
    Syntax Definition with SDF3 <source/langdev/meta/lang/sdf3/index>
    Static Semantics with NaBL2 <source/langdev/meta/lang/nabl2/index>
    Transformation with Stratego <source/langdev/meta/lang/stratego/index>
