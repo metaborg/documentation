@@ -13,6 +13,8 @@ SDF3 is the successor of SDF2, which is itself the successor of SDF.
 
 * Template productions :cite:`s-VollebregtKV12` :cite:`s-Vollebregt2012`
 
+* Layout sensitive syntax :cite:`s-ErdwegRKO12`
+
 * Syntactic completions :cite:`s-AmorimEWV16`
 
 * Safe and complete disambiguation 
