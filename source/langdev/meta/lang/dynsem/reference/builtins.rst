@@ -274,7 +274,7 @@ The sort ``Map`` denotes associative arrays, or dictionaries. A use of the map s
   extending: {k1 |--> v1, map}, {map, k1 |--> v1}
     Extend the map represented by variable ``map`` with a new binding from key ``k1`` to value ``v1``. Entries on the left map replace entries with the same key on the right. Multiple additions can be performed at once: ``{k1 |--> v1, map, k2 |--> v2}``. This is equivalent to writing: ``{k1 |--> v1, {map, k2 |--> v2}}``. Multiple maps can be merged into one:  ``{map1, map2, map3}``. Again, the left entries replace the right entries. It is equivalent to writing: ``{map1, {map2, map3}}``. The result is always a new map, the old map(s) remain(s) unmodified.
 
-  removing: map1 \ k1
+  removing: map1 \\ k1
     Return a new map containing all entries in map ``map1`` except for the entry with key ``k1``. Fails if ``map1`` has no entry for key ``k1``. Map ``map1`` remains unmodified.
 
   access: map1[k1]
