@@ -92,47 +92,72 @@ result of analysis, by adding the following lines to
 You can now continue to the :doc:`example specification here
 <examples>`, or directly to the :doc:`language reference <reference>`.
 
-Settings
---------
+Runtime settings
+----------------
+
+Multi-file analysis
+~~~~~~~~~~~~~~~~~~~
+
+By default, files are analyzed independently of each other. Files can
+also be analyzed in the project context. This allows cross-file
+references, imports, et cetera. This is called ``multifile`` mode, and
+is configured the ESV files of a language definition. To enable
+multi-file mode, add the ``(multifile)`` option to the ``observer``:
+
+.. code-block:: esv
+
+   observer = editor-analyze (multifile)
+
+Logging
+~~~~~~~
+
+The log output of NaBL2 analysis can be controlled by setting the
+``runtime.nabl2.debug`` option in a projects ``metaborg.yaml``.
+
+The following debug flags are recognized:
+
+ * ``analysis`` enables summary output about the analysis; number of
+   files analyzed and overal runtime.
+ * ``files`` enables output about individual files; which files are
+   being analyed.
+ * ``collection`` enables output about constraint collection; a trace
+   of the rules are applied during collection.
+ * ``timing`` enables output about the runtimes of different parts of
+   the analysis.
+ * ``all`` enables all possible output.
+
+For example, to enable summary output about the analysis, add the
+following to a projects ``metaborg.yaml``:
 
 .. code-block:: yaml
 
    runtime:
      nabl2:
-       debug: all
+       debug: analysis
 
-List all possible flags here, and describe the resulting output.
+Customize analysis
+------------------
 
-Custom analysis
----------------
+Custom post-analysis
+~~~~~~~~~~~~~~~~~~~~
 
 Implements hooks to add your own analysis step
 
 Custom pretty-printing
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 Printing of terms
 
 Make sure everything can be printed
 
-Debugging
----------
+Inspecting analysis results
+---------------------------
 
 You can debug your specification by inspecting the result of analysis,
 and by logging a trace of the rules that get applied during constraint
 generation.
 
-The result of analysis can be inspected, by selecting ``Spoofax >
-Analysis > Show Analysis`` from the menu.
+The result of analysis can be inspected, by selecting elements from
+the ``Spoofax > Analysis`` the menu. For multifile projects, use the
+``Project`` results, or the ``File`` results for singlefile projects.
 
-If you want de see which rules are being applied during constraint
-generation, add the following to ``trans/analysis/main.str``.
-
-.. code-block:: stratego
-
-   rules
-
-     debug-generate-constraint = debug
-
-Now, when the analysis is executed, a trace of the constraint
-generation rules is written to the console.
