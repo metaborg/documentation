@@ -20,7 +20,7 @@ With embedded JRE:
 - `Windows 32-bits, embedded JRE <2.2.0-eclipse-windows-32-jre_>`_
 - `Windows 64-bits, embedded JRE <2.2.0-eclipse-windows-64-jre_>`_
 - `Linux 32-bits, embedded JRE <2.2.0-eclipse-linux-32-jre_>`_
-- `Linux 64-bits, embedded JRE <2.2.0-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.2.0-eclipse-linux-64-jre_>`_
 - `macOS, embedded JRE <2.2.0-eclipse-macos-64-jre_>`_
 
 Without embedded JRE:
@@ -28,7 +28,7 @@ Without embedded JRE:
 - `Windows 32-bits <2.2.0-eclipse-windows-32_>`_
 - `Windows 64-bits <2.2.0-eclipse-windows-64_>`_
 - `Linux 32-bits <2.2.0-eclipse-linux-32_>`_
-- `Linux 64-bits <2.2.0-eclipse-linux-32_>`_
+- `Linux 64-bits <2.2.0-eclipse-linux-64_>`_
 - `macOS <2.2.0-eclipse-macos-64_>`_
 
 Update site
