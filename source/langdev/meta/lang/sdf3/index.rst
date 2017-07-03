@@ -11,7 +11,7 @@ The definition of a textual (programming) language starts with its syntax. A gra
    :maxdepth: 1
    :numbered: 2
    :caption: Table of Contents
-   
+
    introduction
    reference
    examples
@@ -19,4 +19,3 @@ The definition of a textual (programming) language starts with its syntax. A gra
    migration
    scala
    sdf3-bibliography
-   
