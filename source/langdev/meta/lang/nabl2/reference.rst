@@ -315,7 +315,9 @@ Relations
 
    relations
 
-     [( relation-option* relation-id (":" sort-ref "*" sort-ref)? "{" {variance-pattern ","}* "}" )*]
+     [( relation-option* relation-id
+        (":" sort-ref "*" sort-ref)?
+        ("{" {variance-pattern ","}* "}")? )*]
 
 .. code-block:: doc-lex
 
@@ -330,6 +332,44 @@ Relations
     variance = "="
              | "+"relation-id?
              | "-"relation-id?
+
+The relations that are available ar defined in a ``relations``
+signature. A relation is identified by a name, possibly preceded by
+properties of the relation, and followed by an optional type and
+special cases for specific constructors.
+
+The properties that are specificied are
+enforced at runtime. The positive properties (``reflexive``,
+``symmetric``, and ``transitive``) ensure that all pairs that were not
+explicitly added to the relation are inferred. The negative properties
+(``irreflexive``, ``anit-symmetric``, and ``anti-transitive``) are
+checked when adding a pair to the relation, and result in an error in
+the program if violated. The positive and negative properties are
+mutually exclusive. For example, it is not allowed to specify both
+``reflexive`` and ``irreflexive`` at the same time.
+
+The type specified for the relation is currently not checked, but can
+be used to document the sorts of the elements in the relation.
+
+Variance patterns are used to specify general cases for certain
+constructors. This can be used to add support for lists, that are
+checked pair-wise.
+
+The example module below defines a reflexive, transitive,
+anti-symmetric subtype relation ``sub``, with the common variance on
+function types, and covariant type lists.
+
+.. code-block:: nabl2
+
+   module example
+
+   signature
+
+     relations
+        reflexive, transitive, anti-symmetric sub : Type * Type {
+          FunT(-sub, +sub),
+          [+sub]
+        }
 
 Rules
 ^^^^^
