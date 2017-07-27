@@ -33,7 +33,7 @@ To increase the allocated memory, execute before building:
 Proxy settings
 --------------
 
-If you are behind a proxy, please put the proxy settings in your ``~/.m2/settings.xml``. When you use the ``b`` script to build Spoofax, the ``MAVEN_OPTS`` environment variable is overridden to ensure the memory options above are supplied, so using the 
+If you are behind a proxy, please put the proxy settings in your ``~/.m2/settings.xml``. When you use the ``b`` script to build Spoofax, the ``MAVEN_OPTS`` environment variable is overridden to ensure the memory options above are supplied, so using commandline options in the environment variable for the proxy settings does not work. 
 
 Spoofax Maven artifacts
 -----------------------
