@@ -30,6 +30,11 @@ To increase the allocated memory, execute before building:
 
 .. _using_metaborg_artifacts:
 
+Proxy settings
+--------------
+
+If you are behind a proxy, please put the proxy settings in your ``~/.m2/settings.xml``. When you use the ``b`` script to build Spoofax, the ``MAVEN_OPTS`` environment variable is overridden to ensure the memory options above are supplied, so using the 
+
 Spoofax Maven artifacts
 -----------------------
 
