@@ -85,6 +85,8 @@ Note that if you clean a language project, it has to be rebuilt from the command
 
 Multiple projects can be updated by selecting multiple projects in the package/project explorer, or by checking projects in the update dialog.
 
+If you have particular trouble with `org.eclipse.*` plugins in the MANIFEST.MF file that do not resolve, try the following. Go to :menuselection:`Preferences --> Plug-in Development --> Target Platform`, most likely there will not be an active Running Platform there. You can use :guilabel:`Add...` to add a new one if there isn't one already. Select the :guilabel:`Default` option, click :guilabel:`Next`, then click :guilabel:`Finish`. Check the box next to the platform to activate it. 
+
 Advanced: developing from scratch
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
