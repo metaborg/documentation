@@ -29,11 +29,13 @@ The following Calc program calculates the monthly payments for a mortgage (accor
 	     P / N
 	   else 
 	     let rM = r / (100 * 12) in // monthly interest rate
-		 let f = (1 + rM) ^ N in
-		   (rM * P * f) / (f - 1);		  			    
-	r = 1.7;   // yearly interest rate (percentage)   
-	Y = 30;     // number of years  
+	     let f = (1 + rM) ^ N in
+	       (rM * P * f) / (f - 1);		  			   
+		    
+	r = 1.7;     // yearly interest rate (percentage)   
+	Y = 30;      // number of years  
 	P = 385,000; // principal 	
+	
 	monthly r Y P;  
 	
 

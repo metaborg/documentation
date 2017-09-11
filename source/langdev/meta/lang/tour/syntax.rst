@@ -188,10 +188,14 @@ lexical syntax::
 
 	module CalcLexical
 	
+identifiers::
+	
 	lexical syntax
 	  ID = [a-zA-Z] [a-zA-Z0-9]* 
 	lexical restrictions
 	  ID -/- [a-zA-Z0-9\_]
+
+numbers::
 	  
 	lexical syntax // numbers  
 	  INT      = "-"? [0-9]+   
@@ -204,6 +208,8 @@ lexical syntax::
 	  INT   -/- [0-9]
 	  FLOAT -/- [0-9]
 	  NUM   -/- [0-9]
+
+strings::
 	  
 	lexical syntax 
 	  STRING         = "\"" StringChar* "\"" 
@@ -214,6 +220,8 @@ lexical syntax::
 	lexical restrictions 
 	  // Backslash chars in strings may not be followed by "  
 	  BackSlashChar -/- [\"]
+
+layout::
 	  
 	lexical syntax // layout: whitespace and comments
 	  LAYOUT         = [\ \t\n\r] 
@@ -224,13 +232,11 @@ lexical syntax::
 	  LAYOUT         = "//" ~[\n\r]* NewLineEOF 
 	  NewLineEOF     = [\n\r] 
 	  NewLineEOF     = EOF 
-	  EOF            =  
-	  
+	  EOF            =  	  
 	lexical restrictions 
 	  CommentChar -/- [\/]
 	  // EOF may not be followed by any char  
-	  EOF         -/- ~[]
-	  
+	  EOF         -/- ~[]	  
 	context-free restrictions
 	  // Ensure greedy matching for comments  
 	  LAYOUT? -/- [\ \t\n\r]
@@ -241,12 +247,23 @@ lexical syntax::
 Grammar Interpretations
 --------------------------
 
-A grammar can be interpreted for (at least) three different operations:
+A grammar can be interpreted for (at least) the following operations:
 
-* Parsing: recognizing sub-phrases
+Parsing
+  Recognizing a well-formed sentence and constructing an abstract syntax tree
 
-* Constructing trees: schema for well-formed abstract syntax trees
+Signature 
+  Derive schema that defines well-formed abstract syntax trees
 
-* Formatting: ``{Stat "\n"}+``
+Formatting
+  Map an abstract syntax tree to a well-formed sentence
+
+Parse error recovery
+  When editing programs, the program text is often in a syntactically incorrect state. Since all editor services depend on an AST representation of the program, getting stuck on syntax errors would reduce the utility of an editor. To get a better editing experience, a parser with error recovery does a best effort job to parse as much as possible and still produce an AST.
+
+Syntactic completion
+  Using a new language  
+
+
 
 
