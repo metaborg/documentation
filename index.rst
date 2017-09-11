@@ -1,3 +1,16 @@
+.. _spoofax:
+
+.. - What is it?
+.. - What can you use it for?
+.. - When do you need it?
+.. - What has been done with it already?
+.. - Where can I get it?
+.. - How do I use it?
+
+==============================
+The Spoofax Language Workbench
+==============================
+
 .. toctree::
    :hidden:
    :maxdepth: 2
@@ -50,20 +63,6 @@
    :caption: Contributions
 
    Contributions <source/overview/contributions.rst>
-
-
-.. _spoofax:
-
-.. - What is it?
-.. - What can you use it for?
-.. - When do you need it?
-.. - What has been done with it already?
-.. - Where can I get it?
-.. - How do I use it?
-
-==============================
-The Spoofax Language Workbench
-==============================
 
 Spoofax is a platform for developing textual (domain-specific) programming languages.
 The platform provides the following ingredients:
