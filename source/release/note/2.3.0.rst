@@ -8,3 +8,15 @@ See the corresponding :ref:`migration guide <2.3.0-migration-guide>` for migrati
 
 Changes
 -------
+
+Overall
+~~~~~~~
+
+- Improvement: made NaBL2 the default static semantics language.
+- Improvement: put deprecated markers on NaBL+TS and Stratego as static semantics languages, and SDF2 as syntax language.
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+- Improvement: updated Eclipse instance generator to generate Eclipse Oxygen instances.
+- Improvement: updated Eclipse instance generator to include JDK 8u144b01.
