@@ -14,9 +14,24 @@ Overall
 
 - Improvement: made NaBL2 the default static semantics language.
 - Improvement: put deprecated markers on NaBL+TS and Stratego as static semantics languages, and SDF2 as syntax language.
+- Improvement: allow configuration of source folders in metaborg.yaml.
+- Improvement: allow multiple languages in source and export entries.
 
 Eclipse plugin
 ~~~~~~~~~~~~~~
 
 - Improvement: updated Eclipse instance generator to generate Eclipse Oxygen instances.
 - Improvement: updated Eclipse instance generator to include JDK 8u144b01.
+- Improvement: do not reanalyze already analyzed files when opening an editor.
+- Improvement: use a default configuration if metaborg.yaml is not present.
+
+NaBL2
+~~~~~
+
+- Improvement: extended Stratego API to query reference resolution.
+- Improvement: add ? and + operators to regexp syntax for path well-formedness.
+- Fix: regexp normalization was only one level deep.
+- Fix: non-termination in name resolution in the cases of a direct cycle between a scope.
+- Update: confirm to latest DynSem version.
+- Fix: support all Stratego constructor and sort names, by allowing dashes and single quotes in sort and constructor names.
+- Fix: do not crash if dynsem properties file is missing.
