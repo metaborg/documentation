@@ -16,6 +16,13 @@ Overall
 - Improvement: put deprecated markers on NaBL+TS and Stratego as static semantics languages, and SDF2 as syntax language.
 - Improvement: allow configuration of source folders in metaborg.yaml.
 - Improvement: allow multiple languages in source and export entries.
+- Improvement: add dynsem as a compile dependency to newly generated languages.
+
+Language specification build
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Fix: occasional NPEs when the build failed.
+- Fix: hidden dependency error when building Stratego concrete syntax extensions.
 
 Eclipse plugin
 ~~~~~~~~~~~~~~
