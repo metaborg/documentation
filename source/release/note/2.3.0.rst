@@ -14,6 +14,13 @@ Overall
 
 - Improvement: made NaBL2 the default static semantics language.
 - Improvement: put deprecated markers on NaBL+TS and Stratego as static semantics languages, and SDF2 as syntax language.
+- Improvement: add dynsem as a compile dependency to newly generated languages.
+
+Language specification build
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Fix: occasional NPEs when the build failed.
+- Fix: hidden dependency error when building Stratego concrete syntax extensions.
 
 Eclipse plugin
 ~~~~~~~~~~~~~~
