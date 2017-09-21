@@ -50,6 +50,10 @@ Some Eclipse settings unfortunately have sub-optimal defaults. Go to the Eclipse
   -  Enable: Download Artifact Sources
   -  Enable: Download Artifact JavaDoc
 
+- :menuselection:`Maven --> Annotation Processing`
+
+  - Enable: Automatically configure JDT APT
+
 - :menuselection:`Maven --> User Interface`
 
   -  Enable: Open XML page in the POM editor by default
