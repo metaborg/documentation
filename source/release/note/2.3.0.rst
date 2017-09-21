@@ -42,3 +42,13 @@ NaBL2
 - Update: confirm to latest DynSem version.
 - Fix: support all Stratego constructor and sort names, by allowing dashes and single quotes in sort and constructor names.
 - Fix: do not crash if dynsem properties file is missing.
+
+SDF3
+~~~~
+
+- Improvement: more stable SDF3 parser generator.
+- Improvement: new parenthesizer that considers deep priority conflicts.
+- Improvement: (experimental) support for lazy parse table generation, where the parse table is generated on-the-fly by the parser.
+- Fix: bug in the SDF3 normalizer for groups of priorities outside of a chain.
+- Fix: added support for generating the parse table from a "permissive" grammar
+- Fix: not necessary to specify the parse table as ``sdf-new.tbl`` in the ESV file when using the new parse table generator.
