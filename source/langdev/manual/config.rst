@@ -327,13 +327,26 @@ The following configuration options are optional and revert to default values wh
         
         Version of sdf2table to use.
 
-        - Format: Either ``c`` or ``java``. 
+        - Format: Either ``c`, ``java``, or ``dynamic``.
         - Default: ``c``
         - Example::
 
              language:
                sdf:
-                 sdf2table: java         
+                 sdf2table: java
+
+      .. describe:: placeholder
+
+       Configuration for completion placeholders.
+
+       - Format: Quoted strings for prefix, and optionally, quoted strings for suffix.
+       - Default: prefix: ``[[``, and suffix: ``]]``
+       - Example::
+
+              language:
+                sdf:
+                  placeholder:
+                    prefix: "$"
 
       .. describe:: externalDef
 
