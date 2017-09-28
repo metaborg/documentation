@@ -52,3 +52,8 @@ SDF3
 - Fix: bug in the SDF3 normalizer for groups of priorities outside of a chain.
 - Fix: added support for generating the parse table from a "permissive" grammar
 - Fix: not necessary to specify the parse table as ``sdf-new.tbl`` in the ESV file when using the new parse table generator.
+
+Parser
+~~~~~~
+
+- Added the new (experimental) SGLR parser implementation JSGLR2.
