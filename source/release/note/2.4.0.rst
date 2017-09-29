@@ -1,0 +1,10 @@
+=============
+Spoofax 2.4.0
+=============
+
+This is a stub for the release notes of Spoofax 2.4.0.
+
+See the corresponding :ref:`migration guide <2.4.0-migration-guide>` for migrating from Spoofax 2.3.0 to Spoofax 2.4.0.
+
+Changes
+-------

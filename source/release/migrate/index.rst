@@ -18,4 +18,4 @@ The following migration guides are stubs:
 .. toctree::
    :maxdepth: 1
 
-   2.3.0 (stub) <2.3.0>
+   2.4.0 (stub) <2.4.0>
