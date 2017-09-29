@@ -6,6 +6,8 @@ Building
 
 This section describes how to build Spoofax from scratch, on the command-line.
 
+.. _dev-build-clone:
+
 Cloning the source code
 -----------------------
 

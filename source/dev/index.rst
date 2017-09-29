@@ -15,4 +15,5 @@ This is the reference manual for building and developing Spoofax, as well as inf
    build
    dev
    doc
+   release
    internals/intellij/index
