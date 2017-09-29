@@ -63,6 +63,15 @@ This configuration disables the SDF2 generation, and may cause problems when def
 this feature is not supported yet by SDF3. Furthermore, ``dynamic`` can be used instead of ``java``, to enable lazy parse table
 generation, where the parse table is generated while the program is parsed.
 
+Also, an experimental new version of the SGLR parser implementation is available: JSGLR2. It supports parsing, imploding and
+syntax highlighting. Error reporting, recovery and completions are currently not supported. It can be enabled with:
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       jsglr-version: v2
+
 .. warning:: Whenever changing any of these configurations, clean the project before rebuilding.
 
 .. TODO: write documentation on how to use SDF3 outside of Spoofax
