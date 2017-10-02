@@ -25,7 +25,7 @@ Installing the Spoofax Eclipse Plugin
 Download
 ~~~~~~~~
 
-To get started with Spoofax, download an Eclipse Mars installation with Spoofax preinstalled for your platform:
+To get started with Spoofax, download an Eclipse Oxygen installation with Spoofax preinstalled for your platform:
 
 .. include:: /include/block/download-rel-eclipse-jre.rst
 
