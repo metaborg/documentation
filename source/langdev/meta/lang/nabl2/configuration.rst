@@ -134,6 +134,15 @@ following to a projects ``metaborg.yaml``:
    runtime:
      nabl2:
        debug: analysis
+       
+Stratego API
+------------------
+
+Strategies to interact with analysis are defined in the nabl2 API:
+
+   <https://github.com/metaborg/nabl/blob/master/org.metaborg.meta.nabl2.runtime/trans/nabl2/api.str>
+   
+Use the API by importing ``import nabl2/api``
 
 Customize analysis
 ------------------
