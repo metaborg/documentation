@@ -18,6 +18,7 @@ rules of a language. NaBL2 uses a constraint-based approach, and uses scope grap
    
    introduction
    reference
+   stratego-api
    configuration
    examples
    bibliography
