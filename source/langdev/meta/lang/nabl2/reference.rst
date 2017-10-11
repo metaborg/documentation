@@ -6,6 +6,10 @@ Language Reference
    :language: doc-lex
    :class: highlight
 
+.. role:: nabl2(code)
+   :language: nabl2
+   :class: highlight
+
 This section gives a systematic overview of the NaBL2 language.
 
 Lexical matters
@@ -33,6 +37,23 @@ Comments in NaBL2 follow the C-style:
 Multi-line comments can be nested, and run until the end of the file
 when the closing ``*/`` is omitted.
 
+Terms and patterns
+------------------
+
+.. code-block:: doc-lex
+
+   term = ctor-id "(" {term ","}* ")"
+        | "(" {term ","}* ")"
+        | "[" {term ","}* "]"
+        | "[" {term ","}* "|" term "]"
+        | namespace-id? "{" term ("@" var-id)? "}"
+
+   pattern = ctor-id "(" {pattern ","}* ")"
+           | "(" {pattern ","}* ")"
+           | "[" {pattern ","}* "]"
+           | "[" {pattern ","}* "|" pattern "]"
+           | "_"
+           | var-id
 
 Modules
 -------
@@ -52,14 +73,14 @@ must match the regular expression
 Every module is defined in its own file, with the extensions
 ``.nabl2``. The module name and the file paths must coincide.
 
-   *Example.* An empty module ``analysis/main``, defined in a file
-   :file:`.../analysis/main.nabl2`.
+*Example.* An empty module ``analysis/main``, defined in a file
+:file:`.../analysis/main.nabl2`.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module analysis/main
+   module analysis/main
 
-      // work on this
+   // work on this
 
 Modules consist of sections for imports, signatures, and rule
 definitions. The rest of this section describes imports, and
@@ -87,18 +108,18 @@ A wildcard import does not work recursively. For example,
 ``analysis/-`` would imports ``analysis/functions``, and
 ``analysis/classes``, but not ``analysis/lets/recursive``.
 
-   *Example.* A main module importing several submodules.
+*Example.* A main module importing several submodules.
 
-   .. code-block:: nabl2
+.. code-block:: nabl2
 
-      module main
+   module main
 
-      imports
+   imports
 
-         builtins
-         functions/-
-         classes/-
-         types
+      builtins
+      functions/-
+      classes/-
+      types
 
 Signatures
 ----------
@@ -133,7 +154,7 @@ Sorts
 The ``sorts`` signature lists the sorts that are available. Sort are
 identified by uppercase identifiers.
 
-*Example.* Module declaring one sort ``Type``.
+*Example.* Module declaring a single sort ``Type``.
 
 .. code-block:: nabl2
 
@@ -308,6 +329,40 @@ Functions
 
    functions
 
+     [( function-id (":" sort-ref "->" sort-ref )?
+        ("{" {function-case ","}* "}")? )*]
+
+.. code-block:: doc-lex
+
+   function-case = pattern "->" term
+
+Functions available at constraint time are defined in a ``functions``
+signature. A function is identified by a name, followed by a type and
+the function cases. The cases are rewrite rules from the match in the
+left, to the term on the right. The function cases need to be linear,
+which all the variables mentioned in the right-hand side term have to
+be bound in the left-hand side pattern.
+
+The type is currently not checked, but can be used to document to
+sorts of the elements in the function.
+
+*Example.* A module that defines the ``left`` and ``right`` projection
+functions for pairs.
+
+.. code-block:: nabl2
+
+   module example
+
+   signature
+
+     functions
+       left : (Type * Type) -> Type {
+         (x, y) -> x
+       }
+       right : (Type * Type) -> Type {
+         (x, y) -> y
+       }
+
 Relations
 """""""""
 
@@ -333,7 +388,7 @@ Relations
              | "+"relation-id?
              | "-"relation-id?
 
-The relations that are available ar defined in a ``relations``
+The relations that are available are defined in a ``relations``
 signature. A relation is identified by a name, possibly preceded by
 properties of the relation, and followed by an optional type and
 special cases for specific constructors.
@@ -342,7 +397,7 @@ The properties that are specificied are
 enforced at runtime. The positive properties (``reflexive``,
 ``symmetric``, and ``transitive``) ensure that all pairs that were not
 explicitly added to the relation are inferred. The negative properties
-(``irreflexive``, ``anit-symmetric``, and ``anti-transitive``) are
+(``irreflexive``, ``anti-symmetric``, and ``anti-transitive``) are
 checked when adding a pair to the relation, and result in an error in
 the program if violated. The positive and negative properties are
 mutually exclusive. For example, it is not allowed to specify both
@@ -352,10 +407,10 @@ The type specified for the relation is currently not checked, but can
 be used to document the sorts of the elements in the relation.
 
 Variance patterns are used to specify general cases for certain
-constructors. This can be used to add support for lists, that are
-checked pair-wise.
+constructors. This can be used, for example, to add support for lists,
+that are checked pair-wise.
 
-The example module below defines a reflexive, transitive,
+*Example.* Module below defines a reflexive, transitive,
 anti-symmetric subtype relation ``sub``, with the common variance on
 function types, and covariant type lists.
 
@@ -423,7 +478,7 @@ Rules
 
      [rule*]
 
-The rules section of a module defines syntax directed constraint
+The rules section of a module defines syntax-directed constraint
 generation rules.
 
 Init rule
@@ -442,8 +497,8 @@ default rule.
 Init rules come in two variants. The first variant outputs rule
 clauses. These can create new scopes, or defined constraints on
 top-level declarations. If the rule has no clauses, the rule can be
-closed without a clause definition. For example, ``init ^ ().`` is
-shorthand for ``init ^ () := true.``
+closed without a clause definition. For example, :nabl2:`init ^ ().`
+is shorthand for :nabl2:`init ^ () := true.`
 
 In the example module below, the default rule takes one scope
 parameter. The init rule creates a new scope, which will be used as
@@ -464,30 +519,101 @@ Generation rules
 
 .. code-block:: doc-cf-<
 
-   <rule-id?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] := <{clause ","}+> .
-   <rule-id?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] .
+   <rule-def?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] := <{clause ","}+> .
+   <rule-def?> [[ <pattern> ^ ( <{parameter ","}*> ) <(":" type)?> ]] .
 
-Variables not matched in the pattern, bound to parameters, or new
-scopes, are automatically inferred to be unification variables.
-   
 .. code-block:: doc-lex
 
-   pattern = ctor-id "(" {pattern ","}* ")"
-           | "(" {pattern ","}* ")"
-           | "[" {pattern ","}* "]"
-           | "[" {pattern ","}* "|" pattern "]"
-           | "_"
-           | var-id
- 
+   rule-def = rule-id ("(" {rule-id ","}* ")")?
+
+Constraint generation rules are defined for the different syntactic
+constructs in the object language. Rules can accept a number of
+parameters and an optional type. The parameters are often used to pass
+around scopes, but can be used for other parameters as well.
+
+Rules can be named to distinguish different versions of a rule for the
+same syntactic construct. Named rules can also accept rule parameters,
+which makes it possible to write higher-order rules. For example, the
+:nabl2:`Map(X)[[ list(a) ^ (b) ]]` rule accepts as argument the rule
+that will be applied to the elements in the list.
+
+Rules are distinguished by name and arity, so ``Map1`` is different
+from ``Map1(X)``. There is no overloading based on the number of
+parameters, or the presence or absence of a type.
+
+All variables in the rule's clauses that are not bound in the pattern,
+the parameters, the type, or a ``new`` directive, are automatically
+inferred to be unification variables.
+
+The rule form without clauses is equal to a rule that simply return
+``true``. For example, :nabl2:`[[ Int(_) ^ (s) : IntT() ]].` is
+shorthand for :nabl2:`[[ Int(_) ^ (s) : IntT() ]] := true.`.
+   
 Recursive calls
 """""""""""""""
 
+.. code-block:: doc-lex
+
+   clause = rule-ref "[[" var "^" "(" {var ","}* ")" (":" term)? "]]"
+
+   rule-ref = rule-id ("(" {rule-ref ","}* ")")?
+            | "default"
+
+Recursive calls are used to invoke constraint generation for subterms
+of the current term. Recursive calls can only be made on parts of the
+program AST, therefore the term argument needs to be a variable that
+is bound in the current match pattern.
+
+If no rule name is specified, the default rule will be called. Rules
+that are applied are selected based on the name and the term
+argument. To pass the default rule as an argument to a higher-order
+rule, the ``default`` keyword is used.
+
+There is no overloading on the number of parameters or the presence or
+absence of a type. Calling a rule with the wrong number of parameters
+will result in errors during constraint collection.
+
+Delegating to other rules is *only* supported if the delegate has the
+same parameters and type as the rule that is delegating.
+
+*Example.* A module defining and calling different rules.
+
+.. code-block:: nabl2
+
+   module example
+
+   rules
+
+     [[ Int(_) ^ (s) : IntT() ]].
+
+     Map1[[ [x|xs] ^ (s) : [ty|tys] ]] :=
+       [[ x ^ (s) : ty ]],        // call default rule on head
+       Map1[[ xs ^ (s) : tys ]].  // recurse on tail
+
+     Map1(X)[[ [x|xs] ^ (s) : [ty|tys] ]] :=
+       X[[ x ^ (s) : ty ]],         // call rule X on head
+       Map1(X)[[ xs ^ (s) : tys ]]. // recurse on tail, passing on X
+
+The rule ``Map1`` could also be defined in terms of ``Map1(X)`` as
+follows:
+
+.. code-block:: nabl2
+
+   module example
+
+   rules
+
+     Map1[[ xs ^ (s) : tys ]] :=
+       Map1(default)[[ xs ^ (s) : tys ]].
 
 Constraints
 -----------
 
-Error messages
-^^^^^^^^^^^^^^
+This section gives an overview of the different constraints that can
+be used in clauses of constraint rules.
+
+Base constraints & error messages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doc-lex
 
@@ -501,6 +627,26 @@ Error messages
                     | "$[" (chars | "[" term "]")* "]"
    message-position = "@" var-id
 
+The two basic constraints are ``true`` and ``false``.  The constraint
+``true`` is always satisfied, while ``false`` is never satisfied.
+
+The message argument to a constraint specifies the error message that
+is displayed if the constraint is not satisfied. The severity of the
+error can be specified to be ``error``, ``warning`` or ``note``. The
+message itself can either be a simple string, or an interpolated
+string that can match terms and variables used in the rule. By default
+the error will appear on the match term of the rule, but using the
+``@t`` syntax the location can be changed to ``t``. The variable ``t``
+needs to be bound in the AST pattern of the rule.
+
+*Example.* Some constraints with different ways of specifying error messages.
+
+.. code-block:: nabl2
+
+   false | error @t1                    // generic error on whole term
+   false | note "Simple note"           // specific note on whole term
+   false | warning $[Consider [t2]] @t1 // formatted warning on first subterm
+
 Term equality
 ^^^^^^^^^^^^^
     
@@ -509,11 +655,26 @@ Term equality
    clause = term "==" term message?
           | term "!=" term message?
  
-   term = ctor-id "(" {term ","}* ")"
-        | "(" {term ","}* ")"
-        | "[" {term ","}* "]"
-        | "[" {term ","}* "|" term "]"
-        | namespace-id? "{" term ("@" var-id)? "}"
+Equality of terms is specified used equality and inequality
+constraints. An equality constraint ``t1 == t2`` specifies that the
+two terms need to be equal. If the terms contain variables, the solver
+infers values for them using unificiation. If unification leads to any
+conflicts, an error will be reported.
+
+Inequality is specified with a constraint of the form ``t1 !=
+t2``. Inequality constraints cannot always be solved if both sides
+contain variables. The inequality between two variables depends on the
+values that will be inferred for them. Only after a value is assigned,
+will the inequality be tested. If the constraint cannot be solved,
+because some variables have remained free, an error is reported as
+well.
+
+*Example.* A few constraints for term (in)equality.
+
+.. code-block:: nabl2
+
+   ty == FunT(ty1, ty2) | error $[Expected function type, but got [ty]]
+   ty != NilT()
 
 Name binding
 ^^^^^^^^^^^^
