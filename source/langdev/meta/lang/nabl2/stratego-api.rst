@@ -46,7 +46,8 @@ would break pretty-printing. This can be fixed by injecting the
 pretty-printing rule.
 
 *Example.* A module that implements the pretty-printing hooks to
-format ``Type``s from the object language.
+format types from the object language. This assumes that types are
+defined in an SDF3 file using the sort ``Type``.
 
 .. code-block:: stratego
 
