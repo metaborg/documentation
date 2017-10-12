@@ -30,8 +30,8 @@ an import of ``nabl2/api``.
 
      nabl2/api
 
-Customization analysis
-----------------------
+Customizing analysis
+--------------------
 
 Several aspects of the analysis process can be customized by
 implementing hooks in Stratego.
