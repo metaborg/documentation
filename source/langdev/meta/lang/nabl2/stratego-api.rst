@@ -2,18 +2,23 @@
 Stratego API
 ============
 
+.. role:: nabl2(code)
+   :language: nabl2
+   :class: highlight
+
 The Stratego API to NaBL2 allows the customization of certain parts of
-the analysis process, and access to analysis results during after
+the analysis process, and access to analysis result during after
 analysis.
 
-The full definition of the API can be found in `nabl2/api.str
-<https://github.com/metaborg/nabl/blob/master/org.metaborg.meta.nabl2.runtime/trans/nabl2/api.str>`_.
+The full definition of the API can be found in the `nabl2/api
+<https://github.com/metaborg/nabl/blob/master/org.metaborg.meta.nabl2.runtime/trans/nabl2/api.str>`__
+module.
 
 Setup
 -----
 
 Using the Stratego API requires a dependency on the NaBL2 runtime, and
-an import of the ``nabl2/api`` file.
+an import of ``nabl2/api``.
 
 *Example.* A Stratego module importing the NaBL2 API.
 
@@ -25,14 +30,14 @@ an import of the ``nabl2/api`` file.
 
      nabl2/api
 
-Customization hooks
--------------------
+Customization analysis
+----------------------
 
 Several aspects of the analysis process can be customized by
 implementing hooks in Stratego.
 
 Custom pretty-printing
-~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 By default the object language terms that are mentioned in error
 messages are printed as generic terms. This may lead to error messages
@@ -58,12 +63,12 @@ defined in an SDF3 file using the sort ``Type``.
      nabl2/api
 
    rules
-   
+
      nabl2-prettyprint-hook    = prettyprint-YOURLANG-Type
      prettyprint-YOURLANG-Type = nabl2-prettyprint-term
 
 Custom analysis
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 Analysis in NaBL2 proceeds in three phases. An initial phase is used
 to create initial scopes and parameters. A second phase is used to
@@ -91,7 +96,7 @@ result will again be ``()`` if the initial hook is not
 implemented. The unit results might be an empty list if the unit hook
 is not implemented. The final hook also receives an term argument for
 the analysis result, that can be passed to the strategies to access
-the analysis results. The final hook should return a tuple of errors,
+the analysis result. The final hook should return a tuple of errors,
 warnings, notes, and a custom result. Messages should be tuples
 ``(origin-term, message)`` of the origin term from the AST, and the
 message to report.
@@ -118,7 +123,7 @@ strategies.
      nabl2/api
 
    rules
-   
+
      nabl2-custom-analysis-init-hook:
          (resource, ast) -> custom-initial-result
        with nabl2-custom-analysis-info-msg(|"Custom initial analysis step");
@@ -137,14 +142,373 @@ strategies.
             warnings := ... ;
             notes    := ...
 
-Analysis querying
+Querying analysis
 -----------------
 
-The analysis API gives access to the result of analysis. Analysis
-results are available during the final custom analysis step, or in
+The analysis API gives access to the result of analysis. The analysis
+result is available during the final custom analysis step, or in
 post-analysis transformations.
 
 The API defines several strategies to get an analysis term by resource
 name or from an AST node. This analysis term can then be passed to the
 querying strategies that give access to the scope graph, name
 resolution, etc.
+
+Getting the analysis result
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+.. code-block:: stratego
+
+   /**
+    * Get analysis for the given AST node
+    *
+    * @type node:Term -> Analysis
+    */
+   nabl2-get-ast-analysis
+
+   /**
+    * Get analysis for the given resource
+    *
+    * @type filename:String -> Analysis
+    */
+   nabl2-get-resource-analysis
+
+   /**
+    * Test if analysis has errors
+    *
+    * Fails if there are no errors, succeeds otherwise.
+    *
+    * @type Analysis -> _
+    */
+   nabl2-analysis-has-errors
+
+There are two ways to get the result of analysis. The first is calling
+``nabl2-get-ast-analysis`` on a node if the analyzed AST. The second
+is to call ``nabl2-get-resource-analysis`` with a resource name. The
+resulting term can be passed as a term argument to the different query
+strategies.
+
+To check if analysis was successful, the strategy
+``nabl2-analysis-has-errors`` can be used. This strategy will succeed
+if any errors were encountered, and fail otherwise.
+
+*Example.* Builder that only runs if analysis has no errors.
+
+.. code-block:: stratego
+
+   module example
+
+   imports
+
+     nabl2/api
+
+   rules
+
+     example-builder:
+         (_, _, ast, path, project-path) -> (output-file, result)
+       where analysis := <nabl2-get-resource-analysis> $[[project-path]/[path]];
+             <nabl2-analysis-has-errors> analysis
+       with output-file := ... ;
+            result      := ...
+
+AST properties
+^^^^^^^^^^^^^^
+
+.. code-block:: stratego
+
+  /**
+   * @param a : Analysis
+   * @type node:Term -> Term
+   */
+  nabl2-get-ast-params(|a)
+
+  /**
+   * @param a : Analysis
+   * @type node:Term -> Type
+   */
+  nabl2-get-ast-type(|a)
+
+AST nodes are associated with the parameters and (optionally) the type
+mentioned in the rule that was applied to the node. For example, if a
+rule like :nabl2:`[[ e ^ (s) : ty ]]` was applied to an expression in
+the AST, it is possible to query the analysis for the scope ``s`` and
+the type ``ty``. The strategy ``nabl2-get-ast-params(|a)`` expects an
+AST node, and returns a tuple with the parameters. Similary
+``nabl2-get-ast-type(|a)`` expects an AST node and returns the
+type. If no type was specified, for example in a rule such as ``[[ e ^
+(s1, s2) ]]``, the call will fail. The term argument ``a`` should be
+an analysis result.
+
+Nodes in the AST are indexed to make the connection between the AST
+and the analysis result. The following strategies can be used to
+preserve or manipulate AST indices. Note that this has no effect on
+the result of analysis, so whether such manipulation is sound is up to
+the user.
+
+.. code-block:: stratego
+
+   /**
+    * Get AST index. Fails if term has no index.
+    *
+    * @type Term -> TermIndex
+    */
+   nabl2-get-ast-index
+
+   /**
+    * Set AST index on a term. Throws an exception of the index argument
+    * is not a valid index.
+    *
+    * @param index : Termindex
+    * @type Term -> Term
+    */
+   nabl2-set-ast-index(|index)
+
+   /**
+    * Copy AST index from one term to another. Fails if the source has no
+    * index.
+    *
+    * @param from : Termindex
+    * @type Term -> Term
+    */
+   nabl2-copy-ast-index(|from)
+
+   /**
+    * Execute a strategy and copy the index of the input term to the output
+    * term. If the original term has no index, the result of applying s is
+    * returned unchanged. Thus, failure behaviour of s is preserved.
+    *
+    * @type Term -> Term
+    */
+   nabl2-preserve-ast-index(s)
+
+   /**
+    * Erase AST indices from a term, preserving other annotations and
+    * attachments.
+    *
+    * @type Term -> Term
+    */
+   nabl2-erase-ast-indices
+
+Scope graph & name resolution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The strategies concerning scope graphs and name resolution are
+organized in three groups. The first group are strategies to create
+and query occurrences in the scope graph. The second group gives
+access to the structure of the scope graph. The third group exposes
+the result of name resolution, as well as types and properties that
+are set on declarations.
+
+Working with occurrences
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: stratego
+
+   /**
+    * Make an occurrence in the default namespace
+    *
+    * NaBL2 equivalent: {node}
+    *
+    * @type node:Term -> Occurrence
+    */
+   nabl2-mk-occurrence
+
+   /**
+    * Make an occurrence in the specified namespace
+    *
+    * NaBL2 equivalent: ns{node}
+    *
+    * @param ns : String
+    * @type node:Term -> Occurrence
+    */
+   nabl2-mk-occurrence(|ns)
+
+   /**
+    * Make an occurrence in the specified namespace, using an origin term
+    *
+    * NaBL2 equivalent: ns{node @t}
+    *
+    * @param ns : String
+    * @param t : Term
+    * @type node:Term -> Occurrence
+    */
+   nabl2-mk-occurrence(|ns,t)
+
+   /**
+    * Get namespace of an occurrence
+    *
+    * @type Occurrence -> ns:String
+    */
+   nabl2-get-occurrence-ns
+
+   /**
+    * Get name of an occurrence
+    *
+    * @type Occurrence -> Term
+    */
+   nabl2-get-occurrence-name
+
+
+
+Querying the scope graph
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: stratego
+
+   /**
+    * Get all declarations in the scope graph
+    *
+    * @param a : Analysis
+    * @type _ -> List(Occurrences)
+    */
+   nabl2-get-all-decls(|a)
+
+   /**
+    * Get all references in the scope graph
+    *
+    * @param a : Analysis
+    * @type _ -> List(Occurrences)
+    */
+   nabl2-get-all-refs(|a)
+
+   /**
+    * Get all scopes in the scope graph
+    *
+    * @param a : Analysis
+    * @type _ -> List(Scope)
+    */
+   nabl2-get-all-scopes(|a)
+
+   /**
+    * Get the scope of a reference
+    *
+    * @param a : Analysis
+    * @type ref:Occurrence -> Scope
+    */
+   nabl2-get-ref-scope(|a)
+
+   /**
+    * Get the scope of a declaration
+    *
+    * @param a : Analysis
+    * @type decl:Occurrence -> Scope
+    */
+   nabl2-get-decl-scope(|a)
+
+   /**
+    * Get declarations in a scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List(Occurrence)
+    */
+   nabl2-get-scope-decls(|a)
+
+   /**
+    * Get references in a scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List(ref:Occurrence)
+    */
+   nabl2-get-scope-refs(|a)
+
+   /**
+    * Get direct edges from a scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List((Label,Scope))
+    * @type (Scope,Label) -> List(Scope)
+    */
+   nabl2-get-direct-edges(|a)
+
+   /**
+    * Get inverse direct edges from a scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List((Label,Scope))
+    * @type (Scope,Label) -> List(Scope)
+    */
+   nabl2-get-direct-edges-inv(|a)
+
+   /**
+    * Get import edges from a scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List((Label,ref:Occurrence))
+    * @type (Scope,Label) -> List(ref:Occurrence)
+    */
+   nabl2-get-import-edges(|a)
+
+   /**
+    * Get inverse import edges from a reference
+    *
+    * @param a : Analysis
+    * @type ref:Occurrence -> List((Label,Scope))
+    * @type (ref:Occurrence,Label) -> List(Scope)
+    */
+   nabl2-get-import-edges-inv(|a)
+
+   /**
+    * Get associated scopes of a declaration
+    *
+    * @param a : Analysis
+    * @type decl:Occurrence -> List((Label,Scope))
+    * @type (decl:Occurrence,Label) -> List(Scope)
+    */
+   nabl2-get-assoc-edges(|a)
+
+   /**
+    * Get associated declarations of a scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List((Label,decl:Occurrence))
+    * @type (Scope,Label) -> List(decl:Occurrence)
+    */
+   nabl2-get-assoc-edges-inv(|a)
+
+Querying name resolution
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: stratego
+
+   /**
+    * @param a : Analysis
+    * @type decl:Occurrence -> Type
+    */
+   nabl2-get-type(|a)
+
+   /**
+    * @param a : Analysis
+    * @param prop : String
+    * @type decl:Occurrence -> Term
+    */
+   nabl2-get-property(|a,prop)
+
+   /**
+    * @param a : Analysis
+    * @type ref:Occurrence -> (decl:Occurrence, Path)
+    */
+   nabl2-get-resolved-name(|a)
+
+   /**
+    * @param a : Analysis
+    * @type ref:Occurrence -> List((decl:Occurrence, Path))
+    */
+   nabl2-get-resolved-names(|a)
+
+   /**
+    * Get visible declarations in scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List(Occurrence)
+    */
+   nabl2-get-visible-decls(|a)
+
+   /**
+    * Get reachable declarations in scope
+    *
+    * @param a : Analysis
+    * @type Scope -> List(Occurrence)
+    */
+   nabl2-get-reachable-decls(|a)
