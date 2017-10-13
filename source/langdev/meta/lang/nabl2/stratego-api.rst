@@ -79,7 +79,7 @@ enabled.
 
 It is possible to run custom code after each of these phases, by
 implementing ``nabl2-custom-analysis-init-hook``,
-``nabl2-custom-analisys-unit-hook``, and
+``nabl2-custom-analysis-unit-hook``, and
 ``nabl2-custom-analysis-final-hook(|a)``.
 
 The initial hook receives a tuple of a resource string and AST node as
