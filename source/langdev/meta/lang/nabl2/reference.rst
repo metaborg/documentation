@@ -529,13 +529,15 @@ Generation rules
 Constraint generation rules are defined for the different syntactic
 constructs in the object language. Rules can accept a number of
 parameters and an optional type. The parameters are often used to pass
-around scopes, but can be used for other parameters as well.
+around scopes, but can be used for other parameters as well. The rule
+clause consists of a comma-separated list of constraints.
 
 Rules can be named to distinguish different versions of a rule for the
 same syntactic construct. Named rules can also accept rule parameters,
 which makes it possible to write higher-order rules. For example, the
 :nabl2:`Map(X)[[ list(a) ^ (b) ]]` rule accepts as argument the rule
-that will be applied to the elements in the list.
+that will be applied to the elements in the list. Note that only a
+single rule with a certain name can be defined per AST pattern.
 
 Rules are distinguished by name and arity, so ``Map1`` is different
 from ``Map1(X)``. There is no overloading based on the number of
@@ -679,6 +681,52 @@ well.
 Name binding
 ^^^^^^^^^^^^
 
+Name binding is concerned with constraints for building a scope graph,
+constraints for resolving references and accessing properties of
+declarations, and name sets that talk about sets of declarations or
+references in the scope graph.
+
+Occurrences
+"""""""""""
+
+.. code-block:: doc-lex
+
+   occurrence = namespace-id? "{" term position? "}"
+
+   position   = "@" var-id
+
+References and declarations in the scope graph are not simply names,
+but have a richer representation called an occurrence. An occurrence
+consists of the name, the namespace, and a position.
+
+The name can be any term, although usually it is a term from the
+AST. Names are not restricted to strings, and can contain terms with
+subterms if necessary. However, it is required that the name contains
+only literals, or variables that are bound in the match pattern.
+
+Namespaces allow us to separate different kinds of names, so that type
+names do not resolve to variables or vice versa.  If there is only one
+namespace in a language, it can be omitted and the default namespace
+will be used.
+
+The position is necessary to differentiate different occurrences of
+the same name in the program, and is the connection between the AST
+and the scope graph. The position can usually be omitted, in which
+case the position of the name is taken if it is an AST term, or the
+position of the match term, if the name is a literal.
+
+*Example.* Several of occurrences, with explicit and implicit
+compontents.
+
+.. code-block:: nabl2
+
+   Var{x}         // variable x, x must be bound in match
+   {y}            // no namespace, y must be bound in match
+   Type{a}        // type a, a must e bound in match
+   Var{"this" @c} // this variable with explicit position
+   Var{This()}    // this variable using a constructor instead of a string
+   Type{"Object"} // literal type occurrence
+
 Scope graph
 """""""""""
 
@@ -690,6 +738,40 @@ Scope graph
           | occurrence "="label-id"=>" scope
           | occurrence "<="label-id"=" scope
           | "new" var-id*
+
+Scope graph constraints construct a scope graph. Names in the graph
+are represented by occurrences. Scopes in the graph are abstract, but
+can be created using the :nabl2:`new` directive. Rules usually receive
+scope parameters that allows them to extend and connect to the
+surrounding scope graph.
+
+*Example.* Rules that build a scope graph.
+
+.. code-block:: nabl2
+
+   [[ Module(x,imps,defs) ^ (s) ]] :=
+     Mod{x} <- s,                       // module declaration
+     new ms,                            // new scope for the module
+     Mod{x} ===> ms,                    // associate module scope with the declaration
+     Map2[[ imps ^ (ms, s) ]],          // recurse on imports
+     Map1[[ defs ^ (ms) ]].             // recurse on statements
+
+   [[ Import(x) ^ (ms, s) ]] :=
+     Mod{x} -> s,                       // module reference
+     Mod{x} <=== ms.                    // import in the module scope
+
+   [[ TypeDef(x,_) ^ (s) ]] :=
+     Type{x} <- s.                      // type declaration
+
+   [[ TypeRef(x) ^ (s) ]] :=
+     Type{x} -> s.                      // type reference
+
+   [[ VarDef(x, t) ^ (s) ]] :=
+     Var{x} <- s,                       // variable declaration
+     [[ t ^ (s) ]].                     // recurse on type annotation
+
+   [[ VarRef(x) ^ (s) ]] :=
+     Var{x} -> s.                       // variable reference
 
 Name resolution
 """""""""""""""
@@ -703,24 +785,129 @@ Name resolution
 
    priority = "!"*
  
-Set
-^^^
+*Example.* Rules that build a scope graph.
+
+.. code-block:: nabl2
+
+   [[ TypeDef(x,t) ^ (s) ]] :=
+     Type{x} <- s,                      // type declaration
+     Type{x} : t !.                     // semantics type of the type declaration
+
+   [[ TypeRef(x) ^ (s) : ty ]] :=
+     Type{x} -> s.                      // type reference
+     Type{x} |-> d,                     // resolve reference
+     d : ty.                            // semantic type of the resolved declaration
+
+   [[ VarDef(x, t) ^ (s) ]] :=
+     Var{x} <- s,                       // variable declaration
+     [[ t ^ (s) : ty ]],                // recurse on type annotation
+     Var{x} : ty !,                     // type of the variable declaration
+     [[ t ^ (s) ]].                     // recurse on type annotation
+
+   [[ VarRef(x) ^ (s) : ty ]] :=
+     Var{x} -> s,                       // variable reference
+     Var{x} |-> d,                      // resolve variable reference
+     d : ty.                            // type of resolved declaration
+
+.. _name-sets:
+
+Name sets
+"""""""""
 
 .. code-block:: doc-lex
 
-   clause = "distinct"("/"set-proj)? set-expr message?
-          | set-expr "subseteq"("/"set-proj)? set-expr message?
-
-   set-expr = "0"
-            | "(" set-expr "union"("/"set-proj)? set-expr ")"
-            | "(" set-expr "isect"("/"set-proj)? set-expr ")"
-            | "(" set-expr "minus"("/"set-proj)? set-expr ")"
-            | "D(" scope ")"("/"namespace-id)?
+   name-set = "D(" scope ")"("/"namespace-id)?
             | "R(" scope ")"("/"namespace-id)?
             | "V(" scope ")"("/"namespace-id)?
             | "W(" scope ")"("/"namespace-id)?
 
    set-proj = "name"
+
+   message-position = "@NAMES"
+
+Name sets are set expressions (see :ref:`sets`) that are based on the
+scope graph. They can be used in set constraints to test for
+properties such as duplicate names, shadowing, or complete coverage.
+
+The expression :nabl2:`D(s)` represents the set of all declarations in
+scope ``s``, and similarly :nabl2:`R(s)` refers to all references in
+scope ``s``. The set of all visible declarations in ``s`` is
+represented by :nabl2:`V(s)`, and the set of all reachable
+declarations in ``s`` is represented by :nabl2:`W(s)`. The difference
+between visible and reachable declarations is that de former takes the
+label order into account to do shadowing, while the latter only
+considers path well-formedness but does not shadow.
+
+All the name sets can also be restricted to declarations or references
+in a particular namespace by appending a forward-slash and the
+namespace. For example, all variable declarations in scope ``s`` would
+be represented by :nabl2:`D(s)/Var`.
+
+Name sets support the ``name`` set projection that makes it possible
+to compare occurrences by name only, ignoring the namespace and
+position.
+
+When using set constraints on name sets, there are some options to
+relate the error messages to the elements in the set, instead of the
+term where the constraint was created. First, the position in the
+message can be set to :nabl2:`@NAMES`. This makes error messages
+appear on the names in the set. For example, :nabl2:`distinct/name
+D(s)/Var | error @NAMES` will report errors on all the names that are
+duplicate. If you want to refer to the name in the error message, use
+the :nabl2:`NAME` keyword. For example, in the message :nabl2:`error
+$[Duplicate name [NAME]] @NAMES`, the keyword will be replaced by the correct name.
+
+.. _sets:
+
+Sets
+^^^^
+
+.. code-block:: doc-lex
+
+   clause = "distinct"("/"set-proj)? set-expr message?
+          | set-expr "subseteq"("/"set-proj)? set-expr message?
+          | set-expr "seteq"("/"set-proj)? set-expr message?
+
+   set-expr = "0"
+            | "(" set-expr "union" set-expr ")"
+            | "(" set-expr "isect"("/"set-proj)? set-expr ")"
+            | "(" set-expr "minus"("/"set-proj)? set-expr ")"
+            | name-set
+
+Set constraints are used to test for distinct elements in a set, or
+subset relations between sets. Set expressions allow the usual set
+operations such as union and intersection.
+
+The constraint :nabl2:`distinct S` check whether any elements in the
+set ``S`` appears multiple times. Note that this works because the
+sets behave like multisets, so every element has a count associated
+with it as well. If the set ``S`` supports projections, it is possible
+to test whether the set contains any duplicates after
+projection. Which projections are available depends on the sets
+involved. For example, when working with sets of occurrences (see :ref:`name-sets`), the
+``name`` projection can be used.
+
+Constraints :nabl2:`S1 subseteq S2` and :nabl2:`S1 seteq S2` test
+whether ``S1`` is a subset of ``S2``, or if the sets are equal,
+respectively. Both constraints also support projections, written as
+:nabl2:`S1 subseteq/proj S2` and :nabl2:`S1 seteq/proj S2`.
+
+The basic set expressions that are supported are ``0`` for the empty
+set, :nabl2:`(S1 union S2)` for set union, :nabl2:`(S1 isect S2)` for
+intersection, and :nabl2:`(S1 minus S2)` for set difference. Set
+intersection and difference can also be performed under projection,
+written as :nabl2:`(S1 isect/proj S2)` and :nabl2:`(S1 minus/proj S2)`.
+This means the comparison to check if elements from the two sets
+match is done after projecting the elements. However, the resulting
+set will still contain the original elements, not the projections.For
+example, this can be used to compute sets of occurrences where a
+comparison by name is necessary.
+
+*Example.* Set constraints over name sets.
+
+.. code-block:: nabl2
+
+   distinct/name D(s)/Var // variable names in s must be unique
 
 Functions and relations
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -734,6 +921,8 @@ Functions and relations
    function-ref = function-id
                 | relation-id".lub"
                 | relation-id".glb"
+
+
 
 Symbolic
 ^^^^^^^^
