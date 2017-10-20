@@ -732,8 +732,8 @@ Scope graph
 
 .. code-block:: doc-lex
 
-   clause = occurrence "->" scope
-          | occurrence "<-" scope
+   clause = occurrence "<-" scope
+          | occurrence "->" scope
           | scope "-"label-id"->" scope
           | occurrence "="label-id"=>" scope
           | occurrence "<="label-id"=" scope
@@ -744,6 +744,50 @@ are represented by occurrences. Scopes in the graph are abstract, but
 can be created using the :nabl2:`new` directive. Rules usually receive
 scope parameters that allows them to extend and connect to the
 surrounding scope graph.
+
+The following scope graph constraints are available:
+
+* Declarations are introduced with :nabl2:`d <- s`. The arrow points
+  from the scope to the declaration, which indicates that the
+  occurrence is reachable from scope ``s``.
+* References are introduced with :nabl2:`r -> s`. The arrow points
+  from the reference to the scope, indicating that the reference
+  should be resolved in scope ``s``. Note that a reference in the
+  scope graph is not automatically required to resolve to a
+  declaration. To check that, a resolution constraint needs to be
+  specified.
+* A direct edge from one scope to another is written as :nabl2:`s1
+  -l-> s2`. This indicates that the scope ``s2`` is reachable from
+  ``s1``. If the label is omitted, as in :nabl2:`s1 ---> s2`, the
+  label ``P`` is used implicitly.
+* An associated scope, written as :nabl2:`d =l=> s`, exports the
+  declarations visible in ``s`` via the declaration ``d``. If the
+  label is omitted, as in :nabl2:`d ===> s`, the label ``I`` is used
+  implicitly.
+* Declarations from an associated scope can be imported from reference
+  ``r`` with an import edge, written as :nabl2:`r <=l= s`. Given that
+  the reference ``r`` resolves to a declaration ``d``, and ``d`` has
+  an associated scope edge labeled ``l`` to a scope ``s'``, the
+  declarations visible in ``s'`` will become visible in
+  ``s``. Similarly to the associated scope edge, if the label on an
+  import edge is omitted, as in :nabl2:`r <=== s`, the label ``I`` is
+  used implicitly. Note that the import edge does not specify where
+  the imported reference has to be resolved. Make sure that the
+  reference itself is also added to the graph with a reference edge.
+* Scopes need to be explicitly created. This is done with the the
+  :nabl2:`new s` constraint, which creates a new scope and binds it to
+  the variable ``s``.
+
+A few restrictions apply to the scope graph. An occurrence can only be
+a reference in one scope. Similarly, an occurrence can only be a
+declaration in one scope. However, it is possible to use an occurrence
+as both a declaration and a reference.
+
+It is important to note that all scope graph constraints *define* a
+scope graph. This means that the scopes or occurrences generally
+should not contain constraint variables. The exception is the target
+scope in a direct edge, or the reference in an import edge. This
+allows modeling type-dependent name resolution.
 
 *Example.* Rules that build a scope graph.
 
@@ -785,6 +829,14 @@ Name resolution
 
    priority = "!"*
  
+The following constraints are available to resolve references to
+declarations, and specify properties of declarations:
+
+* Reference resolution is written as :nabl2:`r |-> d`. Resolution
+  constraints can infer the declaration given a reference, however not
+  the other way around. A resolution constraint requires that a
+  reference resolves to exactly one declaration, or else it will fail.
+
 *Example.* Rules that build a scope graph.
 
 .. code-block:: nabl2
