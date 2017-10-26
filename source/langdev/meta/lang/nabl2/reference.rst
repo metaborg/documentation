@@ -823,19 +823,33 @@ Name resolution
 .. code-block:: doc-lex
 
    clause = occurrence "|->" occurrence message?
-          | occurrence "?="Label"=>" scope message?
-          | occurrence ":" type priority? message?
+          | occurrence "?="label-id"=>" scope message?
           | occurrence"."prop-id ":=" term priority? message?
+          | occurrence ":" type priority? message?
 
    priority = "!"*
  
 The following constraints are available to resolve references to
 declarations, and specify properties of declarations:
 
-* Reference resolution is written as :nabl2:`r |-> d`. Resolution
+* Resolution of a reference occurrence ``r`` to a declaration
+  occurrence ``d`` is written as :nabl2:`r |-> d`. Resolution
   constraints can infer the declaration given a reference, however not
   the other way around. A resolution constraint requires that a
   reference resolves to exactly one declaration, or else it will fail.
+* A lookup of the associated scope ``s`` of a declaration ``d`` is
+  done with :nabl2:`d ?=l=> s`, where ``l`` is the edge label. If the
+  label is omitted, as in :nabl2:`d ?===> s`, the label ``I`` is used
+  implicitly.
+* A property ``p`` of a declaration ``d`` is specified with
+  :nabl2:`d.p := t`. If multiple constraints for the same property of
+  the same declaration exist, their values will be unified. Priorities
+  can be used to guide where errors will be reported. If two
+  constraints for the same property of the same declaration are in
+  conflict, the error will more likely be reported on the constraint
+  with the least priority annotations.
+* A special form exists for the :nabl2:`type` property, which is
+  preferably written as :nabl2:`d : t`.
 
 *Example.* Rules that build a scope graph.
 
