@@ -851,7 +851,7 @@ declarations, and specify properties of declarations:
 * A special form exists for the :nabl2:`type` property, which is
   preferably written as :nabl2:`d : t`.
 
-*Example.* Rules that build a scope graph.
+*Example.* Rules that include resolution constraints and declaration types.
 
 .. code-block:: nabl2
 
