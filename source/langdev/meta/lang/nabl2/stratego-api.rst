@@ -209,7 +209,7 @@ if any errors were encountered, and fail otherwise.
      example-builder:
          (_, _, ast, path, project-path) -> (output-file, result)
        where analysis := <nabl2-get-resource-analysis> $[[project-path]/[path]];
-             <nabl2-analysis-has-errors> analysis
+             <not(nabl2-analysis-has-errors)> analysis
        with output-file := ... ;
             result      := ...
 
