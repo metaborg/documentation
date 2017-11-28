@@ -9,7 +9,7 @@ Maven is a project management and build tool for software projects. Most compone
 Installing
 ----------
 
-Maven can be downloaded and installed from http://maven.apache.org/download.cgi. We require Maven 3.3.9 or higher.
+Maven can be downloaded and installed from https://maven.apache.org/download.cgi. We require Maven 3.3.9 or higher.
 On macOs, Maven can be easily installed with Homebrew by executing ``brew install maven``.
 
 Confirm the installation and version by running ``mvn --version``.
@@ -38,7 +38,7 @@ If you are behind a proxy, please put the proxy settings in your ``~/.m2/setting
 Spoofax Maven artifacts
 -----------------------
 
-Spoofax's Maven artifacts are hosted on our artifact server: http://artifacts.metaborg.org.
+Spoofax's Maven artifacts are hosted on our artifact server: https://artifacts.metaborg.org.
 To use these artifacts, repositories have to be added to your Maven configuration.
 This configuration is *required* when building and developing Spoofax.
 Repositories can be added to your local Maven settings file (which is recommended), or to a project's POM file.
@@ -63,7 +63,7 @@ If you have not created this file yet, or want to completely replace it, simply 
           <repositories>
             <repository>
               <id>metaborg-release-repo</id>
-              <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+              <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
               <releases>
                 <enabled>true</enabled>
               </releases>
@@ -75,7 +75,7 @@ If you have not created this file yet, or want to completely replace it, simply 
           <pluginRepositories>
             <pluginRepository>
               <id>metaborg-release-repo</id>
-              <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+              <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
               <releases>
                 <enabled>true</enabled>
               </releases>
@@ -94,7 +94,7 @@ If you have not created this file yet, or want to completely replace it, simply 
           <repositories>
             <repository>
               <id>metaborg-snapshot-repo</id>
-              <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+              <url>https://artifacts.metaborg.org/content/repositories/snapshots/</url>
               <releases>
                 <enabled>false</enabled>
               </releases>
@@ -106,7 +106,7 @@ If you have not created this file yet, or want to completely replace it, simply 
           <pluginRepositories>
             <pluginRepository>
               <id>metaborg-snapshot-repo</id>
-              <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+              <url>https://artifacts.metaborg.org/content/repositories/snapshots/</url>
               <releases>
                 <enabled>false</enabled>
               </releases>
@@ -133,7 +133,7 @@ To do this, just add the the following content to the POM file:
     <repositories>
         <repository>
             <id>metaborg-release-repo</id>
-            <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+            <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -143,7 +143,7 @@ To do this, just add the the following content to the POM file:
         </repository>
         <repository>
             <id>metaborg-snapshot-repo</id>
-            <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+            <url>https://artifacts.metaborg.org/content/repositories/snapshots/</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -156,7 +156,7 @@ To do this, just add the the following content to the POM file:
     <pluginRepositories>
         <pluginRepository>
             <id>metaborg-release-repo</id>
-            <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+            <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -166,7 +166,7 @@ To do this, just add the the following content to the POM file:
         </pluginRepository>
         <pluginRepository>
             <id>metaborg-snapshot-repo</id>
-            <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+            <url>https://artifacts.metaborg.org/content/repositories/snapshots/</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -191,7 +191,7 @@ If you are on the TUDelft network, you can use our local mirror of the Central R
       <mirrors>
         <mirror>
           <id>metaborg-central-mirror</id>
-          <url>http://artifacts.metaborg.org/content/repositories/central/</url>
+          <url>https://artifacts.metaborg.org/content/repositories/central/</url>
           <mirrorOf>central</mirrorOf>
         </mirror>
       </mirrors>
