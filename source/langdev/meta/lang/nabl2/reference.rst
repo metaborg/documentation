@@ -867,8 +867,7 @@ declarations, and specify properties of declarations:
    [[ VarDef(x, t) ^ (s) ]] :=
      Var{x} <- s,                       // variable declaration
      [[ t ^ (s) : ty ]],                // recurse on type annotation
-     Var{x} : ty !,                     // type of the variable declaration
-     [[ t ^ (s) ]].                     // recurse on type annotation
+     Var{x} : ty !.                     // type of the variable declaration
 
    [[ VarRef(x) ^ (s) : ty ]] :=
      Var{x} -> s,                       // variable reference
