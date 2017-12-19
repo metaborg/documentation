@@ -8,3 +8,20 @@ See the corresponding :ref:`migration guide <2.4.0-migration-guide>` for migrati
 
 Changes
 -------
+
+Eclipse Plugin
+~~~~~~~~~~~~~~
+
+- Fix: re-parse and re-analyze open editors if the language is reloaded.
+
+NaBL2
+~~~~~
+
+- Fix: use deep equality instead of object equality to compare elements in set constraints.
+- Fix: prevent clashes of variable names with known lower-case Stratego constructors.
+- Improvement: add strategies to the Stratego API to query references and declaration associated with AST nodes.
+- Fix: prevent exception traces when hovering over the editor.
+- Fix: bug in Stratego generation when complex terms are used in occurrences.
+- Fix: bug where editor resolution would only consider leaf nodes, but not parents if the leafs do not resolve.
+- Fix: bug where sometimes error messages of files were lost.
+
