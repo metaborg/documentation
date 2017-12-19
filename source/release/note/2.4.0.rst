@@ -25,3 +25,8 @@ NaBL2
 - Fix: bug where editor resolution would only consider leaf nodes, but not parents if the leafs do not resolve.
 - Fix: bug where sometimes error messages of files were lost.
 
+Parser
+~~~~~~
+
+ - Improvement: latest JSGLR2 performance optimizations.
+ - Fix: bug in JSGLR2 where non-default start symbols were not taken into account.
