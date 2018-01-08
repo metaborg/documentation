@@ -28,5 +28,5 @@ NaBL2
 Parser
 ~~~~~~
 
- - Improvement: latest JSGLR2 performance optimizations.
- - Fix: bug in JSGLR2 where non-default start symbols were not taken into account.
+- Improvement: latest JSGLR2 performance optimizations.
+- Fix: bug in JSGLR2 where non-default start symbols were not taken into account.
