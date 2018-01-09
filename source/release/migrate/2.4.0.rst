@@ -1,7 +1,0 @@
-.. _2.4.0-migration-guide:
-
-=============================
-Spoofax 2.4.0 Migration Guide
-=============================
-
-This is a stub for the migration guide of Spoofax 2.4.0.

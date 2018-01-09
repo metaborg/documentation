@@ -2,9 +2,69 @@
 Spoofax 2.4.0
 =============
 
-This is a stub for the release notes of Spoofax 2.4.0.
+Spoofax 2.4 fixes several bugs and includes a program generator.
 
-See the corresponding :ref:`migration guide <2.4.0-migration-guide>` for migrating from Spoofax 2.3.0 to Spoofax 2.4.0.
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.4.0-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.4.0-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.4.0-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.4.0-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.4.0-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.4.0-eclipse-windows-32_>`_
+- `Windows 64-bits <2.4.0-eclipse-windows-64_>`_
+- `Linux 32-bits <2.4.0-eclipse-linux-32_>`_
+- `Linux 64-bits <2.4.0-eclipse-linux-64_>`_
+- `macOS <2.4.0-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.4.0-eclipse-update-site|
+-  `Eclipse update site archive <2.4.0-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.4.0-intellij-update-site|
+-  `IntelliJ update site archive <2.4.0-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.4.0-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.4.0-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.4.0-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.4.0-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.4.0-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.4.0-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.4.0``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
+
 
 Changes
 -------
