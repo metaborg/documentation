@@ -1,0 +1,74 @@
+=============
+Spoofax 2.4.1
+=============
+
+Spoofax 2.4.1 is a minor bugfix release.
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.4.1-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.4.1-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.4.1-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.4.1-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.4.1-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.4.1-eclipse-windows-32_>`_
+- `Windows 64-bits <2.4.1-eclipse-windows-64_>`_
+- `Linux 32-bits <2.4.1-eclipse-linux-32_>`_
+- `Linux 64-bits <2.4.1-eclipse-linux-64_>`_
+- `macOS <2.4.1-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.4.1-eclipse-update-site|
+-  `Eclipse update site archive <2.4.1-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.4.1-intellij-update-site|
+-  `IntelliJ update site archive <2.4.1-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.4.1-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.4.1-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.4.1-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.4.1-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.4.1-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.4.1-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.4.1``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
+
+
+Changes
+-------
+
+- Fix: remove dependency on ``nativebundle`` from ``jsglr2``, preventing native binaries (with a cygwin vulnerability) from showing up in Spoofax Core.
+- Update ``jackson-core``, ``jackson-databind``, ``jackson-annotations``, ``jackson-dataformat-yaml`` dependencies to ``2.9.3`` to avoid a vulnerability in those libraries.
+- Update ``commons-configuration2`` to ``2.2``, ``commons-configuration2-jackson`` to ``0.7.0``, and ``snakeyaml`` to ``1.18``, for compatibility with ``jackson`` version ``2.9.3``.

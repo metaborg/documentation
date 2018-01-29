@@ -8,6 +8,7 @@ Release notes describe the changes made in the release, and provide download lin
 .. toctree::
    :maxdepth: 1
 
+   2.4.1 (29-01-2018) <2.4.1>
    2.4.0 (09-01-2018) <2.4.0>
    2.3.0 (29-09-2017) <2.3.0>
    2.2.1 (04-05-2017) <2.2.1>
