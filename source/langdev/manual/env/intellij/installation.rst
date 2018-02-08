@@ -8,14 +8,11 @@ Recently we created a Spoofax plugin for IntelliJ IDEA.
 
 To install the plugin, either:
 
-- clone this repository, then execute `make run` from the repository's root to start an instance of IntelliJ IDEA with the Spoofax plugin loaded; or
+- clone this repository, then execute `./gradlew runIde` (or `gradlew.bat runIde` on Windows) from the repository's `org.metaborg.intellij` subdirectory to start an instance of IntelliJ IDEA with the Spoofax plugin loaded; or
 - ensure you have Git and a JDK installed, then execute this from the command line; or::
 
    curl https://raw.githubusercontent.com/metaborg/spoofax-intellij/master/repository/install.sh -sSLf | bash
 
-- download `IntelliJ IDEA <https://www.jetbrains.com/idea/download/>`_ (the free Community Edition is sufficient) and install the Spoofax plugin from this plugin repository (see detailed instructions below)::
-
-   http://download.spoofax.org/update/nightly/updatePlugins.xml
 
 ----------------------------------------------
 Installing the Spoofax plugin in IntelliJ IDEA
