@@ -67,6 +67,8 @@ defined in an SDF3 file using the sort ``Type``.
      nabl2-prettyprint-hook    = prettyprint-YOURLANG-Type
      prettyprint-YOURLANG-Type = nabl2-prettyprint-term
 
+.. _nabl2-custom-analysis:
+
 Custom analysis
 ^^^^^^^^^^^^^^^
 
@@ -153,6 +155,8 @@ The API defines several strategies to get an analysis term by resource
 name or from an AST node. This analysis term can then be passed to the
 querying strategies that give access to the scope graph, name
 resolution, etc.
+
+.. _nabl2-get-analysis-result:
 
 Getting the analysis result
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^

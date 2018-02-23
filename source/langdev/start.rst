@@ -57,6 +57,7 @@ Reference manuals for our meta-languages:
 -  :ref:`Stratego <stratego-index>`
 -  :ref:`NaBL <nabl-index>`
 -  :ref:`NaBL2 <nabl2-index>`
+-  :ref:`Flowspec <flowspec-index>`
 -  :ref:`DynSem <dynsem-index>`
 -  :ref:`SPT <spt-index>`
 
