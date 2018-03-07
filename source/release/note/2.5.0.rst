@@ -14,5 +14,5 @@ Stratego
 
 Stratego received some small patches to improve user experience.
 
-- Stratego editor now gives warnings when using `left`, `right` and a couple of other variables names as these are also constructors in libstratego-sglr and interpreted as constructor match patterns. 
-- When the Stratego compiler generates names for code generation, these now start with the source code name if available or with a constant name related to the language feature (e.g. a `where(s)` is turned into `?where243;s;!where243`). Since some generated names turn up in a stack trace from a Stratego, this should improve readability of the stack trace. Complex closures are still named `lifted26`, as the compiler cannot replace humans in propertly naming things. 
+- Stratego editor now gives warnings when using ``left``, ``right`` and a couple of other variables names as these are also constructors in libstratego-sglr and interpreted as constructor match patterns. 
+- When the Stratego compiler generates names for code generation, these now start with the source code name if available or with a constant name related to the language feature (e.g. a ``where(s)`` is turned into ``?where243;s;!where243``). Since some generated names turn up in a stack trace from a Stratego, this should improve readability of the stack trace. Complex closures are still named ``lifted26``, as the compiler cannot replace humans in propertly naming things. 
