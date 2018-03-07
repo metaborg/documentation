@@ -33,9 +33,9 @@ Add the following dependencies in the ``metaborg.yaml`` file:
    # ...
    dependencies:
      compile:
-     - org.metaborg:meta.flowspec.lang:${metaborgVersion}
+     - org.metaborg:flowspec.lang:${metaborgVersion}
      source:
-     - org.metaborg:meta.flowspec.lang:${metaborgVersion}
+     - org.metaborg:flowspec.lang:${metaborgVersion}
 
 Add menus to access the result of analysis, by adding the following import
 to ``editor/Main.esv``.
@@ -64,11 +64,11 @@ the following dependencies.
    dependencies:
      compile:
      - org.metaborg:org.metaborg.meta.nabl2.lang:${metaborgVersion}
-     - org.metaborg:meta.flowspec.lang:${metaborgVersion}
+     - org.metaborg:flowspec.lang:${metaborgVersion}
      source:
      - org.metaborg:org.metaborg.meta.nabl2.shared:${metaborgVersion}
      - org.metaborg:org.metaborg.meta.nabl2.runtime:${metaborgVersion}
-     - org.metaborg:meta.flowspec.lang:${metaborgVersion}
+     - org.metaborg:flowspec.lang:${metaborgVersion}
 
 We will set things up, such that analysis rules will be grouped
 together in the directory ``trans/analysis``. Create a file
