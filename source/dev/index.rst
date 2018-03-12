@@ -14,6 +14,7 @@ This is the reference manual for building and developing Spoofax, as well as inf
    maven
    build
    dev
+   naming
    doc
    release
    internals/intellij/index
