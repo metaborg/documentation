@@ -11,7 +11,7 @@ the analysis process, and access to analysis result during after
 analysis.
 
 The full definition of the API can be found in the `nabl2/api
-<https://github.com/metaborg/nabl/blob/master/org.metaborg.meta.nabl2.runtime/trans/nabl2/api.str>`__
+<https://github.com/metaborg/nabl/blob/master/nabl2.runtime/trans/nabl2/api.str>`__
 module.
 
 Setup
