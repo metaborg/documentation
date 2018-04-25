@@ -63,7 +63,7 @@ This configuration disables the SDF2 generation, and may cause problems when def
 this feature is not supported yet by SDF3. Furthermore, ``dynamic`` can be used instead of ``java``, to enable lazy parse table
 generation, where the parse table is generated while the program is parsed.
 
-Also, an experimental new version of the SGLR parser implementation is available: JSGLR2. It supports parsing, imploding and
+An experimental new version of the SGLR parser implementation is available: JSGLR2. It supports parsing, imploding and
 syntax highlighting. Error reporting, recovery and completions are currently not supported. It can be enabled with:
 
 .. code-block:: yaml
@@ -71,6 +71,24 @@ syntax highlighting. Error reporting, recovery and completions are currently not
    language:
      sdf:
        jsglr-version: v2
+
+Two additional configurations of JSGLR2 can also be set enabling data-dependent or layout-sensitive parsing.
+Data-dependent SGLR2 solves deep priority conflicts using data-dependent parsing, which does not require duplicating the grammar productions.
+To enable data-dependent resolution of deep priority conflicts, the version of JSGLR2 needs to be set to:
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       jsglr-version: data-dependent
+
+Final, JSGLR2 has been equipped with support for layout-sensitive parsing. This version can be enabled with:
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       jsglr-version: layout-sensitive
 
 .. warning:: Whenever changing any of these configurations, clean the project before rebuilding.
 

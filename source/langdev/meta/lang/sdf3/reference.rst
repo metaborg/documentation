@@ -873,9 +873,190 @@ character.
 Layout-sensitive parsing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-SDF3 supports definition of layout sensitive syntax by means of layout constraints. 
+SDF3 supports definition of layout sensitive syntax by means of layout constraints.
 While we haven't covered this feature in this documentation, the paper :cite:`s-ErdwegRKO12` describes the concepts.
 
-.. todo:: This part part of the documentation is not yet written.
+**Declarative Layout Constraints**
 
+In the paper :cite:`s-ErdwegRKO12`, the authors describe layout constraints in terms of restrictions involving
+tree positions (``0``, ``1``, ...), tree selectors (``first``, ``left``, ``last`` and ``right``), and lines and columns (``line`` and ``col``).
+While this mechanism allows writing layout constraints to express alignment, offside and indentation rules, writing such constraints is
+rather cumbersome and error prone. Alternatively, one may write layout constraints using more declarative specifications which abstract over the
+fine grained original layout constraints from :cite:`s-ErdwegRKO12`.
 
+- **tree selectors**
+
+To specify which trees should be subject to a layout constraint, one may use: tree positions, SDF3 labeled non-terminals or unique literals that occurs
+in the production. For example:
+
+::
+
+    context-free syntax
+
+      Stmt.IfElse = "if" Exp "then" Stmts "else" else:Stmts  {layout(
+         indent "if" 3, else &&
+         align 3 else &&
+         align "if" "else"
+      )}
+
+In the layout constraint for the production above, ``else`` refers to the tree for the labeled non-terminal ``else:Stmts``, ``"if"`` refers to the tree
+corresponding to the ``"if"`` literal and the number 3 correspond to the tree at *position 3* in the parse tree (starting at 0, ignoring trees for ``LAYOUT?``).
+
+- **align**
+
+The layout constraint ``layout(align x y1, ..., yn)`` specifies that the trees indicated by the tree selectors
+``yi`` should be aligned with the tree indicated by the tree selector ``x``, i.e., all these trees should start in the same column. For example,
+if we consider the production above, the following program is correct according to the **align** constraints:
+
+.. code:: python
+
+    if x < 0 then
+    ··x = 0
+    else
+    ··y = 1
+
+Whereas, the following program is incorrect because neither the if and else keyword align (``align "if" "else"``),
+nor the statements in the branches (``align 3 else``):
+
+.. code:: python
+
+    if x < 0 then
+    ··x = 0
+    ·else
+    ···y = 1
+
+The constraint **align** can also be used to indicate that all subtrees within a list should be aligned. That is, a constraint ``layout(align x)``,
+where ``x`` is a tree selector for a list subtree, can be used to enforce such constraint.
+For example, consider the following production and its layout constraint:
+
+::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" then:Stmt*  {layout(
+         align then
+      )}
+
+This constraint indicates that statements inside the list should be aligned.
+Therefore, the following program is correct according to this constraint:
+
+.. code:: python
+
+    if x < 0 then
+    ··x = 0
+    ··y = 4
+    ··z = 2
+
+And the following program is invalid, as the second statement is misaligned:
+
+.. code:: python
+
+    if x < 0 then
+    ··x = 0
+    ···y = 4
+    ··z = 2
+
+- **offside**
+
+The offside rule is very common in layout-sensitive languages. It states that all lines after the first one should be further to the
+right compared to the first line. To a description of how the offside rule can be modelled with layout constraints, refer to :cite:`s-ErdwegRKO12`.
+An example of a declarative specification of the offside rule can be seen in the production below:
+
+::
+
+    context-free syntax
+
+      Stmt.Assign = <<ID> = <Exp>> {layout(offside 3)}
+
+The layout constraint specifies that when the expression in the statement spams multiple lines, all following lines should be indented with
+respect to the column where the expression started.
+For example, the following program is valid according to this constraint:
+
+.. code:: python
+
+    x = 4 * 10
+    ·····+ 2
+
+However, the following program is not valid, as the second line of the expression starts at the same column as the first line:
+
+.. code:: python
+
+    x = 4 * 10
+    ····+ 2
+
+Note that if the expression is written on a single line, the constraint is also verified. That is, the following program successfully parses:
+
+.. code:: python
+
+    x = 4 * 10 + 2
+
+It is also possible to use the offside relation on different trees. For example, consider the constraint in the following production:
+
+::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" then:Stmt*  {layout(
+         offside "if" then
+      )}
+
+This constraint states that all lines (except the first) of the statements in the ``then`` branch should be indented with respect to the ``if``
+literal. Thus, the following program is invalid according to this layout constraint, because the statement ``x = 2`` should be indented with relation to the topmost ``if``.
+
+.. code:: python
+
+    if x < 0 then
+    ··if y < 0 then
+    x = 2
+
+In general, an **offside** constraint involving more than a single tree is combined with **indent** constraint to enforce that the column of the first and all subsequent lines should be indented.
+
+- **indent**
+
+An indent constraint indicates that the column of the first line of a certain tree should be further to the right with respect to another tree. For example, consider the following production:
+
+::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" then:Stmt*  {layout(
+         indent "if" then
+      )}
+
+This constraint indicates that the first line of the list of statements should be indented with respect to the ``if`` literal. Thus, according to this constraint the following program is valid:
+
+.. code:: python
+
+    if x < 0 then
+    ··x = 2
+
+Note that if the list of statements in the then branch spams multiple lines, the constraint does not apply to its subsequent lines. For example, consider the following program:
+
+.. code:: python
+
+    if x < 0 then
+    ··x = 2 + 10
+    * 4
+    y = 3
+
+This program is still valid, since the column of the first line of the first assignment is indented with respect to the if literal. To indicate that the first and all subsequent lines should be indented, an offside constraint should also be included.
+
+::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" then:Stmt*  {layout(
+         indent "if" then &&
+         offside "if" then
+      )}
+
+With this constraint, the remainder of the expression ``* 4`` should also be further to the right compared to the "if" literal. The following program is correct according to these two constraints, since the second line of the first assignment and the second assignment are also indented with respect to the ``if`` literal:
+
+.. code:: python
+
+    if x < 0 then
+    ··x = 2 + 10
+    ·* 4
+    ·y = 3
+
+.. todo:: Part of this documentation is not yet written.
