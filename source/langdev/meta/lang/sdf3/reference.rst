@@ -886,7 +886,7 @@ fine grained original layout constraints from :cite:`s-ErdwegRKO12`.
 
 - **tree selectors**
 
-To specify which trees should be subject to a layout constraint, one may use: tree positions, SDF3 labeled non-terminals or unique literals that occurs
+To specify which trees should be subject to a layout constraint, one may use: tree positions, SDF3 labeled non-terminals, or unique literals that occurs
 in the production. For example:
 
 ::
@@ -959,7 +959,7 @@ And the following program is invalid, as the second statement is misaligned:
 - **offside**
 
 The offside rule is very common in layout-sensitive languages. It states that all lines after the first one should be further to the
-right compared to the first line. To a description of how the offside rule can be modelled with layout constraints, refer to :cite:`s-ErdwegRKO12`.
+right compared to the first line. For a description of how the offside rule can be modelled with layout constraints, refer to :cite:`s-ErdwegRKO12`.
 An example of a declarative specification of the offside rule can be seen in the production below:
 
 ::
