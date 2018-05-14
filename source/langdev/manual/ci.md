@@ -35,7 +35,7 @@ Create a parent pom.xml in this folder:
   <parent>
     <groupId>org.metaborg</groupId>
     <artifactId>parent</artifactId>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>|rel-version|</version>
     <relativePath />
   </parent>
 
@@ -70,7 +70,7 @@ Create a parent pom.xml in this folder:
     </repository>
     <repository>
       <id>spoofax-eclipse-repo</id>
-      <url>http://download.spoofax.org/update/nightly/</url>
+      <url>http://artifacts.metaborg.org/content/unzip/releases-unzipped/org/metaborg/org.metaborg.spoofax.eclipse.updatesite/|rel-version|/org.metaborg.spoofax.eclipse.updatesite-|rel-version|-assembly.zip-unzip/</url>
       <layout>p2</layout>
       <releases>
         <enabled>false</enabled>
@@ -125,13 +125,10 @@ to
 ---
 id: org.example:Entity.test:0.1.0-SNAPSHOT
 name: Entity
-metaborgVersion: 2.1.0-SNAPSHOT
 dependencies:
   compile:
   - org.example:Entity:0.1.0-SNAPSHOT
   - org.metaborg:org.metaborg.meta.lang.spt:${metaborgVersion}
-build:
-  useBuildSystemSpec: true
 ```
 
 The maven build should now succeed:
