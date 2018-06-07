@@ -24,3 +24,32 @@ Problems related to escaping in string terms of expectations are fixed:
 
 - Double quotes (``"``) in expectation require escaping using backslashes, but were not unescaped when comparing with actual parse results. This made correct tests containing double quotes in strings fail. This is fixed by unescaping the expectation terms.
 - Formatting expectation terms as strings was different than default ATerms (``"`` and ``\`` were not escaped), which was confusing when a test fails and the actual and expected terms were reported. This is fixed by aligning the SPT expectation terms formatting with default ATerm formatting.
+
+NaBL2
+^^^^^
+
+Small usability improvements:
+
+- Empty parameter tuples in rules can be omitted.
+- Accidently writing a dot instead of a comma before a recursive rule
+  invocation could make that constraint look like a rule without
+  constraints. Layout is now used to give a warning when such a case
+  is written.
+- Fix import problems caused by ``nabl2.runtime`` exports. The exports
+  are restricted such that layout syntax and DynSem signatures are not
+  exported anymore. The sorts defined by the runtime are all prefixed
+  with ``NaBL2`` to prevent accidental merges with sorts from the
+  importing language.
+- Allow all Stratego identifiers to be used as constructor names.
+
+Eclipse
+^^^^^^^
+
+Small fixes and improvements:
+
+- Execute builders for languages whiuch have no analysis
+  defined. Previously builders would always wait until an analysis
+  result was produced.
+- Cancel running SPT test suites. It is now possible to cancel a
+  running SPT test suite in the progress window.
+
