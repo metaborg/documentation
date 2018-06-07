@@ -33,7 +33,7 @@ Editor message based on analysis
 --------------------------------
 
 Several aspects of the NaBL2 analysis process can be customized by
-:ref:`implementing hooks <nabl2-custom-analysis>`_ in Stratego. 
+:ref:`implementing hooks <nabl2-custom-analysis>` in Stratego. 
 During the so-called *final* phase, FlowSpec has run its analysis,
 and this information is available to be used for creating custom
 notes, warnings and errors. 

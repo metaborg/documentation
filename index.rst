@@ -38,6 +38,7 @@ The Spoofax Language Workbench
    source/langdev/meta/lang/aterm/index
    Syntax Definition with SDF3 <source/langdev/meta/lang/sdf3/index>
    Static Semantics with NaBL2 <source/langdev/meta/lang/nabl2/index>
+   Data-Flow Analysis with FlowSpec <source/langdev/meta/lang/flowspec/index>
    Transformation with Stratego <source/langdev/meta/lang/stratego/index>
    Dynamic Semantics with DynSem <source/langdev/meta/lang/dynsem/index>
    Editor Services with ESV <source/langdev/meta/lang/esv>
@@ -155,6 +156,9 @@ SDF3
 
 NaBL2
   The NaBL2 'Name Binding Language' supports the definition of the static semantics of languages including name binding and type analysis. NaBL2 rules define a mapping from abstract syntax trees to name and type constraints. The generated constraints are solved by a language-independent solver and produce error messages to display in an editor and a symbol table for the analyzed abstract syntax tree for use in further processing. Name analysis in NaBL2 is based on scope graphs, a language-independent model for name resolution and scoping.
+
+FlowSpec
+  The FlowSpec Data-Flow Analysis Specification Language supports the specification of control-flow and intra-procedural data-flow analysis. FlowSpec control-flow rules map abstract syntax trees to control-flow edges. Data-flow properties in FlowSpec represent the results of different data-flow analyses, and the analyses are specified through property rules per type of control-flow node. FlowSpec depends on the use of NaBL2 for name binding. 
 
 Stratego
   The Stratego transformation language supports the definition of transformations of abstract syntax terms using rewrite rules and programmable rewriting strategies. Strategies enable concise definition of traversals over trees. Stratego is used to define desugarings, transformations, optimizations, and code generation (translation to another language).
