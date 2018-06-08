@@ -9,6 +9,11 @@ See the corresponding :ref:`migration guide <2.5.0-migration-guide>` for migrati
 Changes
 -------
 
+FlowSpec
+^^^^^^^^
+
+This release introduces FlowSpec, a new meta-language for intra-procedural data-flow analysis. See the documentation of the language for more details. 
+
 Stratego
 ^^^^^^^^
 
