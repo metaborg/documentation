@@ -74,3 +74,14 @@ Small fixes and improvements:
 - Cancel running SPT test suites. It is now possible to cancel a
   running SPT test suite in the progress window.
 
+
+IntelliJ
+^^^^^^^^
+Small fixes and improvements:
+
+- Can now be installed into any latest IntelliJ,
+  not just the last version we tested
+- By default runs in IntelliJ 2018.1.1
+- Simplified project structure
+- Updated dependencies
+- Changes to support Java 9 in the future
