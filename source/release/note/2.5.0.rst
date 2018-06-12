@@ -4,7 +4,8 @@ Spoofax 2.5.0
 
 This is a stub for the release notes of Spoofax 2.5.0.
 
-See the corresponding :ref:`migration guide <2.5.0-migration-guide>` for migrating from Spoofax 2.4.0 to Spoofax 2.5.0.
+See the corresponding :ref:`migration guide <2.5.0-migration-guide>` for
+migrating from Spoofax 2.4.0 to Spoofax 2.5.0.
 
 Changes
 -------
@@ -12,23 +13,38 @@ Changes
 FlowSpec
 ^^^^^^^^
 
-This release introduces FlowSpec, a new meta-language for intra-procedural data-flow analysis. See the documentation of the language for more details. 
+This release introduces FlowSpec, a new meta-language for intra-procedural
+data-flow analysis. See the documentation of the language for more details.
 
 Stratego
 ^^^^^^^^
 
 Stratego received some small patches to improve user experience.
 
-- Stratego editor now gives warnings when using ``left``, ``right`` and a couple of other variables names as these are also constructors in libstratego-sglr and interpreted as constructor match patterns. 
-- When the Stratego compiler generates names for code generation, these now start with the source code name if available or with a constant name related to the language feature (e.g. a ``where(s)`` is turned into ``?where243;s;!where243``). Since some generated names turn up in a stack trace from a Stratego, this should improve readability of the stack trace. Complex closures are still named ``lifted26``, as the compiler cannot replace humans in propertly naming things. 
+- Stratego editor now gives warnings when using ``left``, ``right`` and a couple
+  of other variables names as these are also constructors in libstratego-sglr
+  and interpreted as constructor match patterns.
+- When the Stratego compiler generates names for code generation, these now
+  start with the source code name if available or with a constant name related
+  to the language feature (e.g. a ``where(s)`` is turned into
+  ``?where243;s;!where243``). Since some generated names turn up in a stack
+  trace from a Stratego, this should improve readability of the stack trace.
+  Complex closures are still named ``lifted26``, as the compiler cannot replace
+  humans in properly naming things.
 
 SPT
 ^^^
 
 Problems related to escaping in string terms of expectations are fixed:
 
-- Double quotes (``"``) in expectation require escaping using backslashes, but were not unescaped when comparing with actual parse results. This made correct tests containing double quotes in strings fail. This is fixed by unescaping the expectation terms.
-- Formatting expectation terms as strings was different than default ATerms (``"`` and ``\`` were not escaped), which was confusing when a test fails and the actual and expected terms were reported. This is fixed by aligning the SPT expectation terms formatting with default ATerm formatting.
+- Double quotes (``"``) in expectation require escaping using backslashes, but
+  were not unescaped when comparing with actual parse results. This made correct
+  tests containing double quotes in strings fail. This is fixed by unescaping the
+  expectation terms.
+- Formatting expectation terms as strings was different than default ATerms
+  (``"`` and ``\`` were not escaped), which was confusing when a test fails and
+  the actual and expected terms were reported. This is fixed by aligning the SPT
+  expectation terms formatting with default ATerm formatting.
 
 NaBL2
 ^^^^^
@@ -36,7 +52,7 @@ NaBL2
 Small usability improvements:
 
 - Empty parameter tuples in rules can be omitted.
-- Accidently writing a dot instead of a comma before a recursive rule
+- Accidentally writing a dot instead of a comma before a recursive rule
   invocation could make that constraint look like a rule without
   constraints. Layout is now used to give a warning when such a case
   is written.
@@ -52,7 +68,7 @@ Eclipse
 
 Small fixes and improvements:
 
-- Execute builders for languages whiuch have no analysis
+- Execute builders for languages which have no analysis
   defined. Previously builders would always wait until an analysis
   result was produced.
 - Cancel running SPT test suites. It is now possible to cancel a
