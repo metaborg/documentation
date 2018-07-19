@@ -17,5 +17,4 @@ The definition of a textual (programming) language starts with its syntax. A gra
    examples
    configuration
    migration
-   scala
    sdf3-bibliography

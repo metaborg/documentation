@@ -63,6 +63,12 @@ Small usability improvements:
   importing language.
 - Allow all Stratego identifiers to be used as constructor names.
 
+SDF3
+^^^^
+
+The experimental support for generating Scala case classes from an SDF3
+specification was removed. It was incomplete, unmaintained and unused.
+
 Eclipse
 ^^^^^^^
 
