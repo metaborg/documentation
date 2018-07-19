@@ -26,6 +26,7 @@ IntelliJ plugin
 
 Command-line utilities
 ~~~~~~~~~~~~~~~~~~~~~~
+.. _cli-utils:
 
 -  `Sunshine JAR <rel-sunshine-jar_>`_
 -  `SPT testrunner JAR <rel-spt-testrunner-jar_>`_

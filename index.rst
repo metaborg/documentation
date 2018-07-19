@@ -45,6 +45,7 @@ The Spoofax Language Workbench
 
    Language Testing with SPT <source/langdev/meta/lang/spt/index>
    Building Languages <source/langdev/manual/index>
+   Running Languages from Command-line <source/sunshine/manual/index>
    Programmatic API <source/core/manual/index>
    Developing Spoofax <source/dev/index>
 
