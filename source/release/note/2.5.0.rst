@@ -69,6 +69,9 @@ SDF3
 The experimental support for generating Scala case classes from an SDF3
 specification was removed. It was incomplete, unmaintained and unused.
 
+Added support for :ref:`Layout Declarations <layout-declarations>` for layout-sensitive parsing
+and pretty-printing.
+
 Eclipse
 ^^^^^^^
 

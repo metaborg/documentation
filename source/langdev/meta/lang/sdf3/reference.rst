@@ -869,6 +869,7 @@ character.
 
     ID -/- [a-zA-Z0-9\_]
 
+.. _layout-declarations:
 
 Layout-sensitive parsing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -876,13 +877,13 @@ Layout-sensitive parsing
 SDF3 supports definition of layout sensitive syntax by means of layout constraints.
 While we haven't covered this feature in this documentation, the paper :cite:`s-ErdwegRKO12` describes the concepts.
 
-**Declarative Layout Constraints**
+**Layout Declarations**
 
 In the paper :cite:`s-ErdwegRKO12`, the authors describe layout constraints in terms of restrictions involving
-tree positions (``0``, ``1``, ...), tree selectors (``first``, ``left``, ``last`` and ``right``), and lines and columns (``line`` and ``col``).
-While this mechanism allows writing layout constraints to express alignment, offside and indentation rules, writing such constraints is
-rather cumbersome and error prone. Alternatively, one may write layout constraints using more declarative specifications which abstract over the
-fine grained original layout constraints from :cite:`s-ErdwegRKO12`.
+the position of the subtree involved in the constraint (``0``, ``1``, ...), token selectors (``first``, ``left``, ``last`` and ``right``), and position selectors as lines and columns (``line`` and ``col``).
+This mechanism allows writing layout constraints to express alignment, offside and indentation rules, but writing such constraints is
+rather cumbersome and error prone. Alternatively, one may write layout constraints using **layout declarations**, which are more declarative specifications and abstract over
+lines, columns and token selectors as the original layout constraints from :cite:`s-ErdwegRKO12`.
 
 - **tree selectors**
 
@@ -925,7 +926,9 @@ nor the statements in the branches (``align 3 else``):
     ·else
     ···y = 1
 
-The constraint **align** can also be used to indicate that all subtrees within a list should be aligned. That is, a constraint ``layout(align x)``,
+- **align-list**
+
+The constraint **align-list** can be used to indicate that all subtrees within a list should be aligned. That is, a constraint ``layout(align-list x)``,
 where ``x`` is a tree selector for a list subtree, can be used to enforce such constraint.
 For example, consider the following production and its layout constraint:
 
@@ -934,7 +937,7 @@ For example, consider the following production and its layout constraint:
     context-free syntax
 
       Stmt.If = "if" Exp "then" then:Stmt*  {layout(
-         align then
+         align-list then
       )}
 
 This constraint indicates that statements inside the list should be aligned.
@@ -1058,5 +1061,7 @@ With this constraint, the remainder of the expression ``* 4`` should also be fur
     ··x = 2 + 10
     ·* 4
     ·y = 3
+
+Finally, all these layout declarations can be ignored by the parser and used only when generating the pretty-printer. To do that, prefix the constraint with **pp-** writing, for example, **pp-offside** or **pp-align**.
 
 .. todo:: Part of this documentation is not yet written.
