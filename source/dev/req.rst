@@ -35,5 +35,5 @@ Pip 7.0.3 or higher
 
   To upgrade to the newest version use ``pip install --upgrade pip`` or ``pip3 install --upgrade pip``, depending on if your OS uses a different ``pip`` command for Python 3. Confirm using ``pip3 --version`` or ``pip --version``.
 
-Maven 3.3.9 or higher
+Maven 3.5.4 or higher
   Required to build most components of Spoofax. Our Maven artifact server must also be registered with Maven since the build depends on artifacts from previous builds for bootstrapping purposes. We explain how to install and set up Maven in the :ref:`next section <dev-maven>`.
