@@ -10,14 +10,13 @@ migrating from Spoofax 2.4.0 to Spoofax 2.5.0.
 Changes
 -------
 
-Spoofax development
-^^^^^^^^^^^^^^^^^^^
+Maven
+^^^^^
 
 We updated the Guice version that Spoofax uses to 4.2.0. This has the
 cascading effect that we need Maven 3.5.4, since Spoofax is used in a maven
-plugin. If you wish to develop on Spoofax be sure to have this version of
-Maven installed, or you will run into ``MethodNotFoundException``s during
-the ``languages`` build step of the Spoofax build. 
+plugin. Be sure to have this version of Maven installed, or you will run
+into ``MethodNotFoundException``s for ``com.google.inject.internal.*``. 
 
 FlowSpec
 ^^^^^^^^
