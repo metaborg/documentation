@@ -16,7 +16,7 @@ Maven
 We updated the Guice version that Spoofax uses to 4.2.0. This has the
 cascading effect that we need Maven 3.5.4, since Spoofax is used in a maven
 plugin. Be sure to have this version of Maven installed, or you will run
-into ``MethodNotFoundException``s for ``com.google.inject.internal.*``. 
+into ``MethodNotFoundException`` s for ``com.google.inject.internal.*``. 
 
 FlowSpec
 ^^^^^^^^
