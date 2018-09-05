@@ -18,6 +18,18 @@ cascading effect that we need Maven 3.5.4, since Spoofax is used in a maven
 plugin. Be sure to have this version of Maven installed, or you will run
 into ``MethodNotFoundException`` s for ``com.google.inject.internal.*``. 
 
+Core
+^^^^
+
+The ``constraint`` analyzer was generalized:
+
+- The ``constraint`` analyzer is now independent of NaBL2, and can be
+  used as a generic analysis mechanism from Stratego. The analysis
+  cycle and the Stratego interface to it are defined ans documented in
+  module ``libspoofax/analysis/constraint``.
+- Fixed a bug where ambiguity errors were not always correctly
+  reported.
+
 FlowSpec
 ^^^^^^^^
 
@@ -71,6 +83,15 @@ Small usability improvements:
   importing language.
 - Allow all Stratego identifiers to be used as constructor names.
 
+Solver changes:
+
+- Adopt new naming convention, with packages named ``mb.nabl2.*``, and
+  artifacts named ``nabl2.*``.
+- Add classes for matching and subtitution of terms, independent of
+  unification.
+- Use the generalized ``constraint`` analyzer for the NaBL2 analysis
+  strategy.
+
 SDF3
 ^^^^
 
@@ -94,6 +115,7 @@ Small fixes and improvements:
 
 IntelliJ
 ^^^^^^^^
+
 Small fixes and improvements:
 
 - Can now be installed into any latest IntelliJ,
