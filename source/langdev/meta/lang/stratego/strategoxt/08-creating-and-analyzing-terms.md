@@ -10,6 +10,8 @@ is applied. First it matches the subject term against the pattern `And(Or(x, y),
 
 Thus, rather than considering rules as the atomic actions of transformation programs, Stratego provides their constituents, that is building terms from patterns and matching terms against patterns, as atomic actions, and makes these available to the programmer. In this chapter, you will learn these basic actions and their use in the composition of more complex operations such as various flavors of rewrite rules.
 
+## 8.1. Building Terms
+
 The build operation `!p` replaces the subject term with the instantiation of the pattern `p` using the bindings from the environment to the variables occurring in `p`. For example, the strategy `!Or(And(x, z), And(y, z))` replaces the subject term with the instantiation of `Or(And(x, z), And(y, z))` using bindings to variables `x`, `y` and `z`.
 
     stratego> !Int("10")
@@ -25,6 +27,8 @@ It is possible to build terms with variables. We call this building a term patte
     Plus(Var("a"),Var("b"))
     stratego> !e
     Var("b")
+
+## 8.2. Matching Terms
 
 Pattern matching allows the analysis of terms. The simplest case is matching against a literal term. The match operation `?t` matches the subject term against the term `t`.
 
@@ -86,7 +90,7 @@ The `equal` strategy tests whether the current term is a a pair of the same term
     stratego> equal(|Foo(Bar()))
     Foo(Bar)
 
-## 8.1. Implementing Rewrite Rules
+## 8.3. Implementing Rewrite Rules
 
 Match and build are first-class citizens in Stratego, which means that they can be used and combined just like any other strategy expressions. In particular, we can implement rewrite rules using these operations, since a rewrite rule is basically a match followed by a build. For example, consider the following combination of match and build:
 
@@ -98,7 +102,7 @@ This combination first recognizes a term, binds variables to the pattern in the 
 
 Stratego provides syntactic sugar for various combinations of match and build. We'll explore these in the rest of this chapter.
 
-### 8.1.1. Anonymous Rewrite Rule
+### 8.3.1. Anonymous Rewrite Rule
 
 An _anonymous rewrite rule_ `(p1 -> p2)` transforms a term matching `p1` into an instantiation of `p2`. Such a rule is equivalent to the sequence `?p1; !p2`.
 
@@ -106,7 +110,7 @@ An _anonymous rewrite rule_ `(p1 -> p2)` transforms a term matching `p1` into an
     stratego> (Plus(e1, e2) -> Plus(e2, e1))
     Plus(Int("3"),Var("a"))
 
-### 8.1.2. Term variable scope
+### 8.3.2. Term variable scope
 
 Once a variable is bound it cannot be rebound to a different term. Thus, once we have applied an anonymous rule once, its variables are bound and the next time it is applied it only succeeds for the same term. For example, in the next session the second application of the rule fails, because `e2` is bound to `Int("3")` and does not match with `Var("b")`.
 
@@ -147,7 +151,7 @@ Of course we can name such a scoped rule using a strategy definition, and then i
     stratego> SwapArgs
     Plus(Int("3"),Var("a"))
 
-### 8.1.3. Implicit Variable Scope
+### 8.3.3. Implicit Variable Scope
 
 When using match and build directly in a strategy definition, rather than in the form of a rule, the definition contains free variables. Strictly speaking such variables should be declared using a scope, that is one should write
 
@@ -163,6 +167,8 @@ instead. The scope is automatically inserted by the compiler. This implies that 
 
 While the variables are bound in the enclosing definition, they are not restricted to `SwapArgs` in this case, since in a let you typically want to use bindings to variables in the enclosing code.
 
+### 8.3.4. Where
+
 Often it is useful to apply a strategy only to test whether some property holds or to compute some auxiliary result. For this purpose, Stratego provides the `where(s)` combinator, which applies `s` to the current term, but restores that term afterwards. Any bindings to variables are kept, however.
 
     Plus(Int("14"),Int("3"))
@@ -177,7 +183,7 @@ With the match and build constructs `where(s)` is in fact just syntactic sugar f
 
 We saw the use of `where` in the definition of `if-then-else` in [Chapter15][1].
 
-### 8.1.4. Conditional rewrite rule
+### 8.3.5. Conditional rewrite rule
 
 A simple rewrite rule succeeds if the match of the left-hand side succeeds. Sometimes it is useful to place additional requirements on the application of a rule, or to compute some value for use in the right-hand side of the rule. This can be achieved with _conditional rewrite rules_. A conditional rule `L: p1 -> p2 where s` is a simple rule extended with an additional computation `s` which should succeed in order for the rule to apply. The condition can be used to test properties of terms in the left-hand side, or to compute terms to be used in the right-hand side. The latter is done by binding such new terms to variables used in the right-hand side.
 
@@ -207,6 +213,8 @@ The addition is computed by applying the primitive strategy `add` to the pair of
 
     EvalPlus = ?Add(Int(i),Int(j)); where(!(i,j); addS; ?k); !Int(k)
 
+### 8.3.6. Lambda Rules
+
 Sometimes it is useful to define a rule anonymously within a strategy expression. The syntax for anonymous rules with scopes is a bit much since it requires enumerating all variables. A _lambda_ rule of the form
 
      p1 -> p2 where s
@@ -223,6 +231,8 @@ A typical example of the use of an anonymous rule is
     [(1,2),(3,4),(5,6)]
     stratego> map( (x, y) -> x  )
     [1,3,5]
+
+## 8.4. Apply and Match
 
 One frequently occuring scenario is that of applying a strategy to a term and then matching the result against a pattern. This typically occurs in the condition of a rule. In the constant folding example above we saw this scenario:
 
@@ -245,7 +255,11 @@ Another example is the following definition of the `map(s)` strategy, which appl
     map(s) : [] -> []
     map(s) : [x | xs] -> [ x |  xs]
 
+## 8.5 Wrap and Project
+
 Term wrapping and projection are concise idioms for constructing terms that wrap the current term and for extracting subterms from the current term.
+
+### 8.5.1. Term Wrap
 
 One often write rules of the form ` x -> Foo(Bar(x))`, i.e. wrapping a term pattern around the current term. Using rule syntax this is quite verbose. The syntactic abstraction of _term wraps_, allows the concise specification of such little transformations as `!Foo(Bar())`.
 
@@ -277,6 +291,8 @@ As an example, the term wrap `!Foo(Bar())` is desugared to the strategy
     {x: where(id => x); !Foo(Bar(x))}
 
 which after simplification is equivalent to `{x: ?x; !Foo(Bar(x))}`, i.e., exactly the original lambda rule `x -> Foo(Bar(x))`.
+
+### 8.5.2. Term Project
 
 Term projections are the match dual of term wraps. Term projections can be used to _project_ a subterm from a term pattern. For example, the expression `?And(,x)` matches terms of the form `And(t1,t2)` and reduces them to the first subterm `t1`. Another example is the strategy
 
