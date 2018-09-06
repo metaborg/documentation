@@ -72,11 +72,12 @@ Eclipse plugins are still imported with :menuselection:`Import --> General --> E
 Running
 ~~~~~~~
 
-To test your changes in the Spoofax Eclipse plugin, import the ``org.metaborg.spoofax.eclipse`` project from the ``spoofax-eclipse`` repository, which provides launch configurations for starting new Eclipse instances. Press the little down arrow next to the bug icon (next to the play icon) and choose ``Spoofax with core (all plug-ins)`` to start a new Eclipse instance that contains your changes.
+To test your changes in the Spoofax Eclipse plugin, import the ``org.metaborg.spoofax.eclipse`` project from the ``spoofax-eclipse`` repository, which provides launch configurations for starting new Eclipse instances (a "guest" Eclipse). Press the little down arrow next to the bug icon (next to the play icon) and choose ``Spoofax Eclipse Plugin`` to start a new Eclipse instance that contains your changes. If it is not in the list of recently used configurations, click ``Debug configurations...``, it should be under Eclipse Application configurations. 
 
-Some gotcha's:
+Some tricks:
 
 -  If you change a (meta-)language and want to test it in a new Eclipse instance, import that language's corresponding Eclipse plugin project. For example, ``org.metaborg.meta.lang.nabl`` has Eclipse plugin project ``org.metaborg.meta.lang.nabl.eclipse``. Then compile both those projects from the command-line (don't forget to turn off build automatically in Eclipse), and start a new Eclipse instance.
+-  A different way to test the (meta-)language change is to import that language project into the workspace of the guest Eclipse. Because we use Maven snapshot versions, the built-in version will be overridden when you build the language in the guest eclipse. 
 
 Troubleshooting
 ~~~~~~~~~~~~~~~
