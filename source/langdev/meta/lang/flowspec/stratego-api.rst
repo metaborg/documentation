@@ -7,7 +7,7 @@ Stratego API
    :class: highlight
 
 The Stratego API to FlowSpec allows access to analysis result during and
- after analysis.
+after analysis.
 
 The full definition of the API can be found in the `flowspec/api
 <https://github.com/metaborg/flowspec/blob/master/flowspec.lang/trans/flowspec/api.str>`__
