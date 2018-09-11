@@ -34,12 +34,16 @@ Instructions
 
    a. Clone or re-use an existing clone of `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ on the ``master`` branch. See :ref:`Cloning the source code <dev-build-clone>`.
    b. Update it to the latest master with ``git pull --rebase && ./b checkout -y && ./b update``.
+   c. Run ``./b set-remote -s`` to set submodule remotes to SSH URLs, enabling git pushing without having to supply a username and password via git over HTTPS.
 
 3. Prepare the source code repository.
 
    a. Make a separate clone (or re-use an existing one if you have released Spoofax before) of the ``spoofax-release`` branch of `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_. This must be a separate clone in a different directory from the first one. See :ref:`Cloning the source code <dev-build-clone>`.
 
      .. note:: The reason for two separate clones of `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ is that the release script will modify the files in the repository, which could include files of the release script itself. Therefore, we make a separate clone which the release script acts upon, so that it does not interfere with itself.
+
+   b. If there are new submodules repositories, follow the steps for preparing new submodules below.
+   c. Run ``./b set-remote -s`` to set submodule remotes to SSH URLs, enabling git pushing without having to supply a username and password via git over HTTPS.
 
 .. highlight:: bash
 
@@ -73,3 +77,53 @@ Instructions
           --nexus-deploy --nexus-username myusername --nexus-password mypassword --nexus-repo releases
 
       Unfortunately, it is currently not possible to encrypt the artifact server password passed to the build script.
+
+New spoofax-releng submodules
+-----------------------------
+
+When adding a new submodule to the `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ repository, the following steps must be performed before starting the automated release process:
+
+* Add a ``spoofax-release`` branch to the submodule (pointing to the current ``master`` branch), and push that branch.
+* Add the submodule to the :file:`.gitmodule` file in the ``spoofax-release`` branch of the ``spoofax-releng`` repository. Make sure that the branch of the submodule is set to ``spoofax-release``, and that the remote is using a ``https`` URL. Commit and push this change.
+
+Updating the release archive
+----------------------------
+
+To update the release archive of this documentation site, perform the following steps after a release:
+
+* Update include files:
+
+  * Copy :file:`include/hyperlink/download-<current-release-version>.rst` to new file :file:`include/hyperlink/download-<release-version>.rst`, replace all instances of ``<current-release-version>`` in that new file with ``<release-version>``, and update the date to the current date.
+  * In :file:`include/hyperlink/download-rel.rst`, replace all instances of ``<current-release-version>`` with ``<release-version>``.
+  * In :file:`include/hyperlink/download-dev.rst`, update the development version to ``<next-development-version>``.
+  * In :file:`include/_all.rst`, add a new line to include the newly copied file: ``.. include:: /include/hyperlink/download-<release-version>.rst``.
+
+* Update :file:`source/release/migrate/<release-version>.rst` (only if migrations are necessary):
+
+  * Remove stub notice.
+
+* Update :file:`source/release/note/<release-version>.rst`:
+
+  * Remove stub notice.
+  * Add small summary of the release as an introduction.
+  * Include download links, which can be copied and have their versions replaced from a previous release.
+
+* Create new stub files for the next release:
+
+  * Create a new migration guide stub file.
+  * Create a new release notes stub file.
+
+* Update :file:`source/release/note/index.rst`:
+
+  * Move stub for this release to the top of the notes.
+  * Add new stub file at the bottom of the notes.
+
+* Update :file:`source/release/migrate/index.rst`:
+
+  * Move stub for this release to the top of the migration guides.
+  * Add new stub file at the bottom of the migration guides.
+
+* Update :file:`conf.py`:
+
+  * Update ``version`` variable.
+  * Update ``copyright`` variable with new year, if needed.
