@@ -1,0 +1,7 @@
+.. _2.6.0-migration-guide:
+
+=============================
+Spoofax 2.6.0 Migration Guide
+=============================
+
+This is a stub for the migration guide of Spoofax 2.6.0.

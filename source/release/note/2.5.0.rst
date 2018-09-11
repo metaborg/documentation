@@ -2,24 +2,82 @@
 Spoofax 2.5.0
 =============
 
-This is a stub for the release notes of Spoofax 2.5.0.
+Spoofax 2.5 introduces FlowSpec, a new meta-language for intra-procedural data-flow analysis; layout-sensitive parsing in SDF3; and has several small improvements and bug fixes.
 
-See the corresponding :ref:`migration guide <2.5.0-migration-guide>` for
-migrating from Spoofax 2.4.0 to Spoofax 2.5.0.
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.0-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.0-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.0-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.0-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.0-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.0-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.0-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.0-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.0-eclipse-linux-64_>`_
+- `macOS <2.5.0-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.0-eclipse-update-site|
+-  `Eclipse update site archive <2.5.0-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.0-intellij-update-site|
+-  `IntelliJ update site archive <2.5.0-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.0-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.0-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.0-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.0-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.0-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.0-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.0``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
 
 Changes
 -------
 
 Maven
-^^^^^
+~~~~~
 
 We updated the Guice version that Spoofax uses to 4.2.0. This has the
 cascading effect that we need Maven 3.5.4, since Spoofax is used in a maven
 plugin. Be sure to have this version of Maven installed, or you will run
-into ``MethodNotFoundException`` s for ``com.google.inject.internal.*``. 
+into ``MethodNotFoundException`` s for ``com.google.inject.internal.*``.
 
 Core
-^^^^
+~~~~
 
 The ``constraint`` analyzer was generalized:
 
@@ -31,13 +89,13 @@ The ``constraint`` analyzer was generalized:
   reported.
 
 FlowSpec
-^^^^^^^^
+~~~~~~~~
 
 This release introduces FlowSpec, a new meta-language for intra-procedural
 data-flow analysis. See the documentation of the language for more details.
 
 Stratego
-^^^^^^^^
+~~~~~~~~
 
 Stratego received some small patches to improve user experience.
 
@@ -53,7 +111,7 @@ Stratego received some small patches to improve user experience.
   humans in properly naming things.
 
 SPT
-^^^
+~~~
 
 Problems related to escaping in string terms of expectations are fixed:
 
@@ -67,7 +125,7 @@ Problems related to escaping in string terms of expectations are fixed:
   expectation terms formatting with default ATerm formatting.
 
 NaBL2
-^^^^^
+~~~~~
 
 Small usability improvements:
 
@@ -93,7 +151,7 @@ Solver changes:
   strategy.
 
 SDF3
-^^^^
+~~~~
 
 The experimental support for generating Scala case classes from an SDF3
 specification was removed. It was incomplete, unmaintained and unused.
@@ -102,7 +160,7 @@ Added support for :ref:`Layout Declarations <layout-declarations>` for layout-se
 and pretty-printing.
 
 Eclipse
-^^^^^^^
+~~~~~~~
 
 Small fixes and improvements:
 
@@ -114,7 +172,7 @@ Small fixes and improvements:
 
 
 IntelliJ
-^^^^^^^^
+~~~~~~~~
 
 Small fixes and improvements:
 
