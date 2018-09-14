@@ -1,5 +1,5 @@
 =============
-Configuration
+Configuration (outdated, to be updated)
 =============
 
 We will show you how to prepare your project for use with FlowSpec, and
@@ -96,10 +96,10 @@ Add the following lines to your main ``trans/LANGUAGE.str``.
 
    rules
 
-     editor-analyze = analyze(desugar-pre,desugar-post)
+     editor-analyze = nabl2-analyze(desugar-pre)
 
 If your language does not have a desugaring step, use
-``analyze(id,id)`` instead.
+``nabl2-analyze(id)`` instead.
 
 Finally, we will add reference resolution and menus to access the
 result of analysis, by adding the following lines to

@@ -1,5 +1,5 @@
 ============
-Stratego API
+Stratego API (to be extended)
 ============
 
 .. role:: flowspec(code)
