@@ -1,5 +1,5 @@
 ============
-Stratego API (to be extended)
+Stratego API
 ============
 
 .. role:: flowspec(code)
@@ -29,50 +29,321 @@ code (source dependency), and an import of ``flowspec/api``.
 
      flowspec/api
 
-Editor message based on analysis
---------------------------------
+Running the analysis
+--------------------
 
-Several aspects of the NaBL2 analysis process can be customized by
-:ref:`implementing hooks <nabl2-custom-analysis>` in Stratego. 
-During the so-called *final* phase, FlowSpec has run its analysis,
-and this information is available to be used for creating custom
-notes, warnings and errors. 
+There are strategies to integrate FlowSpec analysis in the NaBL2 analysis, and strategies for doing both NaBL2 analysis and FlowSpec analysis on an AST. 
+
+Integrated into NaBL2 analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These can be used in the final phase of the NaBL2 analysis process using the :ref:`Stratego hooks <nabl2-custom-analysis>`. 
+
+.. code-block:: stratego
+
+    /**
+     * Analyze the given AST with FlowSpec.
+     * The FlowSpec analysis is added to given NaBL2 analysis result and returned.
+     *
+     * @param analysis:Analysis
+     * @param propnames:String or List(String)
+     * @type ast:Term -> Analysis
+     */
+    flowspec-analyze(|analysis)
+
+    /**
+     * Analyze the given AST with FlowSpec, but only the given FlowSpec properties.
+     * The FlowSpec analysis is added to given NaBL2 analysis result and returned.
+     *
+     * @param analysis:Analysis
+     * @param propnames:String or List(String)
+     * @type ast:Term -> Analysis
+     */
+    flowspec-analyze(|analysis, propnames)
+
+The analysis results are also usable at that point for generating editor messages. 
+
+Running the analysis manually
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sometimes you need data-flow analysis between transformations which change the program. That means you need to run the analysis just before a transformation to have analysis results corresponding to the current program. 
+
+The following strategies execute the analysis and help with consuming the resulting tuple. 
+
+.. code-block:: stratego
+
+    /**
+     * Analyze the given AST with NaBL2 and FlowSpec
+     *
+     * @param resource:String
+     * @type ast:Term -> (ast:Term, Analysis, errors:List(EditorMessage), warnings:List(EditorMessage), notes:List(EditorMessage))
+     */
+    flowspec-analyze-ast(|resource)
+
+    /**
+     * Analyze the given AST with NaBL2 and FlowSpec.
+     * Transform the AST with pre before the FlowSpec analysis, and with post after the FlowSpec analysis.
+     *
+     * @param pre:Term -> Term
+     * @param post:Term -> Term
+     * @param resource:String
+     * @type ast:Term -> (ast:Term, Analysis, errors:List(EditorMessage), warnings:List(EditorMessage), notes:List(EditorMessage))
+     */
+    flowspec-analyze-ast(pre,post|resource)
+
+    /**
+     * Analyze the given AST with NaBL2 and FlowSpec, but only the given FlowSpec properties.
+     *
+     * @param resource:String
+     * @param propnames:String or List(String)
+     * @type ast:Term -> (ast:Term, Analysis, errors:List(EditorMessage), warnings:List(EditorMessage), notes:List(EditorMessage))
+     */
+    flowspec-analyze-ast(|resource, propname)
+
+    /**
+     * Analyze the given AST with NaBL2 and FlowSpec, but only the given FlowSpec properties.
+     * Transform the AST with pre before the FlowSpec analysis, and with post after the FlowSpec analysis.
+     *
+     * @param pre:Term -> Term
+     * @param post:Term -> Term
+     * @param resource:String
+     * @param propnames:String or List(String)
+     * @type ast:Term -> (ast:Term, Analysis, errors:List(EditorMessage), warnings:List(EditorMessage), notes:List(EditorMessage))
+     */
+    flowspec-analyze-ast(pre,post|resource, propnames)
+
+    /**
+     * Take the analyze-ast 5-tuple output and return the result of applying the given strategy to the AST.
+     * Note that the strategy takes the analysis object as a term argument.
+     *
+     * @param s(|Analysis): Term -> Term
+     * @type ast: (ast:Term, Analysis, errors:List(EditorMessage), warnings:List(EditorMessage), notes:List(EditorMessage)) -> Term
+     */
+    flowspec-then(s)
+
+    /**
+     * Analyze the given AST with NaBL2 and FlowSpec, but only the given FlowSpec properties.
+     * Then return the result of applying the given strategy to the AST. 
+     * Note that the strategy takes the analysis object as a term argument.
+     *
+     * @param s(|Analysis): Term -> Term
+     * @param resource:String
+     * @param propnames:String or List(String)
+     * @type ast:Term -> Term
+     */
+    flowspec-analyze-ast-then(s|resource, propnames)
+
+    /**
+     * Analyze the given AST with NaBL2 and FlowSpec, but only the given FlowSpec properties.
+     * Transform the AST with pre before the FlowSpec analysis, and with post after the FlowSpec analysis.
+     * Then return the result of applying the given strategy to the AST. 
+     * Note that the strategy takes the analysis object as a term argument.
+     *
+     * @param pre:Term -> Term
+     * @param post:Term -> Term
+     * @param s(|Analysis): Term -> Term
+     * @param resource:String
+     * @param propnames:String or List(String)
+     * @type ast:Term -> Term
+     */
+    flowspec-analyze-ast-then(pre, post, s|resource, propnames)
 
 Querying analysis
 -----------------
 
-The analysis API gives access to the result of analysis. The analysis
-result is available during the final custom analysis step, or in
-post-analysis transformations.
-
-The NaBL2 API defines several strategies to get an analysis term by resource
-name or from an AST node :ref:`here <nabl2-get-analysis-result>`. This analysis
+The NaBL2 API defines several :ref:`strategies to get an analysis term by resource
+name or from an AST node <nabl2-get-analysis-result>`. This analysis
 term can then be passed to the querying strategies that give access to the data
-flow properties
+flow properties, *if* you hooked FlowSpec into the NaBL2 analysis process.
+
+The other way to get the analysis term is to execute the analysis with the `flowspec-analyze-ast*` variants. 
+
+Control-flow graph
+^^^^^^^^^^^^^^^^^^
+
+There are a number of strategies to get the control-flow graph nodes associated with an AST fragment, as well as control-flow graph navigation strategies and AST search strategies to get back to the AST from a control-flow graph node. Note that querying the control-flow graph is cheap but finding the way back from the control-flow graph to the AST is more expensive. 
+
+.. code-block:: stratego
+
+    /**
+     * Get the control flow graph node associated with the given term. 
+     *
+     * @param a : Analysis
+     * @type term:Term -> CFGNode
+     */
+    flowspec-get-cfg-node(|a)
+
+    /**
+     * Get the control flow graph start node associated with the given term.
+     *
+     * @param a : Analysis
+     * @type term:Term -> CFGNode
+     */
+    flowspec-get-cfg-start-node(|a)
+
+    /**
+     * Get the control flow graph start node associated with the given term.
+     *
+     * @param a : Analysis
+     * @type term:Term -> CFGNode
+     */
+    flowspec-get-cfg-end-node(|a)
+
+    /**
+     * Get the control flow graph start node associated with the given term.
+     *
+     * @param a : Analysis
+     * @type term:Term -> CFGNode
+     */
+    flowspec-get-cfg-entry-node(|a)
+
+    /**
+     * Get the control flow graph start node associated with the given term.
+     *
+     * @param a : Analysis
+     * @type term:Term -> CFGNode
+     */
+    flowspec-get-cfg-exit-node(|a)
+
+    /**
+     * Get the control flow graph start node associated with the given term. 
+     *
+     * @param a : Analysis
+     * @type term:Term -> CFGNode
+     */
+    flowspec-get-cfg-prev-nodes(|a)
+
+    /**
+     * Get the control flow graph start node associated with the given term. 
+     *
+     * @param a : Analysis
+     * @type term:Term -> CFGNode
+     */
+    flowspec-get-cfg-next-nodes(|a)
+
+    /**
+     * Find AST node corresponding to the CFGNode back again
+     *
+     * @param ast : Term
+     * @type node:CFGNode -> Term
+     */
+    flowspec-cfg-node-ast(|ast)
+
+    /**
+     * Find AST node corresponding to the CFGNode back again
+     *
+     * @param ast : Term
+     * @type pos:Position -> Term
+     */
+    flowspec-pos-ast(|ast)
+
+    /**
+     * Find parent of AST node corresponding to the CFGNode back again by matching the parent with
+     *  the parent argument and giving back the child that is likely to be a match to the CFG node.
+     *
+     * @param parent : Term -> Term
+     * @param ast : Term
+     * @type node:CFGNode -> Term
+     */
+    flowspec-cfg-node-ast(parent|ast)
+
+    /**
+     * Find parent of AST node corresponding to the CFGNode back again by matching the parent with
+     *  the parent argument and giving back the child that is likely to be a match to the CFG node.
+     *
+     * @param parent : Term -> Term
+     * @param ast : Term
+     * @type pos:Position -> Term
+     */
+    flowspec-pos-ast(parent|ast)
+
+    /**
+     * Get the position of an AST node.
+     *
+     * @type Term -> Position
+     */
+    flowspec-get-position
 
 Data flow properties
 ^^^^^^^^^^^^^^^^^^^^
 
+FlowSpec properties can be read in two versions, *pre* and *post*. These indicate whether the effect of the cfg node has been applied yet. Whether or not it is applied depends on the direction of the analysis. *pre* for a forward analysis is without the effect of the node, but *pre* for a backward analysis includes the effect of the node. 
+
+Note that each strategy can simply take the term that's associated with the control-flow graph node. But the control-flow graph node itself is also an accepted input.
+
 .. code-block:: stratego
 
-   /**
-    * Get the property of the control flow graph node associated with
-    * the given term. The value returned is the value of the property
-    * _before_ the effect of the control flow graph node. 
-    *
-    * @param a : Analysis
-    * @param prop : String
-    * @type decl:Term -> Term
-    */
-   flowspec-get-property-pre(|a,prop)
+    /**
+     * Get the property of the control flow graph node associated with
+     * the given term. The value returned is the value of the property
+     * _before_ the effect of the control flow graph node. 
+     *
+     * @param a : Analysis
+     * @param prop : String
+     * @type term:Term -> Term
+     */
+    flowspec-get-property-pre(|a, propname)
 
-   /**
-    * Get the property of the control flow graph node associated with
-    * the given term. The value returned is the value of the property
-    * _after_ the effect of the control flow graph node. 
-    *
-    * @param a : Analysis
-    * @param prop : String
-    * @type decl:Term -> Term
-    */
-   flowspec-get-property-post(|a,prop)
+    /**
+     * Get the property of the control flow graph node associated with
+     * the given term. The value returned is the value of the property
+     * _after_ the effect of the control flow graph node. 
+     *
+     * @param a : Analysis
+     * @param prop : String
+     * @type term:Term -> Term
+     */
+    flowspec-get-property-post(|a, propname)
+
+    /**
+     * Get the property of the control flow graph node associated with
+     * the given term. The value returned is the value of the property
+     * _after_ the effect of the control flow graph node. If no node
+     * is found the exit control flow graph node of the AST node is
+     * queried for its post-effect property value. 
+     *
+     * @param a : Analysis
+     * @param prop : String
+     * @type term:Term -> Term
+     */
+    flowspec-get-property-post-or-exit-post(|analysis-result, analysis-name)
+
+FlowSpec data helpers
+"""""""""""""""""""""
+
+FlowSpec sets and maps are passed back to Stratego as lists wrapped in ``Set`` and ``Map`` constructors. As a convenience, the most common operations are lifted and added to the flowspec API:
+
+.. code-block:: stratego
+
+    /**
+     * Check if a FlowSpec Set contains an element. Succeeds if the given strategy succeeds for at
+     * least one element.
+     *
+     * @param s: Term -?>
+     * @type FlowSpecSet -?> FlowSpecSet
+     */
+    flowspec-set-contains(s)
+
+Hover text
+----------
+
+For a hover implementation that displays name, type and FlowSpec properties use:
+
+.. code-block:: stratego
+
+    /**
+     * Provides a strategy for a hover message with as much information as possible about name, type
+     * (from NaBl2) and FlowSpec properties. 
+     */
+    flowspec-editor-hover(language-pp)
+
+Profiling information
+---------------------
+
+.. code-block:: stratego
+
+    /**
+     * If flowspec-debug-profile is extended to succeed, some timing information will be printed in
+     * stderr when using flowspec-analyze*.
+     */
+    flowspec-debug-profile
