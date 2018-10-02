@@ -42,7 +42,7 @@ Terms and patterns
 
 Terms can be constructed terms from either the abstract syntax tree or a user-defined algebraic data type. Tuples are built-in, as are sets and maps. The latter two have special construction and comprehension syntax. 
 
-.. code-block:: doc-cf
+.. code-block:: doc-lex
 
   term = ctor-id "(" {term ","}* ")"
        | "(" {term ","}* ")"
@@ -133,7 +133,7 @@ Control Flow
 The first step of analysis in FlowSpec is to define the control-flow through a program. This connection is established with rules that match patterns of abstract syntax and providing the control-flow of that pattern. 
 
 Rules
------
+"""""
 
 A normal control-flow rule maps an abstract syntax pattern to a list of control-flow edges. 
 
@@ -143,7 +143,7 @@ A normal control-flow rule maps an abstract syntax pattern to a list of control-
 
 These edges can start from the special ``entry`` and ``exit`` control-flow nodes that are provided to connect the pattern to the wider control-flow graph. Subtrees matched in the abstract syntax pattern are usually used directly at one side of an edge to connect their corresponding sub-control-flow graph. They can also be inserted as direct control-flow nodes using the ``node`` keyword. This is rarely used. More likely, you may want to insert the whole matched pattern as a node. The ``this`` keyword can be used for that. 
 
-.. code-block:: doc-cf
+.. code-block:: doc-lex
 
   cfg-edges = {cfg-edge-end "->"}+
 
@@ -167,11 +167,11 @@ A common case exists where you merely wish to register a pattern as a control-fl
      cfg Add(l, r) = entry -> l -> r -> this -> exit
 
 Root rules
-----------
+""""""""""
 
 A root of the control-flow defines the ``start`` and ``end`` nodes of a control-flow graph. You can have multiple control-flow graphs in the same AST, but not nested ones. Each control-flow graph has a unique ``start`` and ``end`` node. A ``root`` control-flow rule introduces the ``start`` and ``end`` node. In other control-flow rules these nodes can be referred to for abrupt termination. 
 
-.. code-block:: doc-cf
+.. code-block:: doc-lex
 
   cfg-edge-end = ...
                | "start"
@@ -206,23 +206,23 @@ Data-flow analysis in FlowSpec is based on named *properties*. Data-flow propert
     [property-rule*]
 
 Definitions
------------
+"""""""""""
 
 A property definition consists only of the property name, with a lowercase start and otherwise camelcase for multiple words. The lattice looks like a type expression but uses a lattice name. This lattice instance is used internally for the data-flow computation. 
 
-.. code-block:: doc-cf
+.. code-block:: doc-lex
 
     property-definition = name ":" lattice
 
 
 Rules
------
+"""""
 
 A property rule consists of the name of the property, a pattern within round brackets and an expression after the equals sign. The pattern is matches a control-flow graph node by its originating AST, and another control-flow graph node before or after it by name. The expression describes the effect of the matched control-flow graph node, in terms of a change to the value from the adjacent control-flow graph node matched. All rules of a property need to propagate the information in the same way, either forward or backward.
 
 Each property needs to have at least one rule with the *start* or *end* pattern. This is pattern matches the extremal node of a control-flow graph and defines the initial value there. With set-based analyses this is usually the empty set, as usually nothing is known at that point. The extremal node needs to match the direction of the rules, with *start* for a forward analysis and *end* of a backward analysis. 
 
-.. code-block:: doc-cf
+.. code-block:: doc-lex
 
     property-rule = name "(" prop-pattern ")" "=" expr
     prop-pattern = name "->" pattern
