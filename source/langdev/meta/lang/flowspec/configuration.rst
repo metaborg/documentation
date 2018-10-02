@@ -1,5 +1,5 @@
 =============
-Configuration (outdated, to be updated)
+Configuration
 =============
 
 We will show you how to prepare your project for use with FlowSpec, and
@@ -101,6 +101,20 @@ Add the following lines to your main ``trans/LANGUAGE.str``.
 If your language does not have a desugaring step, use
 ``nabl2-analyze(id)`` instead.
 
+Add an NaBL2 specification. The most minimal one is the following.
+
+.. code-block:: nabl2
+
+    module analysis/minimal
+
+    rules
+
+    init.
+
+    [[ _ ]].
+
+Running and integrating the FlowSpec analysis is explained on the :doc:`Stratego API page <stratego-api>`. 
+
 Finally, we will add reference resolution and menus to access the
 result of analysis, by adding the following lines to
 ``editor/Main.esv``.
@@ -121,11 +135,13 @@ You can now continue to the :doc:`example specification here
 Inspecting analysis results
 ---------------------------
 
-You can debug your specification by inspecting the result of analysis,
-and by logging a trace of the rules that get applied during constraint
-generation.
+You can debug your specification by inspecting the result of analysis, and by logging a trace of
+the rules that get applied during constraint generation.
 
-The result of analysis can be inspected, by selecting elements from
-the ``Spoofax > FlowSpec Analysis`` the menu. For multifile projects, use the
-``Project`` results, or the ``File`` results for singlefile projects.
+The result of analysis can be inspected, by selecting elements from the 
+``Spoofax > FlowSpec Analysis`` the menu. For multi-file projects, use the ``Project`` results, or
+the ``File`` results for single-file projects. The result is given as a control-flow graph annotated
+with data-flow properties in the DOT format used by GraphViz. If you have GraphViz installed, you
+can set the ``dot`` executable in the settings of the graphviz editor to allow you to jump straight
+from Eclipse to the rendered graph. 
 
