@@ -12,5 +12,6 @@ Parsing a program text results in an abstract syntax tree. Stratego is a languag
    strategoxt/index
    lib/index
    concrete-syntax
+   incremental-compilation
 
 ..   stratego.rst
