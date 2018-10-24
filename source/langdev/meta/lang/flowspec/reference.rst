@@ -122,7 +122,7 @@ External imports allow you to import module of for example Stratego, to import t
        signatures/-
 
 Control Flow
-^^^^^^^^^^^^
+------------
 
 .. code-block:: doc-cf-[
 
@@ -133,7 +133,7 @@ Control Flow
 The first step of analysis in FlowSpec is to define the control-flow through a program. This connection is established with rules that match patterns of abstract syntax and providing the control-flow of that pattern. 
 
 Rules
-"""""
+^^^^^
 
 A normal control-flow rule maps an abstract syntax pattern to a list of control-flow edges. 
 
@@ -167,7 +167,7 @@ A common case exists where you merely wish to register a pattern as a control-fl
      cfg Add(l, r) = entry -> l -> r -> this -> exit
 
 Root rules
-""""""""""
+^^^^^^^^^^
 
 A root of the control-flow defines the ``start`` and ``end`` nodes of a control-flow graph. You can have multiple control-flow graphs in the same AST, but not nested ones. Each control-flow graph has a unique ``start`` and ``end`` node. A ``root`` control-flow rule introduces the ``start`` and ``end`` node. In other control-flow rules these nodes can be referred to for abrupt termination. 
 
@@ -189,7 +189,7 @@ A root of the control-flow defines the ``start`` and ``end`` nodes of a control-
      cfg Return(_) = entry -> this -> end
 
 Data Flow
-^^^^^^^^^
+---------
 
 Data-flow analysis in FlowSpec is based on named *properties*. Data-flow properties are defined in a property definition section, their rules are defined in a property rules section. Properties have an associated lattices, whose operations take care of merging data at merge points in the control-flow. 
 
@@ -206,7 +206,7 @@ Data-flow analysis in FlowSpec is based on named *properties*. Data-flow propert
     [property-rule*]
 
 Definitions
-"""""""""""
+^^^^^^^^^^^
 
 A property definition consists only of the property name, with a lowercase start and otherwise camelcase for multiple words. The lattice looks like a type expression but uses a lattice name. This lattice instance is used internally for the data-flow computation. 
 
@@ -216,7 +216,7 @@ A property definition consists only of the property name, with a lowercase start
 
 
 Rules
-"""""
+^^^^^
 
 A property rule consists of the name of the property, a pattern within round brackets and an expression after the equals sign. The pattern is matches a control-flow graph node by its originating AST, and another control-flow graph node before or after it by name. The expression describes the effect of the matched control-flow graph node, in terms of a change to the value from the adjacent control-flow graph node matched. All rules of a property need to propagate the information in the same way, either forward or backward.
 
@@ -231,7 +231,7 @@ Each property needs to have at least one rule with the *start* or *end* pattern.
                  | pattern "." "end"
 
 Lattices
-^^^^^^^^
+--------
 
 Lattices definitions are defined in their own section. 
 
@@ -252,7 +252,7 @@ Each lattice definition consists of a name and a number of components: the under
       bottom = [expr]
 
 Types
-^^^^^
+-----
 
 Algebraic data types can be defined in a types block. 
 
@@ -270,7 +270,7 @@ Each type has a name and one or more option preceded by a vertical bar. Each opt
       [("|" ctor-id "(" {type ","}* ")")+]
 
 Expressions
-^^^^^^^^^^^
+-----------
 
 Expressions consist of:
 
@@ -284,7 +284,7 @@ Expressions consist of:
   8. property lookup in property rule right-hand sides (looks like single argument function application)
 
 Functions
-^^^^^^^^^
+---------
 
 Functions are defined in their own section. 
 
