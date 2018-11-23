@@ -61,7 +61,40 @@ These can be used in the final phase of the NaBL2 analysis process using the :re
      */
     flowspec-analyze(|analysis, propnames)
 
-The analysis results are also usable at that point for generating editor messages. 
+The analysis results are also usable at that point for generating editor messages. Integration with NaBL2 is done by giving the FlowSpec analysis result as the "custom final analysis result":
+
+.. code-block:: stratego
+
+    nabl2-custom-analysis-unit-hook(|a):
+        (resource, ast, custom-initial-result) -> (resource, ast)
+
+    nabl2-custom-analysis-final-hook(|a):
+        (resource, custom-initial-result, custom-unit-results) -> (errors, warnings, notes, custom-final-result)
+      with asts     := <map(\(ast-resource, ast) -> <nabl2--index-ast(|ast-resource)> ast\)> custom-unit-results ; // workaround for https://yellowgrass.org/issue/NaBL2/54
+           custom-final-result := <flowspec-analyze(|a)> asts ;
+           errors   := ... ;
+           warnings := ... ;
+           notes    := ...
+
+This propagates the AST of each unit from the unit phase, and analyzes all of them together in the final phase. The ``custom-final-result`` is returned so that NaBL2 preserves it for later usage. FlowSpec provides convenience functions that request the custom final result again later:
+
+.. code-block:: stratego
+
+    /**
+     * Get analysis for the given AST node. Includes flowspec analysis if custom final hook is set up
+     *  correctly.
+     *
+     * @type node:Term -> Analysis
+     */
+    flowspec-get-ast-analysis
+
+    /**
+     * Get analysis for the given resource. Includes flowspec analysis if custom final hook is set up
+     *  correctly.
+     *
+     * @type filename:String -> Analysis
+     */
+    flowspec-get-resource-analysis
 
 Running the analysis manually
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -323,6 +356,23 @@ FlowSpec sets and maps are passed back to Stratego as lists wrapped in ``Set`` a
      * @type FlowSpecSet -?> FlowSpecSet
      */
     flowspec-set-contains(s)
+
+    /**
+     * Look up elements in a FlowSpec Set of pairs. Returns the right elements of all pairs where
+     * the given strategy succeeds on the left element.
+     *
+     * @param s: Term -?>
+     * @type FlowSpecSet -?> List(Term)
+     */
+    flowspec-set-lookup(s)
+
+    /**
+     * Look up a key in a FlowSpec Map. Returns the element if the given key exists in the map.
+     *
+     * @param k: Term
+     * @type FlowSpecMap -?> Term
+     */
+    flowspec-map-lookup(|k)
 
 Hover text
 ----------
