@@ -139,7 +139,7 @@ A normal control-flow rule maps an abstract syntax pattern to a list of control-
 
 .. code-block:: doc-cf-[
 
-  cfg [pattern*] = [{cfg-edges ","}+]
+  [pattern*] = [{cfg-edges ","}+]
 
 These edges can start from the special ``entry`` and ``exit`` control-flow nodes that are provided to connect the pattern to the wider control-flow graph. Subtrees matched in the abstract syntax pattern are usually used directly at one side of an edge to connect their corresponding sub-control-flow graph. They can also be inserted as direct control-flow nodes using the ``node`` keyword. This is rarely used. More likely, you may want to insert the whole matched pattern as a node. The ``this`` keyword can be used for that. 
 
@@ -153,7 +153,7 @@ These edges can start from the special ``entry`` and ``exit`` control-flow nodes
                | "node" variable
                | "this"
 
-A common case exists where you merely wish to register a pattern as a control-flow graph node. Rather than write out ``cfg [pattern] = entry -> this -> exit``, you can write ``node [pattern]`` for this. 
+A common case exists where you merely wish to register a pattern as a control-flow graph node. Rather than write out ``[pattern] = entry -> this -> exit``, you can write ``node [pattern]`` for this. 
 
 *Example.* Module that defines control-flow for some expressions
 
@@ -164,7 +164,7 @@ A common case exists where you merely wish to register a pattern as a control-fl
    control-flow rules
   
      node Int(_)
-     cfg Add(l, r) = entry -> l -> r -> this -> exit
+     Add(l, r) = entry -> l -> r -> this -> exit
 
 Root rules
 ^^^^^^^^^^
@@ -185,8 +185,8 @@ A root of the control-flow defines the ``start`` and ``end`` nodes of a control-
   
    control-flow rules
   
-     cfg root Procedure(args, _, body) = start -> args -> body -> end
-     cfg Return(_) = entry -> this -> end
+     root Procedure(args, _, body) = start -> args -> body -> end
+     Return(_) = entry -> this -> end
 
 Data Flow
 ---------
