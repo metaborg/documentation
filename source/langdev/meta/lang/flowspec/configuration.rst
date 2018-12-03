@@ -135,8 +135,7 @@ You can now continue to the :doc:`example specification here
 Inspecting analysis results
 ---------------------------
 
-You can debug your specification by inspecting the result of analysis, and by logging a trace of
-the rules that get applied during constraint generation.
+You can debug your specification by inspecting the result of analysis.
 
 The result of analysis can be inspected, by selecting elements from the 
 ``Spoofax > FlowSpec Analysis`` the menu. For multi-file projects, use the ``Project`` results, or

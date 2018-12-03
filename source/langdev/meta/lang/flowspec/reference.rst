@@ -218,7 +218,7 @@ A property definition consists only of the property name, with a lowercase start
 Rules
 ^^^^^
 
-A property rule consists of the name of the property, a pattern within round brackets and an expression after the equals sign. The pattern is matches a control-flow graph node by its originating AST, and another control-flow graph node before or after it by name. The expression describes the effect of the matched control-flow graph node, in terms of a change to the value from the adjacent control-flow graph node matched. All rules of a property need to propagate the information in the same way, either forward or backward.
+A property rule consists of the name of the property, a pattern within round brackets and an expression after the equals sign. The pattern matches a control-flow graph node by its originating AST and another control-flow graph node before or after it by name. The expression describes the effect of the matched control-flow graph node, in terms of a change to the value from the adjacent control-flow graph node matched. All rules of a property need to propagate the information in the same way, either forward or backward.
 
 Each property needs to have at least one rule with the *start* or *end* pattern. This is pattern matches the extremal node of a control-flow graph and defines the initial value there. With set-based analyses this is usually the empty set, as usually nothing is known at that point. The extremal node needs to match the direction of the rules, with *start* for a forward analysis and *end* of a backward analysis. 
 
@@ -272,16 +272,63 @@ Each type has a name and one or more option preceded by a vertical bar. Each opt
 Expressions
 -----------
 
-Expressions consist of:
+There are many expressions supported to express (abstract) semantics of control-flow nodes.
 
-  1. integer operations (addition, subtraction, multiplication, division, modulo, negate, comparison)
-  2. boolean operations (and, or, not)
-  3. set/map operations (comprehension, union, intersection, set/map minus, containment/lookup)
-  4. value construction (integers, boolean, strings, terms, sets, maps)
-  5. pattern matching
-  6. references (variables matched in a pattern, top or bottom of a lattice)
-  7. function application (user defined or lattice operation (leq, lub))
-  8. property lookup in property rule right-hand sides (looks like single argument function application)
+Integers
+^^^^^^^^
+
+Integer literals are as usual: an optional minus sign followed by one or more decimals. 
+
+Supported integer operations are
+  1. addition [``+``], 
+  2. subtraction [``-``], 
+  3. multiplication [``*``], 
+  4. division [``/``], 
+  5. modulo [``%``], 
+  6. negate [``-``], 
+  7. comparison [``<``, ``<=``, ``>``, ``>=``, ``==``, ``!=``].
+
+Booleans
+^^^^^^^^
+
+Boolean literals ``true`` and ``false`` are available as well as the usual boolean operations:
+
+  1. and [``&&``]
+  2. or [``||``]
+  3. not [``!``]
+
+Sets and Maps
+^^^^^^^^^^^^^
+
+Set and map literals are both denoted with curly braces. A set literal contains a comma-separated list of elements: ``{elem1, elem2, elem3}``. A map literal contains a comma-separated list of bindings of the form ``key |-> value``. 
+
+Operations on sets and maps include
+  1. union [``\/``], 
+  2. intersection [``/\``], 
+  3. set/map minus [``\``], 
+  4. containment/lookup [``in``].
+
+There are also comprehensions of the form ``{ new | old <- set, conditions }`` or ``{ newkey |-> newvalue | oldkey |-> oldvalue <- map, condition }``, where new elements or bindings are gathered based on old ones from a set or map, as long as the boolean condition expressions hold. Such a condition expression may also be a match expression without a body for the arms. This is commonly used to filter maps or sets. 
+
+Match expressions
+^^^^^^^^^^^^^^^^^
+
+Pattern matching can be done with a match expression: ``match expr with | pattern1 => expr2 | pattern2 => expr2``, where ``expr`` are expressions and ``pattern`` are patterns. Terms and patterns are defined at the start of the reference. 
+
+Variables and references
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Pattern matching can introduce variables. Other references include values in the lattice, such as ``MaySet.bottom`` or ``MustSet.top``. 
+
+Function application
+^^^^^^^^^^^^^^^^^^^^
+
+User defined functions are available to be called with ``functionname(arg1, arg2)``. Lattice operations can also be called with for example ``MaySet.lub(s1, s2)``. 
+
+Property lookup
+^^^^^^^^^^^^^^^
+
+Property lookup is similar to a function call, although property lookup only ever has a single argument. 
 
 Functions
 ---------
