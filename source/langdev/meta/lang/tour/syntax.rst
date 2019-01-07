@@ -46,7 +46,7 @@ This is defined by the following productions::
 
 If we take a closer look at the ``Stat.Bind`` production we see the following ingredients:
 
-* The production defines one of two altneratives for the ``Stat`` sort. The alternatives of a sort are defined by separate productions. This makes it possible to introduce productions in an order that makes sense for presenting a language definition. Instead of defining all productions for a sort in one block, it is rather possible to define the productions for different sorts that together define a language concept together. Furthermore, it enables `modular` definition of syntax.
+* The production defines one of two alternatives for the ``Stat`` sort. The alternatives of a sort are defined by separate productions. This makes it possible to introduce productions in an order that makes sense for presenting a language definition. Instead of defining all productions for a sort in one block, it is rather possible to define the productions for different sorts that together define a language concept together. Furthermore, it enables `modular` definition of syntax.
 
 * The body a production defines the composition of sub-phrases that it corresponds to. Thus, the body ``<<ID> = <Exp>;>`` defines a bind statement as the composition of an identifier, followed by an equal sign, followed by an expression, terminated by a semicolon.
 
