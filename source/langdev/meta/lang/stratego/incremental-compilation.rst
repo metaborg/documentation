@@ -31,3 +31,5 @@ The incremental compilation scheme does not do any static checking, so it will c
 This incremental compilation implementation does not support overlays. Overlays are likely to become deprecated in Stratego. 
 
 Certain edge-cases with higher-order strategies are not supported. In particular, passing a higher-order strategy from the standard library to another strategy is not supported (e.g. ``foo(map)`` where ``foo(s) = s(bar)``). 
+
+`A bug <https://yellowgrass.org/issue/Spoofax/249>`_ currently prohibits the use of external strategies in combination with the incremental compiler. 
