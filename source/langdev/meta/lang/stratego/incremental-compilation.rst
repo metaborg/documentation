@@ -3,12 +3,15 @@ Incremental Compilation for Stratego
 
 .. note :: This feature will appear in the next version of Spoofax (2.6.0). It is currently only available in the nightly build. 
 
-.. warning :: This feature is still experimental, please open issues when your build fails or your program has different behaviour under this build setting.
+.. warning :: This feature is still experimental, please `open issues <https://yellowgrass.org/project/Spoofax>`_ when your build fails or your program has different behaviour under this build setting.
 
 The Stratego compiler is usually the slowest part in the build of a Spoofax project. To improve on the development experience, we have added an incremental compilation option for Stratego. This can be opted into by editing the ``metaborg.yaml`` file:
 
 .. code:: yaml
 
+  dependencies:
+    source:
+    - org.metaborg:org.metaborg.meta.lang.stratego:${metaborgVersion}
   language:
     stratego:
       build: incremental
@@ -28,8 +31,4 @@ Limitations
 
 The incremental compilation scheme does not do any static checking, so it will compile modules that refer to non-existing strategies. The result is broken Java code, which may still be compiled by the Eclipse Java Compiler. Keep an eye on the `src-gen/stratego-java` directory in your project explorer. If there are error markers on it, something went wrong.
 
-This incremental compilation implementation does not support overlays. Overlays are likely to become deprecated in Stratego. 
-
 Certain edge-cases with higher-order strategies are not supported. In particular, passing a higher-order strategy from the standard library to another strategy is not supported (e.g. ``foo(map)`` where ``foo(s) = s(bar)``). 
-
-`A bug <https://yellowgrass.org/issue/Spoofax/249>`_ currently prohibits the use of external strategies in combination with the incremental compiler. 
