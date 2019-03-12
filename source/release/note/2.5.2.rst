@@ -1,0 +1,23 @@
+=============
+Spoofax 2.5.2
+=============
+
+Changes
+-------
+
+NaBL2
+~~~~~
+
+A bug introduced in 2.5.1 would remove the parse error in the editor as soon as analysis failed. This bug has been fixed. 
+
+FlowSpec
+~~~~~~~~
+
+A whole host of bugs has been fixed in FlowSpec, mostly ones that lead to no clear error message. Much of the system has also been optimized for speed. 
+
+Stratego
+~~~~~~~~
+
+Separate compilation for Stratego was added in this release. It is currently still experimental. It is documented as a separate item under the Stratego documentation, including instructions on how to opt-in to it and what its limitations are.
+
+The Stratego primitives ``all``, ``some`` and ``one`` sometimes lost annotations and origins of list tails when an element in the list was transformed. This bug has been fixed. 

@@ -9,9 +9,3 @@ See the corresponding :ref:`migration guide <2.6.0-migration-guide>` for migrati
 Changes
 -------
 
-Stratego
-~~~~~~~~
-
-The incremental compiler for Stratego landed in this release. It is documented as a separate item under the Stratego documentation, including instructions on how to opt-in to it and what its limitations are.
-
-The Stratego primitives ``all``, ``some`` and ``one`` sometimes lost annotations and origins of list tails when an element in the list was transformed. This bug has been fixed. 
