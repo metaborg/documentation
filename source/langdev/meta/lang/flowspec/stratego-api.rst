@@ -65,7 +65,7 @@ The analysis results are also usable at that point for generating editor message
 
 .. code-block:: stratego
 
-    nabl2-custom-analysis-unit-hook(|a):
+    nabl2-custom-analysis-unit-hook:
         (resource, ast, custom-initial-result) -> (resource, ast)
 
     nabl2-custom-analysis-final-hook(|a):
