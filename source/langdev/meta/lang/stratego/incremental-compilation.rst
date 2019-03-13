@@ -30,3 +30,5 @@ Limitations
 The separate compilation scheme does not do any static checking yet, so it will compile modules that refer to non-existing strategies. The result is broken Java code, which may still be compiled by the Eclipse Java Compiler. Keep an eye on the `src-gen/stratego-java` directory in your project explorer. If there are error markers on it, something went wrong.
 
 Certain edge-cases with higher-order strategies are not supported. In particular, passing a higher-order strategy from the standard library to another strategy is not supported (e.g. ``foo(map)`` where ``foo(s) = s(bar)``). 
+
+Due to a bug in release 2.5.2, the separate compiler will fail the build if concrete syntax is used in Stratego code. 
