@@ -9,3 +9,7 @@ See the corresponding :ref:`migration guide <2.6.0-migration-guide>` for migrati
 Changes
 -------
 
+Parser
+~~~~~~
+
+- Added an incremental variant of the JSGLR2 parser.
