@@ -324,16 +324,29 @@ The following configuration options are optional and revert to default values wh
                  version: sdf2
 
       .. describe:: sdf2table
-        
+
         Version of sdf2table to use.
 
-        - Format: Either ``c`, ``java``, or ``dynamic``.
+        - Format: Either ``c``, ``java``, or ``dynamic``.
         - Default: ``c``
         - Example::
 
              language:
                sdf:
                  sdf2table: java
+
+      .. describe:: jsglr-version
+
+        Version of the JGSLR parser to use. The latter three options are extensions of ``v2``, which are described
+        `here <../meta/lang/sdf3/configuration.html#jsglr-version>`_.
+
+        - Format: Either ``v1``, ``v2``, ``data-dependent``, ``incremental``, or ``layout-sensitive``.
+        - Default: ``v1``
+        - Example::
+
+             language:
+               sdf:
+                 jsglr-version: v2
 
       .. describe:: placeholder
 

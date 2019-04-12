@@ -63,6 +63,9 @@ This configuration disables the SDF2 generation, and may cause problems when def
 this feature is not supported yet by SDF3. Furthermore, ``dynamic`` can be used instead of ``java``, to enable lazy parse table
 generation, where the parse table is generated while the program is parsed.
 
+JSGLR version
+=============
+
 An experimental new version of the SGLR parser implementation is available: JSGLR2. It supports parsing, imploding and
 syntax highlighting. Error reporting, recovery and completions are currently not supported. It can be enabled with:
 
@@ -72,23 +75,14 @@ syntax highlighting. Error reporting, recovery and completions are currently not
      sdf:
        jsglr-version: v2
 
-Two additional configurations of JSGLR2 can also be set enabling data-dependent or layout-sensitive parsing.
-Data-dependent SGLR2 solves deep priority conflicts using data-dependent parsing, which does not require duplicating the grammar productions.
-To enable data-dependent resolution of deep priority conflicts, the version of JSGLR2 needs to be set to:
+There are three extensions of JSGLR2 available. To use them, set the ``jsglr-version`` option to one of the following:
 
-.. code-block:: yaml
-
-   language:
-     sdf:
-       jsglr-version: data-dependent
-
-Final, JSGLR2 has been equipped with support for layout-sensitive parsing. This version can be enabled with:
-
-.. code-block:: yaml
-
-   language:
-     sdf:
-       jsglr-version: layout-sensitive
+:``data-dependent``:    Data-dependent JSGLR2 solves deep priority conflicts using data-dependent parsing, which does
+                        not require duplicating the grammar productions.
+:``incremental``:       Incremental JSGLR2 reuses previous parse results to speed up parsing. This extension is
+                        experimental and only available in the development version of Spoofax.
+:``layout-sensitive``:  Layout-sensitive JSGLR2 is documented in the
+                        `reference manual of SDF3 <reference.html#layout-sensitive-parsing>`_.
 
 .. warning:: Whenever changing any of these configurations, clean the project before rebuilding.
 
