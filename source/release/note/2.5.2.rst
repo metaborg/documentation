@@ -8,16 +8,78 @@ Changes
 NaBL2
 ~~~~~
 
-A bug introduced in 2.5.1 would remove the parse error in the editor as soon as analysis failed. This bug has been fixed. 
+A bug introduced in 2.5.2 would remove the parse error in the editor as soon as analysis failed. This bug has been fixed.
 
 FlowSpec
 ~~~~~~~~
 
-A whole host of bugs has been fixed in FlowSpec, mostly ones that lead to no clear error message. Much of the system has also been optimized for speed. 
+A whole host of bugs has been fixed in FlowSpec, mostly ones that lead to no clear error message. Much of the system has also been optimized for speed.
 
 Stratego
 ~~~~~~~~
 
 Separate compilation for Stratego was added in this release. It is currently still experimental. It is documented as a separate item under the Stratego documentation, including instructions on how to opt-in to it and what its limitations are.
 
-The Stratego primitives ``all``, ``some`` and ``one`` sometimes lost annotations and origins of list tails when an element in the list was transformed. This bug has been fixed. 
+The Stratego primitives ``all``, ``some`` and ``one`` sometimes lost annotations and origins of list tails when an element in the list was transformed. This bug has been fixed.
+
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.2-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.2-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.2-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.2-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.2-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.2-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.2-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.2-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.2-eclipse-linux-64_>`_
+- `macOS <2.5.2-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.2-eclipse-update-site|
+-  `Eclipse update site archive <2.5.2-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.2-intellij-update-site|
+-  `IntelliJ update site archive <2.5.2-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.2-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.2-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.2-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.2-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.2-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.2-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.2``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
