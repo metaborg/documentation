@@ -9,6 +9,11 @@ See the corresponding :ref:`migration guide <2.6.0-migration-guide>` for migrati
 Changes
 -------
 
+Overall
+~~~~~~~
+
+- Added support for getting the selected term in Stratego builders/transformations. In the builder tuple ``(node, _, ast, path, projectPath)``, the first term (``node``) is now the selected term when a builder is executed in the context of an editor with a selection. The term is selected by finding the outermost term that has an origin that fits in the selection.
+
 Parser
 ~~~~~~
 
