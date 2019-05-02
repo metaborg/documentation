@@ -2,6 +2,8 @@
 Spoofax 2.5.2
 =============
 
+Spoofax 2.5.2 is a minor bugfix and performance improvement release.
+
 Changes
 -------
 

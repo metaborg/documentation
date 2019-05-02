@@ -11,27 +11,3 @@ Changes
 
 Overall
 ~~~~~~~
-
-- Added support for getting the selected term in Stratego builders/transformations. In the builder tuple ``(node, _, ast, path, projectPath)``, the first term (``node``) is now the selected term when a builder is executed in the context of an editor with a selection. The term is selected by finding the outermost term that has an origin that fits in the selection.
-- Fixed a bug that prevented source transformations from being run if context or analysis were missing.
-- Changed constraint analyzer to support more multi-file scnearios.
-
-Parser
-~~~~~~
-
-- Added an incremental variant of the JSGLR2 parser.
-
-NaBL2
-~~~~~
-
-- Improved preformance of AST resolution lookups.
-
-Statix (experimental)
-~~~~~~~~~~~~~~~~~~~~~
-
-- Fixed bugs and improved performance.
-
-Eclipse
-~~~~~~~
-
-- Added a lifecycle mapping that adds a Spoofax nature to an imported spoofax-project.

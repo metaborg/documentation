@@ -1,0 +1,97 @@
+=============
+Spoofax 2.5.3
+=============
+
+Spoofax 2.5.3 is a minor release with bugfixes, performance improvements, and new small and/or experimental features.
+
+Changes
+-------
+
+Overall
+~~~~~~~
+
+- Added support for getting the selected term in Stratego builders/transformations. In the builder tuple ``(node, _, ast, path, projectPath)``, the first term (``node``) is now the selected term when a builder is executed in the context of an editor with a selection. The term is selected by finding the outermost term that has an origin that fits in the selection.
+- Fixed a bug that prevented source transformations from being run if context or analysis were missing.
+- Changed constraint analyzer to support more multi-file scenarios.
+
+JSGLR2
+~~~~~~
+
+- Added an incremental variant of the JSGLR2 parser (experimental).
+
+NaBL2
+~~~~~
+
+- Improved preformance of AST resolution lookups.
+
+Statix (experimental)
+~~~~~~~~~~~~~~~~~~~~~
+
+- Fixed bugs and improved performance.
+
+Eclipse
+~~~~~~~
+
+- Added a lifecycle mapping that adds a Spoofax nature to an imported spoofax-project.
+
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.3-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.3-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.3-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.3-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.3-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.3-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.3-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.3-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.3-eclipse-linux-64_>`_
+- `macOS <2.5.3-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.3-eclipse-update-site|
+-  `Eclipse update site archive <2.5.3-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.3-intellij-update-site|
+-  `IntelliJ update site archive <2.5.3-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.3-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.3-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.3-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.3-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.3-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.3-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.3``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.

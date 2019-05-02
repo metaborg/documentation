@@ -10,3 +10,4 @@
 .. include:: /include/hyperlink/download-2.5.0.rst
 .. include:: /include/hyperlink/download-2.5.1.rst
 .. include:: /include/hyperlink/download-2.5.2.rst
+.. include:: /include/hyperlink/download-2.5.3.rst
