@@ -1,0 +1,81 @@
+=============
+Spoofax 2.5.4
+=============
+
+Spoofax 2.5.4 is a minor bugfix release.
+
+Changes
+-------
+
+Maven
+~~~~~
+
+- Fixed failing SPT tests failing the build immediately. All SPT files are processed and a summary of how many tests failed is shown at the end.
+- Fixed class loading errors at the end of Maven builds.
+- Fixed application icon from showing up when building languages on some platforms.
+
+Statix
+~~~~~~
+
+- Fix Statix analysis crash when detailed logging is enabled.
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.4-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.4-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.4-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.4-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.4-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.4-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.4-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.4-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.4-eclipse-linux-64_>`_
+- `macOS <2.5.4-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.4-eclipse-update-site|
+-  `Eclipse update site archive <2.5.4-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.4-intellij-update-site|
+-  `IntelliJ update site archive <2.5.4-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.4-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.4-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.4-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.4-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.4-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.4-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.4``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
