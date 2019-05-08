@@ -18,3 +18,8 @@ Maven
 - Fixed failing SPT tests failing the build immediately. All SPT files are processed and a summary of how many tests failed is shown at the end.
 - Fixed class loading errors at the end of Maven builds.
 - Fixed application icon from showing up when building languages on some platforms.
+
+Statix
+~~~~~~
+
+- Fix Statix analysis crash when detailed logging is enabled.
