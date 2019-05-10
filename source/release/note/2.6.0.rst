@@ -11,3 +11,8 @@ Changes
 
 Overall
 ~~~~~~~
+
+NaBL2/Statix
+~~~~~~~~~~~~
+
+- Fix bug that threw away error messages in unchanged files if other files changed.
