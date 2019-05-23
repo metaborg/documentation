@@ -3,6 +3,7 @@ Spoofax 2.5.5
 =============
 
 Spoofax 2.5.5 is a minor bugfix release.
+There are a few incompatiable changes in Statix, which are described in the :ref:`migration guide <2.5.5-migration-guide>`.
 
 Changes
 -------
@@ -10,11 +11,22 @@ Changes
 Overall
 ~~~~~~~
 
-NaBL2/Statix
-~~~~~~~~~~~~
+- Do not throw away error messages in unchanged files if other files changed, when using constraint analyzer.
 
-- Fix bug that threw away error messages in unchanged files if other files changed.
+JSGLR
+~~~~~
 
+- Add missing location information on sublists.
+
+Statix
+~~~~~~
+
+- Improve speed of normalization.
+- Add AST properties and editor reference resolution.
+- Regular expression and label order are direct parameters to queries. It is not possible anymore to pass an arbitary predicate there.
+- Special path constraints are removed in favour of concrete path terms that can be matched as terms.
+- Functional constraints can only have a single output.
+- Namespace based resolution short-hands must contain a occurrence literal, and explicit resolution policies.
 
 Downloads
 ---------
