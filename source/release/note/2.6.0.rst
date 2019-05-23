@@ -11,3 +11,11 @@ Changes
 
 Overall
 ~~~~~~~
+
+Statix
+~~~~~~
+
+- Fix a crash in single-file analysis.
+- Fix several bugs in scope extension checking.
+- Fix bug in rule application that dropped cause.
+
