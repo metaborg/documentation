@@ -1,0 +1,19 @@
+=============
+Spoofax 2.5.6
+=============
+
+These are the release notes of Spoofax 2.5.6.
+
+Changes
+-------
+
+Overall
+~~~~~~~
+
+Statix
+~~~~~~
+
+- Fix a crash in single-file analysis.
+- Fix several bugs in scope extension checking.
+- Fix bug in rule application that dropped cause.
+
