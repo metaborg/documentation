@@ -24,7 +24,7 @@
 .. _dev-spt-testrunner-jar: http://artifacts.metaborg.org/service/local/artifact/maven/redirect?r=snapshots&g=org.metaborg&a=org.metaborg.spt.cmd&v=LATEST
 
 .. _dev-spoofax-core-uber-jar: http://artifacts.metaborg.org/service/local/artifact/maven/redirect?r=snapshots&g=org.metaborg&a=org.metaborg.spoofax.core.uber&v=LATEST
-.. |dev-spoofax-core-uber-maven-artifact| replace:: ``org.metaborg:org.metaborg.spoofax.core.uber:2.4.0-SNAPSHOT``
+.. |dev-spoofax-core-uber-maven-artifact| replace:: ``org.metaborg:org.metaborg.spoofax.core.uber:2.6.0-SNAPSHOT``
 
 .. _dev-strategoxt-distrib: http://artifacts.metaborg.org/service/local/artifact/maven/redirect?r=snapshots&g=org.metaborg&a=strategoxt-distrib&c=bin&p=tar&v=LATEST
 .. _dev-strategoxt-jar: http://artifacts.metaborg.org/service/local/artifact/maven/redirect?r=snapshots&g=org.metaborg&a=strategoxt-jar&v=LATEST
