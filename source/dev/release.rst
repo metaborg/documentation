@@ -33,7 +33,7 @@ Instructions
 2. Prepare the repository containing the build scripts.
 
    a. Clone or re-use an existing clone of `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ on the ``master`` branch. See :ref:`Cloning the source code <dev-build-clone>`.
-   b. Update it to the latest master with ``git pull --rebase && ./b checkout -y && ./b update``.
+   b. **Update it to the latest commit with** ``git pull --rebase && ./b checkout -y && ./b update``.
    c. Run ``./b set-remote -s`` to set submodule remotes to SSH URLs, enabling git pushing without having to supply a username and password via git over HTTPS.
 
 3. Prepare the source code repository.
@@ -42,8 +42,9 @@ Instructions
 
      .. note:: The reason for two separate clones of `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ is that the release script will modify the files in the repository, which could include files of the release script itself. Therefore, we make a separate clone which the release script acts upon, so that it does not interfere with itself.
 
-   b. If there are new submodules repositories, follow the steps for preparing new submodules below.
-   c. Run ``./b set-remote -s`` to set submodule remotes to SSH URLs, enabling git pushing without having to supply a username and password via git over HTTPS.
+   b. **If reusing an existing clone, ensure that it is checked out to** ``spoofax-release``, **and update it to the latest commit with** ``git pull --rebase && ./b checkout -y && ./b update``.
+   c. **If there are new submodules repositories, follow the steps for preparing new submodules below**.
+   d. Run ``./b set-remote -s`` to set submodule remotes to SSH URLs, enabling git pushing without having to supply a username and password via git over HTTPS.
 
 .. highlight:: bash
 
@@ -54,29 +55,54 @@ Instructions
         cd /Users/gohla/spoofax/master/spoofax-releng
 
    b. Get an absolute path to the repository cloned in step 3. For example: ``/Users/gohla/spoofax/release/spoofax-releng``
-   c. Figure out what the current development version of Spoofax is, what the next release version should be, and what the next development version should be. The release script will change the current development version into the next release version, deploy that, and then change the current development version to the next development version, and commit that.
-   d. Execute the release script with the parameters you gathered::
+   c. Determine whether the release will be *patch* or *minor*/*major*. For a patch release, we do not bump the development version. For a minor or major release, we do.
+   d. Figure out what the *current development version* of Spoofax is, what the *next release version* should be, and if doing a non-patch release, what the *next development version* should be. The release script will change the current development version into the next release version, deploy that, and then change the current development version to the next development version, and commit that. Setting the next development version is optional.
+   e. Execute the release script with the parameters you gathered::
 
-        ./bd --repo <release-repository> release \
+        ./b --repo <release-repository> release \
+          spoofax-release <release-version> \
+          master <current-development-version> \
+          --non-interactive \
+          --maven-deploy \
+          --maven-deploy-identifier metaborg-nexus \
+          --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
+          --nexus-deploy \
+          --nexus-username <artifact-server-username> \
+          --nexus-password <artifact-server-password> \
+          --nexus-repo releases
+
+     or for a major version, with ``--next-develop-version``::
+
+        ./b --repo <release-repository> release \
           spoofax-release <release-version> \
           master <current-development-version> \
           --next-develop-version <next-development-version> \
           --non-interactive \
-          --maven-deploy --maven-deploy-identifier metaborg-nexus --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
-          --nexus-deploy --nexus-username <artifact-server-username> --nexus-password <artifact-server-password> --nexus-repo releases
+          --maven-deploy \
+          --maven-deploy-identifier metaborg-nexus \
+          --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
+          --nexus-deploy \
+          --nexus-username <artifact-server-username> \
+          --nexus-password <artifact-server-password> \
+          --nexus-repo releases
 
-      For example, if we currently are at development version ``2.3.0-SNAPSHOT``, and would like to release ``2.3.0``, and update the development version to ``2.4.0-SNAPSHOT``, we would execute the following command::
+     For example, if we currently are at development version ``2.3.0-SNAPSHOT``, and would like to release minor version ``2.3.0``, and update the development version to ``2.4.0-SNAPSHOT``, we would execute the following command::
 
         cd /Users/gohla/spoofax/master/spoofax-releng
-        ./bd --repo /Users/gohla/spoofax/release/spoofax-releng release \
+        ./b --repo /Users/gohla/spoofax/release/spoofax-releng release \
           spoofax-release 2.3.0 \
           master 2.3.0-SNAPSHOT \
           --next-develop-version 2.4.0-SNAPSHOT \
           --non-interactive \
-          --maven-deploy --maven-deploy-identifier metaborg-nexus --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
-          --nexus-deploy --nexus-username myusername --nexus-password mypassword --nexus-repo releases
+          --maven-deploy \
+          --maven-deploy-identifier metaborg-nexus \
+          --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
+          --nexus-deploy \
+          --nexus-username myusername \
+          --nexus-password mypassword \
+          --nexus-repo releases
 
-      Unfortunately, it is currently not possible to encrypt the artifact server password passed to the build script.
+     Unfortunately, it is currently not possible to encrypt the artifact server password passed to the build script.
 
 New spoofax-releng submodules
 -----------------------------
