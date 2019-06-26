@@ -42,7 +42,7 @@ Instructions
 
      .. note:: The reason for two separate clones of `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ is that the release script will modify the files in the repository, which could include files of the release script itself. Therefore, we make a separate clone which the release script acts upon, so that it does not interfere with itself.
 
-   b. **If reusing an existing clone, ensure that it is checked out to** ``spoofax-release``, **and update it to the latest commit with** ``git pull --rebase && ./b checkout -y && ./b update``.
+   b. **If reusing an existing clone, ensure that it is checked out to** ``spoofax-release`` **with** ``git checkout spoofax-release``, **and update it to the latest commit with** ``git pull --rebase && ./b checkout -y && ./b update``.
    c. **If there are new submodules repositories, follow the steps for preparing new submodules below**.
    d. Run ``./b set-remote -s`` to set submodule remotes to SSH URLs, enabling git pushing without having to supply a username and password via git over HTTPS.
 
