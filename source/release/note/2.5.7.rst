@@ -1,0 +1,79 @@
+=============
+Spoofax 2.5.7
+=============
+
+Spoofax 2.5.7 includes minor bugfixes and improvements to the experimental Stratego separate compiler.
+
+Changes
+-------
+
+FlowSpec
+~~~~~~~~
+
+Bugfix: Names with namespaces were broken in an earlier version during performance optimization. The error would like: ``java.lang.AssertionError: Unrecognised Namespace: Namespace("Var")``.
+
+Stratego
+~~~~~~~~
+
+Stratego separate compilation is now switched to the new system. It no longer has any limitations that were previously mentioned. Do note that separate compilation will give the same stricter error messages that the editor does: You need to import anything you use, you cannot use something that another module imports that imports your module.
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.7-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.7-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.7-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.7-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.7-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.7-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.7-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.7-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.7-eclipse-linux-64_>`_
+- `macOS <2.5.7-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.7-eclipse-update-site|
+-  `Eclipse update site archive <2.5.7-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.7-intellij-update-site|
+-  `IntelliJ update site archive <2.5.7-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.7-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.7-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.7-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.7-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.7-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.7-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.7``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
