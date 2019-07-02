@@ -24,6 +24,7 @@ Separate compilation for Stratego was added in this release. It is currently sti
 
 The Stratego primitives ``all``, ``some`` and ``one`` sometimes lost annotations and origins of list tails when an element in the list was transformed. This bug has been fixed.
 
+The Stratego editor used to give spurious errors on missing variable definitions if those were list variables that were bound in a concrete syntax pattern. This long-standing bug has been fixed in this release. 
 
 Downloads
 ---------
