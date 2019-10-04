@@ -24,11 +24,14 @@ Your file most likely said nothing of the ``build``, meaning it was on the ``bat
 
 Note that a clean build using this setting is necessary at first. It will likely take significantly longer than a clean build using the ``ctree`` format. All subsequent builds should be faster. 
 
-Limitations
-~~~~~~~~~~~
+Limitations in Spoofax 2.5.6 and lower
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The separate compilation scheme does not do any static checking yet, so it will compile modules that refer to non-existing strategies. The result is broken Java code, which may still be compiled by the Eclipse Java Compiler. Keep an eye on the `src-gen/stratego-java` directory in your project explorer. If there are error markers on it, something went wrong.
 
 Certain edge-cases with higher-order strategies are not supported. In particular, passing a higher-order strategy from the standard library to another strategy is not supported (e.g. ``foo(map)`` where ``foo(s) = s(bar)``). 
+
+Limitations in Spoofax 2.5.2 and lower
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Due to a bug in release 2.5.2, the separate compiler will fail the build if concrete syntax is used in Stratego code. 
