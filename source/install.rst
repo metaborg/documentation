@@ -99,6 +99,10 @@ After you have chosen a workspace and Eclipse has completely started up, go to t
 
    -  Enable: :guilabel:`Refresh using native hooks or polling`
 
+-  :menuselection:`Maven --> Annotation Processing`
+
+   -  Enable: :guilabel:`Automatically configure JDT APT`
+
 Further Instructions
 ~~~~~~~~~~~~~~~~~~~~
 
