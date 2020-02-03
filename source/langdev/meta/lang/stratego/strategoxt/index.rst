@@ -1,6 +1,6 @@
-==================================
-Stratego Tutorial/Reference (Old)
-==================================
+===========================
+Stratego Tutorial/Reference
+===========================
 
 This is the Stratego Tutorial and Reference Manual that was developed for Stratego/XT 0.17. While the basic the basic explanation of the language is up-to-date, the manual uses the Stratego Shell, which is not currently provided as part of Spoofax.
 

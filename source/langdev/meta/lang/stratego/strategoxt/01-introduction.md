@@ -4,7 +4,7 @@
 
 # 1. Introduction
 
-Program transformation is the mechanical manipulation of a program in order to improve it relative to some cost function ``$ C $``, such that ``$ C(P) > C(tr(P)) $``, i.e. the cost decreases as a result of applying the transformation. The cost of a program can be measured in different dimensions such as performance, memory usage, understandability, flexibility, maintainability, portability, correctness, or satisfaction of requirements. Related to these goals, program transformations are applied in different settings; e.g. compiler optimizations improve performance and refactoring tools aim at improving understandability.
+Program transformation is the mechanical manipulation of a program in order to improve it relative to some cost function ``$ C $``, such that ``$ C(P) > C(tr(P)) $``, i.e., the cost decreases as a result of applying the transformation. The cost of a program can be measured in different dimensions such as performance, memory usage, understandability, flexibility, maintainability, portability, correctness, or satisfaction of requirements. Related to these goals, program transformations are applied in different settings; e.g. compiler optimizations improve performance and refactoring tools aim at improving understandability.
 
 While transformations can be achieved by manual manipulation of programs, in general, the aim of program transformation is to increase programmer productivity by automating programming tasks, thus enabling programming at a higher-level of abstraction, and increasing maintainability and re-usability of programs. Automatic application of program transformations requires their implementation in a programming language. In order to make the implementation of transformations productive, such a programming language should support abstractions for the domain of program transformation.
 
@@ -17,7 +17,7 @@ Term rewriting is an attractive formalism for expressing basic program transform
 
     |[ i + j ]| -> |[ k ]| where (i, j) => k
 
-expresses constant folding for addition, i.e. replacing an addition of two constants by their sum. Similarly, the rule
+expresses constant folding for addition, i.e., replacing an addition of two constants by their sum. Similarly, the rule
 
     |[ if 0 then e1 else e2 ]| -> |[ e2 ]|
 
