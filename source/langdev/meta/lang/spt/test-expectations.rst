@@ -24,7 +24,7 @@ If no parse expectation is present on a test case, even if another expectation (
 ``Expectation.ParseToAterm = <parse to <ATerm>>``  
   Parse the fragment, expect parsing to succeed, and compare it to the given ATerm AST. When using test fixtures, the ATerm should only be the AST of the *fragment* of the test, not of the entire test fixture. Please note that if you want to specify a List in the ``ATerm``, the square brackets of the list may interfere with the markers of a fragment. Therefore, to specify a list as the expected output, prepend it with the keyword ``!ATerm``. For example::
 
-  parse to !ATerm ["5"]
+    parse to !ATerm ["5"]
 
 ``Expectation.ParseToFragment = <parse to <Language?> <OpenMarker> <Fragment> <CloseMarker>]]>``
   Parse the fragment, expect parsing to succeed, and compare it to the result of parsing the given ``Fragment`` with the given ``Language``. When the ``Language`` is omitted the language under test will be used to parse the given fragment. When using test fixtures, only the test's input fragment will be combined with the test fixture. The fragment in this expectation (i.e., the output fragment) will **not** be combined with it, even if the language under test is used to parse it. To counteract this, the entire AST (including the nodes from the fixture) will be compared to the expectation's fragment's AST.

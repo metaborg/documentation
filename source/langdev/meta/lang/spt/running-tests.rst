@@ -95,7 +95,7 @@ This jar is the executable jar that contains the test runner. Next up, we want t
   4. (Optionally) the Stratego language if we want to be able to execute the ``run`` or ``transform`` expectations
 
 2. You should already have your tests and your language project, so next up is the SPT language.
-  This is in the same repo as the command line runner::
+   This is in the same repo as the command line runner::
 
      $ cd spt/org.metaborg.meta.lang.spt
      $ mvn verify
