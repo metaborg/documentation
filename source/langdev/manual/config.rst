@@ -337,10 +337,11 @@ The following configuration options are optional and revert to default values wh
 
       .. describe:: jsglr-version
 
-        Version of the JGSLR parser to use. The latter three options are extensions of ``v2``, which are described
-        `here <../meta/lang/sdf3/configuration.html#jsglr-version>`_.
+        Version of the JGSLR parser to use. The options listed after ``v2`` are extensions of ``v2``,
+        `which are described here <../meta/lang/sdf3/configuration.html#jsglr-version>`_.
+        Note that some of these extensions are experimental.
 
-        - Format: Either ``v1``, ``v2``, ``data-dependent``, ``incremental``, or ``layout-sensitive``.
+        - Format: Either ``v1``, ``v2``, ``data-dependent``, ``incremental``, ``layout-sensitive``, ``recovery``, or ``recovery-incremental``.
         - Default: ``v1``
         - Example::
 
