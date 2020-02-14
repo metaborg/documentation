@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import datetime
 import sys
 import os
 
@@ -25,7 +26,7 @@ source_parsers = {
 source_suffix = ['.rst', '.md']
 master_doc = 'index'
 project = 'Spoofax'
-copyright = '2016-2019, MetaBorg'
+copyright = '2016-' + str(datetime.date.today().year) + ', MetaBorg'
 author = 'MetaBorg'
 version = '2.5.7'
 release = version
