@@ -75,14 +75,17 @@ syntax highlighting. Error reporting, recovery and completions are currently not
      sdf:
        jsglr-version: v2
 
-There are three extensions of JSGLR2 available. To use them, set the ``jsglr-version`` option to one of the following:
+There are some extensions of JSGLR2 available. To use them, set the ``jsglr-version`` option to one of the following:
 
-:``data-dependent``:    Data-dependent JSGLR2 solves deep priority conflicts using data-dependent parsing, which does
-                        not require duplicating the grammar productions.
-:``incremental``:       Incremental JSGLR2 reuses previous parse results to speed up parsing. This extension is
-                        experimental and only available in the development version of Spoofax.
-:``layout-sensitive``:  Layout-sensitive JSGLR2 is documented in the
-                        `reference manual of SDF3 <reference.html#layout-sensitive-parsing>`_.
+:``data-dependent``:       Data-dependent JSGLR2 solves deep priority conflicts using data-dependent parsing, which does
+                           not require duplicating the grammar productions.
+:``incremental``:          Incremental JSGLR2 reuses previous parse results to speed up parsing.
+:``layout-sensitive``:     Layout-sensitive JSGLR2 is documented in the
+                           `reference manual of SDF3 <reference.html#layout-sensitive-parsing>`_.
+:``recovery``:             JSGLR2 with recovery tries to recover from parse errors. This extension is experimental and
+                           only available in the development version of Spoofax.
+:``recovery-incremental``: Incremental JSGLR2 with recovery. This extension is experimental and only available in the
+                           development version of Spoofax.
 
 .. warning:: Whenever changing any of these configurations, clean the project before rebuilding.
 
