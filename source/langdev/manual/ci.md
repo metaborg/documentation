@@ -1,6 +1,6 @@
 # Continuous Integration
 
-This page describes how build Spoofax langauges on a Jenkins buildfarm.
+This page describes how to build Spoofax languages on a Jenkins buildfarm or using an alternative platform such as GitHub Actions.
 
 Full continuous integration includes:
 
@@ -168,7 +168,7 @@ You should now get a message saying that the repository has branch but does not 
 
 ## Jenkins configuration
 
-Create the a file `Jenkinsfile` in the root of the repository containing (be sure to update the update site path, and to change the slack integration channel or comment out the slack integration):
+Create the file `Jenkinsfile` in the root of the repository containing (be sure to update the update site path, and to change the slack integration channel or comment out the slack integration):
 
 ```groovy
 properties([
@@ -254,3 +254,36 @@ For a GitHub build-badge add the following the the readme file:
 ```
 
 TODO: figure out how to use `Promoted Builds` to promote spoofax-master only if language build succeeds.
+
+## CI using GitHub Actions
+
+Using GitHub [Actions](https://github.com/features/actions) is an alternative to Jenkins for setting up CI using Maven.
+Enable it by adding the file `.github/workflows/ci.yml` to your repository with the following contents:
+
+```yaml
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    container: maven:3.5.4-jdk-8
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Maven build
+      run: mvn clean verify
+```
+
+This configures your repository with a `CI` workflow that runs the build on every push.
+Publishing the language is not included in this configuration.
+
+See the [Spoofax definition of MiniZinc](https://github.com/MetaBorgCube/metaborg-minizinc) for an example ([config](https://github.com/MetaBorgCube/metaborg-minizinc/blob/master/.github/workflows/ci.yml) and [actions](https://github.com/MetaBorgCube/metaborg-minizinc/actions)).
+
+Similar to Jenkins, you can add a build status badge by adding the following to the readme file:
+
+```
+![Build status](https://github.com/namespace/project/workflows/CI/badge.svg)
+```
