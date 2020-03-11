@@ -60,7 +60,9 @@ a new (and experimental) parse table generator can be selected by writing:
        sdf2table: java
 
 This configuration disables the SDF2 generation, and may cause problems when defining grammars to use concrete syntax, since
-this feature is not supported yet by SDF3. Furthermore, ``dynamic`` can be used instead of ``java``, to enable lazy parse table
+this feature is not supported yet by SDF3.
+However, the ``java`` parse table generator supports Unicode, whereas SDF2 generation does not.
+Furthermore, ``dynamic`` can be used instead of ``java``, to enable lazy parse table
 generation, where the parse table is generated while the program is parsed.
 
 JSGLR version
