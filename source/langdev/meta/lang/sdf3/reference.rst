@@ -69,12 +69,19 @@ performing a normalization step.
 of special characters. One should use ``\c`` whenever ``c`` is not a digit or a letter
 in a character class.
 
+Arbitrary Unicode code points can be included in a character class by writing an escaped integer,
+which is particularly useful for representing characters outside the printable ASCII range.
+The integer can be a binary, octal, decimal, or hexadecimal number, for example:
+``\0b101010``, ``\052``, ``\42``, and ``\0x2A`` all represent the code point 42,
+or the ``'*'`` character.
+
 Additionally, special ASCII characters are represented by:
 
-- ``\n`` : newline character
-- ``\r`` : carriage return
 - ``\t`` : horizontal tabulation
-- ``\x`` : a non-printable character with decimal code x
+- ``\n`` : newline character
+- ``\v`` : vertical tabulation
+- ``\f`` : form feed
+- ``\r`` : carriage return
 
 **Character Class Operators**: SDF3 provides the following operators for character
 classes:
