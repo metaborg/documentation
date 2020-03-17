@@ -9,6 +9,11 @@ See the corresponding :ref:`migration guide <2.6.0-migration-guide>` for migrati
 Changes
 -------
 
+SDF
+~~~
+
+- The Java version of sdf2table is now slightly faster and takes up less peak memory due to improvements in writing away the parsetable to file. 
+
 Parser
 ~~~~~~
 
@@ -23,7 +28,7 @@ Bugfix: Names with namespaces were broken in an earlier version during performan
 Stratego
 ~~~~~~~~
 
-Stratego separate compilation is now switched to the new system. It no longer has any limitations that were previously mentioned. Do note that separate compilation will give the same stricter error messages that the editor does: You need to import anything you use, you cannot use something that another module imports that imports your module.
+Stratego separate compilation is now switched to the new system. It no longer has any limitations that were previously mentioned. Do note that separate compilation will give the same stricter error messages that the editor does: You need to import anything you use. Transitive imports still work, but you cannot use something from a module that imports your module.
 
 Overall
 ~~~~~~~
