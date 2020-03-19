@@ -7,10 +7,10 @@ When a commit to this repository is made, it will automatically [build and updat
 
 ## Requirements
 
-Sphinx requires Python, at least version 3.6. To install the required Python packages, run:
+Sphinx requires Python, at least version 2.6. To install the required Python packages, run:
 
 ```bash
-pip3 install -r requirements.txt --upgrade
+pip install -r requirements.txt --upgrade
 ```
 
 ## Building

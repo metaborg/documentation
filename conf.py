@@ -15,9 +15,6 @@ extensions = [
   'sphinx.ext.todo',
   'sphinx.ext.imgmath',
   'sphinx.ext.intersphinx',
-  'sphinx.ext.mathjax',
-  'sphinx.ext.autodoc',
-  'sphinx.ext.autosummary',
   'sphinxcontrib.bibtex',
   'javasphinx'
 ]
@@ -34,7 +31,7 @@ author = 'MetaBorg'
 version = '2.5.7'
 release = version
 language = None
-exclude_patterns = ['.venv', '_build', 'notes', 'include', 'README.md']
+exclude_patterns = ['_build', 'notes', 'include', 'README.md']
 pygments_style = 'sphinx'
 todo_include_todos = True
 
@@ -54,14 +51,6 @@ if not on_rtd:
   html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 html_static_path = ['_static']
-html_css_files = [
-    'style.css',
-    'https://dev-cats.github.io/code-snippets/JetBrainsMono.css',
-    'https://use.fontawesome.com/releases/v5.12.1/css/all.css',
-]
-html_js_files = [
-    'script.js',
-]
 htmlhelp_basename = 'Spoofaxdoc'
 
 # -- Options for LaTeX output
