@@ -31,7 +31,7 @@ author = 'MetaBorg'
 version = '2.5.7'
 release = version
 language = None
-exclude_patterns = ['_build', 'notes', 'include', 'README.md']
+exclude_patterns = ['.venv', '_build', 'notes', 'include', 'README.md']
 pygments_style = 'sphinx'
 todo_include_todos = True
 
