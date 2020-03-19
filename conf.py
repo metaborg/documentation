@@ -51,6 +51,14 @@ if not on_rtd:
   html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 html_static_path = ['_static']
+html_css_files = [
+    'style.css',
+    'https://dev-cats.github.io/code-snippets/JetBrainsMono.css',
+    'https://use.fontawesome.com/releases/v5.12.1/css/all.css',
+]
+html_js_files = [
+    'script.js',
+]
 htmlhelp_basename = 'Spoofaxdoc'
 
 # -- Options for LaTeX output
