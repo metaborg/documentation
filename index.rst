@@ -201,4 +201,4 @@ A Platform for Research
 
 Spoofax is a platform for language engineering research.
 Due to its modular architecture it is easy to extend the workbench with new experimental meta-languages and tools.
-For example, the current (May 2017) version comes with a new experimental parser generator in addition to the old SDF2 parser generator, and it provides a new NaBL2 static semantics specification language next to the old NaBL/TS solution.
+For example, the current version comes with an improved parser generator in addition to the old SDF2 parser generator, and it provides the NaBL2 static semantics specification language next to the old NaBL/TS solution.
