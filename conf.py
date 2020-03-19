@@ -15,6 +15,7 @@ extensions = [
   'sphinx.ext.todo',
   'sphinx.ext.imgmath',
   'sphinx.ext.intersphinx',
+  'sphinx.ext.mathjax',
   'sphinxcontrib.bibtex',
   'javasphinx'
 ]
@@ -51,6 +52,14 @@ if not on_rtd:
   html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 html_static_path = ['_static']
+html_css_files = [
+    'style.css',
+    'https://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700',
+    'https://use.fontawesome.com/releases/v5.12.1/css/all.css',
+]
+html_js_files = [
+    'script.js',
+]
 htmlhelp_basename = 'Spoofaxdoc'
 
 # -- Options for LaTeX output
