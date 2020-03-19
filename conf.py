@@ -54,7 +54,7 @@ if not on_rtd:
 html_static_path = ['_static']
 html_css_files = [
     'style.css',
-    'https://fonts.googleapis.com/css?family=Source+Code+Pro:200,300,400,500,600,700',
+    'https://dev-cats.github.io/code-snippets/JetBrainsMono.css',
     'https://use.fontawesome.com/releases/v5.12.1/css/all.css',
 ]
 html_js_files = [

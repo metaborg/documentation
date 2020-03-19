@@ -15,15 +15,17 @@ h2 {
   border-top : 1px solid black;
   padding-top: 10px;
   margin-top: 50px;
-  font-size: 120%;
+  font-size: 130%;
 }
 h3, h4, h5, h6 {
-  font-size: 115%;
+  font-size: 120%;
 }
 
-pre, code, .rst-content tt, .rst-content code {
-  font-family: "Source Code Pro", monospace;
-  font-size: 90%;
+div[class^="highlight"] pre, pre, code, .rst-content tt, .rst-content code {
+  font-family: "JetBrainsMono", "Source Code Pro", monospace !important;
+  font-size: 14px !important;
+  font-feature-settings: "calt" 1 !important;  /* Enable ligatures for IE 10+, Edge */
+  text-rendering: optimizeLegibility !important; /* Force ligatures for Webkit, Blink, Gecko */
 }
 
 code, .rst-content tt, .rst-content code {
@@ -35,12 +37,6 @@ code, .rst-content tt, .rst-content code {
 
 code {
   font-size: 75%;
-}
-
-div[class^="highlight"] pre {
-  font-family: "Source Code Pro", monospace;
-  font-size: 85%;
-  line-height: 1.6;
 }
 
 .codeblock,
