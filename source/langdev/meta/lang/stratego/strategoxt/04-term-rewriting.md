@@ -4,7 +4,7 @@
 
 # 4. Term Rewriting
 
-In [PartII][1] we saw how terms provide a structured representation for programs derived from a formal definition of the syntax of a programming language. Transforming programs then requires transformation of terms. In this chapter we show how to implement term transformations using _term rewriting_ in Stratego. In term rewriting a term is transformed by repeated application of _rewrite rules_.
+In this chapter we show how to implement term transformations using _term rewriting_ in Stratego. In term rewriting a term is transformed by repeated application of _rewrite rules_.
 
 
 ## 4.1. Transformation with Rewrite Rules
@@ -69,9 +69,9 @@ Next we want to _normalize_ terms with respect to a collection of rewrite rules.
       main = io-wrap(eval)
       eval = innermost(E)
 
-The module imports the Stratego Library (`libstrategolib`) and the module with the evaluation rules, and then defines the `main` strategy to apply `innermost(E)` to the input term. (See the discussion of `io-wrap` in [Section11.2][2].) The `innermost` strategy from the library exhaustively applies its argument transformation to the term it is applied to, starting with _inner_ subterms.
+The module imports the Stratego Library (`libstrategolib`) and the module with the evaluation rules, and then defines the `main` strategy to apply `innermost(E)` to the input term. The `innermost` strategy from the library exhaustively applies its argument transformation to the term it is applied to, starting with _inner_ subterms.
 
-We can now compile the program as discussed in [Chapter11][3]:
+We can now compile the program:
 
     $ strc -i prop-eval.str -la stratego-lib
 
@@ -89,7 +89,7 @@ This results in an executable `prop-eval` that can be used to evaluate Boolean e
     $ ./prop-eval -i test2.prop
     And(And(Atom("p"),Atom("q")),ATom("p"))
 
-We can also import these definitions in the [Stratego Shell][4], as illustrated by the following session:
+We can also import these definitions in the Stratego Shell, as illustrated by the following session:
 
     $ stratego-shell
     stratego> import prop-eval
@@ -110,7 +110,7 @@ We can also import these definitions in the [Stratego Shell][4], as illustrated 
     And(And(Atom("p"),Atom("q")),ATom("p"))
     $
 
-The first command imports the `prop-eval` module, which recursively loads the evaluation rules and the library, thus making its definitions available in the shell. The `!` commands replace the current term with a new term. (This _build_ strategy will be properly introduced in [Chapter16][5].)
+The first command imports the `prop-eval` module, which recursively loads the evaluation rules and the library, thus making its definitions available in the shell. The `!` commands replace the current term with a new term. (This _build_ strategy will be properly introduced in [Chapter 8][1].)
 
 The next commands apply the `eval` strategy to various terms.
 
@@ -175,8 +175,4 @@ so that we can use it to transform terms:
     $ ./prop-dnf -i test3.prop
     Or(And(Not(Atom("r")),ATom("p")),And(And(Atom("p"),Atom("q")),ATom("p")))
 
-[1]: tutorial-xt.html "Part"
-[2]: running-stratego-programs.html#identity-with-io "11.2."
-[3]: running-stratego-programs.html "Chapter"
-[4]: running-stratego-programs.html#stratego-shell "11.4."
-[5]: stratego-creating-and-analyzing-terms.html "Chapter"
+[1]: 08-creating-and-analyzing-terms.md "Creating and Analyzing Terms"

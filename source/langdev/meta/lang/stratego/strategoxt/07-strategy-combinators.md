@@ -4,7 +4,7 @@
 
 # 7. Strategy Combinators
 
-We have seen the use of strategies to combine rules into complex transformations. Rather than providing a fixed set of high-level strategy operators such as `bottomup`, `topdown`, and `innermost`, Stratego provides a small set of basic combinators, that can be used to create a wide variety of strategies. In [Chapter15][1] until [Chapter18][2] we will introduce these combinators. In this chapter we start with a set of combinators for sequential composition and choice of strategies.
+We have seen the use of strategies to combine rules into complex transformations. Rather than providing a fixed set of high-level strategy operators such as `bottomup`, `topdown`, and `innermost`, Stratego provides a small set of basic combinators, that can be used to create a wide variety of strategies. In [Chapter 7][1] until [Chapter 10][2] we will introduce these combinators. In this chapter we start with a set of combinators for sequential composition and choice of strategies.
 
 ## 7.1. Identity and Failure
 
@@ -213,7 +213,7 @@ The guarded choice combinator is similar to the traditional if-then-else constru
 
     if s1 then s2 else s3 end  =  where(s1) < s2 + s3
 
-The strategy `where(s)` succeeds if `s` succeeds, but returns the original subject term. The implementation of the `where` combinator will be discussed in [Chapter16][3]. The following laws show that the branches are selected by success or failure of the condition:
+The strategy `where(s)` succeeds if `s` succeeds, but returns the original subject term. The implementation of the `where` combinator will be discussed in [Chapter 8][3]. The following laws show that the branches are selected by success or failure of the condition:
 
     if id   then s2 else s3 end  =  s2
 
@@ -373,6 +373,6 @@ The following equations describe some relations between these strategies:
 
     do-while(s, c) = s; while(c, s)
 
-[1]: stratego-strategy-combinators.html "Chapter"
-[2]: stratego-type-unifying-strategies.html "Chapter"
-[3]: stratego-creating-and-analyzing-terms.html "Chapter"
+[1]: 07-strategy-combinators.md "Strategy Combinators"
+[2]: 10-type-unifying-strategies.md "Type Unifying Strategies"
+[3]: 08-creating-and-analyzing-terms.md "Creating and Analyzing Terms"

@@ -6,7 +6,7 @@
 
 ## 5.1. Limitations of Term Rewriting
 
-In [Chapter12][1] we saw how term rewriting can be used to implement transformations on programs represented by means of terms. Term rewriting involves exhaustively applying rules to subterms until no more rules apply. This requires a _strategy_ for selecting the order in which subterms are rewritten. The `innermost` strategy introduced in [Chapter12][1] applies rules automatically throughout a term from inner to outer terms, starting with the leaves. The nice thing about term rewriting is that there is no need to define traversals over the syntax tree; the rules express basic transformation steps and the strategy takes care of applying it everywhere. However, the complete normalization approach of rewriting turns out not to be adequate for program transformation, because rewrite systems for programming languages will often be non-terminating and/or non-confluent. In general, it is not desirable to apply all rules at the same time or to apply all rules under all circumstances.
+In [Chapter 4][1] we saw how term rewriting can be used to implement transformations on programs represented by means of terms. Term rewriting involves exhaustively applying rules to subterms until no more rules apply. This requires a _strategy_ for selecting the order in which subterms are rewritten. The `innermost` strategy introduced in [Chapter 4][1] applies rules automatically throughout a term from inner to outer terms, starting with the leaves. The nice thing about term rewriting is that there is no need to define traversals over the syntax tree; the rules express basic transformation steps and the strategy takes care of applying it everywhere. However, the complete normalization approach of rewriting turns out not to be adequate for program transformation, because rewrite systems for programming languages will often be non-terminating and/or non-confluent. In general, it is not desirable to apply all rules at the same time or to apply all rules under all circumstances.
 
 Consider for example, the following extension of `prop-dnf-rules` with distribution rules to achieve conjunctive normal forms:
 
@@ -193,7 +193,7 @@ The argument strategy of `innermost` is a _selection_ of rules. By giving _diffe
 
 The rules are named, and for each strategy different selections from the ruleset are made.
 
-The module even defines two main strategies, which allows us to use one module for deriving multiple programs. Using the `--main` option of [strc][2] we declare which strategy to invoke as main strategy in a particular program. Using the `-o` option we can give a different name to each derived program.
+The module even defines two main strategies, which allows us to use one module for deriving multiple programs. Using the `--main` option of `strc` we declare which strategy to invoke as main strategy in a particular program. Using the `-o` option we can give a different name to each derived program.
 
     $ strc -i prop-laws.str -la stratego-lib --main main-dnf -o prop-dnf4
 
@@ -284,7 +284,7 @@ An application of this strategy is a more efficient implementation of constant f
 
 This strategy reduces terms such as
 
-    And(... big expression ..., False())
+    And(... big expression ..., False)
 
 in one step (to `False()` in this case), while the `bottomup` strategy defined above would first evaluate the big expression.
 
@@ -318,5 +318,4 @@ One example of a strategy which achieves such a transformation is
 
 The strategy `alltd(s)` descends into a term until a subterm is encountered for which the transformation `s` succeeds. In this case the strategy `trigger-transformation` recognizes a program fragment that should be transformed. Thus, cascading transformations are applied locally to terms for which the transformation is triggered. Of course more sophisticated strategies can be used for finding application locations, as well as for applying the rules locally. Nevertheless, the key observation underlying this idiom remains: Because the transformations to be applied are local, special knowledge about the subject program at the point of application can be used. This allows the application of rules that would not be otherwise applicable.
 
-[1]: stratego-term-rewriting.html "Chapter"
-[2]: ref-strc.html "strc"
+[1]: 04-term-rewriting.md "Term Rewriting"

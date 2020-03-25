@@ -19,11 +19,11 @@ A _rule_ defines a transformation on terms. A _named rewrite rule_ is a declarat
 
 where `L` is the rule name, `p1` the left-hand side term pattern, and `p2` the right-hand side term pattern.  A rule can be applied _through its name_ to a term. It will transform the term if the term matches with `p1`, and will replace the term with `p2` instantiated with the variables bound during the match to `p1`.  The application _fails_ if the term does not match `p1`.  Thus, a _transformation_ is a _partial function from terms to terms_.
 
-Let's look at an example. The `SwapArgs` rule swaps the sub-terms of the `Plus` constructor.  Note that it is possible to introduce rules on the fly in the [Stratego Shell](http://hydra.nixos.org/build/10497731/download/1/manual/chunk-chapter/ref-stratego-shell.html).
+Let's look at an example. The `SwapArgs` rule swaps the sub-terms of the `Plus` constructor.  Note that it is possible to introduce rules on the fly in the Stratego Shell.
 
     stratego> SwapArgs : Plus(e1,e2) -> Plus(e2,e1)
 
-Now we create a new term, and apply the `SwapArgs` rule to it by calling its name at the prompt.  (The build `!t` of a term replaces the current term by `t`, as is explained [here](#).)
+Now we create a new term, and apply the `SwapArgs` rule to it by calling its name at the prompt.  (The build `!t` of a term replaces the current term by `t`.)
 
     stratego> !Plus(Var("a"),Int("3"))
     Plus(Var("a"),Int("3"))
@@ -74,7 +74,7 @@ Later we will see that a rule is nothing more than a syntactical convention for 
 
 A rule defines a transformation, that is, a partial function from terms to terms.  A _strategy expressions_ is a combination of one or more transformations into a new transformation.  So, a strategy expressions also defines a transformation, i.e., a partial function from terms to terms.  Strategy _operators_ are functions from transformations to transformations.
 
-In the [previous chapter](#) we saw some examples of strategy expressions.  Lets examine these examples in the light of our new definition.  First of all, _rule names_ are basic strategy expressions.  If we import module `prop-laws`, we have at our disposal all rules it defines as basic strategies:
+In the previous chapter we saw some examples of strategy expressions.  Lets examine these examples in the light of our new definition.  First of all, _rule names_ are basic strategy expressions.  If we import module `prop-laws`, we have at our disposal all rules it defines as basic strategies:
 
     stratego> import prop-laws
     stratego> !Impl(True(), Atom("p"))
@@ -201,7 +201,7 @@ As we will see, strategies such as `innermost`, `topdown`, and `bottomup` are _n
       topdown(s)  = s; all(topdown(s))
       bottomup(s) = all(bottomup(s)); s
 
-Such parametrized strategy operators are invoked by providing arguments for the parameters.  Specifically, strategy arguments are instantiated by means of strategy expressions.  Wherever the argument is invoked in the body of the definition, the strategy expression is invoked.  For example, in the [previous chapter](#) we saw the following instantiations of the `topdown`, `try`, and `repeat` strategies:
+Such parametrized strategy operators are invoked by providing arguments for the parameters.  Specifically, strategy arguments are instantiated by means of strategy expressions.  Wherever the argument is invoked in the body of the definition, the strategy expression is invoked.  For example, in the previous chapter we saw the following instantiations of the `topdown`, `try`, and `repeat` strategies:
 
     module prop-desugar
     // ...
@@ -228,7 +228,7 @@ The current version of Stratego does not support hidden strategy definitions at 
 
 ### 6.3.4. Extending Definitions
 
-As we saw in [?](#), a Stratego program can introduce several rules with the same name. It is even possible to extend rules across modules.  This is also possible for strategy definitions.  If two strategy definitions have the same name and the same number of parameters, they effectively define a single strategy that tries to apply the bodies of the definitions in some undefined order.  Thus, a definition of the form
+A Stratego program can introduce several rules with the same name. It is even possible to extend rules across modules.  This is also possible for strategy definitions.  If two strategy definitions have the same name and the same number of parameters, they effectively define a single strategy that tries to apply the bodies of the definitions in some undefined order.  Thus, a definition of the form
 
     strategies
       f = s1
@@ -260,12 +260,12 @@ This mechanism allows the incorporation of mundane tasks such as arithmetic, I/O
 
 ### 6.4.1. Implementing Primitives
 
-The Stratego Library provides all the primitives for I/O, arithmetic, string processing, and process control that are usually needed in Stratego programs.  However, it is possible to add new primitives to a program as well.  That requires linking with the compiled program a library that implements the function. See the documentation of [?](#) for instructions.
+The Stratego Library provides all the primitives for I/O, arithmetic, string processing, and process control that are usually needed in Stratego programs.  However, it is possible to add new primitives to a program as well.  That requires linking with the compiled program a library that implements the function.
 
 
 ## 6.5. External Definitions
 
-The [Stratego Compiler](#ref-strc) is a _whole program compiler_. That is, the compiler includes all definitions from imported modules (transitively) into the program defined by the main module (the one being compiled).  This is the reason that the compiler takes its time to compile a program.  To reduce the compilation effort and the size of the resulting programs it is possible to create separately compiled _libraries_ of Stratego definitions.  The strategies that such a library provides are declared as _external_ definitions. A declaration of the form
+The Stratego Compiler is a _whole program compiler_. That is, the compiler includes all definitions from imported modules (transitively) into the program defined by the main module (the one being compiled).  This is the reason that the compiler takes its time to compile a program.  To reduce the compilation effort and the size of the resulting programs it is possible to create separately compiled _libraries_ of Stratego definitions.  The strategies that such a library provides are declared as _external_ definitions. A declaration of the form
 
     external f(s1 ... sn | x1 ... xm)
 
@@ -345,7 +345,7 @@ This program can be compiled in the usual way, adding the new library to the lib
     $ ./dnf-tool -i test3.prop
     Or(And(Not(Atom("r")),ATom("p")),And(And(Atom("p"),Atom("q")),ATom("p")))
 
-To correctly deploy programs based on shared libraries requires some additional effort.  [?](#) explains how to create deployable packages for your Stratego programs.
+To correctly deploy programs based on shared libraries requires some additional effort.
 
 
 ## 6.6. Dynamic Calls

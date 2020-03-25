@@ -4,7 +4,7 @@
 
 # 10. Type Unifying Strategies
 
-In [Chapter17][1] we have seen combinators for composing _type preserving_ strategies. That is, structural transformations in which basic transformation rules don't change the type of a term. Such strategies are typically applied in transformations, which change the structure of a term, but not its type. Examples are simplification and optimization. In this chapter we consider the class of _type unifying_ strategies, in which terms of different types are mapped onto one type. The application area for this type of strategy is analysis of expressions with examples such as free variables collection and call-graph extraction.
+In [Chapter 5][1] we have seen combinators for composing _type preserving_ strategies. That is, structural transformations in which basic transformation rules don't change the type of a term. Such strategies are typically applied in transformations, which change the structure of a term, but not its type. Examples are simplification and optimization. In this chapter we consider the class of _type unifying_ strategies, in which terms of different types are mapped onto one type. The application area for this type of strategy is analysis of expressions with examples such as free variables collection and call-graph extraction.
 
 We consider the following example problems:
 
@@ -15,7 +15,7 @@ We consider the following example problems:
 
 These problems have in common that they reduce a structure to a single value or to a collection of derived values. The structure of the original term is usually lost.
 
-We start with examining these problems in the context of lists, and then generalize the solutions we find there to arbitrary terms using generic term deconstruction, which allows concise implementation of generic type unifying strategies, similarly to the generic traversal strategies of [Chapter17][1].
+We start with examining these problems in the context of lists, and then generalize the solutions we find there to arbitrary terms using generic term deconstruction, which allows concise implementation of generic type unifying strategies, similarly to the generic traversal strategies of [Chapter 5][1].
 
 ## 10.1. Type Unifying List Transformations
 
@@ -99,7 +99,7 @@ Instantiation of this strategy requires a rule for each constructor of the data-
     AssignSize : (e1, e2)         -> <add; inc>(e1, e2)
     IfSize     : (e1, e2, e3)     -> <add; inc>(e1, <add>(e2, e3))
 
-This looks suspiciously like the traversal rules in [Chapter17][1]. Defining folds in this manner has several limitations. In the definition of fold, one parameter for each constructor is provided and traversal is defined explicitly for each constructor. Furthermore, in the instantiation of fold, one rule for each constructor is needed, and the default behaviour is not generically specified.
+This looks suspiciously like the traversal rules in [Chapter 5][1]. Defining folds in this manner has several limitations. In the definition of fold, one parameter for each constructor is provided and traversal is defined explicitly for each constructor. Furthermore, in the instantiation of fold, one rule for each constructor is needed, and the default behaviour is not generically specified.
 
 One solution would be to use the generic traversal strategy `bottomup` to deal with fold:
 
@@ -221,7 +221,7 @@ the free variables are `{x, a, b}`, but not `y`, since it is bound by the declar
 
 the only free variable is `z` since `x` and `y` are declared.
 
-Here is a free variable extraction strategy for Tiger expressions. It follows a similar pattern of mixing generic and data-type specific operations as we saw in [Chapter17][1]. The `crush` alternative takes care of the non-special constructors, while `ExpVars` and `FreeVars` deal with the special cases, i.e. variables and variable binding constructs:
+Here is a free variable extraction strategy for Tiger expressions. It follows a similar pattern of mixing generic and data-type specific operations as we saw in [Chapter 5][1]. The `crush` alternative takes care of the non-special constructors, while `ExpVars` and `FreeVars` deal with the special cases, i.e. variables and variable binding constructs:
 
     free-vars =
       ExpVars
@@ -259,7 +259,7 @@ The `special` parameter is a strategy parameterized with a recursive call to the
 
 It can also be useful to _construct_ terms generically. For example, in parse tree implosion, application nodes should be reduced to constructor applications. Hence build operators can also use the `#` operator. In a strategy `!p1#(p2)`, the current subject term is replaced by a constructor application, where the constructor name is provided by `p1` and the list of subterms by `p2`. So, if `p1` evaluates to `"C"` and `p2` evaluates to [`t1,...,tn]`, the expression `!p1#(p2)` build the term `C(t1,...,tn)`.
 
-**Imploding Parse Trees.** A typical application of generic term construction is the implosion of parse trees to abstract syntax trees performed by [implode-asfix][2]. Parse trees produced by [sglr][3] have the form:
+**Imploding Parse Trees.** A typical application of generic term construction is the implosion of parse trees to abstract syntax trees performed by `implode-asfix`. Parse trees produced by `sglr` have the form:
 
     appl(prod(sorts, sort, attrs([cons("C")])),[t1,...,tn])
 
@@ -270,10 +270,8 @@ That is, a node in a parse tree consists of an encoding of the original producti
 
 The `Implode` rule rewrites an `appl` term to a constructor application, by extracting the constructor name from the production and then using generic term construction to apply the constructor.
 
-Note that this is a gross over simplification of the actual implementation of [implode-asfix][2]. See the source code for the full strategy.
+Note that this is a gross over simplification of the actual implementation of `implode-asfix`. See the source code for the full strategy.
 
 Generic term construction and deconstruction support the definition of generic analysis and generic translation problems. The generic solutions for the example problems term size, number of occurrences, and subterm collection demonstrate the general approach to solving these types of problems.
 
-[1]: stratego-traversal-strategies.html "Chapter"
-[2]: ref-implode-asfix.html "implode-asfix"
-[3]: ref-sglr.html "sglr"
+[1]: 05-rewriting-strategies.md "Rewriting Strategies"

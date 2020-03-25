@@ -181,7 +181,7 @@ Often it is useful to apply a strategy only to test whether some property holds 
 
 With the match and build constructs `where(s)` is in fact just syntactic sugar for `{x: ?x; s; !x}` with `x` a fresh variable not occurring in `s`. Thus, the current subject term is _saved_ by binding it to a new variable `x`, then the strategy `s` is applied, and finally, the original term is _restored_ by building `x`.
 
-We saw the use of `where` in the definition of `if-then-else` in [Chapter15][1].
+We saw the use of `where` in the definition of `if-then-else` in [Chapter 7][1].
 
 ### 8.3.5. Conditional rewrite rule
 
@@ -316,3 +316,5 @@ A match expression `?p[]` is desugared as
 
 That is, after the pattern `p[x]` matches, it is
 [1]: stratego-strategy-combinators.html "Chapter"
+
+[1]: 07-strategy-combinators.md "Strategy Combinators"
