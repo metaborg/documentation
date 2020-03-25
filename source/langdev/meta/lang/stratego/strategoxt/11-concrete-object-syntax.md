@@ -72,13 +72,11 @@ The next program program fragment implements the same instrumentation transforma
                   function enterfun(name : string) = (
                     ind := +(ind, 1);
                     for i := 2 to ind do print(" ");
-                    print(name); print(" entry
-    "))
+                    print(name); print(" entry\\n"))
                   function exitfun(name : string) = (
                     for i := 2 to ind do print(" ");
                     ind := -(ind, 1);
-                    print(name); print(" exit
-    "))
+                    print(name); print(" exit\\n"))
                in e end ]|
 
 It is clear that the concrete syntax version is much more concise and easier to read. This is partly due to the fact that the concrete version is shorter than the abstract version: 225 bytes vs 320 bytes after eliminating all non-significant whitespace. However, the concrete version does not use much fewer lines. A more important reason for the increased understandability is that in order to read the concrete version it is not necessary to mentally translate the abstract syntax constructors into concrete ones. The implementation of `IntroducePrinters` is only shown in concrete syntax since its encoding in abstract syntax leads to unreadable code for code fragments of this size.
@@ -182,7 +180,7 @@ According to this declaration `x`, `y`, and `g10` are meta-variables for identif
 
 Parsing a module according to the combined syntax and mapping the parse tree to abstract syntax results in an abstract syntax tree that contains a mixture of meta- and object-language abstract syntax. Since the meta-language compiler only deals with meta-language abstract syntax, the embedded object-language abstract syntax needs to be expressed in terms of meta abstract syntax. For example, parsing the following Stratego rule
 
-     |[ x := let d* in ~* e* end ]| -> |[ let d* in x := (~* e*) end ]|
+    |[ x := let d* in ~* e* end ]| -> |[ let d* in x := (~* e*) end ]|
 
 with embedded Tiger expressions, results in the abstract syntax tree
 
@@ -215,29 +213,29 @@ The explosion of embedded abstract syntax does not depend on the object language
 
 **Disambiguating Quotations.** Sometimes the fragments used within quotations are too small for the parser to be able to disambiguate them. In those cases it is useful to have alternative versions of the quotation operators that make the sort of the fragment explicit. A useful, although somewhat verbose, convention is to use the sort of the fragment as operator:
 
-       "exp" "|[" Exp "]|" -> StrategoTerm {cons("ToTerm")}
+    "exp" "|[" Exp "]|" -> StrategoTerm {cons("ToTerm")}
 
 **Other Quotation Conventions.** The convention of using `|[...]|` and `~` as quotation and anti-quotation delimiters is inspired by the notation used in texts about semantics. It really depends on the application, the languages involved, and the _audience_ what kind of delimiters are most appropriate.
 
 The following notation was inspired by active web pages is developed. For instance, the following quotation `%>...<%` and antiquotation `<%...%>` delimiters are defined for use of XML in Stratego programs:
 
-      context-free syntax
-        "%>" Content "<%" -> StrategoTerm {cons("ToTerm"),prefer}
-        "<%=" StrategoTerm     "%>" -> Content {cons("FromTerm")}
-        "<%"  StrategoStrategy "%>" -> Content {cons("FromApp")}
+    context-free syntax
+      "%>" Content "<%" -> StrategoTerm {cons("ToTerm"),prefer}
+      "<%=" StrategoTerm     "%>" -> Content {cons("FromTerm")}
+      "<%"  StrategoStrategy "%>" -> Content {cons("FromApp")}
 
 **Desugaring Patterns.** Some meta-programs first desugar a program before transforming it further. This reduces the number of constructs and shapes a program can have. For example, the Tiger binary operators are desugared to prefix form:
 
-      DefTimes : |[ e1 * e2 ]|  -> |[ *(e1, e2) ]|
-      DefPlus  : |[ e1 + e2 ]|  -> |[ +(e1, e2) ]|
+    DefTimes : |[ e1 * e2 ]|  -> |[ *(e1, e2) ]|
+    DefPlus  : |[ e1 + e2 ]|  -> |[ +(e1, e2) ]|
 
 or in abstract syntax
 
-      DefPlus : Plus(e1, e2) -> BinOp(PLUS, e1, e2)
+    DefPlus : Plus(e1, e2) -> BinOp(PLUS, e1, e2)
 
 This makes it easy to write generic transformations for binary operators. However, all subsequent transformations on binary operators should then be done on these prefix forms, instead of on the usual infix form. However, users/meta-programmers think in terms of the infix operators and would like to write rules such as
 
-      Simplify : |[ e + 0 ]| -> |[ e ]|
+    Simplify : |[ e + 0 ]| -> |[ e ]|
 
 However, this rule will not match since the term to which it is applied has been desugared. Thus, it might be desirable to desugar embedded abstract syntax with the same rules with which programs are desugared. This phenomenon occurs in many forms ranging from removing parentheses and generalizing binary operators as above, to decorating abstract syntax trees with information resulting from static analysis such as type checking.
 

@@ -81,7 +81,6 @@ By pretty-printing the term we get a much more readable term:
       ]
     )
 
-
 ## 2.4. Signatures
 
 To use terms in Stratego programs, their constructors should be declared in a signature. A signature declares a number of sorts and a number of constructors for these sorts. For each constructor, a signature declares the number and types of its arguments. For example, the following signature declares some typical constructors for constructing abstract syntax trees of expressions in a programming language:

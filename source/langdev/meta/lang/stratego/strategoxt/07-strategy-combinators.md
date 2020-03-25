@@ -248,17 +248,17 @@ The switch first applies the `s0` strategy to the current term `t` resulting in 
 
 **Properties.** The switch construct is syntactic sugar for a nested if-then-else:
 
-      {x : where(s0 => x);
-           if  x
-           then s1'
-           else if  x
-                then s2'
-                else if ...
-                     then ...
-                     else sdef
-                     end
+    {x : where(s0 => x);
+        if <s1> x
+        then s1'
+        else if <s2> x
+            then s2'
+            else if ...
+                then ...
+                else sdef
                 end
-           end}
+            end
+        end}
 
 This translation uses a couple of Stratego constructs that we haven't discussed so far.
 
@@ -369,9 +369,9 @@ To illustrate the intermediate steps of the transformation we can use `debug` fr
 
 The following equations describe some relations between these strategies:
 
-      do-while(s, c) = repeat-until(s, not(c))
+    do-while(s, c) = repeat-until(s, not(c))
 
-      do-while(s, c) = s; while(c, s)
+    do-while(s, c) = s; while(c, s)
 
 [1]: stratego-strategy-combinators.html "Chapter"
 [2]: stratego-type-unifying-strategies.html "Chapter"

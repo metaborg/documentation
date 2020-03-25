@@ -47,6 +47,8 @@ The non-termination of `prop-cnf` is due to the fact that the and-over-or and or
       E : Not(And(x, y)) -> Or(Not(x), Not(y))
       E : Not(Or(x, y))  -> And(Not(x), Not(y))
 
+&nbsp;
+
     module prop-dnf2
     imports prop-simplify
     rules
@@ -114,7 +116,7 @@ In order to compute the disjunctive normal form of a term, we have to _apply_ th
 
 For conjunctive normal form we can create a similar definition, which can now co-exist with the definition of DNF. Indeed, we could then simultaneously rewrite one subterm to DNF and the other to CNF.
 
-      E : DC(x) -> (Dnf(x), Cnf(x))
+    E : DC(x) -> (Dnf(x), Cnf(x))
 
 In the solution above, the original rules have been completely intertwined with the `Dnf` transformation. The rules for negation cannot be reused in the definition of normalization to conjunctive normal form. For each new transformation a new traversal function and new transformation functions have to be defined. Many additional rules had to be added to traverse the term to find the places to apply the rules. In the modular solution we had 5 basic rules and 2 additional rules for DNF and 2 rules for CNF, 9 in total. In the functionalized version we needed 13 rules _for each transformation_, that is 26 rules in total.
 

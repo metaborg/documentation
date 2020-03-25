@@ -24,11 +24,11 @@ We start with considering type-unifying operations on lists.
 **Sum.** Reducing a list to a value can be conveniently expressed by means of a fold, which has as parameters operations for reducing the list constructors. The `foldr/2` strategy reduces a list by replacing each `Cons` by an application of `s2`, and the empty list by `s1`.
 
     foldr(s1, s2) =
-      []; s1 <+  [y|ys] -> (y,  ys)
+    []; s1 <+ \ [y|ys] -> <s2>(y, <foldr(s1, s2)> ys) \
 
 Thus, when applied to a list with three terms the result is
 
-     [t1,t2,t3] => (t1, (t2, (t3,  [])))
+    <foldr(s1,s2)> [t1,t2,t3] => <s2>(t1, <s2>(t2, <s2>(t3, <s1> [])))
 
 A typical application of `foldr/2` is `sum`, which reduces a list to the sum of its elements. It sums the elements of a list of integers, using `0` for the empty list and `add` to combine the head of a list and the result of folding the tail.
 
@@ -36,18 +36,18 @@ A typical application of `foldr/2` is `sum`, which reduces a list to the sum of 
 
 The effect of `sum` is illustrated by the following application:
 
-     [1,2,3] => (1, (2, (3,  []))) => 6
+    <foldr(!0,add)> [1,2,3] => <add>(1, <add>(2, <add>(3, <!0> []))) => 6
 
 Note the build operator for replacing the empty list with `0`; writing `foldr(0, add)` would be wrong, since `0` by itself is a congruence operator, which basically _matches_ the subject term with the term `0` (rather than replacing it).
 
 **Size.** The `foldr/2` strategy does not touch the elements of a list. The `foldr/3` strategy is a combination of fold and map that extends `foldr/2` with a parameter that is applied to the elements of the list.
 
     foldr(s1, s2, f) =
-      []; s1 <+  [y|ys] -> (y, ys)
+      []; s1 <+ \ [y|ys] -> <s2>(<f>y, <foldr(s1,s2,f)>ys) \
 
 Thus, when applying it to a list with three elements, we get:
 
-     [t1,t2,t3] => (t1, (t2, (t3,  [])))
+    <foldr(s1,s2)> [t1,t2,t3] => <s2>(<f>t1, <s2>(<f>t2, <s2>(<f>t3, <s1> [])))
 
 Now we can solve our first example problem `term-size`. The size of a list is its _length_, which corresponds to the sum of the list with the elements replaced by `1`.
 
@@ -63,7 +63,7 @@ Using `list-occurrences` and a match strategy we can count the number of variabl
 
 **Collect.** The next problem is to _collect_ all terms for which a strategy succeeds. We have already seen how to do this for lists. The `filter` strategy reduces a list to the elements for which its argument strategy succeeds.
 
-    filter(s) = [] <+ [s | filter(s)] <+ ?[ |]
+    filter(s) = [] <+ [s | filter(s)] <+ ?[ |<filter(s)>]
 
 Collecting the variables in a list is a matter of filtering with the `?Var(_)` match.
 
@@ -85,9 +85,9 @@ We have seen how to do typical analysis transformations on lists. How can we gen
       <+ fold-if(f, if)
       <+ ... )
 
-    fold-binop(f, s)  : BinOp(op, e1, e2) -> (op, e1, e2)
-    fold-assign(f, s) : Assign(e1, e2)    -> (e1, e2)
-    fold-if(f, s)     : If(e1, e2, e3)    -> (e1, e2, e3)
+    fold-binop(f, s)  : BinOp(op, e1, e2) -> <s>(op, <f>e1, <f>e2)
+    fold-assign(f, s) : Assign(e1, e2)    -> <s>(<f>e1, <f>e2)
+    fold-if(f, s)     : If(e1, e2, e3)    -> <s>(<f>e1, <f>e2, <f>e3)
 
 For each constructor of the data-type the fold has an argument strategy and a rule that matches applications of the constructor, which it replaces with an application of the strategy to the tuple of subterms reduced by a recursive invocation of the fold.
 
@@ -95,9 +95,9 @@ Instantiation of this strategy requires a rule for each constructor of the data-
 
     term-size  = fold-exp(BinOpSize, AssignSize, IfSize, ...)
 
-    BinOpSize  : (Plus(), e1, e2) -> (e1, e2)
-    AssignSize : (e1, e2)         -> (e1, e2)
-    IfSize     : (e1, e2, e3)     -> (e1, (e2, e3))
+    BinOpSize  : (Plus(), e1, e2) -> <add; inc>(e1, e2)
+    AssignSize : (e1, e2)         -> <add; inc>(e1, e2)
+    IfSize     : (e1, e2, e3)     -> <add; inc>(e1, <add>(e2, e3))
 
 This looks suspiciously like the traversal rules in [Chapter17][1]. Defining folds in this manner has several limitations. In the definition of fold, one parameter for each constructor is provided and traversal is defined explicitly for each constructor. Furthermore, in the instantiation of fold, one rule for each constructor is needed, and the default behaviour is not generically specified.
 
@@ -107,9 +107,9 @@ One solution would be to use the generic traversal strategy `bottomup` to deal w
 
     term-size   = fold-exp(BinOpSize <+ AssignSize <+ IfSize <+ ...)
 
-    BinOpSize   : BinOp(Plus(), e1, e2) -> (1, (e1, e2))
-    AssignSize  : Assign(e1, e2)        -> (e1, e2)
-    IfSize      : If(e1, e2, e3)        -> (e1, (e2, e3))
+    BinOpSize   : BinOp(Plus(), e1, e2) -> <add>(1, <add>(e1, e2))
+    AssignSize  : Assign(e1, e2)        -> <add>(e1, e2)
+    IfSize      : If(e1, e2, e3)        -> <add>(e1, <add>(e2, e3))
 
 Although the recursive application to subterms is now defined generically , one still has to specify rules for the default behavior.
 
@@ -117,12 +117,12 @@ Although the recursive application to subterms is now defined generically , one 
 
 Instead of having folding rules that are specific to a data type, such as
 
-    BinOpSize  : BinOp(op, e1, e2) -> (1, (e1, e2))
-    AssignSize : Assign(e1, e2)    -> (1, (e1, e2))
+    BinOpSize  : BinOp(op, e1, e2) -> <add>(1, <add>(e1, e2))
+    AssignSize : Assign(e1, e2)    -> <add>(1, <add>(e1, e2))
 
 we would like to have a generic definition of the form
 
-    CSize : c(e1, e2, ...) -> (e1, (e2, ...))
+    CSize : c(e1, e2, ...) -> <add>(e1, <add>(e2, ...))
 
 This requires generic decomposition of a constructor application into its constructor and the list with children. This can be done using the `#` operator. The match strategy `?p1#(p2)` decomposes a constructor application into its constructor name and the list of direct subterms. Matching such a pattern against a term of the form `C(t1,...,tn)` results in a match of `"C"` against `p1` and a match of [`t1,...,tn]` against `p2`.
 
@@ -135,11 +135,11 @@ This requires generic decomposition of a constructor application into its constr
 
 **Crush.** Using generic term deconstruction we can now generalize the type unifying operations on lists to arbitrary terms. In analogy with the generic traversal operators we need a generic one-level reduction operator. The `crush/3` strategy reduces a constructor application by folding the list of its subterms using `foldr/3`.
 
-    crush(nul, sum, s) : c#(xs) ->  xs
+    crush(nul, sum, s) : c#(xs) -> <foldr(nul, sum, s)> xs
 
 Thus, `crush` performs a fold-map over the direct subterms of a term. The following application illustrates what
 
-     C(t1, t2) => (t1, (t2, []))
+    <crush(s1, s2, f)> C(t1, t2) => <s2>(<f>t1, <s2>(<f>t2, <s1>[]))
 
 The following Shell session instantiates this application in two ways:
 
@@ -153,7 +153,7 @@ The following Shell session instantiates this application in two ways:
     stratego> !Plus(Int("1"), Var("2"))
     Plus(Int("1"),Var("2"))
 
-    stratego> crush(!Tail(), !Sum(,), !Arg())
+    stratego> crush(!Tail(<id>), !Sum(<Fst>,<Snd>), !Arg(<id>))
     Sum(Arg(Int("1")),Sum(Arg(Var("2")),Tail([])))
 
 The `crush` strategy is the tool we need to implement solutions for the example problems above.
@@ -168,9 +168,9 @@ Counting the number of subterms (nodes) in a term is a similar problem. But, ins
 
 The `term-size` strategy achieves this simply with a recursive call to itself.
 
-    stratego>  Plus(Int("1"), Var("2"))
+    stratego> <node-size> Plus(Int("1"), Var("2"))
     2
-    stratego>  Plus(Int("1"), Var("2"))
+    stratego> <term-size> Plus(Int("1"), Var("2"))
     5
 
 **Occurrences.** Counting the number of occurrences of a certain term in another term, or more generally, counting the number of subterms that satisfy some predicate is similar to counting the term size. However, only those terms satisfying the predicate should be counted. The solution is again similar to the solution for lists, but now using `crush`.
@@ -181,20 +181,20 @@ The `om-occurrences` strategy counts the _outermost_ subterms satisfying `s`. Th
 
 The following strategy counts _all_ occurrences:
 
-    occurrences(s) = (, )
+    occurrences(s) = <add>(<s < !1 + !0>, <crush(!0, add, occurrences(s))>)
 
 It counts the current term if it satisfies `s` and adds that to the occurrences in the subterms.
 
-    stratego>  Plus(Int("1"), Plus(Int("34"), Var("2")))
+    stratego> <om-occurrences(?Int(_))> Plus(Int("1"), Plus(Int("34"), Var("2")))
     2
-    stratego>  Plus(Int("1"), Plus(Int("34"), Var("2")))
+    stratego> <om-occurrences(?Plus(_,_))> Plus(Int("1"), Plus(Int("34"), Var("2")))
     1
-    stratego>  Plus(Int("1"), Plus(Int("34"), Var("2")))
+    stratego> <occurrences(?Plus(_,_))> Plus(Int("1"), Plus(Int("34"), Var("2")))
     2
 
 **Collect.** _Collecting_ the subterms that satisfy a predicate is similar to counting, but now a _list_ of subterms is produced. The `collect(s)` strategy collects all _outermost_ occurrences satisfying `s`.
 
-    collect(s) = ![] <+ crush(![], union, collect(s))
+    collect(s) = ![<s>] <+ crush(![], union, collect(s))
 
 When encountering a subterm for which `s` succeeds, a singleton list is produced. For other terms, the matching subterms are collected for each direct subterm, and the resulting lists are combined with `union` to remove duplicates.
 
@@ -207,7 +207,7 @@ Applying `get-vars` to an expression AST produces the list of all subterms match
 The `collect-all(s)` strategy collects _all_ occurrences satisfying `s`.
 
     collect-all(s) =
-      ![ | ] <+ crush(![], union, collect(s))
+    ![<s> | <crush(![], union, collect(s))>] <+ crush(![], union, collect(s))
 
 If `s` succeeds for the subject term combines the subject term with the collected terms from the subterms.
 
@@ -232,15 +232,15 @@ Here is a free variable extraction strategy for Tiger expressions. It follows a 
       Var(x) -> [x]
 
     FreeVars(fv) :
-      Let([VarDec(x, t, e1)], e2) -> ( e1, ( e2, [x]))
+      Let([VarDec(x, t, e1)], e2) -> <union>(<fv> e1, <diff>(<fv> e2, [x]))
 
     FreeVars(fv) :
-      Let([FunctionDec(fdecs)], e2) -> (( fdecs, e2), fs)
-      where ,_,_,_))> fdecs => fs
+      Let([FunctionDec(fdecs)], e2) -> <diff>(<union>(<fv> fdecs, <fv>e2), fs)
+      where <map(?FunDec(<id>,_,_,_))> fdecs => fs
 
     FreeVars(fv) :
-      FunDec(f, xs, t, e) -> (e, xs)
-      where  xs => xs
+      FunDec(f, xs, t, e) -> <diff>(<fv>e, xs)
+      where <map(Fst)> xs => xs
 
 The `FreeVars` rules for binding constructs use their `fv` parameter to recursively get the free variables from subterms, and they subtract the bound variables from any free variables found using `diff`.
 

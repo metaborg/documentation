@@ -17,7 +17,7 @@ In this chapter we explore the ways in which Stratego supports the definition of
 In [Chapter16][2] we saw the following definition of the `map` strategy, which applies a strategy to each element of a list:
 
     map(s) : [] -> []
-    map(s) : [x | xs] -> [ x |  xs]
+    map(s) : [x | xs] -> [<s> x | <map(s)> xs]
 
 The definition uses explicit recursive calls to the strategy in the right-hand side of the second rule. What `map` does is to _traverse_ the list in order to apply the argument strategy to all elements. We can use the same technique to other term structures as well.
 
@@ -46,11 +46,11 @@ In [Chapter13][1] we saw how a functional style of rewriting could be encoded us
       dnf : True()     ->          True()
       dnf : False()    ->          False()
       dnf : Atom(x)    ->          Atom(x)
-      dnf : Not(x)     ->  Not (x)
-      dnf : And(x, y)  ->  And (x, y)
-      dnf : Or(x, y)   ->          Or  (x, y)
-      dnf : Impl(x, y) ->  Impl(x, y)
-      dnf : Eq(x, y)   ->  Eq  (x, y)
+      dnf : Not(x)     -> <dnfred> Not (<dnf>x)
+      dnf : And(x, y)  -> <dnfred> And (<dnf>x, <dnf>y)
+      dnf : Or(x, y)   ->          Or  (<dnf>x, <dnf>y)
+      dnf : Impl(x, y) -> <dnfred> Impl(<dnf>x, <dnf>y)
+      dnf : Eq(x, y)   -> <dnfred> Eq  (<dnf>x, <dnf>y)
     strategies
       dnfred = try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DAOL <+ DAOR); dnf)
 
@@ -63,11 +63,11 @@ We can reduce this program by abstracting over the base cases. Since there is no
     strategies
       main = io-wrap(dnf)
     rules
-      dnft : Not(x)     ->  Not (x)
-      dnft : And(x, y)  ->  And (x, y)
-      dnft : Or(x, y)   ->          Or  (x, y)
-      dnft : Impl(x, y) ->  Impl(x, y)
-      dnft : Eq(x, y)   ->  Eq  (x, y)
+      dnft : Not(x)     -> <dnfred> Not (<dnf>x)
+      dnft : And(x, y)  -> <dnfred> And (<dnf>x, <dnf>y)
+      dnft : Or(x, y)   ->          Or  (<dnf>x, <dnf>y)
+      dnft : Impl(x, y) -> <dnfred> Impl(<dnf>x, <dnf>y)
+      dnft : Eq(x, y)   -> <dnfred> Eq  (<dnf>x, <dnf>y)
     strategies
       dnf    = try(dnft)
       dnfred = try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DAOL <+ DAOR); dnf)
@@ -81,11 +81,11 @@ We can further simplify the definition by observing that the application of `dnf
     strategies
       main = io-wrap(dnf)
     rules
-      dnft : Not(x)     -> Not (x)
-      dnft : And(x, y)  -> And (x, y)
-      dnft : Or(x, y)   -> Or  (x, y)
-      dnft : Impl(x, y) -> Impl(x, y)
-      dnft : Eq(x, y)   -> Eq  (x, y)
+      dnft : Not(x)     -> Not (<dnf>x)
+      dnft : And(x, y)  -> And (<dnf>x, <dnf>y)
+      dnft : Or(x, y)   -> Or  (<dnf>x, <dnf>y)
+      dnft : Impl(x, y) -> Impl(<dnf>x, <dnf>y)
+      dnft : Eq(x, y)   -> Eq  (<dnf>x, <dnf>y)
     strategies
       dnf    = try(dnft); dnfred
       dnfred = try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DAOL <+ DAOR); dnf)
@@ -99,11 +99,11 @@ The program above has two problems. First, the traversal behavior is mostly unif
     strategies
       main = io-wrap(dnf)
     rules
-      proptr(s) : Not(x)     -> Not (x)
-      proptr(s) : And(x, y)  -> And (x, y)
-      proptr(s) : Or(x, y)   -> Or  (x, y)
-      proptr(s) : Impl(x, y) -> Impl(x, y)
-      proptr(s) : Eq(x, y)   -> Eq  (x, y)
+      proptr(s) : Not(x)     -> Not (<s>x)
+      proptr(s) : And(x, y)  -> And (<s>x, <s>y)
+      proptr(s) : Or(x, y)   -> Or  (<s>x, <s>y)
+      proptr(s) : Impl(x, y) -> Impl(<s>x, <s>y)
+      proptr(s) : Eq(x, y)   -> Eq  (<s>x, <s>y)
     strategies
       dnf    = try(proptr(dnf)); dnfred
       dnfred = try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DAOL <+ DAOR); dnf)
@@ -119,11 +119,11 @@ But we can do better, and also make the _composition_ of this strategy reusable.
     strategies
       main = io-wrap(dnf)
     rules
-      proptr(s) : Not(x)     -> Not (x)
-      proptr(s) : And(x, y)  -> And (x, y)
-      proptr(s) : Or(x, y)   -> Or  (x, y)
-      proptr(s) : Impl(x, y) -> Impl(x, y)
-      proptr(s) : Eq(x, y)   -> Eq  (x, y)
+      proptr(s) : Not(x)     -> Not (<s>x)
+      proptr(s) : And(x, y)  -> And (<s>x, <s>y)
+      proptr(s) : Or(x, y)   -> Or  (<s>x, <s>y)
+      proptr(s) : Impl(x, y) -> Impl(<s>x, <s>y)
+      proptr(s) : Eq(x, y)   -> Eq  (<s>x, <s>y)
     strategies
       propbu(s) = proptr(propbu(s)); s
     strategies
@@ -141,11 +141,11 @@ Come to think of it, `dnfred` and `cnfred` are somewhat useless now and can be i
     strategies
       main = io-wrap(dnf)
     rules
-      proptr(s) : Not(x)     -> Not (x)
-      proptr(s) : And(x, y)  -> And (x, y)
-      proptr(s) : Or(x, y)   -> Or  (x, y)
-      proptr(s) : Impl(x, y) -> Impl(x, y)
-      proptr(s) : Eq(x, y)   -> Eq  (x, y)
+      proptr(s) : Not(x)     -> Not (<s>x)
+      proptr(s) : And(x, y)  -> And (<s>x, <s>y)
+      proptr(s) : Or(x, y)   -> Or  (<s>x, <s>y)
+      proptr(s) : Impl(x, y) -> Impl(<s>x, <s>y)
+      proptr(s) : Eq(x, y)   -> Eq  (<s>x, <s>y)
     strategies
       propbu(s) = proptr(propbu(s)); s
     strategies
@@ -193,7 +193,7 @@ The `import` at the start of the session is necessary to declare the constructor
 
 **Defining Traversals with Congruences.** Now we return to our `dnf`/`cnf` example, to see how congruence operators can help in their implementation. Since congruence operators basically define a one-step traversal for a specific constructor, they capture the traversal rules defined above. That is, a traversal rule such as
 
-    proptr(s) : And(x, y) -> And(x, y)
+    proptr(s) : And(x, y) -> And(<s>x, <s>y)
 
 can be written by the congruence `And(s,s)`. Applying this to the `prop-dnf` program we can replace the traversal rules by congruences as follows:
 
@@ -213,7 +213,7 @@ Observe how the five traversal rules have been reduced to five congruences which
 **Traversing Tuples and Lists.** Congruences can also be applied to tuples, `(s1,s2,...,sn)`, and lists, [`s1,s2,...,sn]`. A special list congruence is `[]` which 'visits' the empty list. As an example, consider again the definition of `map(s)` using recursive traversal rules:
 
     map(s) : [] -> []
-    map(s) : [x | xs] -> [ x |  xs]
+    map(s) : [x | xs] -> [<s> x | <map(s)> xs]
 
 Using list congruences we can define this strategy as:
 
@@ -233,12 +233,12 @@ Note that `map(s)` only succeeds if `s` succeeds for each element of the list. T
 
 The `fetch` strategy traverses a list _until_ it finds a element for which `s` succeeds and then stops. That element is the only one that is transformed.
 
-    filter(s) = [] + ([s | filter(s)] <+ ?[ |]; filter(s))
+    filter(s) = [] + ([s | filter(s)] <+ ?[ |<id>]; filter(s))
 
 The `filter` strategy applies `s` to each element of a list, but only keeps the elements for which it succeeds.
 
     stratego> import libstratego-lib
-    stratego> even = where(((,2),0))
+    stratego> even = where(<eq>(<mod>(<id>,2),0))
     stratego> ![1,2,3,4,5,6,7,8]
     [1,2,3,4,5,6,7,8]
     stratego> filter(even)
@@ -328,7 +328,7 @@ The `one(s)` strategy transforms a constructor application by applying the param
     Plus(Int("14"),Int("3"))
     stratego> one(!Var("a"))
     Plus(Var("a"),Int("3"))
-    stratego> one( Int(x) -> Int((x,"1"))  )
+    stratego> one(\ Int(x) -> Int(<addS>(x,"1")) \ )
     Plus(Var("a"),Int("4"))
     stratego> one(?Plus(_,_))
     command failed
@@ -493,7 +493,7 @@ Note that the `Not` is not desugared with `impl-nf2`.
 
 **Paramorphism.** A variation on bottomup is a traversal that also provides the original term as well as the term in which the direct subterms have been transformed. (Also known as a paramorphism?)
 
-    bottomup-para(s) = (, )
+    bottomup-para(s) = <s>(<id>, <all(bottomup-para(s))>)
 
 This is most useful in a bottom-up traversal; the original term is always available in a top-down traversal.
 
@@ -562,46 +562,46 @@ A typical pattern for such strategies first tries a number of special cases that
 
     strategies
 
-      propconst = ![1][4]
-        PropConst ![2][5]
+      propconst = ❶
+        PropConst ❷
         <+ propconst-assign
         <+ propconst-if
         <+ propconst-while
         <+ all(propconst); try(EvalBinOp)
 
-      EvalBinOp : ![3][6]
-        Plus(Int(i), Int(j)) -> Int(k) where (i,j) => k
+      EvalBinOp : ❸
+        Plus(Int(i), Int(j)) -> Int(k) where <addS>(i,j) => k
 
       EvalIf :
         If(Int("0"), s1, s2) -> s2
 
       EvalIf :
-        If(Int(i), s1, s2) -> s1 where (i, "0")
+        If(Int(i), s1, s2) -> s1 where <not(eq)>(i, "0")
 
-      propconst-assign = ![4][7]
+      propconst-assign = ❹
         Assign(?x, propconst => e)
-        ; if  e then
+        ; if <is-value> e then
             rules( PropConst : Var(x) -> e )
           else
             rules( PropConst :- Var(x) )
           end
 
-      propconst-if = ![5][8]
+      propconst-if = ❺
         If(propconst, id, id)
         ; (EvalIf; propconst
-           <+ (If(id, propconst, id) /PropConst If(id,id,propconst)))
+          <+ (If(id, propconst, id) /PropConst\ If(id,id,propconst)))
 
-      propconst-while = ![6][9]
+      propconst-while = ❻
         While(id,id)
-        ; (/PropConst* While(propconst, propconst))
+        ; (/PropConst\* While(propconst, propconst))
 
       is-value = Int(id)
 
-The main strategy of the constant propagation transformation ![1][4], follows the pattern described above; a number of special case alternatives followed by a generic traversal alternative. The special cases are defined in their own definitions. Generic traversal is followed by the constant folding rule `EvalBinOp` ![3][6].
+The main strategy of the constant propagation transformation ❶, follows the pattern described above; a number of special case alternatives followed by a generic traversal alternative. The special cases are defined in their own definitions. Generic traversal is followed by the constant folding rule `EvalBinOp` ❸.
 
-The first special case is an application of the dynamic rule `PropConst`, which replaces a constant valued variable by its constant value ![2][5]. This rule is defined by the second special case strategy, `propconst-assign` ![4][7]. It first traverses the right-hand side of an assignment with an `Assign` congruence operator, and a recursive call to `propconst`. Then, if the expression evaluated to a constant value, a new `PropConst` rule is defined. Otherwise, any old instance of `PropConst` for the left-hand side variable is undefined.
+The first special case is an application of the dynamic rule `PropConst`, which replaces a constant valued variable by its constant value ❷. This rule is defined by the second special case strategy, `propconst-assign` ❹. It first traverses the right-hand side of an assignment with an `Assign` congruence operator, and a recursive call to `propconst`. Then, if the expression evaluated to a constant value, a new `PropConst` rule is defined. Otherwise, any old instance of `PropConst` for the left-hand side variable is undefined.
 
-The third special case for `If` uses congruence operators to order the application of `propconst` to its subterms ![5][8]. The first congruence applies `propconst` to the condition expression. Then an application of the rule `EvalIf` attempts to eliminate one of the branches of the statement, in case the condition evaluated to a constant value. If that is not possible the branches are visited by two more congruence operator applications joined by a dynamic rule intersection operator, which distributes the constant propagation rules over the branches and merges the rules afterwards, keeping only the consistent ones. Something similar happens in the case of `While` statements ![6][9]. For details concerning dynamic rules, see [Chapter20][3].
+The third special case for `If` uses congruence operators to order the application of `propconst` to its subterms ❺. The first congruence applies `propconst` to the condition expression. Then an application of the rule `EvalIf` attempts to eliminate one of the branches of the statement, in case the condition evaluated to a constant value. If that is not possible the branches are visited by two more congruence operator applications joined by a dynamic rule intersection operator, which distributes the constant propagation rules over the branches and merges the rules afterwards, keeping only the consistent ones. Something similar happens in the case of `While` statements ❻. For details concerning dynamic rules, see [Chapter20][3].
 
 To see what `propconst` achieves, consider the following abstract syntax tree (say in file `foo.prg`).
 
@@ -610,11 +610,11 @@ To see what `propconst` achieves, consider the following abstract syntax tree (s
       Assign("y", Int("42")),
       Assign("z", Plus(Var("x"), Var("y"))),
       If(Plux(Var("a"), Var("z")),
-         Assign("b", Plus(Var("x"), Int("1"))),
-         Block([
-           Assign("z", Int("17")),
-           Assign("b", Int("2"))
-         ])),
+        Assign("b", Plus(Var("x"), Int("1"))),
+        Block([
+          Assign("z", Int("17")),
+          Assign("b", Int("2"))
+        ])),
       Assign("c", Plus(Var("b"), Plus(Var("z"), Var("y"))))
     ])
 
@@ -622,7 +622,7 @@ We import the module in the Stratego Shell, read the abstract syntax tree from f
 
     stratego> import libstrategolib
     stratego> import propconst
-    stratego>  "foo.prg"
+    stratego> <ReadFromFile> "foo.prg"
     ...
     stratego> propconst
     Block([Assign("x",Int("1")),Assign("y",Int("42")),Assign("z",Int("43")),
@@ -632,9 +632,9 @@ We import the module in the Stratego Shell, read the abstract syntax tree from f
 
 Since the Stratego Shell does not (yet) pretty-print terms, the result is rather unreadable. We can remedy this by writing the result of the transformation to a file, and pretty-printing it on the regular command-line with [pp-aterm][10].
 
-    stratego>  "foo.prg"
+    stratego> <ReadFromFile> "foo.prg"
     ...
-    stratego> propconst;  ("foo-pc.prg", )
+    stratego> propconst; <WriteToTextFile> ("foo-pc.prg", <id>)
     ...
     stratego> :quit
     ...
@@ -700,11 +700,13 @@ Similar strategies that find as many applications as possible, but at least one,
     manybu(s) = rec x(some(x); try(s) <+ s)
     manytd(s) = rec x(s; all(try(x)) <+ some(x))
 
+&nbsp;
+
     somedownup(s) = rec x(s; all(x); try(s) <+ some(x); try(s))
 
 The `alltd(s)` strategy stops as soon as it has found a subterm to which `s` can be succesfully applied.
 
-      alltd(s) = s <+ all(alltd(s))
+    alltd(s) = s <+ all(alltd(s))
 
 If `s` does not succeed, the strategy is applied recursively at all direct subterms. This means that `s` is applied along a frontier of the subject term. This strategy is typically used in substitution operations in which subterms are replaced by other terms. For example, the strategy `alltd(?Var(x); !e)` replaces all occurrences of `Var(x)` by `e`. Note that `alltd(try(s))` is not a useful strategy. Since `try(s)` succeeds at the root of the term, no traversal is done.
 
