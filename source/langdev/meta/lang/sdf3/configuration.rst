@@ -89,6 +89,24 @@ There are some extensions of JSGLR2 available. To use them, set the ``jsglr-vers
 :``recovery-incremental``: Incremental JSGLR2 with recovery. This extension is experimental and only available in the
                            development version of Spoofax.
 
+JSGLR2 logging
+=============
+
+Logging is available for JSGLR2. It can be enabled with:
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       jsglr2-logging: all
+
+Since logging all parsing events is quite verbose, several other scopes are available in addition to the ``all`` option:
+
+:``none``: Log nothing (default).
+:``minimal``: Only log the start and end of a parse, including a measurement of total parse time (including imploding and tokenization).
+:``parsing``: Log all standard parsing events (such as stack and parse forest operations, action execution, etc.) but no variant-specific events (e.g. related to recovery).
+:``recovery``: Log the recovery iterations and the recovery productions that are applied.
+
 .. warning:: Whenever changing any of these configurations, clean the project before rebuilding.
 
 .. TODO: write documentation on how to use SDF3 outside of Spoofax
