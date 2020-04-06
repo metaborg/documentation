@@ -249,7 +249,7 @@ An action has a name which is displayed in the menu, an identifier to a Stratego
 
 .. _esv-action-signature:
 
-The Stratego strategy that an action refers to has a defined signature. It must take as input a 5-tuple ``(_, _, ast, path, projectPath)``, and must produce either ``None()`` or ``(filename, output)`` when the action produces a file. The 5-tuple has wildcards which are not used by Spoofax any more, but are kept in the signature for compatibility reasons. The following Stratego code is an example of a strategy that implements this signature:
+The Stratego strategy that an action refers to has a defined signature. It must take as input a 5-tuple ``(_, _, ast, path, projectPath)``, and must produce either ``None()`` or ``(filename, output)`` when the action produces a file. Multiple files can be produced by returning a tuple ``(filename*, output*)`` of two equal length lists, one with the filenames and the other with the corresponding content. The 5-tuple has wildcards which are not used by Spoofax any more, but are kept in the signature for compatibility reasons. The following Stratego code is an example of a strategy that implements this signature:
 
 .. code-block:: stratego
 
@@ -258,6 +258,22 @@ The Stratego strategy that an action refers to has a defined signature. It must 
      with
        outputFile := $[[projectPath]/[<remove-extension> path].mod]
      ; result     := <j2m-main> ast
+
+The following Stratego code is an example of a menu action that returns multiple files:
+
+.. code-block:: stratego
+
+   gen-str:
+     (_, _, ast, path, projectPath) -> result
+     with
+       sig-file   := $[[projectPath]/[<remove-extension> path]-sig.str]
+     ; sig-str    := <ast-to-sig> ast
+     ; rules-file := $[[projectPath]/[<remove-extension> path]-rules.str]
+     ; rules-str  := <ast-to-rules> ast
+     ; result := <unzip> [
+         (sig-file, sig-str),
+         (rules-file, rules-str)
+       ]
 
 Modifiers can also be used on menus and submenus, which mean that all nested actions inherit those modifiers. For example, in::
 
