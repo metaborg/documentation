@@ -38,6 +38,7 @@ The Spoofax Language Workbench
    source/langdev/meta/lang/aterm/index
    Syntax Definition with SDF3 <source/langdev/meta/lang/sdf3/index>
    Static Semantics with NaBL2 <source/langdev/meta/lang/nabl2/index>
+   Static Semantics with Statix <source/langdev/meta/lang/statix/index>
    Data-Flow Analysis with FlowSpec <source/langdev/meta/lang/flowspec/index>
    Transformation with Stratego <source/langdev/meta/lang/stratego/index>
    Dynamic Semantics with DynSem <source/langdev/meta/lang/dynsem/index>
