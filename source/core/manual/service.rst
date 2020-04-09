@@ -174,7 +174,7 @@ Configuration
 
 Configuration services provide read and write access to project and language component configuration at runtime.
 
-See the :doc:`language development manual on configuration </source/langdev/manual/config>` for documentation about the Spoofax language specification configuration, which is a superset of the language specification, component, and project configuration.
+See the :doc:`language development manual on configuration </source/langdev/config/index>` for documentation about the Spoofax language specification configuration, which is a superset of the language specification, component, and project configuration.
 
 .. describe:: Project configuration
 
@@ -244,7 +244,7 @@ Configuration
 ^^^^^^^^^^^^^
 
 Configuration services for language specifications.
-See the :doc:`language development manual on configuration </source/langdev/manual/config>` for documentation about the Spoofax language specification configuration.
+See the :doc:`language development manual on configuration </source/langdev/config/index>` for documentation about the Spoofax language specification configuration.
 
 .. describe:: Language specification configuration
 

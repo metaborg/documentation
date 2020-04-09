@@ -32,7 +32,7 @@ The Spoofax Language Workbench
 .. toctree::
    :hidden:
    :maxdepth: 2
-   :caption: Reference Manual
+   :caption: Language Definition Reference
 
    source/langdev/meta/lang/tour/index
    source/langdev/meta/lang/aterm/index
@@ -43,9 +43,15 @@ The Spoofax Language Workbench
    Transformation with Stratego <source/langdev/meta/lang/stratego/index>
    Dynamic Semantics with DynSem <source/langdev/meta/lang/dynsem/index>
    Editor Services with ESV <source/langdev/meta/lang/esv>
-
    Language Testing with SPT <source/langdev/meta/lang/spt/index>
-   Building Languages <source/langdev/manual/index>
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Language Development Reference
+
+   Build and Develop Languages <source/langdev/build/index>
+   Configure Languages <source/langdev/config/index>
    Running Languages from Command-line <source/sunshine/manual/index>
    Programmatic API <source/core/manual/index>
    Developing Spoofax <source/dev/index>

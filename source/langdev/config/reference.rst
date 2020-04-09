@@ -1,8 +1,8 @@
 .. highlight:: yaml
 
-=============
-Configuration
-=============
+=======================
+Configuration Reference
+=======================
 
 Configuration is specified in the :file:`metaborg.yaml` file at the root of the project.
 
