@@ -21,4 +21,4 @@ rules of a language. The rules of the static semantics are written as logic rule
    usage
    reference
    stratego-api
-
+   signature-generator
