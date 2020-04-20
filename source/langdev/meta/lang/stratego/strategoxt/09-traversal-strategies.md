@@ -4,7 +4,7 @@
 
 # 9. Traversal Strategies
 
-In [Chapter13][1] we saw a number of idioms of strategic rewriting, which all involved _tree traversal_. In the previous chapters we saw how strategies can be used to control transformations and how rules can be broken down into the primitive actions match, build and scope. The missing ingredient are combinators for defining traversals.
+In [Chapter 5][1] we saw a number of idioms of strategic rewriting, which all involved _tree traversal_. In the previous chapters we saw how strategies can be used to control transformations and how rules can be broken down into the primitive actions match, build and scope. The missing ingredient are combinators for defining traversals.
 
 There are many ways to traverse a tree. For example, a bottom-up traversal, visits the subterms of a node before it visits the node itself, while a top-down traversal visits nodes before it visits children. One-pass traversals traverse the tree one time, while fixed-point traversals, such as `innermost`, repeatedly traverse a term until a normal form is reached.
 
@@ -14,14 +14,14 @@ Traversal in Stratego is based on the observation that a full term traversal is 
 
 In this chapter we explore the ways in which Stratego supports the definition of _traversal strategies_. We start with explicitly programmed traversals using recursive traversal rules. Next, _congruences operators_ provide a more concise notation for such data-type specific traversal rules. Finally, _generic traversal operators_ support data type independent definitions of traversals, which can be reused for any data type. Given these basic mechanisms, we conclude with an an exploration of idioms for traversal and standard traversal strategies in the Stratego Library.
 
-In [Chapter16][2] we saw the following definition of the `map` strategy, which applies a strategy to each element of a list:
+In [Chapter 8][2] we saw the following definition of the `map` strategy, which applies a strategy to each element of a list:
 
     map(s) : [] -> []
     map(s) : [x | xs] -> [<s> x | <map(s)> xs]
 
 The definition uses explicit recursive calls to the strategy in the right-hand side of the second rule. What `map` does is to _traverse_ the list in order to apply the argument strategy to all elements. We can use the same technique to other term structures as well.
 
-We will explore the definition of traversals using the propositional formulae from [Chapter13][1], where we introduced the following rewrite rules:
+We will explore the definition of traversals using the propositional formulae from [Chapter 5][1], where we introduced the following rewrite rules:
 
     module prop-rules
     imports libstrategolib prop
@@ -36,7 +36,7 @@ We will explore the definition of traversals using the propositional formulae fr
       DOAL : Or(And(x, y), z) -> And(Or(x, z), Or(y, z))
       DOAR : Or(z, And(x, y)) -> And(Or(z, x), Or(z, y))
 
-In [Chapter13][1] we saw how a functional style of rewriting could be encoded using extra constructors. In Stratego we can achieve a similar approach by using rule names, instead of extra constructors. Thus, one way to achieve normalization to disjunctive normal form, is the use of an explicitly programmed traversal, implemented using recursive rules, similarly to the `map` example above:
+In [Chapter 5][1] we saw how a functional style of rewriting could be encoded using extra constructors. In Stratego we can achieve a similar approach by using rule names, instead of extra constructors. Thus, one way to achieve normalization to disjunctive normal form, is the use of an explicitly programmed traversal, implemented using recursive rules, similarly to the `map` example above:
 
     module prop-dnf4
     imports libstrategolib prop-rules
@@ -546,7 +546,7 @@ A typical pattern for such strategies first tries a number of special cases that
 
     reduce = ...
 
-**Constant Propagation.** A typical example is the following constant propagation strategy. It uses the exceptions to the basic generic traversal to traverse the tree in the order of the control-flow of the program that is represented by the term. This program makes use of _dynamic rewrite rules_, which are used to propagate context-sensitive information through a program. In this case, the context-sensitive information concerns the constant values of some variables in the program, which should be propagated to the uses of those variables. Dynamic rules will be explained in [Chapter20][3]; for now we are mainly concerned with the traversal strategy.
+**Constant Propagation.** A typical example is the following constant propagation strategy. It uses the exceptions to the basic generic traversal to traverse the tree in the order of the control-flow of the program that is represented by the term. This program makes use of _dynamic rewrite rules_, which are used to propagate context-sensitive information through a program. In this case, the context-sensitive information concerns the constant values of some variables in the program, which should be propagated to the uses of those variables. Dynamic rules will be explained in [Chapter 12][3]; for now we are mainly concerned with the traversal strategy.
 
     module propconst
     imports
@@ -601,7 +601,7 @@ The main strategy of the constant propagation transformation ❶, follows the pa
 
 The first special case is an application of the dynamic rule `PropConst`, which replaces a constant valued variable by its constant value ❷. This rule is defined by the second special case strategy, `propconst-assign` ❹. It first traverses the right-hand side of an assignment with an `Assign` congruence operator, and a recursive call to `propconst`. Then, if the expression evaluated to a constant value, a new `PropConst` rule is defined. Otherwise, any old instance of `PropConst` for the left-hand side variable is undefined.
 
-The third special case for `If` uses congruence operators to order the application of `propconst` to its subterms ❺. The first congruence applies `propconst` to the condition expression. Then an application of the rule `EvalIf` attempts to eliminate one of the branches of the statement, in case the condition evaluated to a constant value. If that is not possible the branches are visited by two more congruence operator applications joined by a dynamic rule intersection operator, which distributes the constant propagation rules over the branches and merges the rules afterwards, keeping only the consistent ones. Something similar happens in the case of `While` statements ❻. For details concerning dynamic rules, see [Chapter20][3].
+The third special case for `If` uses congruence operators to order the application of `propconst` to its subterms ❺. The first congruence applies `propconst` to the condition expression. Then an application of the rule `EvalIf` attempts to eliminate one of the branches of the statement, in case the condition evaluated to a constant value. If that is not possible the branches are visited by two more congruence operator applications joined by a dynamic rule intersection operator, which distributes the constant propagation rules over the branches and merges the rules afterwards, keeping only the consistent ones. Something similar happens in the case of `While` statements ❻. For details concerning dynamic rules, see [Chapter 12][3].
 
 To see what `propconst` achieves, consider the following abstract syntax tree (say in file `foo.prg`).
 
@@ -630,7 +630,7 @@ We import the module in the Stratego Shell, read the abstract syntax tree from f
     Int("17")),Assign("b",Int("2"))])),Assign("c",Plus(Int("2"),Plus(
     Var("z"),Int("42"))))])
 
-Since the Stratego Shell does not (yet) pretty-print terms, the result is rather unreadable. We can remedy this by writing the result of the transformation to a file, and pretty-printing it on the regular command-line with [pp-aterm][10].
+Since the Stratego Shell does not (yet) pretty-print terms, the result is rather unreadable. We can remedy this by writing the result of the transformation to a file, and pretty-printing it on the regular command-line with ``pp-aterm``.
 
     stratego> <ReadFromFile> "foo.prg"
     ...
@@ -761,7 +761,6 @@ TODO: contextual rules (local traversal)
 
 TODO (probably move to dynamic rules chapter)
 
-[1]: stratego-rewriting-strategies.html "Chapter"
-[2]: stratego-creating-and-analyzing-terms.html "Chapter"
-[3]: stratego-dynamic-rules.html "Chapter"
-[10]: ref-pp-aterm.html "pp-aterm"
+[1]: 05-rewriting-strategies "Rewriting Strategies"
+[2]: 08-creating-and-analyzing-terms "Creating and Analyzing Terms"
+[3]: 12-dynamic-rules "Dynamic Rules"
