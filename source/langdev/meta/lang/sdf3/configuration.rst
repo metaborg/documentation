@@ -1,7 +1,7 @@
 .. _sdf3-configuration:
 
 SDF3 Configuration
---------------------
+------------------
 
 When using SDF3 inside Spoofax, it is possible to specify different configuration options that. They allow
 using the new parser generator, specifying the shape of completion placeholders, or disable
@@ -90,7 +90,7 @@ There are some extensions of JSGLR2 available. To use them, set the ``jsglr-vers
                            development version of Spoofax.
 
 JSGLR2 logging
-=============
+==============
 
 Logging is available for JSGLR2. It can be enabled with:
 
