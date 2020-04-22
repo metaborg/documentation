@@ -48,6 +48,7 @@ NaBL2
 Statix
 ~~~~~~
 
+- :ref:`Ability to automatically generate <statix-signature-generator>` Statix signatures from SDF3 specifications.
 - Add support for importing other modules in Statix specifications.
 - Add support for custom messages, and a ``try`` construct for warnings and notes.
 - Add support for adding multiple values to AST properties.

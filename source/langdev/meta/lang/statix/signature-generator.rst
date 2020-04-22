@@ -1,3 +1,5 @@
+.. _statix-signature-generator:
+
 ===================
 Signature Generator
 ===================
