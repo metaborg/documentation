@@ -36,6 +36,24 @@ Programmatic API
 
 The `TermFactory` for building Stratego terms now supports a builder for lists that creates an arraylist-like structure instead of the standard linkedlist-like structure. This is typically more efficient for building stratego list terms in Java. 
 
+NaBL2
+~~~~~
+
+- Improve error message location when scopes are used as term indices.
+- Dropped support for polymorphism, which was unsound.
+- Small improvements to solver performance.
+- Add support for external calls for language with Stratego JAR compilation.
+
+Statix
+~~~~~~
+
+- Add support for importing other modules in Statix specifications.
+- Add support for custom messages, and a `try` construct for warnings and notes.
+- Add support for adding multiple values to AST properties.
+- Improve disunification support in the solver.
+- Extend reserved keywords to fix parsing problems.
+- Several smaller bugfixes.
+
 Overall
 ~~~~~~~
 
