@@ -13,7 +13,7 @@ SDF
 ~~~
 
 - The Java version of sdf2table is now slightly faster and takes up less peak memory due to improvements in writing away the parsetable to file. 
-- The old (Aster based) version of make-permissive (to add error recovery to your grammar) used to be called in a way that create a small memory leak, which would compound over time with subsequent builds. This is has now been fixed. The old version of make-permissive is only in effect if you use `sdf2table: c` in your `metaborg.yaml` file.
+- The old (Aster based) version of make-permissive (to add error recovery to your grammar) used to be called in a way that create a small memory leak, which would compound over time with subsequent builds. This is has now been fixed. The old version of make-permissive is only in effect if you use ``sdf2table: c`` in your ``metaborg.yaml`` file.
 
 Parser
 ~~~~~~
@@ -35,7 +35,7 @@ Stratego separate compilation is now switched to the new system. It no longer ha
 Programmatic API
 ~~~~~~~~~~~~~~~~
 
-The `TermFactory` for building Stratego terms now supports a builder for lists that creates an arraylist-like structure instead of the standard linkedlist-like structure. This is typically more efficient for building stratego list terms in Java. 
+The ``TermFactory`` for building Stratego terms now supports a builder for lists that creates an arraylist-like structure instead of the standard linkedlist-like structure. This is typically more efficient for building stratego list terms in Java. 
 
 NaBL2
 ~~~~~
@@ -49,7 +49,7 @@ Statix
 ~~~~~~
 
 - Add support for importing other modules in Statix specifications.
-- Add support for custom messages, and a `try` construct for warnings and notes.
+- Add support for custom messages, and a ``try`` construct for warnings and notes.
 - Add support for adding multiple values to AST properties.
 - Improve disunification support in the solver.
 - Extend reserved keywords to fix parsing problems.
