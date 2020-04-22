@@ -18,19 +18,19 @@ SDF
 Parser
 ~~~~~~
 
-- Added two experimental variants to the JSGLR2 parser: ``recovery`` and ``recovery-incremental``.
-- Added Unicode support to the JSGLR1 and JSGLR2 parsers. The meta-languages themselves do not support Unicode yet, because they are bootstrapped with and old version of SDF3. However, other languages built with Spoofax can use Unicode.
-- Added logging to the JSGLR2 parser. Configure by setting ``language.sdf.jsglr2-logging`` to ``all``, ``none``, ``minimal``, ``parsing`` or ``recovery`` in ``metaborg.yaml``. 
+- Add two experimental variants to the JSGLR2 parser: ``recovery`` and ``recovery-incremental``.
+- Add Unicode support to the JSGLR1 and JSGLR2 parsers. The meta-languages themselves do not support Unicode yet, because they are bootstrapped with and old version of SDF3. However, other languages built with Spoofax can use Unicode.
+- Add logging to the JSGLR2 parser. Configure by setting ``language.sdf.jsglr2-logging`` to ``all``, ``none``, ``minimal``, ``parsing`` or ``recovery`` in ``metaborg.yaml``. 
 
 FlowSpec
 ~~~~~~~~
 
-Bugfix: Names with namespaces were broken in an earlier version during performance optimization. The error would like: ``java.lang.AssertionError: Unrecognised Namespace: Namespace("Var")``.
+- Bugfix: Names with namespaces were broken in an earlier version during performance optimization. The error would like: ``java.lang.AssertionError: Unrecognised Namespace: Namespace("Var")``.
 
 Stratego
 ~~~~~~~~
 
-Stratego separate compilation is now switched to the new system. It no longer has any limitations that were previously mentioned. Do note that separate compilation will give the same stricter error messages that the editor does: You need to import anything you use. Transitive imports still work, but you cannot use something from a module that imports your module.
+- Stratego separate compilation is now switched to the new system. It no longer has any limitations that were previously mentioned. Do note that separate compilation will give the same stricter error messages that the editor does: You need to import anything you use. Transitive imports still work, but you cannot use something from a module that imports your module.
 
 Programmatic API
 ~~~~~~~~~~~~~~~~
