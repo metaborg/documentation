@@ -35,7 +35,8 @@ Stratego separate compilation is now switched to the new system. It no longer ha
 Programmatic API
 ~~~~~~~~~~~~~~~~
 
-The ``TermFactory`` for building Stratego terms now supports a builder for lists that creates an arraylist-like structure instead of the standard linkedlist-like structure. This is typically more efficient for building stratego list terms in Java. 
+-  ``TermFactory`` for building Stratego terms now supports a builder for lists that creates an arraylist-like structure instead of the standard linkedlist-like structure. This is typically more efficient for building stratego list terms in Java.
+- Add ``org.spoofax.terms.util.TermUtils`` class with functions for working with terms. This replaces the equivalent (now deprecated) functions in ``org.spoofax.interpreter.core.Tools``.
 
 NaBL2
 ~~~~~
