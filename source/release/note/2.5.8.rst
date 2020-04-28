@@ -1,0 +1,112 @@
+=============
+Spoofax 2.5.8
+=============
+
+Spoofax 2.5.8 includes several bugfixes and improvements.
+
+Changes
+-------
+
+SDF
+~~~
+
+- The Java version of sdf2table is now slightly faster and takes up less peak memory due to improvements in writing away the parsetable to file.
+- The old (Aster based) version of make-permissive (to add error recovery to your grammar) used to be called in a way that create a small memory leak, which would compound over time with subsequent builds. This is has now been fixed. The old version of make-permissive is only in effect if you use ``sdf2table: c`` in your ``metaborg.yaml`` file.
+
+Parser
+~~~~~~
+
+- Add two experimental variants to the JSGLR2 parser: ``recovery`` and ``recovery-incremental``.
+- Add Unicode support to the JSGLR1 and JSGLR2 parsers. The meta-languages themselves do not support Unicode yet, because they are bootstrapped with and old version of SDF3. However, other languages built with Spoofax can use Unicode.
+- Add logging to the JSGLR2 parser. Configure by setting ``language.sdf.jsglr2-logging`` to ``all``, ``none``, ``minimal``, ``parsing`` or ``recovery`` in ``metaborg.yaml``.
+
+Programmatic API
+~~~~~~~~~~~~~~~~
+
+-  ``TermFactory`` for building Stratego terms now supports a builder for lists that creates an arraylist-like structure instead of the standard linkedlist-like structure. This is typically more efficient for building stratego list terms in Java.
+- Add ``org.spoofax.terms.util.TermUtils`` class with functions for working with terms. This replaces the equivalent (now deprecated) functions in ``org.spoofax.interpreter.core.Tools``.
+
+NaBL2
+~~~~~
+
+- Improve error message location when scopes are used as term indices.
+- Dropped support for polymorphism, which was unsound.
+- Small improvements to solver performance.
+- Add support for external calls for language with Stratego JAR compilation.
+
+Statix
+~~~~~~
+
+- :ref:`Ability to automatically generate <statix-signature-generator>` Statix signatures from SDF3 specifications.
+- Add support for importing other modules in Statix specifications.
+- Add support for custom messages, and a ``try`` construct for warnings and notes.
+- Add support for adding multiple values to AST properties.
+- Improve disunification support in the solver.
+- Extend reserved keywords to fix parsing problems.
+- Several smaller bugfixes.
+
+Overall
+~~~~~~~
+
+- Fixed several issues with files not being released properly, causing file I/O errors on Windows.
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.8-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.8-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.8-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.8-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.8-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.8-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.8-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.8-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.8-eclipse-linux-64_>`_
+- `macOS <2.5.8-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.8-eclipse-update-site|
+-  `Eclipse update site archive <2.5.8-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.8-intellij-update-site|
+-  `IntelliJ update site archive <2.5.8-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.8-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.8-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.8-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.8-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.8-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.8-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.8``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
