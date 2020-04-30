@@ -8,5 +8,6 @@ This is the reference manual on build and development tools for Spoofax language
    :maxdepth: 2
    :numbered:
 
+   maven
    ci
    env/intellij/index
