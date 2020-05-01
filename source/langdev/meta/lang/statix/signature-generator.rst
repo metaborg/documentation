@@ -23,10 +23,11 @@ Well-Formed SDF3 Requirements
 -----------------------------
 For the generator to work correctly, your SDF3 must be well formed. In particular, you must:
 
-* explicitly declare each sort once in your project
+* explicitly declare each sort *exactly once* in your project
 * for every use of a sort: either have a local declaration of a sort, or an import of a file that declares the sort
 * not use any implicitly declared sorts
 * not use complex injections, such as :sdf3:`Pair = Expr Expr`
+* not use optional terms, such as :sdf3:`Decl.VarDecl = ID Type?`
 
 
 Applying the Generator in Spoofax 2
