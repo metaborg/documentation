@@ -25,9 +25,11 @@ For the generator to work correctly, your SDF3 must be well formed. In particula
 
 * explicitly declare each sort *exactly once* in your project
 * for every use of a sort: either have a local declaration of a sort, or an import of a file that declares the sort
+* not declare sorts that are not used in any rules
 * not use any implicitly declared sorts
 * not use complex injections, such as :sdf3:`Pair = Expr Expr`
 * not use optional terms, such as :sdf3:`Decl.VarDecl = ID Type?`
+
 
 
 Applying the Generator in Spoofax 2
