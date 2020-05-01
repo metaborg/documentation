@@ -30,6 +30,11 @@ For the generator to work correctly, your SDF3 must be well formed. In particula
 * not use complex injections, such as :sdf3:`Pair = Expr Expr`
 * not use optional terms, such as :sdf3:`Decl.VarDecl = ID Type?`
 
+The generator generates strategies and signatures for each explicit declaration of a sort in SDF3, which is why each sort must be declared exactly once.
+SDF3 does not generate Stratego signatures for placeholders for sorts that have no corresponding rules, causing errors in the generated Statix injection explication strategies.
+Complex injections are not supported across Spoofax.
+Optional sorts cannot be represented in Statix.
+
 
 
 Applying the Generator in Spoofax 2
