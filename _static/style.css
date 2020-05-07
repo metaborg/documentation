@@ -26,6 +26,7 @@ div[class^="highlight"] pre, pre, code, .rst-content tt, .rst-content code {
   font-size: 14px !important;
   font-feature-settings: "calt" 1 !important;  /* Enable ligatures for IE 10+, Edge */
   text-rendering: optimizeLegibility !important; /* Force ligatures for Webkit, Blink, Gecko */
+  white-space: pre-wrap !important;
 }
 
 code, .rst-content tt, .rst-content code {
