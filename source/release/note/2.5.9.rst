@@ -1,0 +1,94 @@
+=============
+Spoofax 2.5.9
+=============
+
+Spoofax 2.5.9 includes dependency upgrades.
+
+Changes
+-------
+
+Overall
+~~~~~~~
+
+The following dependencies of Spoofax Core have been updated to the latest version:
+
+- ``com.netflix.rxjava:rxjava:0.20.7`` -> ``io.reactivex.rxjava3:rxjava:3.0.2``
+
+  - New transitive dependency: ``org.reactivestreams:reactive-streams:1.0.3``
+
+- ``org.apache.commons:commons-configuration2:2.2`` -> ``org.apache.commons:commons-configuration2:2.7``
+
+  - New transitive dependency: ``org.apache.commons:commons-text:1.8``
+
+- ``com.virtlink.commons:commons-configuration2-jackson:0.7.0`` -> ``com.virtlink.commons:commons-configuration2-jackson:0.10.0``
+- ``com.fasterxml.jackson.core:jackson-core:2.9.5`` -> ``com.fasterxml.jackson.core:jackson-core:2.11.0``
+- ``com.fasterxml.jackson.core:jackson-databind:2.9.5`` -> ``com.fasterxml.jackson.core:jackson-databind:2.11.0``
+- ``com.fasterxml.jackson.core:jackson-annotations:2.9.5`` -> ``com.fasterxml.jackson.core:jackson-annotations:2.11.0``
+- ``com.fasterxml.jackson.core:jackson-dataformat-yaml:2.9.5`` -> ``com.fasterxml.jackson.core:jackson-dataformat-yaml:2.11.0``
+- ``org.yaml:snakeyaml:1.18`` -> ``org.yaml:snakeyaml:1.26``
+
+The following dependencies of Spoofax-Meta Core have been updated:
+
+- ``org.apache.commons:commons-compress:1.16.1`` -> ``org.apache.commons:commons-compress:1.20``
+
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.9-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.9-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.9-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.9-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.9-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.9-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.9-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.9-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.9-eclipse-linux-64_>`_
+- `macOS <2.5.9-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.9-eclipse-update-site|
+-  `Eclipse update site archive <2.5.9-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.9-intellij-update-site|
+-  `IntelliJ update site archive <2.5.9-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.9-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.9-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.9-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.9-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.9-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.9-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.9``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.

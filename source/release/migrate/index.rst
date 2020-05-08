@@ -19,4 +19,4 @@ The following migration guides are stubs:
 .. toctree::
    :maxdepth: 1
 
-   2.6.0 (stub) <2.6.0>
+   vnext <vnext>

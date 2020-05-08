@@ -8,6 +8,7 @@ Release notes describe the changes made in the release, and provide download lin
 .. toctree::
    :maxdepth: 1
 
+   2.5.9 (08-05-2020) <2.5.9>
    2.5.8 (28-04-2020) <2.5.8>
    2.5.7 (26-06-2019) <2.5.7>
    2.5.6 (24-05-2019) <2.5.6>
@@ -39,4 +40,4 @@ The following release notes are stubs:
 .. toctree::
    :maxdepth: 1
 
-   2.6.0 (stub) <2.6.0>
+   vnext <vnext>
