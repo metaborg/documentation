@@ -56,6 +56,10 @@ to include ``org.metaborg:sdf3.ext.statix``. For example:
      - org.metaborg:org.metaborg.meta.lang.template:${metaborgVersion}
      - org.metaborg:sdf3.ext.statix:${metaborgVersion}
 
+.. pull-quote::
+
+   *Note*: Clean the project and restart Eclipse when changing the ``metaborg.yaml`` file.
+
 Once you clean your project, the extension automatically generates the following:
 
 * Statix signatures declarations (in ``src-gen/statix/signatures/``)
