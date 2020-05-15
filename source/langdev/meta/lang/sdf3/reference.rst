@@ -125,8 +125,24 @@ Sorts
 ^^^^^
 
 A sort correspond to a plain non-terminal, for example, ``Statement`` or ``Exp``.
-Sort names start with a capital letter and may be follow by letters, digits or
-hyphen. Note that unlike SDF2, SDF3 does not support parameterized sorts (yet!).
+Sort names start with a capital letter and may be follow by letters, digits,
+hyphens, or underscores. Note that unlike SDF2, SDF3 does not support
+parameterized sorts (yet!).
+
+Sorts must be declared before they can be used. Context-free sorts are declared
+in a ``context-free sorts`` block::
+
+    context-free sorts
+      Statement
+      Exp
+
+Lexical sorts must be declared in a ``lexical sorts`` block::
+
+    lexical sorts
+      ID
+      INT
+      STRING
+
 
 Optionals
 ^^^^^^^^^
@@ -235,17 +251,35 @@ of the syntax definition.
 Sort declarations
 ^^^^^^^^^^^^^^^^^
 
-Sorts are declared by listing their name in a sorts section which has
-the following form:
+Sorts are declared by listing their name in the appropriate sorts section,
+which have the following forms. For context-free sorts::
 
-::
+    context-free sorts
+
+      <Sort>*
+
+For lexical sorts::
+
+    lexical sorts
+
+      <Sort>*
+
+SDF3 also supports kernel sorts::
 
     sorts
 
       <Sort>*
 
-Writing a sort in this section only indicates that a sort has been defined, even if
-it does not have any explicit production visible.
+.. pull-quote::
+
+    *Note*: Kernel sorts should be suffixed with ``-CF`` or ``-LEX``,
+    depending on whether they are context-free sorts or lexical sorts.
+    When a sort in a ``sorts`` block does not have a suffix, it is treated
+    as a context-free sort.
+
+Writing a sort in these sections only indicates that a sort has been declared,
+even if it does not have any explicit production visible.
+
 
 Start symbols
 ^^^^^^^^^^^^^
@@ -286,7 +320,7 @@ In contrast to lexical and kernel start-symbols, context-free start symbols can 
 surrounded by optional layout. A lexical start-symbol should have been defined
 by a production in the lexical syntax; a context-free symbol should have been
 defined in the context-free syntax. Both symbols can also be defined in kernel syntax
-using the prefix ``-LEX`` or ``-CF``.
+using the suffix ``-LEX`` or ``-CF``.
 
 Lexical syntax
 ^^^^^^^^^^^^^^
