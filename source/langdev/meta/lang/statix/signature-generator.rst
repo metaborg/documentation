@@ -24,14 +24,19 @@ Well-Formed SDF3 Requirements
 For the generator to work correctly, your SDF3 must be well formed. In particular, you must:
 
 * explicitly declare each sort *exactly once* in your project
+* declare lexical sorts in a ``lexical sorts`` block
+* declare context-free sorts in a ``context-free sorts`` block
 * for every use of a sort: either have a local declaration of a sort, or an import of a file that declares the sort
 * not declare sorts that are not used in any rules
 * not use any implicitly declared sorts
 * not use complex injections, such as :sdf3:`Pair = Expr Expr`
 * not use optional terms, such as :sdf3:`Decl.VarDecl = ID Type?`
 
-The generator generates strategies and signatures for each explicit declaration of a sort in SDF3, which is why each sort must be declared exactly once.
-SDF3 does not generate Stratego signatures for placeholders for sorts that have no corresponding rules, causing errors in the generated Statix injection explication strategies.
+The generator generates strategies and signatures for each explicit declaration
+of a sort in SDF3, which is why each sort must be declared exactly once.
+SDF3 does not generate Stratego signatures for placeholders for sorts that have
+no corresponding rules, causing errors in the generated Statix injection
+explication strategies.
 Complex injections are not supported across Spoofax.
 Optional sorts cannot be represented in Statix.
 
@@ -104,8 +109,11 @@ For example, the following SDF3 syntax:
 
 .. code-block:: sdf3
 
-   sorts
-     Stmt VarName ID
+   context-free sorts
+     Stmt VarName
+
+   lexical sorts
+     ID
 
    context-free syntax
      Stmt.VarDecl = <var <VarName>;>
@@ -122,16 +130,18 @@ would approximately produce the following signatures:
 
 .. code-block:: statix
 
+   module signatures/Test-sig
+
+   imports
+
    signature
      sorts
-       ID-LEX = string
        Stmt
        VarName
-       ID
+       ID = string
      constructors
-       Stmt-LEX2Stmt : Stmt-LEX -> Stmt
-       VarName-LEX2VarName : VarName-LEX -> VarName
-       ID-LEX2ID : ID-LEX -> ID
+       Stmt-Plhdr : Stmt
+       VarName-Plhdr : VarName
 
    signature
      constructors
@@ -139,22 +149,20 @@ would approximately produce the following signatures:
        Wildcard : VarName
        ID2VarName : ID -> VarName
 
-Now, in Statix if you just want to capture the term of sort ``VarName`` in the ``VarDecl`` constructor, this would suffice:
+Now, in Statix if you just want to capture the term of sort ``VarName`` in the
+``VarDecl`` constructor, this would suffice:
 
 .. code-block:: statix
 
   VarDecl(x)
 
-But if you want to match the term only if it has the sort ``ID``, then you have to use the explicit injection constructor name ``ID2VarName``:
+But if you want to match the term only if it has the sort ``ID``, then you have
+to use the explicit injection constructor name ``ID2VarName``:
 
 .. code-block:: statix
 
   VarDecl(ID2VarName(x))
 
-If you want to capture the *string* value of the variable name, for example to use it in a query, then you also have to use the
-injection from the lexical sort ``ID-LEX`` to the context-free sort ``ID``. It will look like this:
-
-.. code-block:: statix
-
-  VarDecl(ID2VarName(ID-LEX2ID(x)))
+In this example, ``ID`` is a lexical sort, so it is an alias for ``string``
+in the Statix specification.
 
