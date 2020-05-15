@@ -170,3 +170,69 @@ to use the explicit injection constructor name ``ID2VarName``:
 In this example, ``ID`` is a lexical sort, so it is an alias for ``string``
 in the Statix specification.
 
+
+
+Troubleshooting
+---------------
+
+Calls non-existing
+~~~~~~~~~~~~~~~~~~
+Build fails with errors such as this:
+
+.. code-block:: none
+
+    [ strj | error ] *** ("is-MyLang-MySort-or-inj",0,0) calls non-existing ("is-MyLang-ID-or-inj",0,0)
+    [ strj | error ] *** ("explicate-injections-MyLang-MySort",0,0) calls non-existing ("explicate-injections-MyLang-ID",0,0)
+    [ strj | error ] *** ("implicate-injections-MyLang-MySort",0,0) calls non-existing ("implicate-injections-MyLang-ID",0,0)
+    Executing strj failed: {}
+    Failing builder was required by "Generate sources".
+    BUILD FAILED
+
+To solve this, ensure you have declared ``ID`` (in this example) as a ``lexical sort``
+in your syntax, and make sure that the syntax file with rules for ``MySort``
+that reference ``ID`` import the syntax file that declares ``ID``.
+
+
+Transformation failed unexpectedly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Clean or build fails with an error such as this:
+
+.. code-block:: none
+
+    ERROR: Optional sorts are not supported by Statix: Opt(Sort("MySort"))
+    Transformation failed unexpectedly for eclipse:///mylang/syntax/mysyntax.sdf3
+    org.metaborg.core.transform.TransformException: Invoking Stratego strategy generate-statix failed at term:
+      CfSignature("MySort", Some("MyCons"), [ Param(Opt(Sort("MySort")), "mySort") ])
+    Stratego trace:
+      generate_statix_0_0
+      generate_statix_abstract_0_0
+      geninj_generate_statix_0_0
+      geninj_module_to_sig_0_0
+      with_1_1
+      flatfilter_1_0
+      filter_1_0
+      with_1_1 <==
+      map_1_0
+      geninj_symbol_to_stxsig_0_0
+    Internal error: 'with' clause failed unexpectedly in 'geninj-sig-to-stxsig'
+
+Note the first line with ``ERROR``, it tells you that something is not supported.
+In this case, the use of optional sorts such as ``MySort?`` is not supported
+by Statix and the Statix signature generator.
+
+To solve this, rewrite a syntax rule with an optional sort such as:
+
+.. code-block:: sdf3
+    
+    Stmt.VarDecl    = <<Type?> <ID> = <Exp>>
+
+Into a rule with an explicit sort:
+
+.. code-block:: sdf3
+
+    Stmt.VarDecl    = <<Type-OPT> <ID> = <Exp>>
+    Type-OPT.NoType = <>
+    Type-OPT        = Type
+
+Note that the ``-OPT`` suffix has no special meaning. You can name
+the sort differently, such as ``OptionalType``.
