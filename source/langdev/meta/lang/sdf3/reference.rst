@@ -19,9 +19,7 @@ Imports
 Modules may import other modules for reuse or separation of concerns. A
 module may extend the definition of a non-terminal in another module. A
 module may compose the definition of a language by importing the parts
-of the language. The structure of a module is as follows:
-
-::
+of the language. The structure of a module is as follows::
 
     module <ModuleName>
 
@@ -31,9 +29,7 @@ of the language. The structure of a module is as follows:
 
 The ``module`` keyword is followed by the module name, then a series of
 imports can be made, followed by sections that contain the actual
-definition of the syntax. An import section is structured as follows:
-
-::
+definition of the syntax. An import section is structured as follows::
 
     imports <ModuleName>*
 
@@ -150,9 +146,7 @@ Optionals
 SDF3 provides a shorthand for describing zero or exactly one occurrence of a sort
 by appending the sort with ``?``. For example, the sort ``Extends?`` can be parsed
 as ``Extends`` or without consuming any input. Internally, SDF3 generates the
-following productions after normalizing the grammar
-
-::
+following productions after normalizing the grammar::
 
      Extends?.None =
      Extends?.Some = Extends
@@ -196,9 +190,7 @@ Alternative
 
 Alternative symbols express the choice between two symbols, for example, ``ID | INT``. That is,
 the symbol ``ID | INT`` can be parsed as either ``ID`` or ``INT``. For that reason,
-SDF3 normalizes alternatives by generating the following productions:
-
-::
+SDF3 normalizes alternatives by generating the following productions::
 
      ID | INT = ID
      ID | INT = INT
@@ -214,9 +206,7 @@ Sequence
 A sequence operator allows grouping of two or more symbols. Sequences are useful
 when combined with other symbols such, lists or optionals, for example ``("e" [0-9]+)?``.
 Like alternative symbols, sequences can only occur in lexical syntax. A sequence
-symbol is normalized as:
-
-::
+symbol is normalized as::
 
      ("e" [0-9]+) = "e" [0-9]+
 
@@ -232,9 +222,7 @@ as input.
 
 The ``LAYOUT`` symbol is a reserved sort name. It is used to indicate the whitespace
 that can appear in between context-free symbols. The user must define the symbol
-``LAYOUT`` such as:
-
-::
+``LAYOUT`` such as::
 
      LAYOUT = [\ \t\n]
 
@@ -299,17 +287,13 @@ start-symbol. A definition of lexical start symbols looks like
 
       <Symbol>*
 
-while context-free start symbols are defined as
-
-::
+while context-free start symbols are defined as::
 
     context-free start-symbols
 
       <Symbol>*
 
-SDF3 also supports kernel start-symbols
-
-::
+SDF3 also supports kernel start-symbols::
 
     start-symbols
 
@@ -333,17 +317,13 @@ notation for the low level syntax of a language. The ``LAYOUT`` symbol
 should also be defined in a lexical syntax section. A lexical syntax
 consists of a list of productions.
 
-Lexical syntax is described as follows:
-
-::
+Lexical syntax is described as follows::
 
     lexical syntax
 
       <Production>*
 
-An example of a production in lexical syntax:
-
-::
+An example of a production in lexical syntax::
 
     lexical syntax
 
@@ -357,26 +337,20 @@ structure of sentences in a language. A context-free syntax contains a
 list of productions. Elements of the right-hand side of a context-free
 production are pre-processed in a normalization step before parser generation
 that adds the ``LAYOUT?`` symbol between any two symbols. Context-free syntax
-has the form:
-
-::
+has the form::
 
     context-free syntax
 
       <Production>*
 
-An example production rule:
-
-::
+An example production rule::
 
     context-free syntax
 
       Block.Block = "{" Statement* "}"
 
 SDF3 automatically allows for layout to be present between the symbols
-of a rule. This means that a fragment such as:
-
-::
+of a rule. This means that a fragment such as::
 
     {
 
@@ -437,9 +411,7 @@ The basic building block of syntax sections is the production.
 The left-hand side of a regular production rule can
 be either just a symbol or a symbol followed by ``.`` and a constructor
 name. The right-hand side consists of zero or more symbols. Both sides
-are separated by ``=``:
-
-::
+are separated by ``=``::
 
     <Symbol>               = <Symbol>*
     <Symbol>.<Constructor> = <Symbol>*
@@ -460,9 +432,7 @@ by attributes that define additional (syntactic or semantic) properties
 of that production. The attributes are written between curly brackets
 after the right-hand side of a production. If a production has more than
 one attribute they are separated by commas. Attributes have thus the
-following form:
-
-::
+following form::
 
     <Sort>               = <Symbol>* { <Attribute1>, <Attribute2>, ...}
     <Sort>.<Constructor> = <Symbol>* { <Attribute1>, <Attribute2>, ...}
@@ -631,9 +601,7 @@ There are three kinds of template options.
 
 **keyword**
   Convenient way for setting up lexical follow restrictions for keywords. See the section on follow restrictions for more information. The
-  structure of the keyword option is as follows:
-
-  ::
+  structure of the keyword option is as follows::
 
       keyword -/- <Pattern>
 
@@ -648,15 +616,11 @@ There are three kinds of template options.
   as identifiers still needs to be written manually.
 
 **tokenize**
-  Specifies which characters may have layout around them. The structure of a tokenize option is as follows:
-
-  ::
+  Specifies which characters may have layout around them. The structure of a tokenize option is as follows::
 
       tokenize : "<Character*>"
 
-  Consider the following grammar specification:
-
-  ::
+  Consider the following grammar specification::
 
       template options
 
@@ -677,9 +641,7 @@ There are three kinds of template options.
 **reject**
   Convenient way for setting up reject rules for keywords. See the section
   on rejections_ for more information. The structure of the reject option
-  is as follows:
-
-  ::
+  is as follows::
 
       Symbol = keyword {attrs}
 
@@ -711,16 +673,12 @@ smaller, removing all the constructions generated by the rule on the
 right-hand side. Disambiguation by ``reject`` occurs at parse time (mostly).
 
 A rule can be marked as rejected by using the attribute ``{reject}``
-after the rule:
-
-::
+after the rule::
 
     <Sort> = ... {reject}
 
 The ``{reject}`` attribute works well for lexical rejections, especially
-keyword reservation in the form of productions like :
-
-::
+keyword reservation in the form of productions like::
 
     ID = "keyword" {reject}
 
@@ -749,9 +707,7 @@ mechanism compares the top nodes of each alternative:
    removed.
 
 The preference attribute can be used to handle the case when two productions
-can parse the same input. Here is an example:
-
-::
+can parse the same input. Here is an example::
 
     Exp.FunctionApp = <<Expr> <Expr*>>
     Exp.Constructor = <<ID> <Expr>>  {prefer}
@@ -767,9 +723,7 @@ is that productions with a higher priority "bind stronger" than productions with
 a lower priority. The essence of the priority disambiguation construct is
 that certain parse trees are removed from the ‘forest’ (the set of all possible
 parse trees that can be derived from a segment of code). The basic priority
-syntax looks like this:
-
-::
+syntax looks like this::
 
     context-free priorities
 
@@ -797,9 +751,7 @@ relation it is necessary to include a dot before the > sign (``.>``).
 
 SDF3 provides *safe* disambiguation, meaning that priority relations only remove
 ambiguous derivations. Furthermore, SDF3 also allows tree filtering by means
-of indexed priorities such as:
-
-::
+of indexed priorities such as::
 
     context-free priorities
 
@@ -845,9 +797,7 @@ production attributes. The second is as associativity declarations in
 priority groups.
 
 An example on how to mention associativity as a production attribute is
-given below:
-
-::
+given below::
 
     Exp.Plus = <<Exp> + <Exp>> {left}
 
@@ -880,9 +830,7 @@ two flavors:
 -  lexical restrictions that apply to lexical non-terminals
 -  context-free restrictions that apply to context-free non-terminals.
 
-The general form of a restriction is:
-
-::
+The general form of a restriction is::
 
     <Symbol>+ -/- <Lookaheads>
 
@@ -929,9 +877,7 @@ lines, columns and token selectors as the original layout constraints from :cite
 - **tree selectors**
 
 To specify which trees should be subject to a layout constraint, one may use: tree positions, SDF3 labeled non-terminals, or unique literals that occurs
-in the production. For example:
-
-::
+in the production. For example::
 
     context-free syntax
 
@@ -971,9 +917,7 @@ nor the statements in the branches (``align 3 else``):
 
 The constraint **align-list** can be used to indicate that all subtrees within a list should be aligned. That is, a constraint ``layout(align-list x)``,
 where ``x`` is a tree selector for a list subtree, can be used to enforce such constraint.
-For example, consider the following production and its layout constraint:
-
-::
+For example, consider the following production and its layout constraint::
 
     context-free syntax
 
@@ -1004,9 +948,7 @@ And the following program is invalid, as the second statement is misaligned:
 
 The offside rule is very common in layout-sensitive languages. It states that all lines after the first one should be further to the
 right compared to the first line. For a description of how the offside rule can be modelled with layout constraints, refer to :cite:`s-ErdwegRKO12`.
-An example of a declarative specification of the offside rule can be seen in the production below:
-
-::
+An example of a declarative specification of the offside rule can be seen in the production below::
 
     context-free syntax
 
@@ -1034,9 +976,7 @@ Note that if the expression is written on a single line, the constraint is also 
 
     x = 4 * 10 + 2
 
-It is also possible to use the offside relation on different trees. For example, consider the constraint in the following production:
-
-::
+It is also possible to use the offside relation on different trees. For example, consider the constraint in the following production::
 
     context-free syntax
 
@@ -1057,9 +997,7 @@ In general, an **offside** constraint involving more than a single tree is combi
 
 - **indent**
 
-An indent constraint indicates that the column of the first line of a certain tree should be further to the right with respect to another tree. For example, consider the following production:
-
-::
+An indent constraint indicates that the column of the first line of a certain tree should be further to the right with respect to another tree. For example, consider the following production::
 
     context-free syntax
 
