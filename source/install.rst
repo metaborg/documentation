@@ -103,7 +103,41 @@ After you have chosen a workspace and Eclipse has completely started up, go to t
 
    -  Enable: :guilabel:`Automatically configure JDT APT`
 
+
+Changing Eclipse Memory Allocation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+By default a plain Eclipse has a maximum heap size of 1 GB. You may want to
+increase this limit. The default for the Eclipse application produced by
+Spoofax is 2 GB.
+
+To run Eclipse once with a different memory limit, call it from the command-line
+like this::
+
+   eclipse [normal arguments] -vmargs -Xmx2G
+
+If this works, you can permanently apply this limit in the ``eclipse.ini`` file
+in the Eclipse installation directory (|macOS| MacOS: ``Contents/Eclipse`` in
+the Eclipse package) by changing the ``-Xmx`` argument. For example::
+
+   -vmargs
+   [...]
+   -XstartOnFirstThread
+   -Xss16M
+   -Xms2G
+   -Xmx2G
+   -Dosgi.requiredJavaVersion=1.8
+   -server
+
+``-Xmx``
+  the maximum size of the heap
+``-Xms``
+  the initial size of the heap
+``-Xss``
+  the size of the thread stack
+
+
 Further Instructions
 ~~~~~~~~~~~~~~~~~~~~
 
-Follow the :ref:`Getting Started guide <langdev-getting-started>` to get started with Spoofax in Eclipse.
+Follow the :ref:`Getting Started guide <langdev-getting-started>` to get started
+with Spoofax in Eclipse.
