@@ -12,9 +12,9 @@ Requirements
 
 Spoofax runs on the major operating systems:
 
--  Windows (32 and 64 bits)
--  Linux (32 and 64 bits)
--  macOS (Intel only)
+-  |Windows| Windows (32 and 64 bits)
+-  |Linux| Linux (32 and 64 bits)
+-  |macOS| macOS (Intel only)
 
 Spoofax requires a working internet connection to download several libraries when it is first started.
 These libraries are cached afterwards, and only need to be re-downloaded when you update Spoofax.
@@ -41,11 +41,11 @@ Unpack the downloaded archive to a location with write access, since Eclipse req
 
 .. warning::
 
-   On *Windows*, do **not** unpack the Eclipse installation into :file:`Program Files`, because no write access is granted there, breaking both Eclipse and Spoofax.
+   On |Windows| *Windows*, do **not** unpack the Eclipse installation into :file:`Program Files`, because no write access is granted there, breaking both Eclipse and Spoofax.
 
 .. warning::
 
-   On *macOS Sierra (10.12)* and above, you must move the unpacked :file:`spoofax.app` file to a different location (such as :file:`Applications`) after unpacking, to prevent `App Translocation <http://lapcatsoftware.com/articles/app-translocation.html>`_ from moving the app into a read-only filesystem, breaking Eclipse and Spoofax.
+   On |macOS| *macOS Sierra (10.12)* and above, you must move the unpacked :file:`spoofax.app` file to a different location (such as :file:`Applications`) after unpacking, to prevent `App Translocation <http://lapcatsoftware.com/articles/app-translocation.html>`_ from moving the app into a read-only filesystem, breaking Eclipse and Spoofax.
 
    Alternatively, you can prevent App Translocation by clearing attributes from the application. To do this, open the Terminal, navigate to the directory where the :file:`spoofax.app` is located, and execute:
 
@@ -58,13 +58,13 @@ Running Eclipse
 
 Start up Eclipse, depending on your operating system:
 
--  Windows: open :command:`spoofax/eclipse.exe`
--  Linux: open :command:`spoofax/eclipse`
--  Mac OSX: open :command:`spoofax.app`
+-  |Windows| Windows: open :command:`spoofax/eclipse.exe`
+-  |Linux| Linux: open :command:`spoofax/eclipse`
+-  |macOS| macOS: open :command:`spoofax.app`
 
 .. warning::
 
-   On *macOS*, if Eclipse cannot be opened because it is from an *unidentified developer*, right click :file:`spoofax.app` and choose :guilabel:`Open` to grant permission to open Eclipse.
+   On |macOS| *macOS*, if Eclipse cannot be opened because it is from an *unidentified developer*, right click :file:`spoofax.app` and choose :guilabel:`Open` to grant permission to open Eclipse.
 
    If Eclipse cannot be opened because it is *damaged*, open the Terminal, navigate to the directory where :file:`spoofax.app` is located, and execute:
 
@@ -76,7 +76,7 @@ Start up Eclipse, depending on your operating system:
 
 .. warning::
 
-   On *Ubuntu 16.04*, Eclipse is known to have problems with GTK+ 3. To work around this issue, add the following to :file:`eclipse.ini`::
+   On |Linux| *Ubuntu 16.04*, Eclipse is known to have problems with GTK+ 3. To work around this issue, add the following to :file:`eclipse.ini`::
 
       --launcher.GTK_version
       2
@@ -116,7 +116,7 @@ like this::
    eclipse [normal arguments] -vmargs -Xmx2G
 
 If this works, you can permanently apply this limit in the ``eclipse.ini`` file
-in the Eclipse installation directory (|macOS| MacOS: ``Contents/Eclipse`` in
+in the Eclipse installation directory (|macOS| macOS: ``Contents/Eclipse`` in
 the Eclipse package) by changing the ``-Xmx`` argument. For example::
 
    -vmargs
@@ -128,12 +128,12 @@ the Eclipse package) by changing the ``-Xmx`` argument. For example::
    -Dosgi.requiredJavaVersion=1.8
    -server
 
-``-Xmx``
-  the maximum size of the heap
-``-Xms``
-  the initial size of the heap
 ``-Xss``
   the size of the thread stack
+``-Xms``
+  the initial size of the heap
+``-Xmx``
+  the maximum size of the heap
 
 
 Further Instructions
