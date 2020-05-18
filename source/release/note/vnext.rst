@@ -19,6 +19,17 @@ Changes
     enabled. For this to work properly, declare your lexical and context-free
     sorts in SDF3 explicitly. See the :ref:`Statix signature generator
     <statix-signature-generator>` documentation for more information.
+- | TypeSmart: Support for TypeSmart was removed. We anticipate a more useable
+    type analysis for Stratego in the form of a gradual type system.
+  | The ``metaborg.yaml`` file of a generated project used to contain
+    a ``debug: typesmart: false``. This was to turn off the TypeSmart dynamic
+    analysis by default. This analysis would stop any Stratego code when it tried
+    to construct a tree that did not conform to the grammar of the project.
+  | To our knowledge TypeSmart was not used in any active Spoofax project. It did,
+    however, slow down the build time of all Spoofax projects, because extraction
+    of the grammar into a TypeSmart readable format had to be done even if the
+    analysis was off for that project. These two points, and the anticipation of
+    a gradual type system for Stratego, were the reasons to drop TypeSmart support.
 
 
 Overall
