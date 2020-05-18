@@ -236,3 +236,19 @@ Into a rule with an explicit sort:
 
 Note that the ``-OPT`` suffix has no special meaning. You can name
 the sort differently, such as ``OptionalType``.
+
+
+Constructor MySort-Plhdr/0 not declared
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Buid fails with an error such as this:
+
+.. code-block:: none
+
+    [ strj | error ] in rule explicate-injections-MyLang-MySort(0|0): constructor MySort-Plhdr/0 not declared
+    -     MySort-Plhdr()
+    Executing strj failed: {}
+    BUILD FAILED
+
+You have declared a sort for which you don't have any rules. Remove the sort
+from the ``context-free sorts`` or ``sorts`` block.
+
