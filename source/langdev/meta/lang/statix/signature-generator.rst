@@ -31,6 +31,7 @@ For the generator to work correctly, your SDF3 must be well formed. In particula
 * not use any implicitly declared sorts
 * not use complex injections, such as :sdf3:`Pair = Expr Expr`
 * not use optional terms, such as :sdf3:`Decl.VarDecl = ID Type?`
+* not use ``sdf2table: c``
 
 The generator generates strategies and signatures for each explicit declaration
 of a sort in SDF3, which is why each sort must be declared exactly once.
@@ -252,3 +253,15 @@ Buid fails with an error such as this:
 You have declared a sort for which you don't have any rules. Remove the sort
 from the ``context-free sorts`` or ``sorts`` block.
 
+No pp entry found, cannot rewrite to box
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Clean fails with an error such as this:
+
+.. code-block:: none
+
+    [ identity crisis | error ] No pp entry found for: (1,["declSortLex"])
+    - [ identity crisis | error ] Cannot rewrite to box: 
+    -         declSortLex("MySort")
+
+You are using the old ``sdf2table: c``. Change this in ``metaborg.yaml`` into
+``sdf2table: java``.
