@@ -28,3 +28,10 @@ Sorts for which lexical rules are defined should be declared in a
     lexical sorts
       ID INT STRING
 
+## Typesmart
+If your `metaborg.yaml` file still contains mention of Typesmart (e.g. `debug: typesmart: false`), you can remove it. See the release notes for why Typesmart support was removed.
+
+## Stratego
+Spoofax languages used to always generate `target/metaborg/stratego-javastrat.jar` which contains the compiled Java code from `src/main/stratego`. Conditional on your settings in the `metaborg.yaml` file, your Stratego code would be turned into `target/metaborg/stratego.ctree` or `target/metaborg/stratego.jar` depending on whether you chose compilation or interpretation. As of this release, there is no longer a separate `stratego-javastrat.jar`. Instead `stratego.jar` is always generated and always contains at least the compiled Java code from `src/main/stratego`. If you choose compilation for your Stratego code, the compiled Stratego code is added to the `stratego.jar` file as was already the case originally. 
+
+**What you need to do:** Go to your `editor/main.esv` file and find the `provider: ...` lines (or search your other ESV files if it's not there). The line `provider: target/metaborg/stratego-javastrat.jar` should be replaced by `provider: target/metaborg/stratego.jar`. If you already have a `provider: target/metaborg/stratego.jar`, one is enough and you can remove the `stratego-javastrat.jar` provider directive entirely. 
