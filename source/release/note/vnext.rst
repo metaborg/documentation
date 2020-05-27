@@ -9,11 +9,12 @@ See the corresponding :ref:`migration guide <vnext-migration-guide>` for migrati
 Changes
 -------
 - | SDF3: Lexical and context-free sort declarations
-  | In SDF3 you should now explicitly declare your sorts. Declare lexical sorts
+  | In SDF3 you can now explicitly declare your sorts. Declare lexical sorts
     in a ``lexical sorts`` block, and context-free sorts in a
     ``context-free sorts`` block. Sorts declared in a kernel ``sorts`` block
     default to declaring context-free sorts until a suffix such as ``-LEX``
-    is added.
+    is added. Note that you have to use ``sdf2table: java`` to support
+    lexical sorts.
 - | Statix: New projects use the signature generator by default
     New project that use Statix automatically have the Statix signature generator
     enabled. For this to work properly, declare your lexical and context-free
