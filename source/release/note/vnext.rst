@@ -30,6 +30,10 @@ Changes
     of the grammar into a TypeSmart readable format had to be done even if the
     analysis was off for that project. These two points, and the anticipation of
     a gradual type system for Stratego, were the reasons to drop TypeSmart support.
+- | Stratego: Compilation of Stratego and helper code written in Java (in
+    ``src/main/strategies``) is now combined in a single jar file per Spoofax
+    language instead of two. See the migration guide for more information on what to
+    change in your Spoofax project. 
 
 
 Overall
