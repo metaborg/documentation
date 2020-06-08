@@ -71,9 +71,10 @@ Using the Generated Injection strategies
 ----------------------------------------
 The generator generates strategies for explicating and removing injections.
 This is unfortunately needed since Statix does not support injections directly.
-To use these stratgies, import ``injections/-`` and call the ``explicate-injections-MyLang``
-and ``implicate-injections-MyLang`` strategies for the analysis pre-processing and post-processing
-respectively, where ``MyLang`` is the name of your language. For example, in ``trans/analysis.str``:
+To use these strategies, import ``injections/-`` and call the ``explicate-injections-MyLang-Start``
+and ``implicate-injections-MyLang-Start`` strategies for the analysis pre-processing and post-processing
+respectively, where ``MyLang`` is the name of your language and ``Start`` is your language's start
+symbol (as specified in ``Syntax.esv``). For example, in ``trans/analysis.str``:
 
 .. code-block:: stratego
 
@@ -91,8 +92,8 @@ respectively, where ``MyLang`` is the name of your language. For example, in ``t
    rules
 
      editor-analyze = stx-editor-analyze(pre-analyze, post-analyze|"static-semantics", "programOk")
-     pre-analyze = explicate-injections-MyLang
-     post-analyze = strip-annos; implicate-injections-MyLang
+     pre-analyze  = explicate-injections-MyLang-Start
+     post-analyze = implicate-injections-MyLang-Start
 
 
 
