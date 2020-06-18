@@ -22,6 +22,33 @@ These libraries are cached afterwards, and only need to be re-downloaded when yo
 Installing the Spoofax Eclipse Plugin
 -------------------------------------
 
+Using Homebrew on *macOS*
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On *macOS* Spoofax can be installed easily using `Homebrew <https://brew.sh/>`_.
+For other platforms, or manual installation, follow the `Download`_ instructions below.
+
+Install the *latest release* of Spoofax Eclipse as follows:
+
+.. code-block:: bash
+
+  brew tap metaborg/metaborg
+  brew cask install spoofax
+
+Alternatively, install the *nightly build* of Spoofax Eclipse using:
+
+.. code-block:: bash
+
+  brew cask install spoofax-nightly
+
+The optional command-line tools are installed with:
+
+.. code-block:: bash
+
+  brew install strategoxt
+
+Continue at `Running Eclipse`_.
+
 Download
 ~~~~~~~~
 
