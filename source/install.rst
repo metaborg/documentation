@@ -22,8 +22,8 @@ These libraries are cached afterwards, and only need to be re-downloaded when yo
 Installing the Spoofax Eclipse Plugin
 -------------------------------------
 
-Using Homebrew on *macOS*
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Using Homebrew (macOS)
+~~~~~~~~~~~~~~~~~~~~~~
 
 On *macOS* Spoofax can be installed easily using `Homebrew <https://brew.sh/>`_.
 For other platforms, or manual installation, follow the `Download`_ instructions below.
@@ -49,8 +49,8 @@ The optional command-line tools are installed with:
 
 Continue at `Running Eclipse`_.
 
-Download
-~~~~~~~~
+Download (all platforms)
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 To get started with Spoofax, download an Eclipse Oxygen installation with Spoofax preinstalled for your platform:
 
