@@ -35,12 +35,6 @@ Install the *latest release* of Spoofax Eclipse as follows:
   brew tap metaborg/metaborg
   brew cask install spoofax
 
-Alternatively, install the *nightly build* of Spoofax Eclipse using:
-
-.. code-block:: bash
-
-  brew cask install spoofax-nightly
-
 The optional command-line tools are installed with:
 
 .. code-block:: bash
@@ -48,6 +42,10 @@ The optional command-line tools are installed with:
   brew install strategoxt
 
 Continue at `Running Eclipse`_.
+
+.. warning::
+
+  Upgrading the Spoofax cask using :bash:`brew cask upgrade --greedy` will lose all manually installed plugins. It is recommended to use Eclipse update sites to keep Spoofax up-to-date.
 
 Download (all platforms)
 ~~~~~~~~~~~~~~~~~~~~~~~~
