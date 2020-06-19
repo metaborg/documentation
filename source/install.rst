@@ -1,5 +1,8 @@
 .. _installation-guide:
 
+.. role:: bash(code)
+  :language: bash
+
 ==================
 Installing Spoofax
 ==================
@@ -22,11 +25,11 @@ These libraries are cached afterwards, and only need to be re-downloaded when yo
 Installing the Spoofax Eclipse Plugin
 -------------------------------------
 
-Using Homebrew (macOS)
-~~~~~~~~~~~~~~~~~~~~~~
+Using Homebrew (|macOS| macOS)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 On *macOS* Spoofax can be installed easily using `Homebrew <https://brew.sh/>`_.
-For other platforms, or manual installation, follow the `Download`_ instructions below.
+For other platforms, or manual installation, follow the `Download (all platforms)`_ instructions below.
 
 Install the *latest release* of Spoofax Eclipse as follows:
 
