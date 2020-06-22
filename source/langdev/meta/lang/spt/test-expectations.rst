@@ -16,10 +16,13 @@ As parsing is the preliminary step to all other language components (e.g., analy
 If no parse expectation is present on a test case, even if another expectation (e.g. an analysis expectation) is present, a ``parse succeeds`` expectation will be added to the test case.
 
 ``Expectation.ParseSucceeds = <parse succeeds>``  
-  Parse the fragment and expect the parsing to succeed (i.e. no parse errors).
+  Parse the fragment and expect the parsing to succeed, with no parse errors and no ambiguities.
   
 ``Expectation.ParseFails = <parse fails>``  
-  Parse the fragment and expect the parsing to fail (i.e., produce at least 1 parse error).
+  Parse the fragment and expect the parsing to fail, with at least one parse error.
+
+``Expectation.ParseAmbiguous = <parse ambiguous>``
+  Parse the fragment and expect the parsing to succeed with one or more ambiguities.
   
 ``Expectation.ParseToAterm = <parse to <ATerm>>``  
   Parse the fragment, expect parsing to succeed, and compare it to the given ATerm AST. When using test fixtures, the ATerm should only be the AST of the *fragment* of the test, not of the entire test fixture. Please note that if you want to specify a List in the ``ATerm``, the square brackets of the list may interfere with the markers of a fragment. Therefore, to specify a list as the expected output, prepend it with the keyword ``!ATerm``. For example::
