@@ -8,7 +8,7 @@ This is a stub for the migration guide of Spoofax vNext.
 
 
 ## SDF3
-In a coming version of Spoofax 2 it will be required to properly declare sorts
+In an upcoming version of Spoofax 2 it will be required to properly declare sorts
 in SDF3 syntax definitions. Sorts for which context-free rules are defined
 should be declared in a `context-free sorts` block:
 
@@ -40,3 +40,8 @@ Spoofax languages used to always generate `target/metaborg/stratego-javastrat.ja
 
 
 **What you need to do:** Go to your `editor/main.esv` file and find the `provider: ...` lines (or search your other ESV files if it's not there). The line `provider: target/metaborg/stratego-javastrat.jar` should be replaced by `provider: target/metaborg/stratego.jar`. If you already have a `provider: target/metaborg/stratego.jar`, one is enough and you can remove the `stratego-javastrat.jar` provider directive entirely. 
+
+
+## SPT
+In SPT, `parse succeeds` tests will now fail when the input parses ambiguously.
+If this is intended, use `parse ambiguous` instead.
