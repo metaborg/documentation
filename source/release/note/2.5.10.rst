@@ -33,7 +33,8 @@ Lexical and context-free sort declarations: In SDF3 you can now explicitly decla
 Statix
 ~~~~~~
 
-New project that use Statix automatically have the Statix signature generator enabled. For this to work properly, declare your lexical and context-free sorts in SDF3 explicitly. See the :ref:`Statix signature generator <statix-signature-generator>` documentation for more information.
+- New project that use Statix automatically have the Statix signature generator enabled. For this to work properly, declare your lexical and context-free sorts in SDF3 explicitly. See the :ref:`Statix signature generator <statix-signature-generator>` documentation for more information.
+- Statix specifications are now compiled as much as possible, even if there are errors in some files. Errors in Statix files that are not actually imported, do not cause analysis to fail on an empty specification anymore.
 
 Stratego
 ~~~~~~~~
