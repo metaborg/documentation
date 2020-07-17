@@ -1,0 +1,76 @@
+==============
+Spoofax 2.5.11
+==============
+
+Spoofax 2.5.11 contains a dependency bugfix.
+
+Changes
+-------
+
+Overall
+~~~~~~~
+
+- Exclude the ``hadoop-hdfs-client`` transitive dependency from Apache VFS2
+
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.11-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.11-eclipse-windows-64-jre_>`_
+- `Linux 32-bits, embedded JRE <2.5.11-eclipse-linux-32-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.11-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.11-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.11-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.11-eclipse-windows-64_>`_
+- `Linux 32-bits <2.5.11-eclipse-linux-32_>`_
+- `Linux 64-bits <2.5.11-eclipse-linux-64_>`_
+- `macOS <2.5.11-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.11-eclipse-update-site|
+-  `Eclipse update site archive <2.5.11-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.11-intellij-update-site|
+-  `IntelliJ update site archive <2.5.11-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.11-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.11-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.11-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.11-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.11-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.11-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.11``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
+
