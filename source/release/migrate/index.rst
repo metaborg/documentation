@@ -7,6 +7,7 @@ This section contains the migration guides for releases and nightly builds of Sp
 .. toctree::
    :maxdepth: 1
 
+   2.5.10 <2.5.10>
    2.5.5 <2.5.5>
    2.2.0 <2.2.0>
    2.1.0 <2.1.0>
