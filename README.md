@@ -77,3 +77,25 @@ error: Microsoft Visual C++ 9.0 is required (Unable to find vcvarsall.bat).
 
 Then you need to download and install _Microsoft Visual C++ Compiler
 for Python 2.7_ from [http://aka.ms/vcpython27](http://aka.ms/vcpython27).
+
+
+### Interpreter python is not an executable command
+If you get the error:
+
+```
+Failed to execute process '/usr/local/bin/pip'. Reason:
+The file '/usr/local/bin/pip' specified the interpreter '/usr/local/opt/python/bin/python3.7', which is not an executable command.
+```
+
+Or:
+
+```
+/bin/sh: /usr/local/bin/sphinx-build: /usr/local/opt/python/bin/python3.7: bad interpreter: No such file or directory
+make: *** [html] Error 126
+```
+
+Then make sure your `pip` installation corresponds to your `python` installation. Execute the following to fix:
+
+```
+pip3 install --upgrade pip
+```
