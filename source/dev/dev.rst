@@ -27,6 +27,8 @@ Change directory into the :file:`spoofax-releng` repository and run:
 
 This will download and install Eclipse into :file:`~/eclipse/spoofax-dev` with the right plugins and :file:`eclipse.ini` for Spoofax development. The locally built version of the Spoofax plugin will be installed into that Eclipse. Generating an Eclipse installation can take several minutes. After it's done generating, open the Eclipse installation and confirm that it works by creating a Spoofax project.
 
+.. note:: If you get an error ``Installation failed. Cannot complete the install because of a conflicting dependency.``, then make sure there is not an existing Eclipse instance at the destination.
+
 .. note:: |macOS| macOS: If upon starting Eclipse you get the error *To open "Eclipse" you need to install the legacy Java SE 6 runtime*, then you should install a Java JDK 6 or newer for Eclipse to use. If you installed one through `SDKMAN! <https://sdkman.io/>`_ then you have to point Eclipse to it. To do this, edit the ``Contents/Eclipse/eclipse.ini`` file in the Eclipse application package content. Add the following lines just before the ``-vmargs`` argument, where ``<USERNAME>`` is your username:
   
   .. code:: bash
