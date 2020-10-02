@@ -84,13 +84,13 @@ If you get the error:
 
 ```
 Failed to execute process '/usr/local/bin/pip'. Reason:
-The file '/usr/local/bin/pip' specified the interpreter '/usr/local/opt/python/bin/python3.7', which is not an executable command.
+The file '/usr/local/bin/pip' specified the interpreter '/usr/local/opt/python/bin/python3.x', which is not an executable command.
 ```
 
 Or:
 
 ```
-/bin/sh: /usr/local/bin/sphinx-build: /usr/local/opt/python/bin/python3.7: bad interpreter: No such file or directory
+/bin/sh: /usr/local/bin/sphinx-build: /usr/local/opt/python/bin/python3.x: bad interpreter: No such file or directory
 make: *** [html] Error 126
 ```
 
