@@ -19,4 +19,6 @@ Under the Stratego language options in your ``metaborg.yaml`` file you can turn 
 Eclipse
 ~~~~~~~
 
-The Premade Eclipse installations have been updated to Eclipse 2020-6.
+* Premade Eclipse installations have been updated from Eclipse Photon to Eclipse 2020-6.
+* Premade Eclipse installations for 32-bit Linux are no longer created.
+* Embedded JRE in premade Eclipse installations has been updated from 8u162 (Oracle JRE) to 8u265-b01 (AdoptOpenJDK).

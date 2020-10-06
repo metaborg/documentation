@@ -2,13 +2,11 @@
 
 .. _dev-eclipse-windows-32-jre: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x86-jre.zip
 .. _dev-eclipse-windows-64-jre: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x64-jre.zip
-.. _dev-eclipse-linux-32-jre: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x86-jre.tar.gz
 .. _dev-eclipse-linux-64-jre: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x64-jre.tar.gz
 .. _dev-eclipse-macos-64-jre: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-macosx-x64-jre.tar.gz
 
 .. _dev-eclipse-windows-32: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x86.zip
 .. _dev-eclipse-windows-64: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-windows-x64.zip
-.. _dev-eclipse-linux-32: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x86.tar.gz
 .. _dev-eclipse-linux-64: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-linux-x64.tar.gz
 .. _dev-eclipse-macos-64: http://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/master/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/spoofax-macosx-x64.tar.gz
 
