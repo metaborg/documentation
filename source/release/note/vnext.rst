@@ -19,16 +19,26 @@ Under the Stratego language options in your ``metaborg.yaml`` file you can turn 
 NaBL2
 ~~~~~
 
-NaBL2 supports a new resolution algorithm based on fexid-point environment computation instead of graph search, which can be enabled by adding ``strategy environments`` to the ``name-resolution`` signature section.
-It has much better performance characteristics, especially when dealing with mutually importing scopes and transitive imports.
-Compared the the search-based, the environment-based algorithm can get stuck on scope graphs with cycles involving scopes importing references that can be resolved via that same scope.
-Note that the environment-based algorithm may increase memory usage.
-The default remains the search-based algorithm.
+* NaBL2 supports a new resolution algorithm based on fexid-point
+  environment computation instead of graph search, which can be
+  enabled by adding ``strategy environments`` to the
+  ``name-resolution`` signature section.  It has much better
+  performance characteristics, especially when dealing with mutually
+  importing scopes and transitive imports.  Compared the the
+  search-based, the environment-based algorithm can get stuck on scope
+  graphs with cycles involving scopes importing references that can be
+  resolved via that same scope.  Note that the environment-based
+  algorithm may increase memory usage.  The default remains the
+  search-based algorithm.
+* If a file was already analyzed in the editor, it is not reanalyzed
+  on save anoymore.
 
 Statix
 ~~~~~~
 
-Analysis times of large, multi-file Statix specifications has improved significantly.
+* Analysis times of large, multi-file Statix specifications has improved significantly.
+* If a file was already analyzed in the editor, it is not reanalyzed
+  on save anoymore.
 
 Eclipse
 ~~~~~~~
