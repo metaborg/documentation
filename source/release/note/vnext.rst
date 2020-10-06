@@ -25,6 +25,11 @@ Compared the the search-based, the environment-based algorithm can get stuck on 
 Note that the environment-based algorithm may increase memory usage.
 The default remains the search-based algorithm.
 
+Statix
+~~~~~~
+
+Analysis times of large, multi-file Statix specifications has improved significantly.
+
 Eclipse
 ~~~~~~~
 
