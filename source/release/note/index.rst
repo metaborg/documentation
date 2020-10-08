@@ -8,6 +8,7 @@ Release notes describe the changes made in the release, and provide download lin
 .. toctree::
    :maxdepth: 1
 
+   2.5.12 (08-10-2020) <2.5.12>
    2.5.11 (17-07-2020) <2.5.11>
    2.5.10 (07-07-2020) <2.5.10>
    2.5.9 (08-05-2020) <2.5.9>

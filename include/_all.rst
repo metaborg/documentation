@@ -19,3 +19,4 @@
 .. include:: /include/hyperlink/download-2.5.9.rst
 .. include:: /include/hyperlink/download-2.5.10.rst
 .. include:: /include/hyperlink/download-2.5.11.rst
+.. include:: /include/hyperlink/download-2.5.12.rst
