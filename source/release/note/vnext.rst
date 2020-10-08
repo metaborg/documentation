@@ -30,6 +30,11 @@ Statix
 
 Analysis times of large, multi-file Statix specifications has improved significantly.
 
+SDF3
+~~~~
+
+``prefer`` and ``avoid`` are now deprecated. Usages of the operators will be marked with a deprecation warning.
+
 Eclipse
 ~~~~~~~
 

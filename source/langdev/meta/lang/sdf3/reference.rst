@@ -453,7 +453,7 @@ The following syntax-related attributes exist:
 -  ``left``, ``right``, ``non-assoc``, ``assoc`` are disambiguation
    constructs used to define the associativity of productions. See
    associativity_.
--  ``prefer`` and ``avoid`` are disambiguation constructs to define
+-  ``prefer`` and ``avoid`` are **deprecated** disambiguation constructs to define
    preference of one derivation over others. See preferences_.
 -  ``reject`` is a disambiguation construct that implements language
    difference. It is used for keyword reservation. See rejections_.
@@ -689,6 +689,10 @@ The preferences mechanism is another disambiguation filter that provides
 a post parse filter to parse forests. The attributes ``prefer``
 and ``avoid`` are the only disambiguation constructs that compare
 alternative derivations after parsing.
+
+.. warning::
+
+  ``prefer`` and ``avoid`` are deprecated and will be removed in a future version of Spoofax.
 
 The following definition assumes that derivations are represented using
 parse forests with "packaged ambiguity nodes". This means that whenever
