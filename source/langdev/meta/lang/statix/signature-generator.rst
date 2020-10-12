@@ -30,6 +30,7 @@ For the generator to work correctly, your SDF3 must be well formed. In particula
 * not declare sorts that are not used in any rules
 * not use any implicitly declared sorts
 * not use complex injections, such as :sdf3:`Pair = Expr Expr`
+* constructors must start with an upper-case letter
 * not use ``sdf2table: c``
 
 The generator generates strategies and signatures for each explicit declaration
