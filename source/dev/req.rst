@@ -30,13 +30,11 @@ Python 3.4 or higher
 
   If you run macOs and have `Homebrew <http://brew.sh/>`__ installed, you can install Python by executing ``brew install python3``. Confirm your Python installation by executing ``python3 --version`` or ``python --version``, depending on how your package manager sets up Python.
 
-Pip 7.0.3 or higher
-  Pip is used to download some python dependencies. A version comes preinstalled with Python 3, but you need to make sure that you have version 7.0.3 or higher.
+  During the build, Pip will install some Python dependencies into a virtual environment. No extra Python dependencies are required for this (with one small exception, see the note below). The latest version of Pip will automatically be installed inside the virtual environment.
 
-  To upgrade to the newest version use ``pip install --upgrade pip`` or ``pip3 install --upgrade pip``, depending on if your OS uses a different ``pip`` command for Python 3. Confirm using ``pip3 --version`` or ``pip --version``.
+  .. note:: Debian and derivatives (like Ubuntu) do not include the full standard library when installing Python (`bug 1290847 <https://bugs.launchpad.net/ubuntu/+source/python3.4/+bug/1290847/+index?comments=all>`__), so you will need to install ``python3-venv`` to make sure the virtual environment can be created.
 
 Maven 3.5.4 or higher (except Maven 3.6.1 and 3.6.2)
   Required to build most components of Spoofax. Our Maven artifact server must also be registered with Maven since the build depends on artifacts from previous builds for bootstrapping purposes. We explain how to install and set up Maven in the :ref:`next section <dev-maven>`.
 
   .. note:: Spoofax cannot be built using Maven 3.6.1 or 3.6.2 due to these bugs: https://issues.apache.org/jira/browse/MNG-6642 and https://issues.apache.org/jira/browse/MNG-6765
-  
