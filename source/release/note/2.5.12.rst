@@ -1,0 +1,98 @@
+==============
+Spoofax 2.5.12
+==============
+
+Spoofax 2.5.12 contains an experimental gradual type system for Stratego, performance improvements to NaBL2 and Statix, and updates to Eclipse installations and their embedded JREs.
+
+Changes
+-------
+
+Stratego
+~~~~~~~~
+
+Stratego has two new reserved words: ``cast`` and ``is``. Local variables can be reserved words if they start with ``'``, so you can use ``'cast`` and ``'is``.
+
+Under the Stratego language options in your ``metaborg.yaml`` file you can turn on the gradual type system, if you use the incremental compiler. This option is ``gradual: static``, and only tests the types statically. The default is ``gradual: none`` right now, meaning the gradual type system is not on by default. The ``is`` dynamic type check is not yet supported at runtime, you may get Java compilation errors when attempting to compile Stratego code with that. Dynamic type casts inserted by the gradual type system are also forthcoming, runtime support for this is not yet ready. 
+
+NaBL2
+~~~~~
+
+NaBL2 supports a new resolution algorithm based on fexid-point environment computation instead of graph search, which can be enabled by adding ``strategy environments`` to the ``name-resolution`` signature section.
+It has much better performance characteristics, especially when dealing with mutually importing scopes and transitive imports.
+Compared the the search-based, the environment-based algorithm can get stuck on scope graphs with cycles involving scopes importing references that can be resolved via that same scope.
+Note that the environment-based algorithm may increase memory usage.
+The default remains the search-based algorithm.
+
+Statix
+~~~~~~
+
+Analysis times of large, multi-file Statix specifications has improved significantly.
+
+Eclipse
+~~~~~~~
+
+* Premade Eclipse installations have been updated from Eclipse Photon to Eclipse 2020-6.
+* Premade Eclipse installations for 32-bit Linux are no longer created.
+* Embedded JRE in premade Eclipse installations has been updated from 8u162 (Oracle JRE) to 8u265-b01 (AdoptOpenJDK).
+
+
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.12-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.12-eclipse-windows-64-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.12-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.12-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.12-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.12-eclipse-windows-64_>`_
+- `Linux 64-bits <2.5.12-eclipse-linux-64_>`_
+- `macOS <2.5.12-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.12-eclipse-update-site|
+-  `Eclipse update site archive <2.5.12-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.12-intellij-update-site|
+-  `IntelliJ update site archive <2.5.12-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.12-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.12-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.12-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.12-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.12-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.12-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.12``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
+
