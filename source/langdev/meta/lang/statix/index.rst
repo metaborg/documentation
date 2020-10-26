@@ -22,3 +22,4 @@ rules of a language. The rules of the static semantics are written as logic rule
    reference
    stratego-api
    signature-generator
+   nabl2-migration

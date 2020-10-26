@@ -126,7 +126,7 @@ Signatures
 
 .. code-block:: doc-cf-[
 
-  signatures
+  signature
 
     [signature*]
 
@@ -187,7 +187,6 @@ several builtin sorts. One can refer to the following sorts:
 * *User-defined sorts* using its :doc-lex:`sort-id`.
 * *Tuples* using :doc-lex:`"(" {sort-ref "*"}* ")"`.
 * *Lists* using :doc-lex:`"list(" sort-ref ")"`.
-* *Maps* using :doc-lex:`"map(" sort-ref "," sort-ref ")"`.
 * Generic *terms* using the :doc-lex:`"term"` keyword. The term sort
   contains all possible terms, and can be seen as a supertype of all
   other sorts.
