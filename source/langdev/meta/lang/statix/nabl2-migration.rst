@@ -48,6 +48,18 @@ predicates for the different namespaces.
        well-formedness P*
        order D < P
 
+    rules
+
+      [[ Def(x, T) ^ (s) ]] :=
+        Var{x} <- s,
+        Var{x} : T.
+        
+      [[ Var(x) ^ (s) : T ]] :=
+        Var{x} -> s,
+        Var{x} |-> d,
+        d : T.
+        
+
 .. code-block:: statix
 
    signature
@@ -60,9 +72,9 @@ predicates for the different namespaces.
 
    rules
 
-     declareVar : string * TYPE * scope
+     declareVar : scope * string * TYPE
 
-     declareVar(x, T, s) :-
+     declareVar(s, x, T) :-
        !var[x, T] in s.
 
      resolveVar : scope * string -> TYPE
@@ -75,6 +87,18 @@ predicates for the different namespaces.
          in s |-> [(_, (x, T))],
        @x.ref := x'.
 
+    rules
+
+      stmtOk : scope * Stmt
+
+      stmtOk(s, Def(x, T)) :-
+        declareVar(s, x, T);
+
+      typeOfExp : scope * Exp -> TYPE
+
+      typeOfExp(s, Var(x)) = T :-
+        T == resolveVar(s, x).
+
 Things to note:
 
 * Each namespace gets its own relation, and set of predicates to
@@ -84,7 +108,10 @@ Things to note:
   but part of the query in the ``resolveXXX`` rules.
 * If a declaration should have a type associated with it, it is now
   part of the relation. The fact that it appears after the arrow
-  ``->`` indicates that each declaration has a single type.
+  ``->`` indicates that each declaration has a single type.  As a
+  result, ``declareXXX`` combines the constraints ``XXX{...} <- s,
+  XXX{...} : T``. Similarly, ``resolveXXX`` combines the constraints
+  ``XXX{...} -> s, XXX{...} |-> d, d : T``.
 * The end-of-path label, called ``D`` in NaBL2, now has a special
   symbol ``$``, instead of the reserved name.
 
@@ -96,10 +123,77 @@ straight-forward manner. Note that if the function was used
 overloaded,it is necessary to defined different predicates for the
 different argument types.
 
+.. code-block:: nabl2
+
+    signature
+
+      functions
+
+        plusType : (Type * Type) -> Type {
+          (IntTy()  , IntTy()  ) -> IntTy(),
+          (StrTy()  , _        ) -> StrTy(),
+          (ListTy(a), a        ) -> ListTy(a),
+          (ListTy(a), ListTy(a)) -> ListTy(a)
+        }
+
+.. code-block:: statix
+
+    plusType : Type * Type -> Type
+
+    plusType(IntTy()  , IntTy()  ) = IntTy().
+    plusType(StrTy()  , _        ) = StrTy().
+    plusType(ListTy(a), a        ) = ListTy(a).
+    plusType(ListTy(a), ListTy(a)) = ListTy(a).
+
 Relations
 ^^^^^^^^^
 
 Relations as they exist in NaBL2 are not supported in Statix.
+
+An example of a subtyping relation in NaBl2 would translate as
+follows:
+
+.. code-block:: nabl2
+
+    signature
+
+      relations
+        reflexive, transitive, anti-symmetric sub : Type * Type {
+          FunT(-sub, +sub),
+          ListT(+sub)
+        }
+
+    rules
+
+      [[ Class(x, superX, _) ^ (s) ]] :=
+        ... more constraints ...,
+        ClassT(x) <sub! ClassT(superX).
+
+      [[ Def(x, T, e) ^ (s) ]] :=
+        [[ e ^ (s) : T' ]],
+        T1 <sub? T2.
+
+.. code-block:: statix
+
+   rules
+
+     subType : TYPE * TYPE
+
+     subType(FunT(T1, T2), FunT(U1, U2)) :-
+       subType(U1, T1),
+       subType(T2, T1).
+
+     subType(ListT(T), ListT(U)) :-
+       subType(T, U).
+
+     subType(ClassT(s1), ClassT(s2)) :-
+       ... check connectivity of s1 and s2 in the scope graph ...
+
+In this case implementing the ``subType`` rule for ``ClassT`` requires
+changing the encoding of class types. Instead of using names, we use
+the class scope to identify the class type. This pattern is know as
+_Scopes as Types_. Subtyping between class scopes can be checked by
+checking if one scope is reachable from the other.
 
 Rules
 -----
