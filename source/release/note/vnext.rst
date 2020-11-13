@@ -19,6 +19,6 @@ Parser
 
 The JSGLR2 parser variants now report warnings on ambiguously parsed substrings. This includes ambiguities in lexical and layout syntax that do not result into ``amb`` nodes in the AST.
 
-SDF
-~~~~~~
-The ``run`` expectation now allows to call strategies with term arguments. It's now also possible to test if a strategy failed.
+SPT
+~~~
+The ``run`` expectation now allows to call strategies with term arguments. It's now also possible to test if a strategy failed. See the SPT documentation for more details.
