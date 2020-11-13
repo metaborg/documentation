@@ -174,6 +174,26 @@ They will parse and analyze the fragment and run a given Stratego strategy (with
 
 ``Expectation.Run = <run <STRATEGY>>``  
   This expectation will lookup the given strategy name and run it on the AST node in the test's fragment. If the fragment contains multiple nodes (e.g., it's a list of Statements but some Statements were in the test fixture) the strategy will be run on each of these nodes. Either until it completes successfully, or until it failed on all these nodes. Note that it wil **not** be executed on the nodes in the test fixture, if there was one.
+  
+``Expectation.RunWithArgs = <run <STRATEGY>(|<TermArgs>)>``
+  This expectation will run a strategy that expects term arguments. String literals, integer literals and selection references are permitted as term arguments.::
+
+    test rename variable without type [[
+      let
+        var msg := "Hello World"
+      in 
+	print([[msg]])
+     end
+     ]] run rename(|#1, "message", 0) to [[
+       let
+	 var message := "Hello World"
+       in 
+	 print(message)
+       end
+     ]]
+
+``Expectation.RunFails = <run <STRATEGY> fails>``  
+  This expectation checks if the given strategy fails.
 
 ``Expectation.RunOn = <run <STRATEGY> on #<INT>>``  
   This expectation does the same as ``Run``, except it runs the strategy on the nodes at the given selection instead of the nodes of the test's fragment.
