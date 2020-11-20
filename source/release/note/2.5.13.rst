@@ -1,0 +1,84 @@
+==============
+Spoofax 2.5.13
+==============
+
+Spoofax 2.5.13 contains a couple of small improvements.
+
+Changes
+-------
+
+SDF3
+~~~~
+
+``prefer`` and ``avoid`` are now deprecated. Usages of the operators will be marked with a deprecation warning.
+
+Parser
+~~~~~~
+
+The JSGLR2 parser variants now report warnings on ambiguously parsed substrings. This includes ambiguities in lexical and layout syntax that do not result into ``amb`` nodes in the AST.
+
+SPT
+~~~
+
+The ``run`` expectation now allows to call strategies with term arguments. It's now also possible to test if a strategy failed. See the SPT documentation for more details.
+
+
+
+Downloads
+---------
+
+Eclipse plugin
+~~~~~~~~~~~~~~
+
+Premade Eclipse installations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With embedded JRE:
+
+- `Windows 32-bits, embedded JRE <2.5.13-eclipse-windows-32-jre_>`_
+- `Windows 64-bits, embedded JRE <2.5.13-eclipse-windows-64-jre_>`_
+- `Linux 64-bits, embedded JRE <2.5.13-eclipse-linux-64-jre_>`_
+- `macOS, embedded JRE <2.5.13-eclipse-macos-64-jre_>`_
+
+Without embedded JRE:
+
+- `Windows 32-bits <2.5.13-eclipse-windows-32_>`_
+- `Windows 64-bits <2.5.13-eclipse-windows-64_>`_
+- `Linux 64-bits <2.5.13-eclipse-linux-64_>`_
+- `macOS <2.5.13-eclipse-macos-64_>`_
+
+Update site
+^^^^^^^^^^^
+
+-  Eclipse update site: |2.5.13-eclipse-update-site|
+-  `Eclipse update site archive <2.5.13-eclipse-update-site-archive_>`_
+
+IntelliJ plugin
+~~~~~~~~~~~~~~~
+
+-  IntelliJ update site: |2.5.13-intellij-update-site|
+-  `IntelliJ update site archive <2.5.13-intellij-update-site-archive_>`_
+
+Command-line utilities
+~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Sunshine JAR <2.5.13-sunshine-jar_>`_
+-  `SPT testrunner JAR <2.5.13-spt-testrunner-jar_>`_
+
+Core API
+~~~~~~~~
+
+-  `Spoofax Core uber JAR <2.5.13-spoofax-core-uber-jar_>`_
+-  Spoofax Core uber Maven artifact: |2.5.13-spoofax-core-uber-maven-artifact|
+
+StrategoXT
+~~~~~~~~~~
+
+-  `StrategoXT distribution <2.5.13-strategoxt-distrib_>`_
+-  `StrategoXT JAR <2.5.13-strategoxt-jar_>`_
+
+Maven artifacts
+~~~~~~~~~~~~~~~
+
+Maven artifacts can be found on our `artifact server <artifact-server-releases_>`_.
+The Maven version used for this release is ``2.5.13``. See the instructions on :ref:`using MetaBorg Maven artifacts <dev-maven>` for more information.
