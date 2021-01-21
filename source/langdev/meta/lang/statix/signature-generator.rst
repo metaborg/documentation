@@ -92,8 +92,8 @@ symbol (as specified in ``Syntax.esv``). For example, in ``trans/analysis.str``:
    rules
 
      editor-analyze = stx-editor-analyze(pre-analyze, post-analyze|"static-semantics", "programOk")
-     pre-analyze  = explicate-injections-MyLang-Start
-     post-analyze = implicate-injections-MyLang-Start
+     pre-analyze  = origin-track-forced(explicate-injections-MyLang-Start)
+     post-analyze = origin-track-forced(implicate-injections-MyLang-Start)
 
 
 
@@ -266,3 +266,20 @@ Clean fails with an error such as this:
 
 You are using the old ``sdf2table: c``. Change this in ``metaborg.yaml`` into
 ``sdf2table: java``.
+
+
+SPT analysis tests calling Stratego strategies fail
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+An SPT test can run an arbitrary Stratego strategy on an analyzed AST
+and compare the results with the expected AST. If the origin of the is not
+tracked properly, the root constructor of the resulting analyzed AST will
+be missing and the comparison will fail.
+
+To fix this, ensure the ``pre-analyze`` and ``post-analyze`` strategies in
+``analysis.str`` call ``origin-track-forced``:
+
+.. code-block:: stratego
+
+     pre-analyze  = origin-track-forced(explicate-injections-MyLang-Start)
+     post-analyze = origin-track-forced(implicate-injections-MyLang-Start)
+
