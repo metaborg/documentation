@@ -10,5 +10,5 @@ Changes
 -------
 
 * Fixed origin tracking in Statix injection explication for new projects
-  that caused the top-level term of an analyzed AST to be missing
-  when applying a Stratego strategy in an SPT test.
+  that caused the top-level term of an AST to be missing
+  when a Stratego strategy is applied to an analyzed AST in an SPT test.
