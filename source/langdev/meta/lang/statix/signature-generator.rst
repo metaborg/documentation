@@ -88,6 +88,7 @@ symbol (as specified in ``Syntax.esv``). For example, in ``trans/analysis.str``:
      statix/api
 
      injections/-
+     libspoofax/term/origin
 
    rules
 
@@ -280,6 +281,9 @@ To fix this, ensure the ``pre-analyze`` and ``post-analyze`` strategies in
 
 .. code-block:: stratego
 
+   imports libspoofax/term/origin
+
+   rules
      pre-analyze  = origin-track-forced(explicate-injections-MyLang-Start)
      post-analyze = origin-track-forced(implicate-injections-MyLang-Start)
 
