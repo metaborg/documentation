@@ -252,8 +252,8 @@ Build fails with an error such as this:
     Executing strj failed: {}
     BUILD FAILED
 
-You have declared a sort for which you don't have any rules. Remove the sort
-from the ``context-free sorts`` or ``sorts`` block.
+You have declared a sort for which you don't have any syntax rules.
+Remove the sort from the ``context-free sorts`` or ``sorts`` block.
 
 No pp entry found, cannot rewrite to box
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
