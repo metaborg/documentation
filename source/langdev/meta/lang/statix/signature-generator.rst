@@ -243,7 +243,7 @@ the sort differently, such as ``OptionalType``.
 
 Constructor MySort-Plhdr/0 not declared
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Buid fails with an error such as this:
+Build fails with an error such as this:
 
 .. code-block:: none
 
