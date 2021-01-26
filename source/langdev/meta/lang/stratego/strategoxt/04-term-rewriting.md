@@ -54,6 +54,7 @@ Now we can create similar evaluation rules for all constructors of sort `Prop`:
       E : Impl(True(), x)  -> x
       E : Impl(x, True())  -> True()
       E : Impl(False(), x) -> True()
+      E : Impl(x, False()) -> Not(x)
       E : Eq(False(), x)   -> Not(x)
       E : Eq(x, False())   -> Not(x)
       E : Eq(True(), x)    -> x
@@ -84,10 +85,10 @@ This results in an executable `prop-eval` that can be used to evaluate Boolean e
     False
 
     $ cat test2.prop
-    And(Impl(True(),And(Atom("p"),Atom("q"))),ATom("p"))
+    And(Impl(True(),And(Atom("p"),Atom("q"))),Atom("p"))
 
     $ ./prop-eval -i test2.prop
-    And(And(Atom("p"),Atom("q")),ATom("p"))
+    And(And(Atom("p"),Atom("q")),Atom("p"))
 
 We can also import these definitions in the Stratego Shell, as illustrated by the following session:
 
@@ -100,14 +101,14 @@ We can also import these definitions in the Stratego Shell, as illustrated by th
     stratego> eval
     False
 
-    stratego> !And(Impl(True(),And(Atom("p"),Atom("q"))),ATom("p"))
-    And(Impl(True,And(Atom("p"),Atom("q"))),ATom("p"))
+    stratego> !And(Impl(True(),And(Atom("p"),Atom("q"))),Atom("p"))
+    And(Impl(True,And(Atom("p"),Atom("q"))),Atom("p"))
 
     stratego> eval
-    And(And(Atom("p"),Atom("q")),ATom("p"))
+    And(And(Atom("p"),Atom("q")),Atom("p"))
 
     stratego> :quit
-    And(And(Atom("p"),Atom("q")),ATom("p"))
+    And(And(Atom("p"),Atom("q")),Atom("p"))
     $
 
 The first command imports the `prop-eval` module, which recursively loads the evaluation rules and the library, thus making its definitions available in the shell. The `!` commands replace the current term with a new term. (This _build_ strategy will be properly introduced in [Chapter 8][1].)
@@ -131,12 +132,12 @@ Next we extend the rewrite rules above to rewrite a Boolean expression to disjun
 
 We use this signature only to describe what a disjunctive normal form is, not in an the actual Stratego program. This is not necessary, since terms conforming to the DNF signature are also `Prop` terms as defined before. For example, the disjunctive normal form of
 
-    And(Impl(Atom("r"),And(Atom("p"),Atom("q"))),ATom("p"))
+    And(Impl(Atom("r"),And(Atom("p"),Atom("q"))),Atom("p"))
 
 is
 
-    Or(And(Not(Atom("r")),ATom("p")),
-       And(And(Atom("p"),Atom("q")),ATom("p")))
+    Or(And(Not(Atom("r")),Atom("p")),
+       And(And(Atom("p"),Atom("q")),Atom("p")))
 
 Module `prop-dnf-rules` extends the rules defined in `prop-eval-rules` with rules to achieve disjunctive normal forms:
 
@@ -171,8 +172,8 @@ compile it in the usual way
 so that we can use it to transform terms:
 
     $ cat test3.prop
-    And(Impl(Atom("r"),And(Atom("p"),Atom("q"))),ATom("p"))
+    And(Impl(Atom("r"),And(Atom("p"),Atom("q"))),Atom("p"))
     $ ./prop-dnf -i test3.prop
-    Or(And(Not(Atom("r")),ATom("p")),And(And(Atom("p"),Atom("q")),ATom("p")))
+    Or(And(Not(Atom("r")),Atom("p")),And(And(Atom("p"),Atom("q")),Atom("p")))
 
 [1]: 08-creating-and-analyzing-terms.md "Creating and Analyzing Terms"

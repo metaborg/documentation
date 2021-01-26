@@ -125,7 +125,7 @@ But we can do better, and also make the _composition_ of this strategy reusable.
       proptr(s) : Impl(x, y) -> Impl(<s>x, <s>y)
       proptr(s) : Eq(x, y)   -> Eq  (<s>x, <s>y)
     strategies
-      propbu(s) = proptr(propbu(s)); s
+      propbu(s) = try(proptr(propbu(s))); s
     strategies
       dnf    = propbu(dnfred)
       dnfred = try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DAOL <+ DAOR); dnf)
@@ -147,7 +147,7 @@ Come to think of it, `dnfred` and `cnfred` are somewhat useless now and can be i
       proptr(s) : Impl(x, y) -> Impl(<s>x, <s>y)
       proptr(s) : Eq(x, y)   -> Eq  (<s>x, <s>y)
     strategies
-      propbu(s) = proptr(propbu(s)); s
+      propbu(s) = try(proptr(propbu(s))); s
     strategies
       dnf = propbu(try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DAOL <+ DAOR); dnf))
       cnf = propbu(try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DOAL <+ DOAR); cnf))
@@ -203,7 +203,7 @@ can be written by the congruence `And(s,s)`. Applying this to the `prop-dnf` pro
       main = io-wrap(dnf)
     strategies
       proptr(s) = Not(s) <+ And(s, s) <+ Or(s, s) <+ Impl(s, s) <+ Eq(s, s)
-      propbu(s) = proptr(propbu(s)); s
+      propbu(s) = try(proptr(propbu(s))); s
     strategies
       dnf = propbu(try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DAOL <+ DAOR); dnf))
       cnf = propbu(try(DN <+ (DefI <+ DefE <+ DMA <+ DMO <+ DOAL <+ DOAR); cnf))
@@ -252,10 +252,10 @@ As an example, consider checking the output of the `dnf` and `cnf` transformatio
     disj(s) = Or (disj(s), disj(s)) <+ s
 
     // Conjunctive normal form
-    conj-nf = conj(disj(Not(Atom(x)) <+ Atom(x)))
+    conj-nf = conj(disj(Not(Atom(id)) <+ Atom(id)))
 
     // Disjunctive normal form
-    disj-nf = disj(conj(Not(Atom(x)) <+ Atom(x)))
+    disj-nf = disj(conj(Not(Atom(id)) <+ Atom(id)))
 
 The strategies `conj(s)` and `disj(s)` check that the subject term is a conjunct or a disjunct, respectively, with terms satisfying `s` at the leaves. The strategies `conj-nf` and `disj-nf` check that the subject term is in conjunctive or disjunctive normal form, respectively.
 
