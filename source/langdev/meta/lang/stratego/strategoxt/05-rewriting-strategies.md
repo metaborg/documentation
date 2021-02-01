@@ -108,11 +108,11 @@ The `Dnf` function mimics the innermost normalization strategy by recursively tr
 In order to compute the disjunctive normal form of a term, we have to _apply_ the `Dnf` function to it, as illustrated in the following application of the `prop-dnf3` program:
 
     $ cat test1.dnf
-    Dnf(And(Impl(Atom("r"),And(Atom("p"),Atom("q"))),ATom("p")))
+    Dnf(And(Impl(Atom("r"),And(Atom("p"),Atom("q"))),Atom("p")))
 
     $ ./prop-dnf3 -i test1.dnf
-    Or(And(Not(Atom("r")),Dnf(Dnf(ATom("p")))),
-       And(And(Atom("p"),Atom("q")),Dnf(Dnf(ATom("p")))))
+    Or(And(Not(Atom("r")),Atom("p")),
+       And(And(Atom("p"),Atom("q")),Atom("p")))
 
 For conjunctive normal form we can create a similar definition, which can now co-exist with the definition of DNF. Indeed, we could then simultaneously rewrite one subterm to DNF and the other to CNF.
 
@@ -223,6 +223,7 @@ Module `prop-eval2` defines the evaluation rules for Boolean expressions and a s
       Eval : Impl(True(), x)  -> x
       Eval : Impl(x, True())  -> True()
       Eval : Impl(False(), x) -> True()
+      Eval : Impl(x, False()) -> Not(x)
       Eval : Eq(False(), x)   -> Not(x)
       Eval : Eq(x, False())   -> Not(x)
       Eval : Eq(True(), x)    -> x
