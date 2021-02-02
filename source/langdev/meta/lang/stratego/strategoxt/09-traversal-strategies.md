@@ -278,11 +278,13 @@ The `all(s)` strategy transforms a constructor application by applying the param
 The `all(s)` operator is really the ultimate replacement for the traversal rules that we saw above. Instead of specifying a rule or congruence for each constructor, the single application of the `all` operator takes care of traversing all constructors. Thus, we can replace the `propbu` strategy by a completely generic definition of bottom-up traversal. Consider again the last definition of `propbu`:
 
     proptr(s) = Not(s) <+ And(s, s) <+ Or(s, s) <+ Impl(s, s) <+ Eq(s, s)
-    propbu(s) = proptr(propbu(s)); s
+    propbu(s) = try(proptr(propbu(s))); s
 
 The role of `proptr(s)` in this definition can be replaced by `all(s)`, since that achieves exactly the same, namely applying `s` to the direct subterms of constructors:
 
     propbu(s) = all(propbu(s)); s
+
+Moreover, `all` succeeds on any constructor in any signature, so we can also as you see above drop the `try` as well, which was there only because `proptr` fails on the `Atom(...)`, `True()`, and `False()` nodes at the leaves.
 
 However, the strategy now is completely generic, i.e. independent of the particular structure it is applied to. In the Stratego Library this strategy is called `bottomup(s)`, and defined as follows:
 
