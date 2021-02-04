@@ -876,7 +876,7 @@ In the paper :cite:`s-ErdwegRKO12`, the authors describe layout constraints in t
 the position of the subtree involved in the constraint (``0``, ``1``, ...), token selectors (``first``, ``left``, ``last`` and ``right``), and position selectors as lines and columns (``line`` and ``col``).
 This mechanism allows writing layout constraints to express alignment, offside and indentation rules, but writing such constraints is
 rather cumbersome and error prone. Alternatively, one may write layout constraints using **layout declarations**, which are more declarative specifications and abstract over
-lines, columns and token selectors as the original layout constraints from :cite:`s-ErdwegRKO12`.
+lines, columns and token selectors as the original layout constraints from :cite:`s-ErdwegRKO12`. **Note**: if you want to use layout declarations, you should specify the ``jsglr-version: layout-sensitive`` parameter for SDF3, see  `JSGLR configuration <configuration.html#jsglr-version>`_.
 
 - **tree selectors**
 
