@@ -6,7 +6,7 @@
 
 Stratego programs transform terms. When using Stratego for program transformation, terms typically represent the abstract syntax tree of a program. But Stratego does not much care what a term represents. Terms can just as well represent structured documents, software models, or anything else that can be rendered in a structured format.
 
-Generally program text is transformed into a term by means of parsing, and turned back into program text by means of pretty-printing. One way to achieve this is by using [SDF3](../../sdf3/index.md). From now on we will just assume that we have terms that should be transformed and ignore parsing and pretty-printing.
+Generally program text is transformed into a term by means of parsing, and turned back into program text by means of pretty-printing. One way to achieve this is by using [SDF3](../../sdf3/index.md). For most of the examples, we will just assume that we have terms that should be transformed and ignore parsing and pretty-printing. However, when we turn to running examples in the Spoofax environment in the Eclipse IDE, we will rely on SDF3 as that is the primary way to produce terms in Spoofax/Eclipse.
 
 
 ## 2.1. Annotated Term Format
@@ -33,7 +33,7 @@ ATerms are constructed from the following elements:
 * **Tuple**: A tuple `(t1,...,tn)` is a constructor application without a constructor.
 
   Example: `(Var("x"), Type("int"))`
-* **Annotation**: The elements defined above are used to create the structural part of terms. Optionally, a term can be annotated with a list terms. These annotations typically carry additional semantic information about the term. An annotated term has the form `t{t1,...,tn}`.
+* **Annotation**: The elements defined above are used to create the structural part of terms. Optionally, a term can be annotated with a list of terms. These annotations typically carry additional semantic information about the term. An annotated term has the form `t{t1,...,tn}`.
 
   Example: `Lt(Var("n"),Int("1")){Type("bool")}`. The contents of annotations is up to the application.
 
@@ -81,6 +81,8 @@ By pretty-printing the term we get a much more readable term:
       ]
     )
 
+In Spoofax/Eclipse, you will find that in some contexts ATerms are automatically pretty-printed, whereas in others they are simply printed linearly. However, you can obtain assistance with perceiving the structure of any ATerm by writing it into a file with the ".aterm" extension and opening it in the Spoofax Editor in Eclipse. On the right there will be a convenient Outline Navigator which allows you to select any node in the ATerm and see the entire subtree below it highlighted in the editor.
+
 ## 2.4. Signatures
 
 To use terms in Stratego programs, their constructors should be declared in a signature. A signature declares a number of sorts and a number of constructors for these sorts. For each constructor, a signature declares the number and types of its arguments. For example, the following signature declares some typical constructors for constructing abstract syntax trees of expressions in a programming language:
@@ -96,3 +98,5 @@ To use terms in Stratego programs, their constructors should be declared in a si
         Call   : Id  * List(Exp) -> Exp
 
 Currently, the Stratego compiler only checks the arity of constructor applications against the signature. Still, it is considered good style to also declare the types of constructors in a sensible manner for the purpose of documentation.
+
+The situation in Spoofax/Eclipse is even more convenient; if you have an SDF3 language specification, Spoofax will automatically generate a corresponding signature definition that you can import into Stratego.

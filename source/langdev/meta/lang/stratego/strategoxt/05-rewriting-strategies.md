@@ -114,11 +114,34 @@ In order to compute the disjunctive normal form of a term, we have to _apply_ th
     Or(And(Not(Atom("r")),Atom("p")),
        And(And(Atom("p"),Atom("q")),Atom("p")))
 
+If you're going to try to run this example in Spoofax/Eclipse, a few words of caution. First, it's easiest to just accumulate all of the different test modules as imports in your main language ".str" file. But if you do that, all of their rules will be in the same namespace. So you're going to want to use different identifiers (say "E3" and "D3") in place of "E" and "D" in your `prop-dnf3.str` file. Also, the concrete syntax has no way to represent the "extra" function symbol `Dnf` that is used here, so you'll want to use alternate triggering strategies like
+
+    make-nf  = innermost(E3 <+ D3)
+    dnf3 : x -> <make-nf> Dnf(x)
+
+that wrap the input in `Dnf( ... )` themselves.
+
 For conjunctive normal form we can create a similar definition, which can now co-exist with the definition of DNF. Indeed, we could then simultaneously rewrite one subterm to DNF and the other to CNF.
 
     E : DC(x) -> (Dnf(x), Cnf(x))
 
 In the solution above, the original rules have been completely intertwined with the `Dnf` transformation. The rules for negation cannot be reused in the definition of normalization to conjunctive normal form. For each new transformation a new traversal function and new transformation functions have to be defined. Many additional rules had to be added to traverse the term to find the places to apply the rules. In the modular solution we had 5 basic rules and 2 additional rules for DNF and 2 rules for CNF, 9 in total. In the functionalized version we needed 13 rules _for each transformation_, that is 26 rules in total.
+
+In the [example repository](https://code.studioinfinity.org/glen/spoofax_prop), you can find both the dnf and cnf strategies in `trans/prop-dnf3.str` and `trans/prop-cnf3.str`.
+
+### 5.1.3 Running Stratego Transformations with the Spoofax Command-line Utilities
+
+The Spoofax project offers an executable jar called Sunshine that allows several different Spoofax actions to be invoked from the command line. Let's say you have downloaded it to the path SUNSHINE_JAR. For convenience, let's say your project resides in the SPOOFAX_PROJECT directory, and Eclipse is installed in the ECLIPSE_INSTALL directory.
+
+To use Sunshine to run a Stratego strategy, you must have a Spoofax menu item already set up to run it. But then you can invoke it on an arbitrary file from the command line like so:
+
+    java -jar $SUNSHINE_JAR transform -i <file> -n <menu-item> -p $SPOOFAX_PROJECT -l $SPOOFAX_PROJECT -l "${ECLIPSE_INSTALL}/plugins"
+
+(Note in this command, `<file>` and `<menu-item>` are placeholders that show you where to put in the actual filename and label of the menu item, respectively.) So the Sunshine jar doesn't really give us any new capabilities, but it could make running examples more convenient for you.
+
+There is a similar executable jar that allows any SPT test file to be run from the command line. We won't go into the details here, because again, it doesn't do anything that you can't already do from inside Eclipse. (But it can be convenient for automated integration testing, for example.)
+
+With this section, we've summarized all the ways that you can execute Stratego strategies in the Spoofax/Eclipse environment. Of them, placing tests in an SPT file generally seems to be the most convenient, because it involves editing the fewest files and places the expression and the expected results of the transformation together. Indeed, in the sample repository all of the remaining examples are implemented by means of `test/manual-suite.spt`. And that wraps up the Spoofax/Eclipse-specific information in this manual; there are more notes in the documentation of the example repository about specific implementation details of some of the later examples.
 
 ## 5.2. Programmable Rewriting Strategies
 

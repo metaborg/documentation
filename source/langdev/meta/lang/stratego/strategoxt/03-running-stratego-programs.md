@@ -4,7 +4,7 @@
 
 # 3. Running Stratego Programs
 
-Note: This part refers to deployment in Stratego/XT; update to Spoofax usage
+Note: This entire chapter refers to tools that are a part of Stratego/XT. We will see examples of how to run similar programs in Spoofax/Eclipse toward the end of the next chapter. However, even if you plan to use Spoofax/Eclipse, it's worth at least skimming through this chapter to see Stratego in action and understand how most of the examples throughout this manual will be presented.
 
 Now let's see how we can actually transform terms using Stratego programs. In the rest of this chapter we will first look at the structure of Stratego programs, and how to compile and run them. In the next chapters we will then see how to define transformations.
 
