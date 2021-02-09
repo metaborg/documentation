@@ -9,6 +9,11 @@ See the corresponding :ref:`migration guide <vnext-migration-guide>` for migrati
 Changes
 -------
 
+SDF3
+~~~~~~
+
+* Fixed tree indexes in layout constraints/declarations to make them 0-based.
+
 Statix
 ~~~~~~
 
