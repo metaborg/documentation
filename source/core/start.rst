@@ -14,8 +14,9 @@ Spoofax is written in Java, and thus runs on the major operating systems:
 - Linux (32 and 64 bits)
 - Mac OSX (Intel only)
 
-The Spoofax Core API is written in Java 8, so it is required to have a Java Development Kit (JDK) of version 8 or higher installed.
-You can download and install a JDK from the `Oracle website <http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>`_.
+The Spoofax Core API is written in Java 8, and can be compiled with a Java Development Kit (JDK) of version 8 up to version 11.
+Higher JDK versions have not been tested, and may result in errors about unresolved Java base classes (e.g., ``java.lang.Object``).
+You can download and install JDK 8 or JDK 11 from `AdoptOpenJDK <https://adoptopenjdk.net/>`_, or get a proprietary release from `Oracle <https://www.oracle.com/nl/java/technologies/javase-downloads.html>`_.
 
 The Spoofax Core API is deployed as a set of Maven artifacts.
 We do not (yet) publish these artifacts to Maven Central, but rather to repositories on our own artifact server.
