@@ -8,3 +8,7 @@ Stratego API
 
 The Stratego API to Statix ...
 
+.. warning::
+
+   This section has not yet been written.
+

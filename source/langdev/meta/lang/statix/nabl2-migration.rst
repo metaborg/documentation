@@ -1,3 +1,5 @@
+.. _statix-nabl2-migration:
+
 =====================
 NaBL2 Migration Guide
 =====================

@@ -1,3 +1,5 @@
+.. _statix-reference:
+
 ==================
 Language Reference
 ==================
@@ -12,6 +14,10 @@ Language Reference
 
 This section gives a systematic overview of the Statix language.
 Statix specifications are organized in modules, consisting of signatures and predicate rules.
+
+.. warning::
+
+   This section is currently incomplete. The information that is there is up-to-date, but many constructs are not yet documented.
 
 Lexical matters
 ---------------
@@ -249,7 +255,7 @@ patterns, where neither is more general than the other. There rules
 are marked with an error.
 
 *Example.* An ``or`` predicate that computes a logical or, with its
- last argument the result.
+last argument the result.
 
 .. code-block:: statix
 
@@ -295,9 +301,9 @@ used in term positions, where they behave as a term of the output
 type.
 
 *Example.* Rule for a functional predicate to type check
- expressions. The functional predicate ``typeOfExp`` is used in two
- term positions: as the result of a fucntional rule, and in an
- equality constraint.
+expressions. The functional predicate ``typeOfExp`` is used in two
+term positions: as the result of a fucntional rule, and in an
+equality constraint.
 
 .. code-block:: statix
 
@@ -340,11 +346,3 @@ Occurrences
 Arithmetic
 ^^^^^^^^^^
 
-Misc notes
-----------
-
-Error messages
-^^^^^^^^^^^^^^
-
-Debugging
-^^^^^^^^^
