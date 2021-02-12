@@ -13,8 +13,11 @@ your Statix specification if it does not work as you expect.
 
 There are three main categories of problems you may encounter:
 
-1. Errors reported in your Statix files. These may come from syntax errors, unresolved names for
-   modules or predicates, type errors, or problems with illegal scope extension.
+1. Errors reported in your Statix files. These may come from syntax errors, unresolved names for 
+   modules or predicates, type errors, or problems with illegal scope extension. When these errors 
+   are unexpected and not mentioned in :ref:`Common problems`, follow the steps in 
+   :ref:`Basic Checklist` and :ref:`Creating Minimal Examples`. If that does not help out, please 
+   follow the steps in :ref:`Getting Help`.
 2. Unexpected behavior when running Statix on files of your language. This is the most common kind
    of problems. All debugging techniques after the :ref:`Basic Checklist` are focused on finding and
    debugging problems in the definitions in your specification. **Note that it is useless to try to
@@ -30,22 +33,26 @@ Basic Checklist
 
 These are some basic things that should always be checked when you encounter a problem:
 
-- See if the disappears after a clean build (run ``Project > Clean...`` and than ``Project > Build
-  Project`` on your project). If the problem disappears after a clean build, but then consistently
-  reappears after subsequent editing or building, it should be reported as a potential bug.
+- See if the disappears after a clean build (run ``Project > Clean...`` and than 
+  ``Project > Build Project`` on your project). If the problem disappears after a clean build, but 
+  then consistently reappears after subsequent editing or building, it should be reported as a
+  potential bug.
 - Are there errors on any Statix files? The behavior of running Statix on your language files is
   undefined when the specification itself has errors. Check the ``Package Explorer`` as well as the
   ``Problems`` and ``Console`` views to make sure none of the Statix files have errors on them. Fix
   such errors before debugging any other issues!
 - Check for errors in the ``Package Explorer`` and in open editors, as well as in the ``Console``,
   ``Problems``, and ``Error Log`` views.
+- See whether the section on :ref:`Common problems` or the remainder of the documentation answers 
+  your question already.
   
 Checking AST Traversal
 ----------------------
 
 Ensure that your Statix rules are applied to the AST nodes. It is easy to forget to apply a
 predicate to a subterm, especially for bigger languages. If you are not sure if the rules are
-applied to a certain AST node, add a forced node to that AST node as follows:
+applied to a certain AST node, add a forced note (e.g. ``try { false } | note "text"``) to that AST
+node as follows:
 
 .. code-block:: statix
 
@@ -55,7 +62,7 @@ applied to a certain AST node, add a forced node to that AST node as follows:
      s_mod -EXT-> s_mod'. 
 
 Build your project and check if the note appears where you expect it. If it does not appear, find
-the places where those AST nodes may appear and enure the predicate is applied.
+the places where those AST nodes may appear and ensure the predicate is applied.
 
 Checking Reference Resolution
 -----------------------------
@@ -74,8 +81,8 @@ example programs of your language. The following rule shows how to do that using
      @x.ref := x'.
 
 This requires that ``x`` and ``x'`` are both names from the AST. Now write some example programs
-and check if references resolve to the definitions you expect, by ``Ctrl/Cmd+RightClick`` on the
-reference.
+and check if references resolve to the definitions you expect, by ``Ctrl + Click / Cmd + Right Click``
+on the reference.
 
 Note that ``statix/References`` must be included in one of your ESV files for this to work. This is
 by default the case for generated projects that use Statix.
@@ -106,7 +113,8 @@ Now we explain some more details of what we can see here:
 - Errors may contain unification variables of the form ``?FILENAME-VARNAME-NUM``. These are
   instantiations of the meta-variables in the specification. The variable name ``VARNAME``
   corresponds to the name of the meta-variable that was instantiated, and can be helpful in
-  reasoning about the origin of a unification variable. The file name is the file that was being
+  reasoning about the origin of a unification variable. When the name corresponds to a functional 
+  predicate name, it is a return value from that predicate. The file name is the file that was being
   checked when the unification variable was created. Due to Statix's operation, this can sometimes
   be the project root instead of the actual file.
 - Scope values are shown as ``#FILENAME-VARNAME-NUM``. Sometimes appear in the exploded form
@@ -194,8 +202,8 @@ Some useful questions you can ask yourself when inspecting the scope graph for d
   expected relations in them? Do the have the expected outgoing edges?
 - When you are debugging a certain query, consider the scope in which the query starts, and execute
   the query in the given graph. Are the necessary edges present? Does the regular expression allow
-  those edges to be traversed? Are you querying the correct relation, and are is the filter
-  predicate correct for the data you want to match?
+  those edges to be traversed? Are you querying the correct relation, and is the filter predicate
+  correct for the data you want to match?
 
 When considering these questions, it can be helpful to use the ideas from :ref:`Inspecting
 Variables` to verify the scope a query is executed in, or to show the scope that is created for a
@@ -275,11 +283,48 @@ create the smallest set of rules and predicate arguments that still exhibit the 
 debugging. A self-contained test is also very helpful when asking others for help, as it is much
 easier to review and run than having to setup and build a complete language project.
 
+.. _Common Problems:
+
 Some Common Problems
 --------------------
 
 - Predicates fail with ``amb(...)`` terms as arguments. These terms indicate parsing ambiguities,
   which should be fixed in the grammar (SDF3) files.
+- Errors in your specification appear at incorrect places (e.g. sort or constructor declarations).
+  In such cases, the declaration is referenced from an invalid position anywhere in your 
+  specification, but due to the non-deterministic order of constraint solving the error appears at
+  the observed position. The best approach to solve these issues is to comment away all usages,
+  until the error disappears. Then, in the last commented position, the declaration is used 
+  incorrectly.
+- One or both of the ``fileOk(...)`` or ``projectOk(...)`` predicates fail immediately, for example 
+  with the error messages:
+
+  .. code-block:: text
+
+     statics!fileOk(Scope("","s_1-1"),Test([Prog("A.mod",Decls(…)),Prog("B.mod",Decls(…)),Prog("C.mod",Decls(…))])) (no origin information)
+     statics!projectOk(Scope("","s_1-1")) (no origin information)
+ 
+  In such cases, you have probably moved the declarations of these predicates to another file.
+  
+  .. code-block:: statix
+  
+     // file: trans/mylang.stx
+     module mylang
+     imports mylang/program
+
+     rules
+
+       projectOk : scope
+       projectOk(s).
+  
+       fileOk : scope * Start   
+       fileOk(s, p) :- programOk(s, p).
+  
+  This is fine, but the call to the Statix solver should be updated accordingly. In 
+  ``trans/analysis.str``, the first term parameter to ``stx-editor-analyze`` (which is ``"statics"``
+  by default) should be updated to the new module name. 
+
+.. _Getting Help:
 
 Getting Help and Reporting Issues
 ---------------------------------
@@ -292,11 +337,12 @@ template when asking a Statix related question:
 2. Spoofax version. See *About Eclipse*; *Installation Details*; *Features*, and search for
    *Spoofax*.
 3. Statix configuration: single-file or multi-file mode. Multi-file mode is enabled when the
-   ``observer`` setting in in your ESV looks like ``observer: XXX (constraint) (multifile)``.
+   ``observer`` setting in in your ESV looks like ``observer: editor-analyze (constraint) (multifile)``.
 4. Steps to reproduce. Best is to include a small, self-contained test (see :ref:`Testing
    Predicates` above) so that others can easily run the test and reproduce the issue! If that is not
    possible, provide a (link to) a project, including an example file, that shows the problem. Keep
-   the project and the example as small as possible, and be specific about
+   the project and the example as small as possible, and be specific about the relevant parts of 
+   your program and of your specification.
 5. Description of the observed behavior. Also mention if the problem occurs consistently, or only
    sometimes? If only sometimes, does it occur always/never after a clean build, or does it occur
    always/never after editing and/or building without cleaning?
