@@ -11,6 +11,13 @@ Debugging
 This section describes several techniques that can be used to debug
 your Statix specification if it does not work as you expect.
 
+.. note::
+
+   The single most useful thing you can do when debugging is to **make the problem as small as
+   possible**! All the techniques you can use for debugging are more effective when the problem is
+   as small as possible. Try to find the smallest example program and Statix specification that
+   still exhibits your problem, and focus on those.
+
 There are three main categories of problems you may encounter:
 
 1. Errors reported in your Statix files. These may come from syntax errors, unresolved names for 
