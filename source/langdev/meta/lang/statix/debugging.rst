@@ -126,6 +126,12 @@ Now we explain some more details of what we can see here:
 - The trace shows which predicates were applied, and to which arguments. It does not show which
   predicate rule was chosen! This can often be deduced from the line above it in the trace, but if
   unsure, use a forced note (see :ref:`Inspecting Variables`) to check your expectation.
+- Error messages are fully instantiated with the *final* result. This means that variables that
+  appear in error messages are free in the final result of this Statix execution. Therefore, we do
+  *not* have to consider the order of execution or the moment when the error message was generated
+  when interpreting error messages!
+
+The section on :ref:`Common Problems` contains tips on how to deal with many error messages.
 
 .. _Inspecting Variables:
 
@@ -290,12 +296,14 @@ Some Common Problems
 
 - Predicates fail with ``amb(...)`` terms as arguments. These terms indicate parsing ambiguities,
   which should be fixed in the grammar (SDF3) files.
+
 - Errors in your specification appear at incorrect places (e.g. sort or constructor declarations).
   In such cases, the declaration is referenced from an invalid position anywhere in your 
   specification, but due to the non-deterministic order of constraint solving the error appears at
   the observed position. The best approach to solve these issues is to comment away all usages,
   until the error disappears. Then, in the last commented position, the declaration is used 
   incorrectly.
+
 - One or both of the ``fileOk(...)`` or ``projectOk(...)`` predicates fail immediately, for example 
   with the error messages:
 
@@ -304,13 +312,15 @@ Some Common Problems
      statics!fileOk(Scope("","s_1-1"),Test([Prog("A.mod",Decls(…)),Prog("B.mod",Decls(…)),Prog("C.mod",Decls(…))])) (no origin information)
      statics!projectOk(Scope("","s_1-1")) (no origin information)
  
-  In such cases, you have probably moved the declarations of these predicates to another file.
-  
+  In such cases, you have probably renamed the top-level file, or moved the declarations of these
+  predicates to another file that is imported.  Assuming the predicates are now defined in the
+  module ``statics/mylang`` as follows:
+
   .. code-block:: statix
   
-     // file: trans/mylang.stx
-     module mylang
-     imports mylang/program
+     // file: trans/statics/mylang.stx
+     module statics/mylang
+     imports statics/mylang/program
 
      rules
 
@@ -320,9 +330,69 @@ Some Common Problems
        fileOk : scope * Start   
        fileOk(s, p) :- programOk(s, p).
   
-  This is fine, but the call to the Statix solver should be updated accordingly. In 
-  ``trans/analysis.str``, the first term parameter to ``stx-editor-analyze`` (which is ``"statics"``
-  by default) should be updated to the new module name. 
+  If this module is the top-level module of your specification, then you have to change the call to
+  ``stx-editor-analyze`` in ``trans/analysis.str`` such that the first term argument (which
+  specifies the module to use, by default ``"statics"``) is the new module name (in this case
+  ``statics/mylang``).
+
+  On the otherhand, if you kept ``statics`` as the top-level module and have it import the module
+  ``statcs/mylang``, then you have to change the call to ``stx-editor-analyze`` in
+  ``trans/analysis.str`` such that the second and third term argument (which specify the predicates
+  to apply to projects and files, respectively) are qualified by the module name (in this case
+  ``"statics/mylang!projectOk"`` and ``""statics/mylang!fileOk``, respectively).
+
+- A lot of errors are reported. It happens that a single problem in the type checked program leads
+  to the failure of other constraints (cascading errors). For example, an unresolved name might lead
+  to errors about subtype checks that cannot be solved, import edges that cannot be created,
+  etc. Here are some tips to help you find the root cause of the probem:
+
+  - Differentiate between failed and unsolved constraints. The cause of a problem is usually found
+    best by looking at the failed constraints. For example, an unresolved name might result in an
+    error on the equality constraint between the expected and actual query result. Errors on
+    unsolved constraints are marked as _Unsolved_. Unsolved errors are often the result of
+    uninstantiated logical variables.
+
+    Predicates remain unsolved if the uninstantiated variable prevents the selection of an
+    applicable rule for the predicate. For example, an unsolved error ``subtype(INT(), ?T-1)`` is
+    caused by the free variable ``?T-1`` which prevents selecting the appropriate rule of the
+    ``subtype`` predicate.
+
+    Queries remain unsolved if the query scope is not instantiated, or if variables used in the
+    matching predicate (such as the name to resolve) remained free. For example, an unsolved error
+    ``query filter (e Label("typeOfDecl")) and { (?x',_) :- ?x' == ?x-5 } min irrefl trans anti-sym
+    { <edge>Label("typeOfDecl") < <edge>Label("P"); } and { _, _ :- true } in ?s-3 |->
+    [(?wld0-1,(?x'-2,?T-4))]`` cannot be resolved because the scope variable ``?s-3`` is free, and
+    the free variable ``?x-5`` would prevent matching declarations. Use of the variables ``?x'-2``
+    and ``?T-4`` might cause more unsolved constraints, since these also remain free when the query
+    cannot be solved.
+
+    Edge and declaration assertions remain unsolved if the scopes are not instantiated. For example,
+    the edge assertion ``Scope("","s_2-1") -Label("P")-> ?s'-5`` cannot be solved because the
+    variable for the target scope ``?s'-5`` is not instantiated. Unsolved edge constraints in
+    particular can lead to lots of cascading errors, as they block all queries going through the
+    source scope of the edge.
+
+  - If it is not immediately clear which error is the root of a problem, it helps to figure out the
+    free variable dependencies between reported errors. Consider the following small example of
+    three reported errors:
+
+    .. code-block:: text
+
+       subtype(?T-5, LONG)
+       Scope("","s_3-1") -Label("P")-> ?s'-6
+       query filter ((Label("P"))* Label("typeOfDecl")) and { (?x',_) :- ?x' == "v" } min irrefl trans anti-sym { <edge>Label("typeOfDecl") < <edge>Label("P"); } and { _, _ :- true } in Scope("","s_3-1") |-> [(?wld4-1,(?x'-2,?T-5))]
+
+    For each of these we can see which variables are necessary for the constraint to be solved, and
+    which they might instantiate when solved. The ``subtype`` predicate is blocked on the variable
+    ``?T-5``. The edge assertion is blocked on the scope variable ``?s'-6``. The query does not seem
+    blocked on a variable (both the scope and the filter predicate are instantiated), but would
+    instantiate the variables ``?x'-2`` and ``?T-5`` when solved.
+
+    We can conclude that the ``subtype`` constraint depends on solving the query, so we focus our
+    attention on the query. Now we realize that we query in the scope of the unsolved edge
+    assertion. So, the query depends on the edge assertion, and our task is to figure out why the
+    scope variable in the edge target is not instantiated.
+
 
 .. _Getting Help:
 
