@@ -103,10 +103,10 @@ it easier to figure out where the error originated. A typical error message may 
 .. code-block:: text
 
      [(?q.unit-wld61-10,(?q.unit-x'-11,?q.unit-T-5))] == []
-   > query filter ((Label("units/name-resolution/interface!EXT"))* Label("units/name-resolution/default-impl!var")) and { (?x',_) :- ?x' == "q" } min irrefl trans anti-sym { <edge>Label("units/name-resolution/default-impl!var") < <edge>Label("units/name-resolution/interface!EXT"); } and { _, _ :- true } in Scope("p.unit","s_mod_4-4") |-> [(?q.unit-wld61-10,(?q.unit-x'-11,?q.unit-T-5))]
-   > units/name-resolution/interface!resolveVar(Scope("q.unit","s_mod_2-4"), QDefRef(QModInModRef(ModRef("P"),"B"),"q"),?q.unit-T-5)
-   > units/statics!typeOfExpr(Scope("q.unit","s_mod_2-4"), VarRef(QDefRef(QModInModRef(ModRef(…),"B"),"q")), ?q.unit-T-5)
-   > units/statics!defOk(Scope("q.unit","s_mod_2-4"), VarDef("e",VarRef(QDefRef(QModInModRef(…,…),"q"))), Scope("q.unit","s_mod_2-4"))
+   > query filter ((Label("units/name-resolution/interface!EXT"))* Label("units/name-resolution/default-impl!var")) and { (?x',_) :- ?x' == "q" } min irrefl trans anti-sym { <edge>Label("units/name-resolution/default-impl!var") < <edge>Label("units/name-resolution/interface!EXT"); } and { _, _ :- true } in #p.unit-s_mod_4-4 |-> [(?q.unit-wld61-10,(?q.unit-x'-11,?q.unit-T-5))]
+   > units/name-resolution/interface!resolveVar(#q.unit-s_mod_2-4, QDefRef(QModInModRef(ModRef("P"),"B"),"q"),?q.unit-T-5)
+   > units/statics!typeOfExpr(#q.unit-s_mod_2-4, VarRef(QDefRef(QModInModRef(ModRef(…),"B"),"q")), ?q.unit-T-5)
+   > units/statics!defOk(#q.unit-s_mod_2-4, VarDef("e",VarRef(QDefRef(QModInModRef(…,…),"q"))), #q.unit-s_mod_2-4)
    > ... trace truncated ... 
 
 As this looks daunting at first, we break it down.  At the top is the constraint that failed; in
@@ -117,15 +117,15 @@ itself originated from one of the rules of ``resolveVar``, which was applied in 
 
 Now we explain some more details of what we can see here:
 
-- Errors may contain unification variables of the form ``?FILENAME-VARNAME-NUM``. These are
-  instantiations of the meta-variables in the specification. The variable name ``VARNAME``
+- Errors may contain unification variables of the form ``?FILENAME-VARNAME-NUM`` or ``?VARNAME-NUM``.
+  These are instantiations of the meta-variables in the specification. The variable name ``VARNAME``
   corresponds to the name of the meta-variable that was instantiated, and can be helpful in
   reasoning about the origin of a unification variable. When the name corresponds to a functional 
   predicate name, it is a return value from that predicate. The file name is the file that was being
   checked when the unification variable was created. Due to Statix's operation, this can sometimes
   be the project root instead of the actual file.
-- Scope values are shown as ``#FILENAME-VARNAME-NUM``. Sometimes appear in the exploded form
-  ``Scope("FILENAME", "VARNAME-NUM")``, such as in the example error message above.
+- Scope values are shown as ``#FILENAME-VARNAME-NUM`` or ``#VARNAME-NUM``. (Rarely they appear in the
+  exploded form ``Scope("FILENAME", "VARNAME-NUM")``).
 - Predicate names are prefixed with the name of the module they are defined in. For example,
   ``defOk`` is defined in ``units/statics`` and therefore appears as ``units/statics!defOk`` in the
   trace. Note that the predicate name is prefixed with the Statix module that *defines* the
@@ -177,7 +177,7 @@ Here is an example of such a scope graph:
          units/name-resolution/default-impl!var : ("e", UNIT())
        }
        edges {
-         units/name-resolution/interface!LEX : #-s_1-1
+         units/name-resolution/interface!LEX : #s_1-1
        }
      }
      #p.unit-s_mod_4-4 {
@@ -193,10 +193,10 @@ Here is an example of such a scope graph:
          units/name-resolution/default-impl!mod : ("B", #p.unit-s_mod_4-4)
        }
        edges {
-         units/name-resolution/interface!LEX : #-s_1-1
+         units/name-resolution/interface!LEX : #s_1-1
        }
      }
-     #-s_1-1 {
+     #s_1-1 {
        relations {
          units/name-resolution/default-impl!mod : ("E", #q.unit-s_mod_2-4)
                                                   ("P", #p.unit-s_mod_2-6)
@@ -316,8 +316,8 @@ Some Common Problems
 
   .. code-block:: text
 
-     statics!fileOk(Scope("","s_1-1"),Test([Prog("A.mod",Decls(…)),Prog("B.mod",Decls(…)),Prog("C.mod",Decls(…))])) (no origin information)
-     statics!projectOk(Scope("","s_1-1")) (no origin information)
+     statics!fileOk(#s_1-1,Test([Prog("A.mod",Decls(…)),Prog("B.mod",Decls(…)),Prog("C.mod",Decls(…))])) (no origin information)
+     statics!projectOk(#s_1-1) (no origin information)
  
   In such cases, you have probably renamed the top-level file, or moved the declarations of these
   predicates to another file that is imported.  Assuming the predicates are now defined in the
@@ -374,7 +374,7 @@ Some Common Problems
     cannot be solved.
 
     Edge and declaration assertions remain unsolved if the scopes are not instantiated. For example,
-    the edge assertion ``Scope("","s_2-1") -Label("P")-> ?s'-5`` cannot be solved because the
+    the edge assertion ``#s_2-1 -Label("P")-> ?s'-5`` cannot be solved because the
     variable for the target scope ``?s'-5`` is not instantiated. Unsolved edge constraints in
     particular can lead to lots of cascading errors, as they block all queries going through the
     source scope of the edge.
@@ -386,8 +386,8 @@ Some Common Problems
     .. code-block:: text
 
        subtype(?T-5, LONG)
-       Scope("","s_3-1") -Label("P")-> ?s'-6
-       query filter ((Label("P"))* Label("typeOfDecl")) and { (?x',_) :- ?x' == "v" } min irrefl trans anti-sym { <edge>Label("typeOfDecl") < <edge>Label("P"); } and { _, _ :- true } in Scope("","s_3-1") |-> [(?wld4-1,(?x'-2,?T-5))]
+       #s_3-1 -Label("P")-> ?s'-6
+       query filter ((Label("P"))* Label("typeOfDecl")) and { (?x',_) :- ?x' == "v" } min irrefl trans anti-sym { <edge>Label("typeOfDecl") < <edge>Label("P"); } and { _, _ :- true } in #s_3-1 |-> [(?wld4-1,(?x'-2,?T-5))]
 
     For each of these we can see which variables are necessary for the constraint to be solved, and
     which they might instantiate when solved. The ``subtype`` predicate is blocked on the variable
