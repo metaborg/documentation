@@ -92,6 +92,10 @@ Start up Eclipse, depending on your operating system:
 
 .. warning::
 
+   Do not update Eclipse with :menuselection:`Help --> Check For Updates`, as it will update Eclipse to newer major versions which are not always backwards compatible, and which require a JRE of version 11 or higher which we do not bundle (we bundle JRE8) with Eclipse.
+
+.. warning::
+
    On |macOS| *macOS*, if Eclipse cannot be opened because it is from an *unidentified developer*, right click :file:`spoofax.app` and choose :guilabel:`Open` to grant permission to open Eclipse.
 
    If Eclipse cannot be opened because it is *damaged*, open the Terminal, navigate to the directory where :file:`spoofax.app` is located, and execute:

@@ -25,6 +25,16 @@ Funding was provided by the following funding agencies and companies
 - Oracle Labs
 - Capes, Coordenaca de Bolsas, Brasil
 
+Tooling
+---------------------
+
+The following tools were used to develop and maintain Spoofax
+
+- .. image:: https://www.yourkit.com/images/yklogo.png
+     :alt: YourKit logo
+     :target: https://www.yourkit.com/
+  We use the `YourKit Java profiler <https://www.yourkit.com/java/profiler/>`_ to diagnose and fix performance problems in Spoofax, provided free-of-charge by `YourKit <https://www.yourkit.com/>`_.
+
 Contributors
 ---------------------
 
