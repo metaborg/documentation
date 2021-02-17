@@ -72,7 +72,9 @@ Next we want to _normalize_ terms with respect to a collection of rewrite rules.
 
 The module imports the Stratego Library (`libstrategolib`) and the module with the evaluation rules, and then defines the `main` strategy to apply `innermost(E)` to the input term. The `innermost` strategy from the library exhaustively applies its argument transformation to the term it is applied to, starting with _inner_ subterms.
 
-We can now compile the program:
+As an aside, we have now seen Stratego modules with `rules` and `strategies` sections. It's worth noting that a module can have any number of sections of either type, and that there is no actual semantic difference between the two section headings. In fact, either rewrite rules and/or strategy definitions can occur in either kind of section. Nevertheless, it often helps with making your transformations clearer to generally segregate rules and strategy definitions, and so both headings are allowed so you can punctuate your Stratego modules with them to improve readability.
+
+In any case, we can now compile the above program:
 
     $ strc -i prop-eval.str -la stratego-lib
 
