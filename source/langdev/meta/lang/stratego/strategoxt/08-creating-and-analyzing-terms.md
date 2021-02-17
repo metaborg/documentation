@@ -255,11 +255,45 @@ Another example is the following definition of the `map(s)` strategy, which appl
     map(s) : [] -> []
     map(s) : [x | xs] -> [<s> x | <map(s)> xs]
 
-## 8.5 Wrap and Project
+## 8.5 Auxiliary values and assignment
+
+As mentioned above, it can be convenient to apply a strategy only to compute some auxiliary result. Although the `where` construct created to constrain when a rule or strategy may apply (as covered in Sections 8.3.4 and 8.3.5 above) can be used for this purpose, often it is better to use the `with` strategy specifically designed with computing auxiliaries in mind.
+
+Specifically, if `s` is any strategy, the strategy `with(s)` executes `s` on the current subject term and then restores the current subject term. In other words, `s` is executed solely for its side effects, such as binding variables. In this respect, `with` is like `where`. However, `with(s)` differs in a key way: if the strategy `s` fails, Stratego immediately stops with an error, reporting the strategy that failed. Thus, if `with(s)` is used for auxiliary computations that really should not fail if the transformation is proceeding properly, there is no opportunity for Stratego to backtrack and/or continue applying other strategies, potentially creating an error at a point far removed from the place that things actually went awry. In short, using `with(s)` instead of `where(s)` any time the intention is not to constrain the applicability of a rule or strategy generally makes debugging your Stratego program significantly easier.
+
+Also as with `where`, we can add a `with` clause to a rewrite rule in exactly the same way. In other words,
+
+    L : p1 -> p2 with s
+
+is syntactic sugar for
+
+    L = ?p1; with(s); !p2
+
+So as an example, the `where` version of EvalPlus from Section 8.4 would be better cast as
+
+    EvalPlus : Add(Int(i),Int(j)) -> Int(k) with <addS>(i,j) => k
+
+because after all, there is no chance that Stratego will be unable to add two integers, and so if the contents of the `with` clause fails it means something has gone wrong -- perhaps an `Int` term somehow ended up with a parameter that does not actually represent an integer -- and Stratego should quit now.
+
+Furthermore, in setting auxiliary variables often the full power of Stratego strategies is not used, but rather new terms are simply built as needed. Stratego provides an `:=` operator for this purpose; the above rule can be written probably more clearly as
+
+    EvalPlus : Add(Int(i),Int(j)) -> Int(k) with k := <addS>(i,j)
+
+Technically, `p1 := p2` (which can be used anywhere a strategy is called for, although it is primarily useful in `with` and `where` clauses) is just syntactic sugar for `!p2; ?p1`. In other words, it builds the value `p2`, and then matches it with `p1`. In the typical case that `p1` is just a variable, this ends up assigning the result of building the expression `p2` to that variable.
+
+To sum up, we have actually already seen an example of both `with` and `:=` in the "glue" strategy used to run a Stratego transformation via Editor Services:
+
+    do-eval: (selected, _, _, path, project-path) -> (filename, result)
+      with filename := <guarantee-extension(|"eval.aterm")> path
+         ; result   := <eval> selected
+
+To make the operation of this rule clearer, the two components of the outcome are separated into auxiliary computations in the `with` clause, and these two auxiliaries are implemented as assignments with the `:=` operator. Moreover, if either the `eval` strategy fails or if Stratego is unable to compute the proper output filename, there is no point in continuing. So Stratego will simply terminate immediately and report the error.
+
+## 8.6 Wrap and Project
 
 Term wrapping and projection are concise idioms for constructing terms that wrap the current term and for extracting subterms from the current term.
 
-### 8.5.1. Term Wrap
+### 8.6.1. Term Wrap
 
 One often write rules of the form ` x -> Foo(Bar(x))`, i.e. wrapping a term pattern around the current term. Using rule syntax this is quite verbose. The syntactic abstraction of _term wraps_, allows the concise specification of such little transformations as `!Foo(Bar(<id>))`.
 
@@ -292,7 +326,7 @@ As an example, the term wrap `!Foo(Bar(<id>))` is desugared to the strategy
 
 which after simplification is equivalent to `{x: ?x; !Foo(Bar(x))}`, i.e., exactly the original lambda rule `x -> Foo(Bar(x))`.
 
-### 8.5.2. Term Project
+### 8.6.2. Term Project
 
 Term projections are the match dual of term wraps. Term projections can be used to _project_ a subterm from a term pattern. For example, the expression `?And(<id>,x)` matches terms of the form `And(t1,t2)` and reduces them to the first subterm `t1`. Another example is the strategy
 
