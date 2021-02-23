@@ -81,6 +81,29 @@ Unpack the downloaded archive to a location with write access, since Eclipse req
 
      xattr -rc spoofax.app
 
+.. note::
+
+   On |macOS| *macOS Catalina (10.15)* and above, you may get the error: *"spoofax" is damaged and can't be opened. You should move it to the Trash.*
+   To fix this, remove the ``com.apple.quarantine`` attribute from the ``spoofax.app`` file with the following command:
+
+   .. code-block:: bash
+
+     xattr -d com.apple.quarantine spoofax.app
+
+.. note::
+
+   If you downloaded Spoofax Eclipse without an embedded JRE, it may not start or give an error *A Java Runtime Environment (JRE) or Java Development Kit (JDK) must be available in order to run Eclipse* or *To open "spoofax" you need to install the legacy Java SE 6 runtime*. To fix this, specify the path to a valid JDK using the ``-vm`` option at the start of ``eclipse.ini`` (``spoofax.app/Contents/Eclipse/eclipse.ini`` on |macOS| macOS).
+
+   For example, to specify the current JDK installed by `Sdkman <https://sdkman.io/>`_, add this at the top of your ``eclipse.ini``:
+
+   .. code-block:: ini
+
+     -vm
+     /Users/myusername/.sdkman/candidates/java/current/lib/jli/libjli.dylib
+
+   See `this link <https://wiki.eclipse.org/Eclipse.ini#Specifying_the_JVM>`_ for more information.
+
+
 Running Eclipse
 ~~~~~~~~~~~~~~~
 
