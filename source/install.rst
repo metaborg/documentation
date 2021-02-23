@@ -81,28 +81,6 @@ Unpack the downloaded archive to a location with write access, since Eclipse req
 
      xattr -rc spoofax.app
 
-.. note::
-
-   On |macOS| *macOS Catalina (10.15)* and above, you may get the error: *"spoofax" is damaged and can't be opened. You should move it to the Trash.*
-   To fix this, remove the ``com.apple.quarantine`` attribute from the ``spoofax.app`` file with the following command:
-
-   .. code-block:: bash
-
-     xattr -d com.apple.quarantine spoofax.app
-
-.. note::
-
-   If you downloaded Spoofax Eclipse without an embedded JRE, it may not start or give an error *A Java Runtime Environment (JRE) or Java Development Kit (JDK) must be available in order to run Eclipse* or *To open "spoofax" you need to install the legacy Java SE 6 runtime*. To fix this, specify the path to a valid JDK using the ``-vm`` option at the start of ``eclipse.ini`` (``spoofax.app/Contents/Eclipse/eclipse.ini`` on |macOS| macOS).
-
-   For example, to specify the current JDK installed by `Sdkman <https://sdkman.io/>`_, add this at the top of your ``eclipse.ini``:
-
-   .. code-block:: ini
-
-     -vm
-     /Users/myusername/.sdkman/candidates/java/current/lib/jli/libjli.dylib
-
-   See `this link <https://wiki.eclipse.org/Eclipse.ini#Specifying_the_JVM>`_ for more information.
-
 
 Running Eclipse
 ~~~~~~~~~~~~~~~
@@ -117,7 +95,7 @@ Start up Eclipse, depending on your operating system:
 
    Do not update Eclipse with :menuselection:`Help --> Check For Updates`, as it will update Eclipse to newer major versions which are not always backwards compatible, and which require a JRE of version 11 or higher which we do not bundle (we bundle JRE8) with Eclipse.
 
-.. warning::
+.. note::
 
    On |macOS| *macOS*, if Eclipse cannot be opened because it is from an *unidentified developer*, right click :file:`spoofax.app` and choose :guilabel:`Open` to grant permission to open Eclipse.
 
@@ -129,7 +107,20 @@ Start up Eclipse, depending on your operating system:
 
    This will clear the attributes that Eclipse has been downloaded from the internet, and grant permission to open Eclipse.
 
-.. warning::
+.. note::
+
+   If you downloaded Spoofax Eclipse without an embedded JRE, it may not start or give an error *A Java Runtime Environment (JRE) or Java Development Kit (JDK) must be available in order to run Eclipse* or *To open "spoofax" you need to install the legacy Java SE 6 runtime*. To fix this, specify the path to a valid JDK using the ``-vm`` option at the start of ``eclipse.ini`` (``spoofax.app/Contents/Eclipse/eclipse.ini`` on |macOS| macOS).
+
+   For example, to specify the current JDK installed by `Sdkman <https://sdkman.io/>`_, add this at the top of your ``eclipse.ini``:
+
+   .. code-block:: ini
+
+     -vm
+     /Users/myusername/.sdkman/candidates/java/current/lib/jli/libjli.dylib
+
+   See `this link <https://wiki.eclipse.org/Eclipse.ini#Specifying_the_JVM>`_ for more information.
+
+.. note::
 
    On |Linux| *Ubuntu 16.04*, Eclipse is known to have problems with GTK+ 3. To work around this issue, add the following to :file:`eclipse.ini`::
 
