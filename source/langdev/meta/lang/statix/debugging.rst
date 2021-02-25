@@ -348,6 +348,36 @@ Some Common Problems
   to apply to projects and files, respectively) are qualified by the module name (in this case
   ``"statics/mylang!projectOk"`` and ``""statics/mylang!fileOk``, respectively).
 
+- Files of your language are only analyzed by Statix after they are opened in an editor in
+  Eclipse. There are several reasons why this may be hapening:
+
+  - The project containing the files is not a Spoofax project. A spoofax project must contain a
+    `metaborg.yaml`. If it is a Maven project, the `packaging` must be one of
+    `spoofax-{language,test,project}`.
+
+  - The project containing the files does not have a dependency on your language. Spoofax only
+    analyzes files of your language if the `metaborg.yaml` configuration contains a `compile`
+    dependency on the language definition. This should look similar to the following:
+
+    .. code-block:: yaml
+
+    dependencies:
+      compile:
+      - org.example:your-language:1.0-SNAPSHOT
+
+  - The language is missing. If a language dependency is missing, this is reported with errors on
+    the console. Make sure your language definition project is open in Eclipse and that is is
+    successfully built.
+
+  - Eclipse is not configured to automatically build files. This can be enabled by selecting
+    `Project > Build automatically` from the Eclipse menu.
+
+  - The project in Eclipse did not get the Spoofax nature. Imported Maven projects with one of the
+    `spoofax-*` packagings normally get the Spofoax nature automatically, but sometimes this doesn't
+    work correctly. Non-Maven projects always have to be assigned the Spoofax nature manually. This
+    can be done with `Spoofax > Add Spoofax nature` in the context-menu of the project containing
+    the files.
+
 - A lot of errors are reported. It happens that a single problem in the type checked program leads
   to the failure of other constraints (cascading errors). For example, an unresolved name might lead
   to errors about subtype checks that cannot be solved, import edges that cannot be created,
