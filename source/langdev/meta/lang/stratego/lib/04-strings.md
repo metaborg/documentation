@@ -15,7 +15,7 @@ The library provides two variants of the string concatenation operation. The fir
 ```
 stratego> <concat-strings> ["foo", "bar", "baz"]
 "foobarbaz"
-stratego> <conc-strings ("foo", "bar")
+stratego> <conc-strings> ("foo", "bar")
 "foobar"
 ```
 
