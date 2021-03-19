@@ -20,13 +20,25 @@ Clone the source code from the `spoofax-releng <https://github.com/metaborg/spoo
       cd spoofax-releng
 
 Cloning and updating submodules can take a while, since we have many submodules and some have a large history.
-Additionally, only on Windows, you have to do the following:
 
-|Windows| Windows
+.. note:: |Windows| **Windows**
+   
+  Additionally, only on Windows, you have to do the following:
+   
   .. code:: bat
 
       cd releng\releng
       py -m pip install -r .\requirements.txt
+
+.. note:: |macOS| **macOS Catalina, Big Sur, or newer**
+
+  You have to install ``coreutils`` and ``docker`` to be able
+  to build Spoofax. This is temporarily, until the 32-bit binaries for ``sdf2table`` and ``implodePT`` have been phased out.
+
+  - Download Docker Desktop for Mac `from their website <https://docs.docker.com/docker-for-mac/install/>`_.
+  - Install ``coreutils`` through Brew: ``brew install coreutils``
+
+  
 
 
 Start a build

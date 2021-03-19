@@ -8,6 +8,8 @@ See the corresponding :ref:`migration guide <vnext-migration-guide>` for migrati
 
 Changes
 -------
+* On macOS, Spoofax temporarily requires `Docker <https://docs.docker.com/docker-for-mac/install/>`_
+  and ``coreutils`` when building Spoofax on macOS Catalina, Big Sur, or newer.
 
 SDF3
 ~~~~~~
