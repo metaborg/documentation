@@ -35,8 +35,8 @@ Cloning and updating submodules can take a while, since we have many submodules 
   You have to install ``coreutils`` and ``docker`` to be able
   to build Spoofax. This is temporarily, until the 32-bit binaries for ``sdf2table`` and ``implodePT`` have been phased out.
 
-  - Download Docker Desktop for Mac `from their website <https://docs.docker.com/docker-for-mac/install/>`_.
-  - Install ``coreutils`` through Brew: ``brew install coreutils``
+  - Download `Docker Desktop for Mac <https://docs.docker.com/docker-for-mac/install/>`_.
+  - Install ``coreutils`` through `Homebrew <http://brew.sh/>`_: ``brew install coreutils``
 
   
 

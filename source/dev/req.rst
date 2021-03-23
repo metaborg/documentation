@@ -38,3 +38,9 @@ Maven 3.5.4 or higher (except Maven 3.6.1 and 3.6.2)
   Required to build most components of Spoofax. Our Maven artifact server must also be registered with Maven since the build depends on artifacts from previous builds for bootstrapping purposes. We explain how to install and set up Maven in the :ref:`next section <dev-maven>`.
 
   .. note:: Spoofax cannot be built using Maven 3.6.1 or 3.6.2 due to these bugs: https://issues.apache.org/jira/browse/MNG-6642 and https://issues.apache.org/jira/browse/MNG-6765
+
+Coreutils
+  Required on macOS to be able to run the ``sdf2table`` and ``implodePT`` legacy binaries. On macOS with `Homebrew <http://brew.sh/>`_ installed, you can install them by running ``brew install coreutils``.
+
+Docker
+  Required on macOS Catalina, Big Sur, and newer to be able to run the ``sdf2table`` and ``implodePT`` legacy binaries. Install it though the `Docker for Mac <https://docs.docker.com/docker-for-mac/install/>`_ website.
