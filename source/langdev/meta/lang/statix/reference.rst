@@ -78,13 +78,13 @@ use the predicates from the imported modules.
 
 Modules
 ^^^^^^^
- 
+
 .. code-block:: doc-cf-[
 
    module [module-id]
 
      [section*]
- 
+
 Statix specifications are organized in modules. A module is identified
 by a module identifier. Module identifiers consist of one or more
 names seperated by slashes, as in :doc-lex:`{name "/"}+`. The names
@@ -110,7 +110,7 @@ subsequents sections deal with signatures and rules.
 
 Imports
 ^^^^^^^
- 
+
 .. code-block:: doc-cf-[
 
   imports
@@ -147,13 +147,13 @@ Tests
    resolve [constraint]
 
    [section*]
- 
+
 Apart from named modules, stand-alone test can be defined in
 ``.stxtest`` files. All sections that are allowed in named modules are
 allowed in tests as well. This means tests can have signatures, rules,
 and import named modules.
 
-*Example.* A test using the predicate ``leq`` imported from a named module.
+*Example.* A test using the predicate ``concat`` imported from a named module.
 
 .. code-block:: statix
 
@@ -236,7 +236,7 @@ Committed choice rule selection
 Statix has a committed-choice semantics. This means that once a rule
 is selected, the solver does never backtrack on that choice. That is
 different from logic languages like Prolog, where rules are
-optimisitically selected and the solver backtracks when the rule does
+optimistically selected and the solver backtracks when the rule does
 not work out.
 
 Committed choice evaluation has consequences for inference during
@@ -251,7 +251,7 @@ patterns it matches on, not by the order in which the rules appear in
 the specification. Most specific rules apply before more general
 rules. The parameter patterns are considered from left to right when
 determining this order. It is an error to have rules with overlapping
-patterns, where neither is more general than the other. There rules
+patterns, where neither is more general than the other. These rules
 are marked with an error.
 
 *Example.* An ``or`` predicate that computes a logical or, with its
@@ -268,7 +268,7 @@ last argument the result.
 In the example above, the rules are considered in the order they are
 presented above. Beware that changing the rule order would not change
 the specifications behaviour. The last rule is the most general, and
-therefore comses last, as it matches any arguments. The first rule is
+therefore comes last, as it matches any arguments. The first rule is
 more specific than the second because of the left-to-right nature of
 the ordering.
 
@@ -330,7 +330,7 @@ Base constraints
 
 Term equality
 ^^^^^^^^^^^^^
-    
+
 Name binding
 ^^^^^^^^^^^^
 
@@ -345,4 +345,3 @@ Occurrences
 
 Arithmetic
 ^^^^^^^^^^
-
