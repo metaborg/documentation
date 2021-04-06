@@ -334,7 +334,10 @@ predicate with an additional rule for equal record types:
 
 In this example, we added a rule that declares that a record type is a subtype
 of itself. This rule ensures that equal record types are regarded as subtypes
-without verifying additional constraints.
+without verifying additional constraints. So, while it seems that the first and
+the third rules are equivalent, and the first one superfluous, this is not the
+case because the rule ordering will choose the second rule when the behavior of
+the third rule is desired.
 
 Functional rules
 ^^^^^^^^^^^^^^^^
