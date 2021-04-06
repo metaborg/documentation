@@ -314,7 +314,7 @@ predicate with rules for record types and equal types:
   subtype(T, T).
 
 In this example, equal record types match on both rules. Because of the left
-to right nature of the rule application, the second rule will be chosen,
+to right nature of the rule application, the first rule will be chosen,
 because for the first argument, the ``REC`` constructor is regarded as
 more specific than the (at that position free) ``T`` variable.
 
