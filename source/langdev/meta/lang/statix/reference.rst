@@ -78,13 +78,13 @@ use the predicates from the imported modules.
 
 Modules
 ^^^^^^^
- 
+
 .. code-block:: doc-cf-[
 
    module [module-id]
 
      [section*]
- 
+
 Statix specifications are organized in modules. A module is identified
 by a module identifier. Module identifiers consist of one or more
 names seperated by slashes, as in :doc-lex:`{name "/"}+`. The names
@@ -110,7 +110,7 @@ subsequents sections deal with signatures and rules.
 
 Imports
 ^^^^^^^
- 
+
 .. code-block:: doc-cf-[
 
   imports
@@ -147,13 +147,13 @@ Tests
    resolve [constraint]
 
    [section*]
- 
+
 Apart from named modules, stand-alone test can be defined in
 ``.stxtest`` files. All sections that are allowed in named modules are
 allowed in tests as well. This means tests can have signatures, rules,
 and import named modules.
 
-*Example.* A test using the predicate ``leq`` imported from a named module.
+*Example.* A test using the predicate ``concat`` imported from a named module.
 
 .. code-block:: statix
 
@@ -236,7 +236,7 @@ Committed choice rule selection
 Statix has a committed-choice semantics. This means that once a rule
 is selected, the solver does never backtrack on that choice. That is
 different from logic languages like Prolog, where rules are
-optimisitically selected and the solver backtracks when the rule does
+optimistically selected and the solver backtracks when the rule does
 not work out.
 
 Committed choice evaluation has consequences for inference during
@@ -251,7 +251,7 @@ patterns it matches on, not by the order in which the rules appear in
 the specification. Most specific rules apply before more general
 rules. The parameter patterns are considered from left to right when
 determining this order. It is an error to have rules with overlapping
-patterns, where neither is more general than the other. There rules
+patterns, where neither is more general than the other. These rules
 are marked with an error.
 
 *Example.* An ``or`` predicate that computes a logical or, with its
@@ -268,9 +268,76 @@ last argument the result.
 In the example above, the rules are considered in the order they are
 presented above. Beware that changing the rule order would not change
 the specifications behaviour. The last rule is the most general, and
-therefore comses last, as it matches any arguments. The first rule is
+therefore comes last, as it matches any arguments. The first rule is
 more specific than the second because of the left-to-right nature of
 the ordering.
+
+Non-linear patterns
+"""""""""""""""""""
+
+Non-linear patterns are patterns in which at least one pattern variable
+occurs multiple times. Such patterns only match on terms that have
+equal subterms at the positions where such a variable occurs.
+
+*Example.* An ``xor`` predicate that computes a logical exclusive or,
+with its last argument the result.
+
+.. code-block:: statix
+
+   xor: Bool * Bool * Bool
+
+   xor(B, B, b) :- b == False().
+   xor(_, _, b) :- b == True().
+
+In the example above, the first rule for ``xor`` has a non-linear
+pattern, because the variable ``B`` occurs both at the first and at the
+second position. In this way, the first rule only matches on equal input
+terms (either ``True(), True(), b`` or ``False(), False(), b``).
+
+Regarding the ordering of rules by specificity, it holds that an occurrence
+of a variable that is seen earlier is regarded as more specific than a
+free variable. Therefore, the first rule of ``xor`` takes precedence
+over the second rule. Bound variables are as specific as concrete constructors.
+
+Ordering rules with non-linear patterns
+"""""""""""""""""""""""""""""""""""""""
+
+Careful attention to rule order needs to be paid when non-linear patterns and
+concrete constructor patterns are mixed. For example, consider a ``subtype``
+predicate with rules for record types and equal types:
+
+.. code-block:: statix
+
+  subtype: TYPE * TYPE
+
+  subtype(REC(s_rec1), REC(s_rec2)) :- /* omitted */.
+  subtype(T, T).
+
+In this example, equal record types match on both rules. Because of the left
+to right nature of the rule application, the first rule will be chosen,
+because for the first argument, the ``REC`` constructor is regarded as
+more specific than the (at that position free) ``T`` variable.
+
+If that behavior is not desired, an explicit rule for the intersection of
+the domains of the pair of rules in question needs to be added. This rule
+is more specific than both of the other rules, and is therefore selected
+for any matching input. For example, consider this augmented ``subtype``
+predicate with an additional rule for equal record types:
+
+.. code-block:: statix
+
+  subtype: TYPE * TYPE
+
+  subtype(REC(s_rec), REC(s_rec)).
+  subtype(REC(s_rec1), REC(s_rec2)) :- /* omitted */.
+  subtype(T, T).
+
+In this example, we added a rule that declares that a record type is a subtype
+of itself. This rule ensures that equal record types are regarded as subtypes
+without verifying additional constraints. So, while it seems that the first and
+the third rules are equivalent, and the first one superfluous, this is not the
+case because the rule ordering will choose the second rule when the behavior of
+the third rule is desired.
 
 Functional rules
 ^^^^^^^^^^^^^^^^
@@ -330,7 +397,7 @@ Base constraints
 
 Term equality
 ^^^^^^^^^^^^^
-    
+
 Name binding
 ^^^^^^^^^^^^
 
@@ -345,4 +412,3 @@ Occurrences
 
 Arithmetic
 ^^^^^^^^^^
-
