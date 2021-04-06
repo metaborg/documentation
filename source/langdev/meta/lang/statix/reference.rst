@@ -272,6 +272,70 @@ therefore comes last, as it matches any arguments. The first rule is
 more specific than the second because of the left-to-right nature of
 the ordering.
 
+Non-linear patterns
+"""""""""""""""""""
+
+Non-linear patterns are patterns in which at least one pattern variable
+occurs multiple times. Such patterns only match on terms that have
+equal subterms at the positions where such a variable occurs.
+
+*Example.* An ``xor`` predicate that computes a logical exclusive or,
+with its last argument the result.
+
+.. code-block:: statix
+
+   xor: Bool * Bool * Bool
+
+   xor(B, B, b) :- b == False().
+   xor(_, _, b) :- b == True().
+
+In the example above, the first rule for ``xor`` has a non-linear
+pattern, because the variable ``B`` occurs both at the first and at the
+second position. In this way, the first rule only matches on equal input
+terms (either ``True(), True(), b`` or ``False(), False(), b``).
+
+Regarding the ordering of rules by specificity, it holds that an occurrence
+of a variable that is seen earlier is regarded as more specific than a
+free variable. Therefore, the first rule of ``xor`` takes precedence
+over the second rule. Bound variables are as specific as concrete constructors.
+
+Ordering rules with non-linear patterns
+"""""""""""""""""""""""""""""""""""""""
+
+Careful attention to rule order needs to be paid when non-linear patterns and
+concrete constructor patterns are mixed. For example, consider a ``subtype``
+predicate with rules for record types and equal types:
+
+.. code-block:: statix
+
+  subtype: TYPE * TYPE
+
+  subtype(REC(s_rec1), REC(s_rec2)) :- /* omitted */.
+  subtype(T, T).
+
+In this example, equal record types match on both rules. Because of the left
+to right nature of the rule application, the second rule will be chosen,
+because for the first argument, the ``REC`` constructor is regarded as
+more specific than the (at that position free) ``T`` variable.
+
+If that behavior is not desired, an explicit rule for the intersection of
+the domains of the pair of rules in question needs to be added. This rule
+is more specific than both of the other rules, and is therefore selected
+for any matching input. For example, consider this augmented ``subtype``
+predicate with an additional rule for equal record types:
+
+.. code-block:: statix
+
+  subtype: TYPE * TYPE
+
+  subtype(REC(s_rec), REC(s_rec)).
+  subtype(REC(s_rec1), REC(s_rec2)) :- /* omitted */.
+  subtype(T, T).
+
+In this example, we added a rule that declares that a record type is a subtype
+of itself. This rule ensures that equal record types are regarded as subtypes
+without verifying additional constraints.
+
 Functional rules
 ^^^^^^^^^^^^^^^^
 
