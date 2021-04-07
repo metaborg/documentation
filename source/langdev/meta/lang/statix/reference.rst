@@ -87,7 +87,7 @@ Modules
 
 Statix specifications are organized in modules. A module is identified
 by a module identifier. Module identifiers consist of one or more
-names seperated by slashes, as in :doc-lex:`{name "/"}+`. The names
+names separated by slashes, as in :doc-lex:`{name "/"}+`. The names
 must match the regular expression
 :doc-lex:`[a-zA-Z0-9\_][a-zA-Z0-9\_\.\-]*`.
 
@@ -183,8 +183,76 @@ Terms
 Sorts
 """""
 
+.. code-block:: doc-cf-[
+
+  [signature] = ...
+            | "sorts" [sort-decl*]
+
+  [sort-decl] = [uc-id]
+            | [uc-id] "=" [sort]
+
+  [sort] = "string"
+       | "int"
+       | "list" "(" [sort] ")"
+       | "(" [{sort "*" }*] ")"
+       | "scope"
+       | "occurrence"
+       | "path"
+       | "label"
+       | "astId"
+       | [uc-id]
+
+Statix uses algebraic data types to validate term well-formedness. First,
+Statix has several built-in scalar data types, such as ``int``, ``string``
+and ``scope``. In addition, Statix also has two built-in composite data
+types: tuples and lists. Next to the built-in sorts, custom syntactic
+categories can be defined by adding a name to a ``sorts`` subsection of
+the ``signatures`` section.
+
+*Example.* Declaration of a custom sort ``Exp`` and a sort alias for
+identifiers.
+
+.. code-block:: statix
+
+  signature
+    sorts
+      Exp
+      ID = string
+
 Constructors
 """"""""""""
+
+.. code-block:: doc-cf-[
+
+   [signature] = ...
+             | "constructors" [cons-decl*]
+
+   [cons-decl] = [uc-id] ":" [uc-id]
+             | [uc-id] ":" [{sort "*"}*] "->" [uc-id]
+
+In order to construct or match actual data terms, constructors for these terms
+need to be declared. Constructors without arguments are declared by stating the
+constructor name and its sort, separated by a colon. For constructors with
+arguments, the argument sorts are separated by an asterisk, followed by an
+arrow operator and the target sort.
+
+*Example.* Declaration of various constructors for the ``Exp`` sort.
+
+.. code-block:: statix
+
+  signature
+    sorts
+      ID = string
+      Exp
+
+    constructors
+      True : Exp
+      Var  : ID -> Exp
+      Plus : Exp * Exp -> Exp
+
+The example above states three constructors for the ``Exp`` sort. The ``True``
+constructor has no arguments, the ``Var`` constructor has a single name as
+argument, while the ``Plus`` constructor takes two subexpressions as arguments.
 
 Name binding
 ^^^^^^^^^^^^
@@ -195,8 +263,16 @@ Relations
 Namespaces
 """"""""""
 
+.. warning::
+
+	 Usage of namespaces is strongly discouraged and will be removed or revised in a future version of Statix.
+
 Name resolution
 """""""""""""""
+
+.. warning::
+
+	 Usage of namespaces is strongly discouraged and will be removed or revised in a future version of Statix.
 
 Predicates and Rules
 --------------------
