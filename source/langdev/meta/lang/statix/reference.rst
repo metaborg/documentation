@@ -260,6 +260,30 @@ Name binding
 Relations
 """""""""
 
+.. code-block:: doc-cf-[
+
+   [signature] = ...
+             | "relations" [rel-decl*]
+
+   [rel-decl] = [uc-id] ":" [{sort "*"}*]
+            | [uc-id] ":" [{sort "*"}*] "->" [sort]
+
+In Statix, relations associate data with a scope. All used relations and the
+type of their data must be declared in the ``relations`` section. Each
+relation declaration consist of the name of the relation and the arguments
+it accepts.
+
+Relation declarations come in two flavors. There is a _predicative_ variant and
+a _functional_ variant. The functional variant has the last two arguments
+separated with a ``->``, which indicates that the relation is intended to map
+the first terms to the last term (as in the regular notion of functions).
+
+Apart from intended semantics, the difference between the variants has to do
+with the formulation of the predicates of queries. Please refer to the
+`Queries`_ section for more information on querying relations. Otherwise, both
+ways of declaring relations are equivalent. In fact, during compilation, the
+functional variant is normalized to the predicate variant.
+
 Namespaces
 """"""""""
 
@@ -480,6 +504,7 @@ Name binding
 Scope graph
 """""""""""
 
+.. _constraints_queries:
 Queries
 """""""
 
