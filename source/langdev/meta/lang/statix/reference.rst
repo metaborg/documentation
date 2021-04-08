@@ -284,6 +284,20 @@ with the formulation of the predicates of queries. Please refer to the
 ways of declaring relations are equivalent. In fact, during compilation, the
 functional variant is normalized to the predicate variant.
 
+*Example.* Declaration of a predicative relation ``this`` and a functional
+relation ``var``.
+
+.. code-block:: Statix
+
+  signature
+    sorts
+      TYPE
+      ID = string
+
+    relations
+      this : TYPE
+      var  : ID -> TYPE
+
 Namespaces
 """"""""""
 
