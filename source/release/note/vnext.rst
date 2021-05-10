@@ -24,3 +24,8 @@ Statix
   when a Stratego strategy is applied to an analyzed AST in an SPT test.
 * Add a menu action to view the scope graph resulting from Statix analysis.
 * Deprecate namespaces, occurrences and query sugar.
+* Fix bug in evaluation of ``try`` construct.
+* Improvements to memory usage and runtime of the solver.
+* Improve rule overlap handling: consider variables already bound to the left
+  more specific than concrete patterns, to keep with left-to-right specificity.
+* Add configuration settings to control trace length and term depth in error messages.
