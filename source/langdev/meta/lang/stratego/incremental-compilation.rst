@@ -1,6 +1,8 @@
 Incremental Compilation for Stratego
 ------------------------------------
 
+.. warning :: This feature has become very unstable in recent releases (2.5.10 and later) and will be replaced by a better tested rewrite. 
+
 .. note :: This feature is fairly new, please `open issues <https://yellowgrass.org/project/Spoofax>`_ when your build fails or your program has different behaviour under this build setting.
 
 The Stratego compiler is usually the slowest part in the build of a Spoofax project. To improve on the development experience, we have added an incremental compilation option for Stratego. This can be opted into by editing the ``metaborg.yaml`` file:
