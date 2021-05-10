@@ -361,9 +361,9 @@ Some Common Problems
 
     .. code-block:: yaml
 
-    dependencies:
-      compile:
-      - org.example:your-language:1.0-SNAPSHOT
+       dependencies:
+         compile:
+         - org.example:your-language:1.0-SNAPSHOT
 
   - The language is missing. If a language dependency is missing, this is reported with errors on
     the console. Make sure your language definition project is open in Eclipse and that is is
