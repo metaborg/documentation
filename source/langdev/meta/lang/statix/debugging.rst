@@ -97,8 +97,28 @@ by default the case for generated projects that use Statix.
 Interpreting Error Messages
 ---------------------------
 
-The error messages produced by Statix include a part of the trace of the failing constraint, to make
-it easier to figure out where the error originated. A typical error message may look as follows:
+Statix can be configured to contain a trace as part of the error messages for failing constraints,
+which can be a great help for debugging.  Two parameters control message formatting. The first,
+``message-trace-length`` controls whether a trace is included in the message, and how long it will
+be. A value of ``0`` means no trace (if no custom message is provided, the failing constraint itself
+is still shown), ``-1`` means the full trace. The default is set to ``0``, as showing traces is
+mostly helpful for debugging when writing the spec and it slows down message formatting. The second,
+``message-term-depth`` controls the depth up to which terms in messages are formatted. A value of
+``-1`` means full terms. The default is set to ``3``, which is usually enough to understand the
+terms involved, without choking up Eclipse or the console with large error messages. It is not
+recommended to set both settings to ``-1``, because then every message will contain the full AST.
+
+The configuration settings are part of the ``metaborg.yaml`` file of the project containing the
+language files (not the project containing the specification!), and look as follows:
+
+.. code-block:: text
+
+   runtime:
+     statix:
+       message-trace-length: 5 # default: 0, full trace: -1
+       message-term-depth: 3 # -1 = max
+
+A typical error message including a trace may look as follows:
 
 .. code-block:: text
 
