@@ -4,7 +4,7 @@ Spoofax 2.5.15
 
 Spoofax 2.5.15 contains a couple of small improvements and bug fixes, and supports the old SDF2-based parse table generator on macOS Catalina (10.15) and above.
 
-See the corresponding :ref:`migration guide <2.5.15-migration-guide>` for migrating from Spoofax 2.5.15 to Spoofax 2.5.15.
+See the corresponding :ref:`migration guide <2.5.15-migration-guide>` for migrating from Spoofax 2.5.14 to Spoofax 2.5.15.
 
 Changes
 -------
