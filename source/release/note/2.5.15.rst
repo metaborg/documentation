@@ -21,6 +21,11 @@ SDF3
 ~~~~
 
 * Fixed tree indexes in layout constraints/declarations to make them 0-based.
+* The generate namespaced grammar option will now generate the namespaced grammar
+  in ``src-gen``. This feature can also be set to generate the grammar automatically
+  similar to other extractions of the grammar like Stratego signatures. See the
+  `documentation <https://www.metaborg.org/en/latest/source/langdev/meta/lang/sdf3/configuration.html>` 
+  for more information. 
 
 Statix
 ~~~~~~
