@@ -362,6 +362,18 @@ The following configuration options are optional and revert to default values wh
                   placeholder:
                     prefix: "$"
 
+      .. describe:: generate-namespaced
+
+       Configuration for generating a namespaced grammar. A namespaced grammar can be generated automatically from an SDF3 grammar. This namespacing is done by adding the language name to all module names and sort names. The generated grammar is put in src-gen/syntax. 
+
+        - Format: Either ``true`` or ``false``. 
+        - Default: ``false``
+        - Example::
+
+              language:
+                sdf:
+                  generate-namespaced: true
+
       .. describe:: externalDef
 
          External SDF definition file to use.
@@ -386,6 +398,20 @@ The following configuration options are optional and revert to default values wh
                  args:
                  - -Idef
                  - ${path:root}/lib/SDF.def
+
+      .. describe:: sdf-meta
+
+         List of SDF2 files that define a syntax mix of two or more languages, which are turned into extra parse tables when this language specification is built. These are typically used for mixing the grammar of the language with that of Stratego to be able to use concrete syntax of the language to describe abstract syntax in Stratego and transform it. 
+
+         - Format: List of command-line arguments.
+         - Default: [Stratego-<languagename>.sdf]
+         - Example::
+
+             language:
+               sdf:
+                 sdf-meta:
+                 - Stratego-Tiger.sdf
+                 - Stratego-Tiger-Java15.sdf
 
    .. describe:: stratego
 
