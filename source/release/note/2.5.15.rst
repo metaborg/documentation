@@ -13,10 +13,12 @@ macOS
 ~~~~~
 
 * On macOS, Spoofax temporarily requires `Docker <https://docs.docker.com/docker-for-mac/install/>`_
-  and ``coreutils`` when building Spoofax on macOS Catalina, Big Sur, or newer.
+  and ``coreutils`` when building Spoofax on macOS Catalina, Big Sur, or newer. (This is only when
+  you build Spoofax yourself instead of downloading it for this website, it does not influence building
+  Spoofax projects.)
 
 SDF3
-~~~~~~
+~~~~
 
 * Fixed tree indexes in layout constraints/declarations to make them 0-based.
 
@@ -33,6 +35,13 @@ Statix
 * Improve rule overlap handling: consider variables already bound to the left
   more specific than concrete patterns, to keep with left-to-right specificity.
 * Add configuration settings to control trace length and term depth in error messages.
+
+Stratego
+~~~~~~~~
+
+* The previously advertised incremental compiler was considered too slow and attempts to make it faster
+  made it less stable. It is currently not recommended for general use, while we develop a new version.
+  The documentation on how to use contains a similar warning now. 
 
 Downloads
 ---------
