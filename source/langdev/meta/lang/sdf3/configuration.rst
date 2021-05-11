@@ -50,7 +50,7 @@ signature generator, etc. For example:
        version: sdf2
 
 
-Finally, by default SDF3 compilation works by generating SDF2 files, and depending on the SDF2 toolchain. However,
+By default SDF3 compilation works by generating SDF2 files, and depending on the SDF2 toolchain. However,
 a new (and experimental) parse table generator can be selected by writing:
 
 .. code-block:: yaml
@@ -64,6 +64,16 @@ this feature is not supported yet by SDF3.
 However, the ``java`` parse table generator supports Unicode, whereas SDF2 generation does not.
 Furthermore, ``dynamic`` can be used instead of ``java``, to enable lazy parse table
 generation, where the parse table is generated while the program is parsed.
+
+A namespaced grammar can be generated automatically from an SDF3 grammar. This namespacing is done by adding the language name to all module names and sort names. The generated grammar is put in ``src-gen/syntax``. The configuration to enable this is:
+
+.. code-block:: yaml
+
+   language:
+     sdf:
+       generate-namespaced: true
+
+Note that namespacing doesn't not handle imports of grammar files from other projects very well. 
 
 JSGLR version
 =============
