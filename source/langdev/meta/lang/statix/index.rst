@@ -21,4 +21,5 @@ The rules of the static semantics are written as logic rules, and solved using a
    reference
    stratego-api
    signature-generator
+   renaming
    nabl2-migration
