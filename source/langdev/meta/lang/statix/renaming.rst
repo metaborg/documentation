@@ -12,8 +12,7 @@ Rename Refactoring
    :language: stratego
    :class: highlight
    
-Spoofax provides an automated Rename refactoring as an editor service for every language developed with it.
-The renaming algorithm is implemented as a Stratego strategy and can be imported from the ``statixruntime`` library. When called, the strategy needs to be parameterized with the layout-preserving pretty-printing strategy ``construct-textual-change``, the ``editor-analyze`` strategy and an indicator strategy for multi-file mode.
+Spoofax provides an automated Rename refactoring as an editor service for every language developed with it that has the static semantics defined with Statix or NaBL2. The renaming algorithm is implemented as a Stratego strategy and can be imported from the ``statixruntime`` library. When called, the strategy needs to be parameterized with the layout-preserving pretty-printing strategy ``construct-textual-change``, the ``editor-analyze`` strategy and an indicator strategy for multi-file mode.
 
 When creating a new Spoofax language project, such a strategy is automatically generated and placed in the ``analysis`` module. But it can also easily be added to existing projects, for example with a module like this:
 
