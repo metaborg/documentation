@@ -273,8 +273,8 @@ type of their data must be declared in the ``relations`` section. Each
 relation declaration consist of the name of the relation and the arguments
 it accepts.
 
-Relation declarations come in two flavors. There is a _predicative_ variant and
-a _functional_ variant. The functional variant has the last two arguments
+Relation declarations come in two flavors. There is a *predicative* variant and
+a *functional* variant. The functional variant has the last two arguments
 separated with a ``->``, which indicates that the relation is intended to map
 the first terms to the last term (as in the regular notion of functions).
 

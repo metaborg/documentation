@@ -8,3 +8,10 @@ See the corresponding :ref:`migration guide <vnext-migration-guide>` for migrati
 
 Changes
 -------
+
+Statix
+~~~~~~
+* Added ``stc-get-ast-ref`` rule to the Stratego API, which can be used to query
+  ``ref`` properties.
+* The Stratego primitives now issue console warnings when invalid labels or
+  properties are used.
