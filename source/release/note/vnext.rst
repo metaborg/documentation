@@ -15,3 +15,4 @@ Statix
   ``ref`` properties.
 * The Stratego primitives now issue console warnings when invalid labels or
   properties are used.
+* Fixed a bug where ``stx-get-scopegraph-data`` would return unification variables instead of their values.
