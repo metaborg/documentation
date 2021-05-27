@@ -32,7 +32,7 @@ Signature
 Name Resolution
 ^^^^^^^^^^^^^^^
 
-Name resolution in NaBL2 haevily relies on occurrences and their
+Name resolution in NaBL2 heavily relies on occurrences and their
 unique identity. In Statix, the notion of a stand-alone reference is
 replaced by the notion of a query. Therefore, the use of occurrences
 is now discouraged in favour of regular terms, relations, and and
@@ -40,7 +40,7 @@ predicates for the different namespaces.
 
 .. code-block:: nabl2
 
-   signature 
+   signature
 
      namespaces
        Var
@@ -55,12 +55,12 @@ predicates for the different namespaces.
       [[ Def(x, T) ^ (s) ]] :=
         Var{x} <- s,
         Var{x} : T.
-        
+
       [[ Var(x) ^ (s) : T ]] :=
         Var{x} -> s,
         Var{x} |-> d,
         d : T.
-        
+
 
 .. code-block:: statix
 
@@ -213,7 +213,7 @@ Here are some example rules for expressions in NaBL2:
      new s_rec, s_rec -P-> s,
      Map1[[ binds ^ (s) ]],
      [[ body ^ (s) : T ]].
- 
+
    [[ Bind(x, e) ^ (s, s_let) ]] :-
      [[ e ^ (s) : T ]],
      Var{x} <- s_let,
@@ -238,4 +238,3 @@ In Statix these would be encoded as:
 
    bindOk(s, Bind(x, e), s_let) :-
      declareVar(x, typeOfExp(s, e), s_let).
-
