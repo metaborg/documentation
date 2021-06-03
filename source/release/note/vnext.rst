@@ -9,6 +9,10 @@ See the corresponding :ref:`migration guide <vnext-migration-guide>` for migrati
 Changes
 -------
 
+SDF3
+~~~~
+* This release fixes the bug with the automatic generation of namespaced grammars, which was introduced in the previous release. 
+
 Statix
 ~~~~~~
 * Added ``stc-get-ast-ref`` rule to the Stratego API, which can be used to query
