@@ -23,3 +23,4 @@
 .. include:: /include/hyperlink/download-2.5.13.rst
 .. include:: /include/hyperlink/download-2.5.14.rst
 .. include:: /include/hyperlink/download-2.5.15.rst
+.. include:: /include/hyperlink/download-2.5.16.rst

@@ -8,6 +8,7 @@ Release notes describe the changes made in the release, and provide download lin
 .. toctree::
    :maxdepth: 1
 
+   2.5.16 (04-06-2021) <2.5.16>
    2.5.15 (11-05-2021) <2.5.15>
    2.5.14 (16-12-2020) <2.5.14>
    2.5.13 (20-11-2020) <2.5.13>
