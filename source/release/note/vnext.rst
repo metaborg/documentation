@@ -9,3 +9,7 @@ See the corresponding :ref:`migration guide <vnext-migration-guide>` for migrati
 Changes
 -------
 
+Statix
+^^^^^^
+
+* Make `ArithTest` Serializable
