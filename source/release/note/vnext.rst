@@ -13,3 +13,6 @@ Statix
 ^^^^^^
 
 * Make `ArithTest` Serializable
+* Integrate the Incremental Solver in Spoofax.
+* Deprecate the `concurrent` property in favor of the `mode` (for language projects) or `modes` (for example projects) properties.
+* Allow singleton properties to be set to the same value multiple times.
