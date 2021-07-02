@@ -14,7 +14,8 @@ Statix
 
 * Make `ArithTest` Serializable
 * Integrate the Incremental Solver in Spoofax.
-* Fix issue where edges were closed twice when having debug log enabled.
+* Fix issue where edges were closed twice in incremental solver when having debug log enabled.
 * Deprecate the `concurrent` property in favor of the `mode` (for language projects) or `modes` (for example projects) properties.
 * Allow singleton properties to be set to the same value multiple times.
 * Reduce number of cascading messages.
+* Add `eq(term)` lambda sugar.
