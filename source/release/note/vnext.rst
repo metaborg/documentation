@@ -18,4 +18,5 @@ Statix
 * Deprecate the `concurrent` property in favor of the `mode` (for language projects) or `modes` (for example projects) properties.
 * Allow singleton properties to be set to the same value multiple times.
 * Reduce number of cascading messages.
+* Show delay reasons and prevented completions on messages for unsolved constraints.
 * Add `eq(term)` lambda sugar.
