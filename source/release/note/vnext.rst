@@ -20,3 +20,4 @@ Statix
 * Reduce number of cascading messages.
 * Show delay reasons and prevented completions on messages for unsolved constraints.
 * Add `eq(term)` lambda sugar.
+* Add `runtime.statix.test-log` option to show Statix test logging in the console.
