@@ -17,7 +17,8 @@ Statix
 * Fix issue where edges were closed twice in incremental solver when having debug log enabled.
 * Deprecate the `concurrent` property in favor of the `mode` (for language projects) or `modes` (for example projects) properties.
 * Allow singleton properties to be set to the same value multiple times.
-* Reduce number of cascading messages.
+* Reduce number of cascading messages (can be disabled using `runtime.statix.suppress-cascading-errors: false`).
 * Show delay reasons and prevented completions on messages for unsolved constraints.
 * Add `eq(term)` lambda sugar.
 * Add `runtime.statix.test-log` option to show Statix test logging in the console.
+* Fix bug where solver with return-on-first-error enabled would also return if the first failing constraint had a non-error message kind.
