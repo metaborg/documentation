@@ -29,7 +29,7 @@ For the generator to work correctly, your SDF3 must be well formed. In particula
 * for every use of a sort: either have a local declaration of a sort, or an import of a file that declares the sort
 * not declare sorts that are not used in any rules
 * not use any implicitly declared sorts
-* not use complex injections, such as :sdf3:`Pair = Expr Expr`
+* not use complex injections, such as :sdf3:`Pair = Expr Expr`. However, list injections without terminal syntax, such as :sdf3:`List = Elem*`, are allowed.
 * constructors must start with an upper-case letter
 * not use ``sdf2table: c``
 
