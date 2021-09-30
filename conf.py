@@ -16,6 +16,7 @@ extensions = [
   'sphinx.ext.imgmath',
   'sphinx.ext.intersphinx',
   'sphinxcontrib.bibtex',
+  'versionwarning.extension',
   'javasphinx'
 ]
 imgmath_image_format = 'svg'
@@ -93,6 +94,15 @@ epub_exclude_files = ['search.html']
 spoofax_api_loc = 'http://www.metaborg.org/projects/spoofax-api/en/latest/'
 
 intersphinx_mapping = {'api': (spoofax_api_loc, None)}
+
+# -- Options for versionwarning, used for deprecation banner
+
+versionwarning_body_selector = 'div.document'
+versionwarning_messages = {
+  "latest": 'This documentation is deprecated and not maintained. For the most up-to-date documentation, please refer to <a href="https://www.spoofax.dev/">spoofax.dev</a>.'
+}
+versionwarning_project_slug = 'spoofax'
+versionwarning_project_version = 'latest'
 
 # -- Additional Sphinx configuration
 
