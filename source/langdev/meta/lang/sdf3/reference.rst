@@ -865,7 +865,7 @@ character.
 .. _layout-declarations:
 
 Layout-sensitive parsing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 SDF3 supports definition of layout sensitive syntax by means of layout constraints.
 While we haven't covered this feature in this documentation, the paper :cite:`s-ErdwegRKO12` describes the concepts.
@@ -880,7 +880,7 @@ lines, columns and token selectors as the original layout constraints from :cite
 
 - **tree selectors**
 
-To specify which trees should be subject to a layout constraint, one may use: tree positions, SDF3 labeled non-terminals, or unique literals that occurs
+To specify which trees should be subject to a layout constraint, one may use: tree positions, SDF3 labeled non-terminals, or unique literals that occur
 in the production. For example::
 
     context-free syntax
@@ -892,7 +892,22 @@ in the production. For example::
       )}
 
 In the layout constraint for the production above, ``else`` refers to the tree for the labeled non-terminal ``else:Stmts``, ``"if"`` refers to the tree
-corresponding to the ``"if"`` literal and the number 3 correspond to the tree at *position 3* in the parse tree (starting at 0, ignoring trees for ``LAYOUT?``).
+corresponding to the ``"if"`` literal and the number 3 correspond to the tree at *position 3* (``Stmts``) in the parse tree (starting at 0, ignoring trees for ``LAYOUT?``).
+
+- **combining layout constraints**
+
+Layout constraints are written as a combination of constraints and declarations with the use of ``&&`` (and), ``||`` (or) and ``!`` (not) operators.
+Furthermore, constraints and declarations can be used together in a layout constraint. For example::
+
+    context-free syntax
+
+      Stmt.IfElse = "if" Exp "then" Stmts "else" else:Stmts  {layout(
+         "if".first.line == "then".last.line &&
+         align "if" "else"
+      )}
+
+However, note that most of the time you can write the same constraints in declarations, which make the constraints easier to read and understand.
+The first constraint is equal to ``single-line "if" "then"``.
 
 - **align**
 
@@ -956,7 +971,7 @@ An example of a declarative specification of the offside rule can be seen in the
 
     context-free syntax
 
-      Stmt.Assign = <<ID> = <Exp>> {layout(offside 3)}
+      Stmt.Assign = <<ID> = <exp:Exp>> {layout(offside exp)}
 
 The layout constraint specifies that when the expression in the statement spams multiple lines, all following lines should be indented with
 respect to the column where the expression started.
@@ -980,7 +995,7 @@ Note that if the expression is written on a single line, the constraint is also 
 
     x = 4 * 10 + 2
 
-It is also possible to use the offside relation on different trees. For example, consider the constraint in the following production::
+It is also possible to use the offside relation on different trees ``offside x y1, ..., yn``. For example, consider the constraint in the following production::
 
     context-free syntax
 
@@ -1044,6 +1059,113 @@ With this constraint, the remainder of the expression ``* 4`` should also be fur
     ··x = 2 + 10
     ·* 4
     ·y = 3
+
+Note that the following program is also valid with respect to the indent constraint, since it is positioned further to the right than the ``if`` literal.
+
+.. code:: python
+
+    if x < 0 then x = 2 + 10
+
+- **newline-indent**
+
+A newline-indent constraint can be used to position a tree on a newline and further to the right::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" then:Stmt* {layout(
+         newline-indent "if" then
+      )}
+
+Similar to the offside constraint, it can also be used on multiple trees ``newline-indent x y1,...,yn``, where all ``yi`` should be on a new line and further to the right with respect to ``x``. So the following constraint::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" s1:Stmt s2:Stmt {layout(
+         newline-indent "if" s1, s2
+      )}
+
+This will ensure that ``s1`` and ``s2`` are on a newline and indented with respect to the ``if`` literal.
+This is a valid program
+
+.. code:: python
+
+    if x < 0 then
+      x = 2 y = 2
+
+Since ``x = 2`` and ``y = 2`` are on a newline and indented with respect to ``if``, however, they do not have to be between themselves.
+This can be accomplised by combining ``newline-indent`` with ``align-list``::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" stmts:Stmt+ {layout(
+         newline-indent "if" stmts &&
+         align-list stmts
+      )}
+      
+Then, only the following is valid
+
+.. code:: python
+
+    if x < 0 then
+      x = 2
+      y = 2
+
+
+- **single-line**
+
+To constrain trees to be on a single line you can use ``single-line``.
+This constraint can be used in 3 ways.
+The first is using ``single-line`` without arguments::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" stmts:Stmt+ {layout(
+         single-line
+      )}
+
+This forces the entire production to be on a single line.
+So, only the following would be valid
+
+.. code:: python
+
+    if x < 0 then x = 2
+
+The second use of ``single-line`` is when supplying a single argument::
+
+    context-free syntax
+
+      Stmt.If = "if" exp:Exp "then" stmts:Stmt+ {layout(
+         single-line exp
+      )}
+
+This constrains the expression to be placed on a single line.
+So, this would be valid
+
+.. code:: python
+
+    if x < 0 
+    then x = 2
+
+Since the expression ``x < 0`` still spans a single line. However, this would not be valid
+
+.. code:: python
+
+    if x 
+       <
+       0 
+    then x = 2
+
+Because it now spans multiple lines.
+The final and third way of using ``single-line`` is by using two arguments::
+
+    context-free syntax
+
+      Stmt.If = "if" Exp "then" stmts:Stmt+ {layout(
+         single-line "if" "then"
+      )}
+
+This constrains the literals ``if`` and ``then`` to be on a single line and, therefore, everything in between as well.
+
 
 Finally, all these layout declarations can be ignored by the parser and used only when generating the pretty-printer. To do that, prefix the constraint with **pp-** writing, for example, **pp-offside** or **pp-align**.
 
