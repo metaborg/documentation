@@ -14,9 +14,9 @@ We describe both ways of language processing in this manual.
 Getting a project handle
 ========================
 
-All language processing happens inside an :java:ref:`~org.metaborg.core.project.IProject`, which is a handle for a project at a certain location, containing source files.
+All language processing happens inside an :java_ref:`~org.metaborg.core.project.IProject`, which is a handle for a project at a certain location, containing source files.
 
-Projects are retrieved with the :java:ref:`~org.metaborg.core.project.IProjectService` service.
+Projects are retrieved with the :java_ref:`~org.metaborg.core.project.IProjectService` service.
 However, different applications provide different implementations of this service, because they have different means of representing projects.
 For example, in Eclipse and IntelliJ, projects are top-level directories in the workspace.
 In Maven, a project is denoted by a directory which has a :file:`pom.xml` file.
@@ -32,7 +32,7 @@ Projects can be retrieved with the following code::
 
 In a command-line application, projects are typically passed as a command-line argument that points to a directory.
 Therefore, the simple project service implementation can be used, which allows the command-line application to manage creation and removal of projects.
-The simple project service is the default implementation, and can be accessed through the :java:ref:`~org.metaborg.core.project.ISimpleProjectService` interface by dependency injection.
+The simple project service is the default implementation, and can be accessed through the :java_ref:`~org.metaborg.core.project.ISimpleProjectService` interface by dependency injection.
 With the simple project service, projects can be created and removed in a command-line environment with the following code::
 
   public class Main {
@@ -59,11 +59,11 @@ Any files inside the project location (i.e. ancestor of project path) belong to 
 Automatic language processing
 =============================
 
-Automated language processing is performed with the :java:ref:`~org.metaborg.spoofax.core.build.ISpoofaxBuilder` service.
+Automated language processing is performed with the :java_ref:`~org.metaborg.spoofax.core.build.ISpoofaxBuilder` service.
 It provides a ``build`` method for running the language processing pipeline, and a ``clean`` method for cleaning up generated files produced by the pipeline.
 
-The ``build`` method takes a progress reporter for reporting the progress of a build, a cancellation token to cancel a build, and importantly, a :java:ref:`~org.metaborg.core.build.BuildInput` object that specifies what to build and how to build it.
-A build input object is constructed with the :java:ref:`~org.metaborg.core.build.BuildInputBuilder`, class which is a `fluent interface <https://en.wikipedia.org/wiki/Fluent_interface>`_ for creating build inputs.
+The ``build`` method takes a progress reporter for reporting the progress of a build, a cancellation token to cancel a build, and importantly, a :java_ref:`~org.metaborg.core.build.BuildInput` object that specifies what to build and how to build it.
+A build input object is constructed with the :java_ref:`~org.metaborg.core.build.BuildInputBuilder`, class which is a `fluent interface <https://en.wikipedia.org/wiki/Fluent_interface>`_ for creating build inputs.
 
 For example, to create a build input which parses, analyzes, and compiles all sources in a project, use the following code::
 
@@ -82,7 +82,7 @@ To run the language processing pipeline, pass the build input along with a progr
   ISpoofaxBuilder builder = ... // Get through dependency injection
   ISpoofaxBuildOutput output = builder.build(input);
 
-The result of building is a :java:ref:`~org.metaborg.spoofax.core.build.ISpoofaxBuildOutput` object which denotes if the build was successful, and contains resource changes, parse, analysis, and transformation results, and any messages produced during building.
+The result of building is a :java_ref:`~org.metaborg.spoofax.core.build.ISpoofaxBuildOutput` object which denotes if the build was successful, and contains resource changes, parse, analysis, and transformation results, and any messages produced during building.
 It also includes the state of the build, which can be passed to the next build input to perform incremental processing.
 
 Manual language processing
@@ -99,8 +99,8 @@ A unit is a collection of information, about a certain processing aspect, for a 
 For example, a parse unit contains the parsed AST for a resource, or a collection of error messages if parsing that resource, and is specific to the language that it is parsed with.
 
 In most cases, it is not required to manually construct processing units, since the parse, analyze, and transform services create these units for you.
-The only unit that must always be created, is the :java:ref:`~org.metaborg.spoofax.core.unit.ISpoofaxInputUnit`, which contains all information to parse a resource.
-Such a unit can be constructed with the :java:ref:`~org.metaborg.spoofax.core.unit.ISpoofaxInputUnitService` service, for example::
+The only unit that must always be created, is the :java_ref:`~org.metaborg.spoofax.core.unit.ISpoofaxInputUnit`, which contains all information to parse a resource.
+Such a unit can be constructed with the :java_ref:`~org.metaborg.spoofax.core.unit.ISpoofaxInputUnitService` service, for example::
 
   FileObject source = ...      // Source file to parse
   ILanguageImpl language = ... // Language of the source file
@@ -111,8 +111,8 @@ Such a unit can be constructed with the :java:ref:`~org.metaborg.spoofax.core.un
   ISpoofaxInputUnitService unitService = ... // Get through dependency injection
   ISpoofaxInputUnit inputUnit = unitService.inputUnit(source, contents, language, null);
 
-If construction of other units is required, the :java:ref:`~org.metaborg.spoofax.core.unit.ISpoofaxUnitService` service must be used.
-For example, the following code creates an :java:ref:`~org.metaborg.spoofax.core.unit.ISpoofaxParseUnit` from a custom AST::
+If construction of other units is required, the :java_ref:`~org.metaborg.spoofax.core.unit.ISpoofaxUnitService` service must be used.
+For example, the following code creates an :java_ref:`~org.metaborg.spoofax.core.unit.ISpoofaxParseUnit` from a custom AST::
 
   IStrategoTerm customAST = ... // Custom AST made by the developer
   // Create a parse unit using the custom AST
@@ -123,20 +123,20 @@ For example, the following code creates an :java:ref:`~org.metaborg.spoofax.core
 Parsing
 -------
 
-The :java:ref:`~org.metaborg.spoofax.core.syntax.ISpoofaxSyntaxService` service parse input units into parse units.
+The :java_ref:`~org.metaborg.spoofax.core.syntax.ISpoofaxSyntaxService` service parse input units into parse units.
 Parsing can be configured by customizing the input unit.
 The resulting parse unit contains the parsed AST, any messages produced during parsing, and the duration of parsing.
 
 Analysis
 --------
 
-The :java:ref:`~org.metaborg.spoofax.core.analysis.ISpoofaxAnalysisService` service parses parse units into analysis results.
+The :java_ref:`~org.metaborg.spoofax.core.analysis.ISpoofaxAnalysisService` service parses parse units into analysis results.
 An analysis result contains an analyze unit, which contains the actual unit produced by analysis, and updates, which contain updates for existing analyze units.
 Updates are only produced in subsequent calles to the analysis service, to support incremental updates to units.
 
-To be able to analyze something, a :java:ref:`~org.metaborg.core.context.IContext` object is required.
+To be able to analyze something, a :java_ref:`~org.metaborg.core.context.IContext` object is required.
 A context stores project and language specific information about analysis.
-A context is retrieved using the :java:ref:`~org.metaborg.core.context.IContextService` service, by calling the ``get`` method with the resource that you'd like to analyze, its project, and the language of that resource.
+A context is retrieved using the :java_ref:`~org.metaborg.core.context.IContextService` service, by calling the ``get`` method with the resource that you'd like to analyze, its project, and the language of that resource.
 When performing analysis, the context must be write-locked through the ``IContext.write()`` method, to ensure that only one thread is writing to the context at any given time.
 
 For example, to analyze a parsed resource::
@@ -158,14 +158,14 @@ For example, to analyze a parsed resource::
 Transformation
 --------------
 
-The :java:ref:`~org.metaborg.spoofax.core.transform.ISpoofaxTransformService` service transforms parse or analyze units into transform units.
+The :java_ref:`~org.metaborg.spoofax.core.transform.ISpoofaxTransformService` service transforms parse or analyze units into transform units.
 
-Since there are multiple transformations to choose from, a :java:ref:`~org.metaborg.core.action.ITransformGoal` object is required to choose which transformation to run.
+Since there are multiple transformations to choose from, a :java_ref:`~org.metaborg.core.action.ITransformGoal` object is required to choose which transformation to run.
 There are three transform goals:
 
-- :java:ref:`~org.metaborg.core.action.CompileGoal` which selects the compiler (on-save handler) transformation.
-- :java:ref:`~org.metaborg.core.action.NamedGoal` which selects a named builder. A list of names is required to find an action in nested menus.
-- :java:ref:`~org.metaborg.core.action.EndNamedGoal` which selects a named builder based on the name of the builder only, ignoring any menus.
+- :java_ref:`~org.metaborg.core.action.CompileGoal` which selects the compiler (on-save handler) transformation.
+- :java_ref:`~org.metaborg.core.action.NamedGoal` which selects a named builder. A list of names is required to find an action in nested menus.
+- :java_ref:`~org.metaborg.core.action.EndNamedGoal` which selects a named builder based on the name of the builder only, ignoring any menus.
 
 No service is needed to instantiate a transform goal, just instantiate one of the goals manually.
 
@@ -190,7 +190,7 @@ Stratego Transformation
 
 The transform service abstracts over the fact that Stratego is perform transformations, by executing transformations through goals.
 However, sometimes it may still be neccessary to call Stratego strategies directly.
-Therefore, we expose the :java:ref:`~org.metaborg.spoofax.core.stratego.IStrategoCommon` class.
+Therefore, we expose the :java_ref:`~org.metaborg.spoofax.core.stratego.IStrategoCommon` class.
 
 The ``invoke`` methods execute a strategy on a term, and return the transformed term.
 A context object is required for transformation. See the section on analysis on how to retrieve a context object.
@@ -206,6 +206,6 @@ For example, to invoke a strategy on a parsed AST::
       context, parseUnit.ast(), "compile-to-java");
   }
 
-The ``toString`` and ``prettyPrint`` methods of the :java:ref:`~org.metaborg.spoofax.core.stratego.IStrategoCommon` class can be used to turn terms into string representations.
+The ``toString`` and ``prettyPrint`` methods of the :java_ref:`~org.metaborg.spoofax.core.stratego.IStrategoCommon` class can be used to turn terms into string representations.
 
-Internally, the :java:ref:`~org.metaborg.spoofax.core.stratego.IStrategoRuntimeService` service is used, but this has a lower-level interface.
+Internally, the :java_ref:`~org.metaborg.spoofax.core.stratego.IStrategoRuntimeService` service is used, but this has a lower-level interface.

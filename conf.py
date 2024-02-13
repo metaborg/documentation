@@ -36,6 +36,9 @@ bibtex_bibfiles = ['source/bib/spoofax.bib']
 
 # Include include/_all.rst in all documents.
 rst_prolog = """
+.. role:: java_ref(code)
+    :language: java
+    :class: highlight
 .. include:: /include/_all.rst
 """
 

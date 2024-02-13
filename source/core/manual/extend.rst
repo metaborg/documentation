@@ -15,12 +15,12 @@ Extension points
 ----------------
 
 Extension points in Spoofax Core are essentially the `Guice multibindings <https://github.com/google/guice/wiki/Multibindings>`_ that are being used in Spoofax Core.
-There are 2 kinds of extension points; :java:ref:`~com.google.inject.multibindings.Multibinder` for a *Set* of implementations for a single interface, and :java:ref:`~com.google.inject.multibindings.MapBinder` for a *Map* of implementations for a single interface.
+There are 2 kinds of extension points; :java_ref:`~com.google.inject.multibindings.Multibinder` for a *Set* of implementations for a single interface, and :java_ref:`~com.google.inject.multibindings.MapBinder` for a *Map* of implementations for a single interface.
 Guice merges all multibindings from all modules together.
 
 .. note:: Extension points in Spoofax Core are not to be confused with Eclipse extension points, which are Eclipse-specific.
 
-To add a singleton implementation to a Multibinding for an interface, use the following code inside the configure method of an :java:ref:`~com.google.inject.AbstractModule`::
+To add a singleton implementation to a Multibinding for an interface, use the following code inside the configure method of an :java_ref:`~com.google.inject.AbstractModule`::
 
   Multibinder
     .newSetBinder(binder(), interface-class)
@@ -56,37 +56,37 @@ MetaBorg extension points
    Provides a means to clean up resources when the MetaBorg or Spoofax Core API is closed.
 
    :signature: ``Multibinder<AutoCloseable>``
-   :interface: :java:ref:`~java.lang.AutoCloseable`
+   :interface: :java_ref:`~java.lang.AutoCloseable`
 
 .. describe:: Language cache cleanup
 
    Provides a means to clean up cached language component or language implementation resources when a language component or language implementation is reloaded or removed.
 
    :signature: ``Multibinder<ILanguageCache>``
-   :interface: :java:ref:`ILanguageCache`
+   :interface: :java_ref:`ILanguageCache`
 
 .. describe:: Context factory
 
-   Interface for creating :java:ref:`IContext` instances, linked to an identifier.
+   Interface for creating :java_ref:`IContext` instances, linked to an identifier.
    A language specification uses a specific context factory by specifying the context type in ESV.
 
    :signature: ``MapBinder<String, IContextFactory>``
-   :interface: :java:ref:`IContextFactory`
+   :interface: :java_ref:`IContextFactory`
 
 .. describe:: Context strategy
 
-   Interface for :java:ref:`IContext` creation/retrieval strategies, linked to an identifier.
+   Interface for :java_ref:`IContext` creation/retrieval strategies, linked to an identifier.
    A language specification uses a specific context strategy by specifying the context strategy in ESV.
 
    :signature: ``MapBinder<String, IContextStrategy>``
-   :interface: :java:ref:`IContextStrategy`
+   :interface: :java_ref:`IContextStrategy`
 
 .. describe:: Language path provider
 
    Provides source and include paths for languages.
 
    :signature: ``Multibinder<ILanguagePathProvider>``
-   :interface: :java:ref:`ILanguagePathProvider`
+   :interface: :java_ref:`ILanguagePathProvider`
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -97,23 +97,23 @@ Spoofax extension points
 
    Parser implementation, linked to an identifier.
    A language specification uses a specific parser by specifying the parser in ESV.
-   An implementation **must** implement :java:ref:`ISpoofaxParser` and be bound to **both** signatures listed below for correct operation.
+   An implementation **must** implement :java_ref:`ISpoofaxParser` and be bound to **both** signatures listed below for correct operation.
 
    :signature: ``MapBinder<String, IParser<ISpoofaxInputUnit, ISpoofaxParseUnit>>``
    :signature: ``MapBinder<String, ISpoofaxParser>``
-   :interface: :java:ref:`IParser`
-   :interface: :java:ref:`ISpoofaxParser`
+   :interface: :java_ref:`IParser`
+   :interface: :java_ref:`ISpoofaxParser`
 
 .. describe:: Analyzer
 
    Analyzer implementation, linked to an identifier.
    A language specification uses a specific analyzer by specifying the analyzer in ESV.
-   An implementation **must** implement :java:ref:`ISpoofaxAnalyzer` and be bound to **both** signatures listed below for correct operation.
+   An implementation **must** implement :java_ref:`ISpoofaxAnalyzer` and be bound to **both** signatures listed below for correct operation.
 
    :signature: ``MapBinder<String, IAnalyzer<ISpoofaxParseUnit, ISpoofaxAnalyzeUnit, ISpoofaxAnalyzeUnitUpdate>>``
    :signature: ``MapBinder<String, ISpoofaxAnalyzer>``
-   :interface: :java:ref:`IAnalyzer`
-   :interface: :java:ref:`ISpoofaxAnalyzer`
+   :interface: :java_ref:`IAnalyzer`
+   :interface: :java_ref:`ISpoofaxAnalyzer`
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 MetaBorg-meta extension points
@@ -128,7 +128,7 @@ MetaBorg-meta extension points
 
    :signature: ``Multibinder<AutoCloseable>``
    :annotation: ``Meta.class``
-   :interface: :java:ref:`~java.lang.AutoCloseable`
+   :interface: :java_ref:`~java.lang.AutoCloseable`
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Spoofax-meta extension points
@@ -139,7 +139,7 @@ Spoofax-meta extension points
    Build step implementation which can be executed during language specification builds.
 
    :signature: ``Multibinder<IBuildStep>``
-   :interface: :java:ref:`IBuildStep`
+   :interface: :java_ref:`IBuildStep`
 
 -----------------------------
 Hardcoding additional modules
@@ -147,11 +147,11 @@ Hardcoding additional modules
 
 Additional modules can be hardcoded when you control the application that you'd like to extend.
 
-To extend Spoofax with additional hardcoded modules, add them when creating a :java:ref:`Spoofax <org.metaborg.spoofax.core.Spoofax>` facade object::
+To extend Spoofax with additional hardcoded modules, add them when creating a :java_ref:`Spoofax <org.metaborg.spoofax.core.Spoofax>` facade object::
 
    final Spoofax spoofax = new Spoofax(new CustomModule(), new OtherCustomModule());
 
-Similarly, to extend meta-Spoofax, add modules to the meta-facade :java:ref:`SpoofaxMeta <org.metaborg.spoofax.meta.core.SpoofaxMeta>`::
+Similarly, to extend meta-Spoofax, add modules to the meta-facade :java_ref:`SpoofaxMeta <org.metaborg.spoofax.meta.core.SpoofaxMeta>`::
 
    final SpoofaxMeta spoofaxMeta = new SpoofaxMeta(spoofax, new CustomMetaModule(),
      new OtherCustomMetaModule());
@@ -169,10 +169,10 @@ Java service provider
 
 Java service providers are the standard solution for creating extensible applications on the JVM.
 Spoofax Core supports specifying additional modules as plugins through a service provider.
-To register your module as a plugin, `register it as a service provider <https://docs.oracle.com/javase/tutorial/ext/basics/spi.html#register-service-providers>`_ for the :java:ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>` class.
+To register your module as a plugin, `register it as a service provider <https://docs.oracle.com/javase/tutorial/ext/basics/spi.html#register-service-providers>`_ for the :java_ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>` class.
 For example, if you would like to register the ``org.example.CustomModule`` and ``org.example.OtherCustomModule`` module:
 
-1. Create a class implementing :java:ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>`:
+1. Create a class implementing :java_ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>`:
 
   ::
 
@@ -188,9 +188,9 @@ For example, if you would like to register the ``org.example.CustomModule`` and 
 
 Whenever your JAR file is on the classpath together with Spoofax Core, Spoofax Core will pick up the module plugins and load them whenever the Spoofax facade is instantiated.
 
-Similarly, for additional meta-modules, register a service provider for the :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` class:
+Similarly, for additional meta-modules, register a service provider for the :java_ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` class:
 
-1. Create a class implementing :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>`:
+1. Create a class implementing :java_ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>`:
 
   ::
 
@@ -227,7 +227,7 @@ For meta-modules, use the ``org.metaborg.spoofax.eclipse.meta.module`` extension
      <module class="org.example.OtherCustomMetaModule" />
    </extension>
 
-The ``CustomModule`` and ``CustomMetaModule`` classes in these examples must implement the :java:ref:`~com.google.inject.Module` class.
+The ``CustomModule`` and ``CustomMetaModule`` classes in these examples must implement the :java_ref:`~com.google.inject.Module` class.
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -250,4 +250,4 @@ For meta-modules, use the ``org.metaborg.intellij.spoofaxMetaPlugin`` extension 
      <spoofaxMetaPlugin implementation="org.example.OtherCustomMetaPlugin" />
    </extensions>
 
-The ``CustomPlugin`` and ``CustomMetaPlugin`` classes in these examples must implement the :java:ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>` and :java:ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` interfaces respectively.
+The ``CustomPlugin`` and ``CustomMetaPlugin`` classes in these examples must implement the :java_ref:`IServiceModulePlugin <org.metaborg.core.plugin.IServiceModulePlugin>` and :java_ref:`IServiceMetaModulePlugin <org.metaborg.meta.core.plugin.IServiceMetaModulePlugin>` interfaces respectively.

@@ -101,7 +101,7 @@ Second, let's download a language component that we can load into Spoofax Core.
 Download the `NaBL language <http://artifacts.metaborg.org/service/local/repositories/releases/content/org/metaborg/org.metaborg.meta.lang.nabl/2.0.0/org.metaborg.meta.lang.nabl-2.0.0.spoofax-language>`_ and store it in the :file:`src/main/resources` directory of the project.
 Any resources stored in :file:`src/main/resources` are packaged into the JAR file of your application and are available at runtime.
 
-To initialize Spoofax Core, create an instance of the :java:ref:`org.metaborg.spoofax.core.Spoofax` facade::
+To initialize Spoofax Core, create an instance of the :java_ref:`org.metaborg.spoofax.core.Spoofax` facade::
 
   try(final Spoofax spoofax = new Spoofax()) {
       // Use Spoofax here
@@ -120,7 +120,7 @@ Loading a language
 
 Now we can load the NaBL language into Spoofax Core.
 Spoofax Core uses `Apache VFS <https://commons.apache.org/proper/commons-vfs/>`_ as a file system abstraction, to be able to interact with different file systems.
-This means we must first get a :java:ref:`~org.apache.commons.vfs2.FileObject` (Apache VFS counterpart of :java:ref:`~java.io.File`) that points to the NaBL language file we downloaded earlier.
+This means we must first get a :java_ref:`~org.apache.commons.vfs2.FileObject` (Apache VFS counterpart of :java_ref:`~java.io.File`) that points to the NaBL language file we downloaded earlier.
 First get a URL to the NaBL language file which is on the classpath::
 
   URL nablUrl = Main.class.getClassLoader().getResource(
@@ -130,12 +130,12 @@ Then we resolve that to a FileObject, which points to the contents of the NaBL l
 
   FileObject nablLocation = spoofax.resourceService.resolve("zip:" + nablUrl + "!/");
 
-The :java:ref:`org.metaborg.core.resource.IResourceService` class is a service in Spoofax Core that provides functionality to retrieve FileObjects.
+The :java_ref:`org.metaborg.core.resource.IResourceService` class is a service in Spoofax Core that provides functionality to retrieve FileObjects.
 In this case, we resolve to the contents inside the zip file.
 The ``zip:`` part indicates that we're using the `zip file system <https://commons.apache.org/proper/commons-vfs/filesystems.html#Zip_Jar_and_Tar>`_, and the ``!/`` part indicates that we refer to the root path **inside** the zip file.
 
 Spoofax Core has many services that provide small pieces of functionality.
-The :java:ref:`org.metaborg.core.language.ILanguageDiscoveryService` class is a service that discovers and loads languages, which we will use now to load the NaBL language::
+The :java_ref:`org.metaborg.core.language.ILanguageDiscoveryService` class is a service that discovers and loads languages, which we will use now to load the NaBL language::
 
   Iterable<ILanguageDiscoveryRequest> requests =
     spoofax.languageDiscoveryService.request(nablLocation);
@@ -172,20 +172,20 @@ Open the file and fill it with the following content:
 
    namespaces Test1 Test2
 
-To parse a file, we must first create a :java:ref:`org.metaborg.spoofax.core.unit.ISpoofaxInputUnit` which contains all information required to parse a file::
+To parse a file, we must first create a :java_ref:`org.metaborg.spoofax.core.unit.ISpoofaxInputUnit` which contains all information required to parse a file::
 
   FileObject nablFile = spoofax.resourceService.resolve("res:test.nabl");
   String nablContents = spoofax.sourceTextService.text(nablFile);
   ISpoofaxInputUnit input = spoofax.unitService.inputUnit(nablFile, nablContents, nabl, null);
 
 The `res file system <https://commons.apache.org/proper/commons-vfs/filesystems.html#res>`_ can be used to resolve files on the classpath.
-The catch clause must also be extended with :java:ref:`~java.io.IOException` to handle the case where the text for the NaBL file cannot be retrieved::
+The catch clause must also be extended with :java_ref:`~java.io.IOException` to handle the case where the text for the NaBL file cannot be retrieved::
 
   } catch(MetaborgException | IOException e) {
       e.printStackTrace();
   }
 
-Then we pass the input to the :java:ref:`org.metaborg.core.syntax.ISyntaxService` for parsing::
+Then we pass the input to the :java_ref:`org.metaborg.core.syntax.ISyntaxService` for parsing::
 
   ISpoofaxParseUnit output = spoofax.syntaxService.parse(input);
   if(!output.valid()) {
