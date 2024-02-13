@@ -17,13 +17,10 @@ extensions = [
   'sphinx.ext.intersphinx',
   'sphinxcontrib.bibtex',
   'versionwarning.extension',
-  'javasphinx'
+  'myst_parser'
 ]
 imgmath_image_format = 'svg'
 templates_path = ['_templates']
-source_parsers = {
-  '.md': CommonMarkParser,
-}
 source_suffix = ['.rst', '.md']
 master_doc = 'index'
 project = 'Spoofax'
@@ -31,10 +28,11 @@ copyright = '2016-' + str(datetime.date.today().year) + ', MetaBorg'
 author = 'MetaBorg'
 version = '2.5.16'
 release = version
-language = None
+language = 'en'
 exclude_patterns = ['.venv', '_build', 'notes', 'include', 'README.md']
 pygments_style = 'sphinx'
 todo_include_todos = True
+bibtex_bibfiles = ['source/bib/spoofax.bib']
 
 # Include include/_all.rst in all documents.
 rst_prolog = """
