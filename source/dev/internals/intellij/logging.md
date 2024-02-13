@@ -50,7 +50,7 @@ know which one to bind to. It will pick one at random:
     SLF4J: Class path contains multiple SLF4J bindings.
     SLF4J: Found binding in [jar:file:/home/daniel/.IdeaIC14/system/plugins-sandbox/plugins/spoofax-intellij/lib/slf4j-simple-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
     SLF4J: Found binding in [jar:file:/home/daniel/apps/1507-IntelliJ/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
     SLF4J: Actual binding is of type [org.slf4j.impl.SimpleLoggerFactory]
 
 We don't have a solution for this yet.

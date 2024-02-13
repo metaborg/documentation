@@ -79,13 +79,13 @@ Overall
 Core API
 ~~~~~~~~
 
-- Improve: `Spoofax/190 - Extend API for language discovery <http://yellowgrass.org/issue/Spoofax/190>`_. This deprecates several methods in the language discovery API, see the :ref:`migration guide <2.2.0-migration-guide>` on how to migrate your code.
-- Improve: `Spoofax/193 - Stratego warnings in Spoofax language projects with NaBL2 analysis <http://yellowgrass.org/issue/Spoofax/193>`_. The excessive number of warnings from Stratego compilation are now filtered out.
+- Improve: `Spoofax/190 - Extend API for language discovery <https://yellowgrass.org/issue/Spoofax/190>`_. This deprecates several methods in the language discovery API, see the :ref:`migration guide <2.2.0-migration-guide>` on how to migrate your code.
+- Improve: `Spoofax/193 - Stratego warnings in Spoofax language projects with NaBL2 analysis <https://yellowgrass.org/issue/Spoofax/193>`_. The excessive number of warnings from Stratego compilation are now filtered out.
 - Improve: Parsing and analysis can report progress and be cancelled.
 - Improve: Builds now report progress.
 - Fix: Path and project path that are passed to the editor hover strategy are now consistent with paths passed to other strategies.
-- Fix: `Spoofax/187 - Provide simplified builder API <http://yellowgrass.org/issue/Spoofax/187>`_.
-- Fix: `Spoofax/188 - Java type error in documented language processing code <http://yellowgrass.org/issue/Spoofax/188>`_.
+- Fix: `Spoofax/187 - Provide simplified builder API <https://yellowgrass.org/issue/Spoofax/187>`_.
+- Fix: `Spoofax/188 - Java type error in documented language processing code <https://yellowgrass.org/issue/Spoofax/188>`_.
 
 Eclipse
 ~~~~~~~

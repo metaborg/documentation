@@ -84,7 +84,7 @@ DynSem is a DSL for concise and modular specification of dynamic semantics of pr
 Fully functional interpreters are automatically derived from dynamic semantics specifications.
 For more information about DynSem, see the following sources:
 
--  `Paper <http://repository.tudelft.nl/islandora/object/uuid:2512f403-521a-47af-8fba-bc433509e2ca/?collection=research>`_
+-  `Paper <https://repository.tudelft.nl/islandora/object/uuid:2512f403-521a-47af-8fba-bc433509e2ca/?collection=research>`_
 -  :ref:`Documentation <dynsem-index>`
 -  :ref:`Getting started tutorial <dynsem-getting-started>`
 -  `Example language <https://github.com/MetaBorgCube/simpl>`_

@@ -3,10 +3,10 @@
 > [!IMPORTANT]
 > Find the latest documentation at [spoofax.dev](https://spoofax.dev/). The documentation in this repository is no longer maintained.
 
-This repository contains the _old_ (unmaintained) Spoofax documentation, made with [Sphinx](http://www.sphinx-doc.org/en/stable/) in the [Read The Docs](https://docs.readthedocs.io/en/latest/index.html) style of documentation.
+This repository contains the _old_ (unmaintained) Spoofax documentation, made with [Sphinx](https://www.sphinx-doc.org/en/stable/) in the [Read The Docs](https://docs.readthedocs.io/en/latest/index.html) style of documentation.
 
-This documentation is hosted at http://www.metaborg.org/en/latest/.
-When a commit to this repository is made, it will automatically [build and update](http://readthedocs.org/projects/spoofax/builds/) the documentation.
+This documentation is hosted at https://www.metaborg.org/en/latest/.
+When a commit to this repository is made, it will automatically [build and update](https://readthedocs.org/projects/spoofax/builds/) the documentation.
 
 ## Requirements
 
@@ -79,7 +79,7 @@ error: Microsoft Visual C++ 9.0 is required (Unable to find vcvarsall.bat).
 ```
 
 Then you need to download and install _Microsoft Visual C++ Compiler
-for Python 2.7_ from [http://aka.ms/vcpython27](http://aka.ms/vcpython27).
+for Python 2.7_ from [https://aka.ms/vcpython27](https://aka.ms/vcpython27).
 
 
 ### Interpreter python is not an executable command

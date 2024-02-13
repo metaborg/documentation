@@ -333,7 +333,7 @@ Thirdly, if we were to try it out on Travis the build would be broken failing to
       <repositories>
         <repository>
           <id>metaborg-release-repo</id>
-          <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+          <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -343,7 +343,7 @@ Thirdly, if we were to try it out on Travis the build would be broken failing to
         </repository>
         <repository>
           <id>metaborg-snapshot-repo</id>
-          <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+          <url>https://artifacts.metaborg.org/content/repositories/snapshots/</url>
           <releases>
             <enabled>false</enabled>
           </releases>
@@ -353,7 +353,7 @@ Thirdly, if we were to try it out on Travis the build would be broken failing to
         </repository>
         <repository>
           <id>spoofax-eclipse-repo</id>
-          <url>http://download.spoofax.org/update/nightly/</url>
+          <url>https://download.spoofax.org/update/nightly/</url>
           <layout>p2</layout>
           <releases>
             <enabled>false</enabled>
@@ -366,7 +366,7 @@ Thirdly, if we were to try it out on Travis the build would be broken failing to
       <pluginRepositories>
         <pluginRepository>
           <id>metaborg-release-repo</id>
-          <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+          <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -376,7 +376,7 @@ Thirdly, if we were to try it out on Travis the build would be broken failing to
         </pluginRepository>
         <pluginRepository>
           <id>metaborg-snapshot-repo</id>
-          <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+          <url>https://artifacts.metaborg.org/content/repositories/snapshots/</url>
           <releases>
             <enabled>false</enabled>
           </releases>

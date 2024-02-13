@@ -10,7 +10,7 @@ Configuration is specified in the :file:`metaborg.yaml` file at the root of the 
 Format
 ------
 
-The configuration is written in `YAML <http://yaml.org/>`_, a human-friendly textual data format.
+The configuration is written in `YAML <https://yaml.org/>`_, a human-friendly textual data format.
 YAML is indentation sensitive, be sure to properly indent nested elements with 2 spaces.
 
 We use the `commons-configuration2 <https://commons.apache.org/proper/commons-configuration/index.html>`_ framework to process configuration, which supports variables, nesting, and lists.

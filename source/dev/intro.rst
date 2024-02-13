@@ -4,7 +4,7 @@
 Introduction
 ============
 
-Spoofax is the integration of many different tools, compilers, (meta-)languages, (meta-)libraries, and runtime components. This integration is made concrete in the `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ Git repository on GitHub. This repository contains all components via `Git submodules <https://git-scm.com/book/en/v2/Git-Tools-Submodules>`_, which are updated by our `build farm <http://buildfarm.metaborg.org/view/Spoofax/job/metaborg/job/spoofax-releng/>`_ that builds Spoofax whenever one of its components in a submodule changes.
+Spoofax is the integration of many different tools, compilers, (meta-)languages, (meta-)libraries, and runtime components. This integration is made concrete in the `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ Git repository on GitHub. This repository contains all components via `Git submodules <https://git-scm.com/book/en/v2/Git-Tools-Submodules>`_, which are updated by our `build farm <https://buildfarm.metaborg.org/view/Spoofax/job/metaborg/job/spoofax-releng/>`_ that builds Spoofax whenever one of its components in a submodule changes.
 
 Spoofax currently contains the following subcomponents as submodules:
 

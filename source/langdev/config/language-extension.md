@@ -95,4 +95,4 @@ The following types of files need to be copy pasted currently:
 - .tbl files (for parsing Stratego mix syntax)
 - icon files
 
-More info: http://yellowgrass.org/issue/Spoofax/211
+More info: https://yellowgrass.org/issue/Spoofax/211

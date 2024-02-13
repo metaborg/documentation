@@ -179,5 +179,5 @@ public final class MyClass implements IMyInterface {
 [3]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/logging/MetaborgLoggerTypeListener.java
 [4]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/logging/Slf4JLoggerTypeListener.java
 [5]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/logging/LoggerUtils.java
-[6]: http://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_extensions_and_extension_points.html
+[6]: https://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_extensions_and_extension_points.html
 [7]: https://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html

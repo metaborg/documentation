@@ -73,7 +73,7 @@ Unpack the downloaded archive to a location with write access, since Eclipse req
 
 .. warning::
 
-   On |macOS| *macOS Sierra (10.12)* and above, you must move the unpacked :file:`spoofax.app` file to a different location (such as :file:`Applications`) after unpacking, to prevent `App Translocation <http://lapcatsoftware.com/articles/app-translocation.html>`_ from moving the app into a read-only filesystem, breaking Eclipse and Spoofax.
+   On |macOS| *macOS Sierra (10.12)* and above, you must move the unpacked :file:`spoofax.app` file to a different location (such as :file:`Applications`) after unpacking, to prevent `App Translocation <https://lapcatsoftware.com/articles/app-translocation.html>`_ from moving the app into a read-only filesystem, breaking Eclipse and Spoofax.
 
    Alternatively, you can prevent App Translocation by clearing attributes from the application. To do this, open the Terminal, navigate to the directory where the :file:`spoofax.app` is located, and execute:
 

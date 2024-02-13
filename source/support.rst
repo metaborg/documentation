@@ -17,12 +17,12 @@ So, please read carefully.
 Bug Reports and Feature Requests
 -----------------------------------
 
-To report bugs or request new features use our `YellowGrass: <http://yellowgrass.org/>`_ issue trackers:
+To report bugs or request new features use our `YellowGrass: <https://yellowgrass.org/>`_ issue trackers:
 
-* Spoofax 2.0 and higher: <http://yellowgrass.org/project/Spoofax>
-* Spoofax 1.5 and lower: <http://yellowgrass.org/project/SpoofaxLegacy>
+* Spoofax 2.0 and higher: <https://yellowgrass.org/project/Spoofax>
+* Spoofax 1.5 and lower: <https://yellowgrass.org/project/SpoofaxLegacy>
 
-In the Spoofax 2.0 Eclipse plugin, use the main menu <span class='menuselection'>Spoofax (meta) ‣ Report issue</span> to report issues, it provides a link to the `Spoofax <http://yellowgrass.org/project/Spoofax>`_  project and the environment versions which you can copy paste.
+In the Spoofax 2.0 Eclipse plugin, use the main menu <span class='menuselection'>Spoofax (meta) ‣ Report issue</span> to report issues, it provides a link to the `Spoofax <https://yellowgrass.org/project/Spoofax>`_  project and the environment versions which you can copy paste.
 
 When reporting bugs, please provide the following information such that we can easily reproduce and fix the bug:
 ​

@@ -42,11 +42,11 @@ file system using the [default implementation][8] of the
 [`IIntelliJResourceService`][9].
 
 
-[1]: http://www.jetbrains.org/intellij/sdk/docs/basics/virtual_file_system.html
-[2]: http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/virtual_file.html
-[3]: http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/documents.html
-[4]: http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_files.html
-[5]: http://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html
+[1]: https://www.jetbrains.org/intellij/sdk/docs/basics/virtual_file_system.html
+[2]: https://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/virtual_file.html
+[3]: https://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/documents.html
+[4]: https://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_files.html
+[5]: https://www.jetbrains.org/intellij/sdk/docs/basics/architectural_overview/psi_elements.html
 [6]: https://commons.apache.org/proper/commons-vfs/
 [7]: https://github.com/metaborg/spoofax-intellij/tree/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/vfs
 [8]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/resources/DefaultIntelliJResourceService.java

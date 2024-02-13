@@ -30,4 +30,4 @@ The organization of the [Stratego library](https://stratego.martijndwars.nl/) is
 
 As an example, the `collection/list` package consists of the modules `common`, `cons`, `filter`, `index`, `integer`, `lookup`, `set`, `sort`, `zip`. Inside the `sort` module, we find the `qsort` strategy, for sorting lists.
 
-In the remainder of this part of the tutorial, we will present the most important parts of the library, and show their typical usage patterns and idioms. If anything seems unclear, you are encouraged to consult the [online documentation](http://releases.strategoxt.org/docs/api/libstratego-lib/libstratego-lib-docs-stable/docs/) for further details.
+In the remainder of this part of the tutorial, we will present the most important parts of the library, and show their typical usage patterns and idioms. If anything seems unclear, you are encouraged to consult the [online documentation](https://releases.strategoxt.org/docs/api/libstratego-lib/libstratego-lib-docs-stable/docs/) for further details.

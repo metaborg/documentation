@@ -117,4 +117,4 @@ The random number generator needs only be initialized with a seed once for every
 
 In this chapter, we saw that Stratego is different from many other languages in that it does not provide the normal arithmetic operators. We saw that instead, strategies such as `add` and `mul` are used to add and multiply numbers. We also saw which strategies to use for comparing numbers and generating random numbers.
 
-The module `term/integer` contains strategies for working with numbers. Refer to the [library reference documentation](http://releases.strategoxt.org/docs/api/libstratego-lib/libstratego-lib-docs-stable/docs/) for more information.
+The module `term/integer` contains strategies for working with numbers. Refer to the [library reference documentation](https://releases.strategoxt.org/docs/api/libstratego-lib/libstratego-lib-docs-stable/docs/) for more information.

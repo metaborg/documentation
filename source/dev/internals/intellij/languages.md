@@ -42,7 +42,7 @@ trying to build a profiler for Stratego. [Here is some information][5].
 
 
 [1]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/discovery/ILanguageSource.java
-[2]: http://artifacts.metaborg.org/
+[2]: https://artifacts.metaborg.org/
 [3]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/languages/ILanguageManager.java
 [4]: https://github.com/metaborg/spoofax-intellij/blob/develop/org.metaborg.intellij/src/main/java/org/metaborg/intellij/idea/languages/IIdeaLanguageManager.java
-[5]: http://stackoverflow.com/a/3292208/146622
+[5]: https://stackoverflow.com/a/3292208/146622

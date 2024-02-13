@@ -18,7 +18,7 @@ In :cite:`r-KatsVKV12` we develop a vision and first prototype to take Spoofax t
 The vision for a *language designer's workbench* is outlined in :cite:`r-VisserOnward14`.
 That vision drives the current (May 2017) ongoing development to enable higher-level definition of static and dynamic semantics in Spoofax.
 
-We maintain a complete `bibliography <http://researchr.org/bibliography/metaborg-spoofax/publications>`_ of research results on `researchr <http://researchr.org>`_.
+We maintain a complete `bibliography <https://researchr.org/bibliography/metaborg-spoofax/publications>`_ of research results on `researchr <https://researchr.org>`_.
 In the chapters on specific components, we discuss their history and related publications.
 
 .. bibliography:: ../bib/spoofax.bib

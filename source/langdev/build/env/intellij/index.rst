@@ -25,4 +25,4 @@ See also
 - :doc:`/source/dev/internals/intellij/index`
 
 
-.. _`Spoofax Language Workbench`: http://www.spoofax.org
+.. _`Spoofax Language Workbench`: https://www.spoofax.org

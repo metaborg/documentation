@@ -92,7 +92,7 @@ epub_exclude_files = ['search.html']
 
 # -- Options for intersphix extension
 
-spoofax_api_loc = 'http://www.metaborg.org/projects/spoofax-api/en/latest/'
+spoofax_api_loc = 'https://www.metaborg.org/projects/spoofax-api/en/latest/'
 
 intersphinx_mapping = {'api': (spoofax_api_loc, None)}
 

@@ -17,7 +17,7 @@ Spoofax in Production
 Spoofax is used for the development of several languages that are used in the production of software systems.
 
 WebDSL
-  A web programming language <http://webdsl.org/>
+  A web programming language <https://webdsl.org/>
 
 IceDust
   A data modeling language supporting relations, multiplicities, derived values and configurable strategies for calculation of derived values <https://github.com/MetaBorgCube/IceDust>
@@ -25,7 +25,7 @@ IceDust
 Green-Marl
   A DSL for graph analysis developed at Oracle Labs for `running graph algorithms in PGX <https://docs.oracle.com/cd/E56133_01/latest/reference/overview/run.html>`_
 
-PGQL `Property Graph Query Language <http://pgql-lang.org/>`_
+PGQL `Property Graph Query Language <https://pgql-lang.org/>`_
   A DSL for graph querying developed at Oracle Labs as part of `Parallel Graph AnalytiX <https://docs.oracle.com/cd/E56133_01/latest/index.html>`_ framework. The Spoofax definition is part of the open source implementation <https://github.com/oracle/pgql-lang>.
 
 LeQuest

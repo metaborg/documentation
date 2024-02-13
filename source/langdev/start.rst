@@ -49,7 +49,7 @@ How to proceed?
 
 Guides for developing a language with Spoofax:
 
--  `Declare Your Language <http://metaborgcube.github.io/declare-your-language/>`_ - This book has not been updated for Spoofax 2.0 yet, but most content still applies.
+-  `Declare Your Language <https://metaborgcube.github.io/declare-your-language/>`_ - This book has not been updated for Spoofax 2.0 yet, but most content still applies.
 
 Reference manuals for our meta-languages:
 

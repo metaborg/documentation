@@ -20,10 +20,10 @@ An overview with semantics and examples of dynamic rewrite rules in Stratego is 
 
 * M. Bravenboer, A. van Dam, K. Olmos, and E. Visser. Program Transformation with Scoped Dynamic Rewrite Rules. Fundamenta Informaticae, 69:1--56, 2005.
 
-An extended version is available as [technical report UU-CS-2005-005](http://www.cs.uu.nl/research/techreps/UU-CS-2005-005.html).
+An extended version is available as [technical report UU-CS-2005-005](https://www.cs.uu.nl/research/techreps/UU-CS-2005-005.html).
 
 * K. Olmos and E. Visser. Composing Source-to-Source Data-Flow Transformations with Rewriting Strategies and Dependent Dynamic Rewrite Rules. In R. Bodik, editor, 14th International Conference on Compiler Construction (CC'05), volume 3443 of Lecture Notes in Computer Science, pages 204--220. Springer-Verlag, April 2005.
 
-An extended version is available as [technical report UU-CS-2005-006](http://www.cs.uu.nl/research/techreps/UU-CS-2005-006.html)
+An extended version is available as [technical report UU-CS-2005-006](https://www.cs.uu.nl/research/techreps/UU-CS-2005-006.html)
 
 Since these publications provide a fairly complete and up-to-date picture of dynamic rules, incorporation into this manual is not as urgent as other parts of the language.

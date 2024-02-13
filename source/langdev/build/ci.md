@@ -53,7 +53,7 @@ node{
 
     stage('Build and Test') {
       withMaven(
-        //mavenLocalRepo: "${env.JENKINS_HOME}/m2repos/${env.EXECUTOR_NUMBER}", //http://yellowgrass.org/issue/SpoofaxWithCore/173
+        //mavenLocalRepo: "${env.JENKINS_HOME}/m2repos/${env.EXECUTOR_NUMBER}", //https://yellowgrass.org/issue/SpoofaxWithCore/173
         mavenLocalRepo: ".repository",
         mavenOpts: '-Xmx1G -Xms1G -Xss16m'
       ){
@@ -104,13 +104,13 @@ Go to the Jenkins project > `Branch Indexing` > `Run now`. This should trigger t
 (Note: can be skipped in GitHub organizations MetaBorg and MetaBorgCube)
 
 In order to trigger Jenkins to build on every commit we need to install a GitHub service.
-In the GitHub repository go to `Settings` > `Integrations & services` > `Add service` > `Jenkins (Git plugin)` (not GitHub plugin) and provide the jenkins url (for example http://buildfarm.metaborg.org/ )
+In the GitHub repository go to `Settings` > `Integrations & services` > `Add service` > `Jenkins (Git plugin)` (not GitHub plugin) and provide the jenkins url (for example https://buildfarm.metaborg.org/ )
 
 ## Build badge on GitHub
 For a GitHub build-badge add the following the the readme file:
 
 ```
-[![Build status](http://buildfarm.metaborg.org/job/Entity/job/master/badge/icon)](http://buildfarm.metaborg.org/job/Entity/job/master/)
+[![Build status](https://buildfarm.metaborg.org/job/Entity/job/master/badge/icon)](https://buildfarm.metaborg.org/job/Entity/job/master/)
 ```
 
 TODO: figure out how to use `Promoted Builds` to promote spoofax-master only if language build succeeds.

@@ -8,12 +8,12 @@ The following tools are required to build and develop Spoofax:
 
 
 Git 1.8.2 or higher
-  Required to check out the source code from our GitHub repositories. Instructions on how to install Git for your platform can be found here: http://git-scm.com/downloads.
+  Required to check out the source code from our GitHub repositories. Instructions on how to install Git for your platform can be found here: https://git-scm.com/downloads.
 
-  If you run macOs and have `Homebrew <http://brew.sh/>`_ installed, you can install Git by executing ``brew install git``. Confirm your Git installation by executing ``git version``.
+  If you run macOs and have `Homebrew <https://brew.sh/>`_ installed, you can install Git by executing ``brew install git``. Confirm your Git installation by executing ``git version``.
 
 Java JDK 8 or higher
-  Required to build and run Java components. The latest JDK can be downloaded and installed from: http://www.oracle.com/technetwork/java/javase/downloads/index.html.
+  Required to build and run Java components. The latest JDK can be downloaded and installed from: https://www.oracle.com/technetwork/java/javase/downloads/index.html.
 
   On macOs, it can be a bit tricky to use the installed JDK, because Apple by default installs JRE 6. To check which version of Java you are running, execute the ``java -version`` command. If this tells you that the Java version is 1.8, everything is fine. If not, the Java version can be set with a command. After you have installed JDK, execute:
 
@@ -28,7 +28,7 @@ Java JDK 8 or higher
 Python 3.4 or higher
   Python scripts are used to orchestrate the build. Instructions on how to install Python for your platform can be found here: https://www.python.org/downloads/.
 
-  If you run macOs and have `Homebrew <http://brew.sh/>`__ installed, you can install Python by executing ``brew install python3``. Confirm your Python installation by executing ``python3 --version`` or ``python --version``, depending on how your package manager sets up Python.
+  If you run macOs and have `Homebrew <https://brew.sh/>`__ installed, you can install Python by executing ``brew install python3``. Confirm your Python installation by executing ``python3 --version`` or ``python --version``, depending on how your package manager sets up Python.
 
   During the build, Pip will install some Python dependencies into a virtual environment. No extra Python dependencies are required for this (with one small exception, see the note below). The latest version of Pip will automatically be installed inside the virtual environment.
 
@@ -43,7 +43,7 @@ Maven Daemon 0.6.0 or higher
   Required run a full build of Spoofax with some speedup. This is a separate project and is not installed with Maven. Install as instructed here: https://github.com/mvndaemon/mvnd#how-to-install-mvnd.
 
 Coreutils
-  Required on macOS to be able to run the ``sdf2table`` and ``implodePT`` legacy binaries. On macOS with `Homebrew <http://brew.sh/>`_ installed, you can install them by running ``brew install coreutils``.
+  Required on macOS to be able to run the ``sdf2table`` and ``implodePT`` legacy binaries. On macOS with `Homebrew <https://brew.sh/>`_ installed, you can install them by running ``brew install coreutils``.
 
 Docker
   Required on macOS Catalina, Big Sur, and newer to be able to run the ``sdf2table`` and ``implodePT`` legacy binaries. Install it though the `Docker for Mac <https://docs.docker.com/docker-for-mac/install/>`_ website.

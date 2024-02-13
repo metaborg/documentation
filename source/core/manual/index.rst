@@ -20,4 +20,4 @@ The rest of the manual goes into more detail on these subjects.
    service
    language-processing
    extend
-   API Reference <http://www.metaborg.org/projects/spoofax-api/en/latest/>
+   API Reference <https://www.metaborg.org/projects/spoofax-api/en/latest/>

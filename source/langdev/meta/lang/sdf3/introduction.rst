@@ -36,7 +36,7 @@ SDF3 is in constant evolution, and this documentation provides an up-to-date
 overview of its current features.
 
 .. This is the SDF3 reference manual. It is partially based on the `SDF2
-.. documentation <http://homepages.cwi.nl/~daybuild/daily-books/syntax/2-sdf/sdf.html>`__
+.. documentation <https://homepages.cwi.nl/~daybuild/daily-books/syntax/2-sdf/sdf.html>`__
 .. by Mark van den Brand, Paul Klint, and Jurgen Vinju.
 
 

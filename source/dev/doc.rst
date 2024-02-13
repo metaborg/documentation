@@ -7,28 +7,28 @@ This section describes the documentation tools and provides guidelines for writi
 Tools
 -----
 
-This documentation is written with the `Sphinx documentation generator <http://www.sphinx-doc.org/en/stable/>`_.
+This documentation is written with the `Sphinx documentation generator <https://www.sphinx-doc.org/en/stable/>`_.
 Sphinx is the tool that transforms the documentation into a website and other output formats. Documentation can be found in their website:
 
-- `Sphinx-specific Markup Constructs <http://www.sphinx-doc.org/en/stable/markup/index.html>`_
-- `Domains <http://www.sphinx-doc.org/en/stable/domains.html>`_
-- `All documentation <http://www.sphinx-doc.org/en/stable/contents.html>`_
+- `Sphinx-specific Markup Constructs <https://www.sphinx-doc.org/en/stable/markup/index.html>`_
+- `Domains <https://www.sphinx-doc.org/en/stable/domains.html>`_
+- `All documentation <https://www.sphinx-doc.org/en/stable/contents.html>`_
 
 Formats
 ~~~~~~~
 
 ReStructuredText is the main documentation format used by Sphinx. Documentation can be found at:
 
-- `Quick reference <http://docutils.sourceforge.net/docs/user/rst/quickref.html>`_
-- `Primer <http://www.sphinx-doc.org/en/stable/rest.html>`_
-- `Full reference documentation <http://docutils.sourceforge.net/docs/ref/rst/directives.html>`_
+- `Quick reference <https://docutils.sourceforge.net/docs/user/rst/quickref.html>`_
+- `Primer <https://www.sphinx-doc.org/en/stable/rest.html>`_
+- `Full reference documentation <https://docutils.sourceforge.net/docs/ref/rst/directives.html>`_
 
-Markdown is also supported, but is less powerful for technical documentation purposes. It is supported through the `recommonmark <http://recommonmark.readthedocs.io/en/latest/index.html>`_ extension. To use markdown, just create ``.md`` files and link them in a ``toctree``.
+Markdown is also supported, but is less powerful for technical documentation purposes. It is supported through the `recommonmark <https://recommonmark.readthedocs.io/en/latest/index.html>`_ extension. To use markdown, just create ``.md`` files and link them in a ``toctree``.
 
 Converting formats with Pandoc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Pandoc <http://pandoc.org/>`_ is a documentation format converting tool. It can be used to convert between various documentation formats.
+`Pandoc <https://pandoc.org/>`_ is a documentation format converting tool. It can be used to convert between various documentation formats.
 On macOS with Homebrew, it can be installed with ``brew install pandoc``.
 
 Conversion is performed by passing the ``from`` and ``to`` flags. For example, to convert Markdown to ReStructuredText, run the following command:
@@ -37,7 +37,7 @@ Conversion is performed by passing the ``from`` and ``to`` flags. For example, t
 
    pandoc --from=markdown --to=rst file.md --wrap=preserve > file.rst
 
-See their `manual <http://pandoc.org/MANUAL.html>`_ for more info.
+See their `manual <https://pandoc.org/MANUAL.html>`_ for more info.
 
 Bibliographies
 ~~~~~~~~~~~~~~

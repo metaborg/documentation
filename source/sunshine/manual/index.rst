@@ -31,7 +31,7 @@ If you use the command-line interface often or multiple times you may wish to sp
 Every time to run Sunshine, there is overhead of the JVM startup time and the loading time for the Spoofax language.
 
 If you wish to speed this up you can use the ``server`` command of Sunshine. This starts up a Nailgun server.
-Install the `Nailgun client <http://www.martiansoftware.com/nailgun/>`_, then use ``ng sunshine --help`` to see the commands available.
+Install the `Nailgun client <https://www.martiansoftware.com/nailgun/>`_, then use ``ng sunshine --help`` to see the commands available.
 
 The commands on the server are slightly different from the normal commands as loading a language is a separate command now.
 Languages are still loaded lazily, so the first time a language is used it will take longer, but after that things should run noticably faster.

@@ -8,7 +8,7 @@ Interpreters derived from DynSem specifications can be run as daemons. They run 
 Requirements
 ~~~~~~~~~~~~~
 
-The daemon mode uses `Nailgun for Java <http://www.martiansoftware.com/nailgun/>`_ to launch background processes and make requests. On OS X you can install Nailgun using `Homebrew <https://brew.sh>`_:
+The daemon mode uses `Nailgun for Java <https://www.martiansoftware.com/nailgun/>`_ to launch background processes and make requests. On OS X you can install Nailgun using `Homebrew <https://brew.sh>`_:
 
 .. code-block:: bash
 
@@ -48,4 +48,4 @@ or invoke the *ng* command:
 
   ng simpl yourprogram.smpl
 
-.. warning:: Nailgun daemon are not secure. For more information see the `Nailgun website <http://www.martiansoftware.com/nailgun/>`_
+.. warning:: Nailgun daemon are not secure. For more information see the `Nailgun website <https://www.martiansoftware.com/nailgun/>`_

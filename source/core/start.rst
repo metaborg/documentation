@@ -24,7 +24,7 @@ To get access to our artifacts, read the :ref:`Using MetaBorg Maven artifacts <u
 Adding our Maven repositories gives access to our artifacts.
 
 In this guide, we will be using Eclipse to use the Core API, but any environment that works with Maven artifacts (e.g. IntelliJ, NetBeans, command-line Maven builds) will work.
-Download and install the Eclipse IDE for Java Developers from the `Eclipse website <http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/mars2>`_.
+Download and install the Eclipse IDE for Java Developers from the `Eclipse website <https://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/mars2>`_.
 
 -------------
 Project Setup
@@ -98,7 +98,7 @@ Add a main method to the class::
   }
 
 Second, let's download a language component that we can load into Spoofax Core.
-Download the `NaBL language <http://artifacts.metaborg.org/service/local/repositories/releases/content/org/metaborg/org.metaborg.meta.lang.nabl/2.0.0/org.metaborg.meta.lang.nabl-2.0.0.spoofax-language>`_ and store it in the :file:`src/main/resources` directory of the project.
+Download the `NaBL language <https://artifacts.metaborg.org/service/local/repositories/releases/content/org/metaborg/org.metaborg.meta.lang.nabl/2.0.0/org.metaborg.meta.lang.nabl-2.0.0.spoofax-language>`_ and store it in the :file:`src/main/resources` directory of the project.
 Any resources stored in :file:`src/main/resources` are packaged into the JAR file of your application and are available at runtime.
 
 To initialize Spoofax Core, create an instance of the :java_ref:`org.metaborg.spoofax.core.Spoofax` facade::

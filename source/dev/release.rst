@@ -9,7 +9,7 @@ Requirements
 
 To release Spoofax, you must first be able to build Spoofax. Follow the :ref:`Maven <dev-build>` and :ref:`Building <dev-maven>` guides first.
 
-To publish releases, you will need write access to the `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ repository, to all submodule repositories in that repository, and to this documentation repository. An account with deploy access to our `artifact server <http://artifacts.metaborg.org/>`_ is required. Ask an administrator of the Programming Languages group to get access to the repositories and artifact server.
+To publish releases, you will need write access to the `spoofax-releng <https://github.com/metaborg/spoofax-releng>`_ repository, to all submodule repositories in that repository, and to this documentation repository. An account with deploy access to our `artifact server <https://artifacts.metaborg.org/>`_ is required. Ask an administrator of the Programming Languages group to get access to the repositories and artifact server.
 
 Instructions
 ------------
@@ -65,7 +65,7 @@ Instructions
           --non-interactive \
           --maven-deploy \
           --maven-deploy-identifier metaborg-nexus \
-          --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
+          --maven-deploy-url https://artifacts.metaborg.org/content/repositories/releases/ \
           --nexus-deploy \
           --nexus-username <artifact-server-username> \
           --nexus-password <artifact-server-password> \
@@ -80,7 +80,7 @@ Instructions
           --non-interactive \
           --maven-deploy \
           --maven-deploy-identifier metaborg-nexus \
-          --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
+          --maven-deploy-url https://artifacts.metaborg.org/content/repositories/releases/ \
           --nexus-deploy \
           --nexus-username <artifact-server-username> \
           --nexus-password <artifact-server-password> \
@@ -96,7 +96,7 @@ Instructions
           --non-interactive \
           --maven-deploy \
           --maven-deploy-identifier metaborg-nexus \
-          --maven-deploy-url http://artifacts.metaborg.org/content/repositories/releases/ \
+          --maven-deploy-url https://artifacts.metaborg.org/content/repositories/releases/ \
           --nexus-deploy \
           --nexus-username myusername \
           --nexus-password mypassword \

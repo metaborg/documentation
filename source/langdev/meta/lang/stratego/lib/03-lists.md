@@ -195,4 +195,4 @@ stratego> <foldl(add)> ([1,2,3,4], 0)
 
 In this chapter we got a glimpse of the most important strategies for manipulating lists. We saw how to construct and deconstruct lists, using build and match. We also saw how we can sort, merge, split and otherwise transform lists. The strategies for associative lists and sets gave an impression of how we can construct new abstractions from basic lists.
 
-More information about list strategies available can be found in the `collections/list` module, in the [library reference documentation](http://releases.strategoxt.org/docs/api/libstratego-lib/libstratego-lib-docs-stable/docs/).
+More information about list strategies available can be found in the `collections/list` module, in the [library reference documentation](https://releases.strategoxt.org/docs/api/libstratego-lib/libstratego-lib-docs-stable/docs/).
