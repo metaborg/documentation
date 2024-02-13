@@ -1,6 +1,9 @@
 # Spoofax documentation
 
-This repository contains the Spoofax documentation, made with [Sphinx](http://www.sphinx-doc.org/en/stable/) in the [Read The Docs](https://docs.readthedocs.io/en/latest/index.html) style of documentation.
+> [!IMPORTANT]
+> Find the latest documentation at [spoofax.dev](https://spoofax.dev/). The documentation in this repository is no longer maintained.
+
+This repository contains the _old_ (unmaintained) Spoofax documentation, made with [Sphinx](http://www.sphinx-doc.org/en/stable/) in the [Read The Docs](https://docs.readthedocs.io/en/latest/index.html) style of documentation.
 
 This documentation is hosted at http://www.metaborg.org/en/latest/.
 When a commit to this repository is made, it will automatically [build and update](http://readthedocs.org/projects/spoofax/builds/) the documentation.
