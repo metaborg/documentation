@@ -9,7 +9,7 @@ While those publications are typically (somewhat) behind when it comes to techni
 this documentation cannot replace that body of work when it comes to exposition of concepts and ideas.
 We recommend students of Spoofax to explore the literature.
 
-The work on Spoofax has its origins in the ASF+SDF MetaEnvironment :cite:`r-BrandDHJJKKMOSVVV01` and work on the SDF2 syntax definition formalism :cite:`r-Vis97.thesis`. Experience with rewriting in ASF lead to the development of the Stratego transformation language :cite:`r-VisserBT98`.
+The work on Spoofax has its origins in the ASF+SDF MetaEnvironment :cite:`r-BrandDHJ01` and work on the SDF2 syntax definition formalism :cite:`r-Visser97`. Experience with rewriting in ASF lead to the development of the Stratego transformation language :cite:`r-VisserBT98`.
 
 The Spoofax language workbench was first developed as an IDE extension of Stratego/XT :cite:`r-BravenboerKVV08`, a tool set for program transformation based on SDF2 and Stratego.
 The main publication about Spoofax is :cite:`r-KatsV10`, which was based on Spoofax 1.0 and develops the requirements and architecture for a language workbench supporting agile language development.

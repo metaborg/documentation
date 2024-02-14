@@ -23,15 +23,15 @@ Guice merges all multibindings from all modules together.
 To add a singleton implementation to a Multibinding for an interface, use the following code inside the configure method of an :java_ref:`~com.google.inject.AbstractModule`::
 
   Multibinder
-    .newSetBinder(binder(), interface-class)
+    .newSetBinder(binder(), interface_class)
     .addBinding()
-    .to(implementation-class)
+    .to(implementation_class)
     .in(Singleton.class);
 
 For map bindings, use::
 
   MapBinder
-    .newMapBinder(binder(), key-class, interface-class)
+    .newMapBinder(binder(), key_class, interface_class)
     .addBinding(key)
     .to(implementation-class)
     .in(Singleton.class);
@@ -40,9 +40,9 @@ These examples use `linked bindings <https://github.com/google/guice/wiki/Linked
 
 Some multibindings are annotated with an annotation, they are created by passing the annotation as a third parameter::
 
-  Multibinder.newSetBinder(binder(), interface-class, annotation)
+  Multibinder.newSetBinder(binder(), interface_class, annotation)
 
-  MapBinder.newSetBinder(binder(), key-class, interface-class, annotation)
+  MapBinder.newSetBinder(binder(), key_class, interface_class, annotation)
 
 We describe the extension points for each component in this section.
 These extension points can also be found in the Guice Modules of the Spoofax Core source code.

@@ -102,3 +102,14 @@ Then make sure your `pip` installation corresponds to your `python` installation
 ```
 pip3 install --upgrade pip
 ```
+
+### '<' not supported between instances of 'dict' and 'dict'
+If you get this error:
+
+```
+Extension error (sphinx.ext.intersphinx):
+Handler <function load_mappings at 0x10fd122a0> for event 'builder-inited' threw an exception (exception: '<' not supported between instances of 'dict' and 'dict')
+make: *** [html] Error 2
+```
+
+Then delete your `_build` directory and try again.

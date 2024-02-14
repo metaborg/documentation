@@ -13,7 +13,7 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 bib:
-	wget http://researchr.org/downloadbibtex/bibliography/metaborg-spoofax -O source/bib/spoofax-raw.bib
-	sed "s/http:\\/\\/doi\\.acm\\.org\\///" source/bib/spoofax-raw.bib | sed "s/http:\\/\\/dx\\.doi\\.org\\///" > source/bib/spoofax.bib
+	wget https://researchr.org/downloadbibtex/bibliography/metaborg-spoofax -O source/bib/spoofax-raw.bib
+	sed "s/http(s?):\\/\\/doi\\.acm\\.org\\///" source/bib/spoofax-raw.bib | sed "s/http(s?):\\/\\/dx\\.doi\\.org\\///" > source/bib/spoofax.bib
 
 	
