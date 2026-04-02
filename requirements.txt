@@ -5,5 +5,5 @@ sphinx-rtd-theme==2.0.0
 sphinx-version-warning==1.1.2
 docutils==0.20.1
 recommonmark==0.7.1
-Pygments==2.17.2
+Pygments==2.20.0
 git+https://github.com/metaborg/metaborg-pygments.git@master#egg=metaborg-pygments
